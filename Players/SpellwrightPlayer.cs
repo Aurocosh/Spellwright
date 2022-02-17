@@ -34,15 +34,20 @@ namespace Spellwright.Players
 
         public override void SaveData(TagCompound tag)
         {
+            tag.Add("PlayerLevel", PlayerLevel);
             tag.Add("GuaranteedUsesLeft", GuaranteedUsesLeft);
             tag.Add("CurrentSpell", CurrentSpell?.InternalName ?? "");
+            tag.Add("CurrentCantrip", CurrentCantrip?.InternalName ?? "");
         }
 
         public override void LoadData(TagCompound tag)
         {
+            PlayerLevel = tag.GetInt("PlayerLevel");
             GuaranteedUsesLeft = tag.GetInt("GuaranteedUsesLeft");
             string spellName = tag.GetString("CurrentSpell");
             CurrentSpell = Spellwright.instance.spellLibrary.GetSpellByName(spellName);
+            string cantripName = tag.GetString("CurrentCantrip");
+            CurrentCantrip = Spellwright.instance.spellLibrary.GetSpellByName(cantripName);
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)

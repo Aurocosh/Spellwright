@@ -80,8 +80,12 @@ namespace Spellwright.Spells
             RegisterSpell(new FlashStepSpell("FlashStep", "Flash step"));
 
             // Liquid
-            RegisterSpell(new ConjureWaterSpell("Conjure water", "Conjure water"));
-            RegisterSpell(new ConjureLavaSpell("Conjure lava", "Conjure lava"));
+            RegisterSpell(new ConjureWaterSpell("ConjureWater", "Conjure water"));
+            RegisterSpell(new ConjureLavaSpell("ConjureLava", "Conjure lava"));
+
+            // Items
+            RegisterSpell(new VortexHandsSpell("VortexHands", "Vortex hands"));
+
         }
     }
 }

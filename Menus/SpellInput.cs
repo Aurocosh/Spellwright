@@ -100,13 +100,15 @@ namespace Spellwright.Menus
             {
                 Vector2 dustPosition = position + UtilRandom.RandomVector(minRadius, maxRadius);
                 //Vector2 velocity = UtilRandom.RandomVector(.1f, 2.5f);
+
+                int rotation = UtilRandom.NextInt(-60, 60);
+
                 float scale = UtilRandom.NextFloat(.1f, 2.5f);
                 Vector2 velocity = dustPosition - position;
                 velocity.Normalize();
-                Vector2 velocityChange = UtilRandom.RandomVector(.05f, 0.1f);
-                velocity += velocityChange;
+                velocity *= scale;
                 velocity *= direction;
-
+                velocity = velocity.RotatedBy(MathHelper.ToRadians(rotation));
 
                 var dust = Dust.NewDustDirect(dustPosition, 22, 22, dustType, 0f, 0f, 100, default, 2.5f);
                 dust.velocity = velocity;
