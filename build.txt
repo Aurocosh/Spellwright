@@ -1,0 +1,3 @@
+displayName = Spellwright
+author = Aurocosh
+version = 0.1
