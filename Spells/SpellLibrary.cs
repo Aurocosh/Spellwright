@@ -86,6 +86,9 @@ namespace Spellwright.Spells
             // Items
             RegisterSpell(new VortexHandsSpell("VortexHands", "Vortex hands"));
 
+            // Item spawn
+            RegisterSpell(new BindMirrorSpell("BindMirror", "Bind mirror"));
+            RegisterSpell(new WarpMirrorSpell("WarpMirror", "Warp mirror"));
         }
     }
 }

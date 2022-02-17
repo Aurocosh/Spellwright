@@ -28,7 +28,6 @@ namespace Spellwright.Spells.WarpSpells
             else
                 teleportToRight = teleportDestination == 2;
 
-            bool flag2 = false;
             int num = 50;
             int num2 = 50;
             int num3 = WorldGen.beachDistance - num - num2;
@@ -48,19 +47,19 @@ namespace Spellwright.Spells.WarpSpells
             Vector2 vector = Vector2.Zero;
             int crawlOffsetX = teleportToRight.ToDirectionInt();
             int startX = teleportToRight ? (Main.maxTilesX - 50) : 50;
-            flag2 = true;
+            bool foundPlaceToTeleport = true;
             if (!TeleportHelpers.RequestMagicConchTeleportPosition(player, -crawlOffsetX, startX, out Point landingPoint))
             {
-                flag2 = false;
+                foundPlaceToTeleport = false;
                 startX = ((!teleportToRight) ? (Main.maxTilesX - 50) : 50);
                 if (TeleportHelpers.RequestMagicConchTeleportPosition(player, crawlOffsetX, startX, out landingPoint))
-                    flag2 = true;
+                    foundPlaceToTeleport = true;
             }
 
-            if (flag2)
+            if (foundPlaceToTeleport)
                 vector = landingPoint.ToWorldCoordinates(8f, 16f) - new Vector2(player.width / 2, player.height);
 
-            if (flag2)
+            if (foundPlaceToTeleport)
             {
                 Vector2 newPos = vector;
                 player.Teleport(newPos, 5);
@@ -82,10 +81,6 @@ namespace Spellwright.Spells.WarpSpells
                     NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, position.X, position.Y, 5, 1);
                 }
             }
-
-
-            //for (int d = 0; d < 70; d++)
-            //    Dust.NewDust(player.position, player.width, player.height, 15, 0f, 0f, 150, default, 1.5f);
 
             return true;
         }
