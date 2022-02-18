@@ -67,6 +67,7 @@ namespace Spellwright.Spells
             RegisterSpell(new TigerEyesSpell("TigerEyes", "Tiger eyes"));
             RegisterSpell(new BattlecrySpell("Battlecry", "Battlecry"));
             RegisterSpell(new ReactiveArmorSpell("ReactiveArmor", "Reactive armor"));
+            RegisterSpell(new GreedyVortexSpell("GreedyVortex", "Greedy vortex"));
 
             // Warps
             RegisterSpell(new HomeReflectionSpell("HomeReflection", "Home reflection"));
