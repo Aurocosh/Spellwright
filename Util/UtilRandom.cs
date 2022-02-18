@@ -23,6 +23,11 @@ namespace Spellwright.Util
             return (float)(min + (max - min) * Random.NextDouble());
         }
 
+        public static int NextSign()
+        {
+            return Random.Next(2) - 1;
+        }
+
         public static int NextIntExclusive(int min, int max)
         {
             return Random.Next(max - min) + min;
@@ -36,14 +41,6 @@ namespace Spellwright.Util
             direction.Normalize();
             return direction;
         }
-        public static Vector2 RandomVector(float length)
-        {
-            return NextVector2() * length;
-        }
-        public static Vector2 RandomVector(float minLength, float maxLength)
-        {
-            float length = NextFloat(minLength, maxLength);
-            return NextVector2() * length;
-        }
+
     }
 }

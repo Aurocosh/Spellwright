@@ -1,5 +1,6 @@
 ﻿using Spellwright.Items;
 using Spellwright.Spells.Base;
+using Spellwright.Spells.SpellExtraData;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -19,9 +20,9 @@ namespace Spellwright.Spells.WarpSpells
             if (!player.ConsumeItem(ModContent.ItemType<SilverMirror>()))
                 return false;
 
-            string locationName = "";
-            if (spellData is SpellStringData stringData)
-                locationName = stringData.Value;
+            if (spellData == null)
+                return false;
+            string locationName = spellData.Argument;
 
             var itemId = Item.NewItem(player.Center, itemType, 1, false, 0, true);
             Item item = Main.item[itemId];
@@ -29,15 +30,6 @@ namespace Spellwright.Spells.WarpSpells
             modItem.LocationName = locationName;
             modItem.BoundLocation = player.position;
 
-            return true;
-        }
-
-        public override bool ProcessExtraData(string argument, out SpellData spellData)
-        {
-            if (argument.Length == 0)
-                spellData = null;
-            else
-                spellData = new SpellStringData(argument.Trim());
             return true;
         }
     }

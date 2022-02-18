@@ -1,4 +1,5 @@
 ﻿using Spellwright.Spells.Base;
+using Spellwright.Spells.SpellExtraData;
 using Terraria;
 
 namespace Spellwright.Spells.WarpSpells
@@ -20,7 +21,6 @@ namespace Spellwright.Spells.WarpSpells
             // This sets up the itemTime correctly.
 
             // This code runs once halfway through the useTime of the Item. You'll notice with magic mirrors you are still holding the item for a little bit after you've teleported.
-
 
             player.RemoveAllGrapplingHooks();
 

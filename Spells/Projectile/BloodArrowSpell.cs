@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Projectiles;
 using Spellwright.Spells.Base;
+using Spellwright.Spells.SpellExtraData;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -53,7 +54,7 @@ namespace Spellwright.Spells
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IProjectileSource source, Vector2 position, Vector2 velocity)
         {
             base.Cast(player, playerLevel, spellData, source, position, velocity);
-            int damage = (int)(player.statLifeMax2 * .04f);
+            int damage = (int)(player.statLifeMax2 * .08f);
             player.Hurt(PlayerDeathReason.ByCustomReason("Bleed out"), damage, 0, false, true);
             return true;
         }

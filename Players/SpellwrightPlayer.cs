@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Spells;
+using Spellwright.Spells.SpellExtraData;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -17,6 +18,7 @@ namespace Spellwright.Players
         public Spell CurrentSpell = null;
         public Spell CurrentCantrip = null;
         public SpellData SpellData = null;
+        public SpellData CantripData = null;
         private int playerLevel = 0;
 
         public static SpellwrightPlayer Instance => Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
@@ -59,7 +61,7 @@ namespace Spellwright.Players
             {
                 Spellwright.instance.spellInput.Show();
             }
-            else if (Spellwright.CastCantripHotKey.Current && nextCantripDelay == 0 && CurrentCantrip != null)
+            else if (Spellwright.CastCantripHotKey.Current && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
             {
                 Player player = Main.LocalPlayer;
 
@@ -70,8 +72,12 @@ namespace Spellwright.Players
                 Vector2 velocity = mousePosition - spawnPosition;
 
                 var projectileSource = new ProjectileSource_Item(player, null);
-                CurrentCantrip.Cast(player, PlayerLevel, null, projectileSource, spawnPosition, velocity);
-                nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
+
+                if (CurrentCantrip.ConsumeReagents(player, playerLevel, CantripData))
+                {
+                    CurrentCantrip.Cast(player, PlayerLevel, CantripData, projectileSource, spawnPosition, velocity);
+                    nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
+                }
             }
         }
     }

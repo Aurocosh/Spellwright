@@ -4,6 +4,7 @@
     {
         Success,
         IncantationInvalid,
+        ModifiersInvalid,
         ArgumentInvalid
     }
 }

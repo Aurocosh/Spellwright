@@ -73,18 +73,18 @@ namespace Spellwright.Content.Projectiles
             for (int i = 0; i < 4; i++)
             {
                 var dust = Dust.NewDustDirect(position, width, height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
-                dust.position = position + UtilRandom.RandomVector(0, dustWidth);
+                dust.position = position + UtilVector2.RandomVector(0, dustWidth);
             }
 
             for (int i = 0; i < 10; i++)
             {
                 var dust = Dust.NewDustDirect(position, width, height, DustID.Torch, 0f, 0f, 200, default, 2.7f);
-                dust.position = position + UtilRandom.RandomVector(0, dustWidth);
+                dust.position = position + UtilVector2.RandomVector(0, dustWidth);
                 dust.noGravity = true;
                 dust.velocity *= 3f;
 
                 var dust2 = Dust.NewDustDirect(position, width, height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
-                dust2.position = position + UtilRandom.RandomVector(0, dustWidth);
+                dust2.position = position + UtilVector2.RandomVector(0, dustWidth);
                 dust2.noGravity = true;
                 dust2.velocity *= 2f;
                 dust2.fadeIn = 2.5f;
@@ -93,7 +93,7 @@ namespace Spellwright.Content.Projectiles
             for (int i = 0; i < 5; i++)
             {
                 var dust = Dust.NewDustDirect(position, width, height, DustID.Torch, 0f, 0f, 0, default, 2.7f);
-                dust.position = position + UtilRandom.RandomVector(dustWidth).RotatedBy(Projectile.velocity.ToRotation());
+                dust.position = position + UtilVector2.RandomVector(dustWidth).RotatedBy(Projectile.velocity.ToRotation());
                 dust.noGravity = true;
                 dust.velocity *= 3f;
             }
@@ -101,7 +101,7 @@ namespace Spellwright.Content.Projectiles
             for (int i = 0; i < 10; i++)
             {
                 var dust = Dust.NewDustDirect(position, width, height, DustID.Smoke, 0f, 0f, 0, default, 1.5f);
-                dust.position = position + UtilRandom.RandomVector(dustWidth).RotatedBy(Projectile.velocity.ToRotation());
+                dust.position = position + UtilVector2.RandomVector(dustWidth).RotatedBy(Projectile.velocity.ToRotation());
                 dust.noGravity = true;
                 dust.velocity *= 3f;
             }

@@ -64,6 +64,7 @@ namespace Spellwright.Spells
             RegisterSpell(new ReturnToFishSpell("ReturnToFish", "Return to fish"));
             RegisterSpell(new BloodyRageSpell("BloodyRage", "Bloody rage"));
             RegisterSpell(new TigerEyesSpell("TigerEyes", "Tiger eyes"));
+            RegisterSpell(new BattlecrySpell("Battlecry", "Battlecry"));
 
             // Warps
             RegisterSpell(new HomeReflectionSpell("HomeReflection", "Home reflection"));
@@ -75,6 +76,7 @@ namespace Spellwright.Spells
 
             // Healing
             RegisterSpell(new StitchWoundsSpell("StitchWounds", "Stitch wounds"));
+            RegisterSpell(new SurgeOfLifeSpell("SurgeOfLife", "Surge of life"));
 
             // Movement
             RegisterSpell(new FlashStepSpell("FlashStep", "Flash step"));

@@ -86,8 +86,8 @@ namespace Spellwright.Menus
         {
             for (int i = 0; i < dustCount; i++)
             {
-                Vector2 dustPosition = position + UtilRandom.RandomVector(15, 300);
-                Vector2 velocity = UtilRandom.RandomVector(1, 5);
+                Vector2 dustPosition = UtilVector2.GetPointOnRing(position, 15, 300);
+                Vector2 velocity = UtilVector2.RandomVector(1, 5);
 
                 var dust = Dust.NewDustDirect(dustPosition, 22, 22, dustType, 0f, 0f, 100, default, 2.5f);
                 dust.velocity = velocity;
@@ -98,17 +98,9 @@ namespace Spellwright.Menus
         {
             for (int i = 0; i < dustCount; i++)
             {
-                Vector2 dustPosition = position + UtilRandom.RandomVector(minRadius, maxRadius);
-                //Vector2 velocity = UtilRandom.RandomVector(.1f, 2.5f);
-
-                int rotation = UtilRandom.NextInt(-60, 60);
-
-                float scale = UtilRandom.NextFloat(.1f, 2.5f);
-                Vector2 velocity = dustPosition - position;
-                velocity.Normalize();
-                velocity *= scale;
+                Vector2 dustPosition = UtilVector2.GetPointOnRing(position, minRadius, maxRadius);
+                Vector2 velocity = UtilVector2.RandomVector(position, dustPosition, .1f, 2.5f, -60, 60);
                 velocity *= direction;
-                velocity = velocity.RotatedBy(MathHelper.ToRadians(rotation));
 
                 var dust = Dust.NewDustDirect(dustPosition, 22, 22, dustType, 0f, 0f, 100, default, 2.5f);
                 dust.velocity = velocity;
@@ -139,10 +131,17 @@ namespace Spellwright.Menus
                 //SoundEngine.PlaySound(SoundID.Item20, position);
                 SoundEngine.PlaySound(SoundID.Item45, position);
             }
+            else if (castResult == SpellCastResult.ModifiersInvalid)
+            {
+                SpawnCircle(DustID.IceTorch, position, 40, 20, 80);
+                SpawnCircle(DustID.IceTorch, position, 15, 90, 130);
+                //SoundEngine.PlaySound(SoundID.Item20, position);
+                SoundEngine.PlaySound(SoundID.Item45, position);
+            }
             else
             {
-                SpawnCircle(DustID.CopperCoin, position, 40, 20, 80);
-                SpawnCircle(DustID.CopperCoin, position, 15, 90, 130);
+                SpawnCircle(DustID.Torch, position, 40, 20, 80);
+                SpawnCircle(DustID.Torch, position, 15, 90, 130);
                 //SoundEngine.PlaySound(SoundID.Item20, position);
                 SoundEngine.PlaySound(SoundID.Item45, position);
             }

@@ -1,4 +1,5 @@
 ﻿using Spellwright.Spells.Base;
+using Spellwright.Spells.SpellExtraData;
 using Terraria;
 
 namespace Spellwright.Spells.BuffSpells
@@ -10,11 +11,11 @@ namespace Spellwright.Spells.BuffSpells
         public BloodyRageSpell(string name, string incantation) : base(name, incantation, SpellType.Invocation)
         {
             damage = 50;
+            RemoveApplicableModifier(SpellModifier.IsAoe);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
-
             player.statLife = 20;
 
             //// Make dust 70 times for a cool effect. This dust is the dust at the destination.

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Spells.SpellExtraData;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

@@ -1,4 +1,5 @@
 ﻿using Spellwright.Spells.Base;
+using Spellwright.Spells.SpellExtraData;
 using System;
 using Terraria;
 using Terraria.ID;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
 using Spellwright.Spells.Base;
+using Spellwright.Spells.SpellExtraData;
 using Spellwright.Util;
 using Terraria;
 using Terraria.ID;
@@ -19,7 +20,8 @@ namespace Spellwright.Spells.WarpSpells
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
             int itemGrabRange = 1000;
-            var pickupRectangle = new Rectangle((int)player.position.X - itemGrabRange, (int)player.position.Y - itemGrabRange, player.width + itemGrabRange * 2, player.height + itemGrabRange * 2);
+            //var pickupRectangle = new Rectangle((int)player.position.X - itemGrabRange, (int)player.position.Y - itemGrabRange, player.width + itemGrabRange * 2, player.height + itemGrabRange * 2);
+            var pickupRectangle = player.GetAreaRect(itemGrabRange);
 
             for (int i = 0; i < 400; i++)
             {
@@ -49,13 +51,10 @@ namespace Spellwright.Spells.WarpSpells
         {
             for (int i = 0; i < dustCount; i++)
             {
-                Vector2 dustPosition = position + UtilRandom.RandomVector(minRadius, maxRadius);
-                float scale = UtilRandom.NextFloat(.1f, 2.5f);
-                Vector2 velocity = dustPosition - position;
-                velocity = velocity.PerpendicularClockwise();
 
-                velocity.Normalize();
-                velocity *= scale;
+                Vector2 dustPosition = UtilVector2.GetPointOnRing(position, minRadius, maxRadius);
+                Vector2 velocity = UtilVector2.RandomVector(position, dustPosition, .1f, 2.5f);
+                velocity = velocity.PerpendicularClockwise();
                 velocity *= direction;
 
                 var dust = Dust.NewDustDirect(dustPosition, 22, 22, dustType, 0f, 0f, 100, default, 1.5f);

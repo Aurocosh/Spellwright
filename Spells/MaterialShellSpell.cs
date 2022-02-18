@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Spells.Base;
+using Spellwright.Spells.SpellExtraData;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;

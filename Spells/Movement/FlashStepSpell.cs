@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Players;
 using Spellwright.Spells.Base;
+using Spellwright.Spells.SpellExtraData;
 using Terraria;
 using Terraria.DataStructures;
 

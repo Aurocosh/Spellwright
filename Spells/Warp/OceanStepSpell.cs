@@ -4,7 +4,6 @@ using Spellwright.Spells.SpellExtraData;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
-using static Terraria.Player;
 
 namespace Spellwright.Spells.WarpSpells
 {
@@ -36,13 +35,13 @@ namespace Spellwright.Spells.WarpSpells
             else
                 num3 -= num2 / 2;
 
-            new RandomTeleportationAttemptSettings
-            {
-                avoidAnyLiquid = true,
-                avoidHurtTiles = true,
-                attemptsBeforeGivingUp = 1000,
-                maximumFallDistanceFromOrignalPoint = 300
-            };
+            //new RandomTeleportationAttemptSettings
+            //{
+            //    avoidAnyLiquid = true,
+            //    avoidHurtTiles = true,
+            //    attemptsBeforeGivingUp = 1000,
+            //    maximumFallDistanceFromOrignalPoint = 300
+            //};
 
             Vector2 vector = Vector2.Zero;
             int crawlOffsetX = teleportToRight.ToDirectionInt();
@@ -85,12 +84,12 @@ namespace Spellwright.Spells.WarpSpells
             return true;
         }
 
-        public override bool ProcessExtraData(string argument, out SpellData spellData)
+        public override bool ProcessExtraData(SpellStructure structure, out SpellData spellData)
         {
             int teleportDestination = 0;
-            if (argument.Length > 0)
+            if (structure.Argument.Length > 0)
             {
-                var destination = argument.ToLower();
+                var destination = structure.Argument.ToLower();
                 if (destination == "west" || destination == "left")
                 {
                     teleportDestination = 1;
@@ -106,8 +105,18 @@ namespace Spellwright.Spells.WarpSpells
                 }
             }
 
-            spellData = new OceanStepData(teleportDestination);
+            spellData = new OceanStepData(structure, teleportDestination);
             return true;
+        }
+    }
+
+    internal sealed class OceanStepData : SpellData
+    {
+        public int TeleportDestination { get; } // 0 - not set, 1 - left, 2 - right
+
+        public OceanStepData(SpellStructure structure, int teleportDestination) : base(structure)
+        {
+            TeleportDestination = teleportDestination;
         }
     }
 }

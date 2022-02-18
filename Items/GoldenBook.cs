@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Players;
 using Spellwright.Spells;
+using Spellwright.Spells.SpellExtraData;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -66,8 +67,11 @@ namespace Spellwright.Items
             Spell spell = spellwrightPlayer.CurrentSpell;
             SpellData spellData = spellwrightPlayer.SpellData;
             int playerLevel = spellwrightPlayer.PlayerLevel;
-            if (spell != null)
+            if (spell != null && spellData != null)
             {
+                if (!spell.ConsumeReagents(player, playerLevel, spellData))
+                    return false;
+
                 bool canCast = false;
                 bool consumeCharge = false;
                 if (spellwrightPlayer.GuaranteedUsesLeft > 0)
