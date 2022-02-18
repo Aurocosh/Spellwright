@@ -55,6 +55,7 @@ namespace Spellwright.Spells
         {
             base.Cast(player, playerLevel, spellData, source, position, velocity);
             int damage = (int)(player.statLifeMax2 * .08f);
+            damage = (int)(player.statLifeMax2 * .36f);
             player.Hurt(PlayerDeathReason.ByCustomReason("Bleed out"), damage, 0, false, true);
             return true;
         }

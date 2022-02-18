@@ -25,7 +25,7 @@ namespace Spellwright.Util
                 dust2.position = position + UtilVector2.RandomVector(0, radius);
                 dust2.noGravity = true;
                 dust2.velocity *= 2f;
-                dust2.fadeIn = 2.0f;
+                dust2.fadeIn = 1.8f;
             }
 
             for (int i = 0; i < 5 * particleCoeff; i++)
