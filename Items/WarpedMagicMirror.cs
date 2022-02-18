@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -8,7 +9,7 @@ namespace Spellwright.Items
         public WarpedMagicMirror()
         {
         }
-
+        protected override Color ParticleColor => Color.Green;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Warped Magic Mirror");

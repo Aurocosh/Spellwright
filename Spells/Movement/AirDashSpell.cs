@@ -21,7 +21,7 @@ namespace Spellwright.Spells.WarpSpells
 
             Vector2 velocity = Main.MouseWorld - player.Center;
             velocity.Normalize();
-            velocity *= 10;
+            velocity *= 14;
 
             dashPlayer.Dash(velocity, 40);
 

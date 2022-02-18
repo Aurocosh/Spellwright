@@ -13,13 +13,12 @@ namespace Spellwright.Spells.WarpSpells
         public BindMirrorSpell(string name, string incantation) : base(name, incantation, SpellType.Invocation)
         {
             itemType = ModContent.ItemType<BoundMagicMirror>();
+            reagentType = ModContent.ItemType<SilverMirror>();
+            reagentUseCost = 1;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
-            if (!player.ConsumeItem(ModContent.ItemType<SilverMirror>()))
-                return false;
-
             if (spellData == null)
                 return false;
             string locationName = spellData.Argument;

@@ -31,7 +31,6 @@ namespace Spellwright.Content.Projectiles
             Projectile.alpha = 255;
             Projectile.aiStyle = 0;
         }
-
         public override void AI()
         {
             for (int i = 0; i < 3; i++)

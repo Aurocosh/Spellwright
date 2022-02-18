@@ -19,10 +19,7 @@ namespace Spellwright.Items
             BoundLocation = new Vector2(0, 0);
         }
 
-        //public override bool CanRightClick()
-        //{
-        //    return true;
-        //}
+        protected virtual Color ParticleColor => Color.Purple;
 
         public override void SetStaticDefaults()
         {
@@ -104,7 +101,7 @@ namespace Spellwright.Items
             // Each frame, make some dust
             if (Main.rand.NextBool())
             {
-                Dust.NewDust(player.position, player.width, player.height, 15, 0f, 0f, 150, Color.White, 1.1f); // Makes dust from the player's position and copies the hitbox of which the dust may spawn. Change these arguments if needed.
+                var dust = Dust.NewDustDirect(player.position, player.width, player.height, 15, 0f, 0f, 150, ParticleColor, 1.1f); // Makes dust from the player's position and copies the hitbox of which the dust may spawn. Change these arguments if needed.
             }
 
             // This sets up the itemTime correctly.
@@ -117,9 +114,9 @@ namespace Spellwright.Items
                 // This code runs once halfway through the useTime of the Item. You'll notice with magic mirrors you are still holding the item for a little bit after you've teleported.
 
                 // Make dust 70 times for a cool effect.
-                for (int d = 0; d < 70; d++)
+                for (int d = 0; d < 30; d++)
                 {
-                    Dust.NewDust(player.position, player.width, player.height, 15, player.velocity.X * 0.5f, player.velocity.Y * 0.5f, 150, default, 1.5f);
+                    Dust.NewDust(player.position, player.width, player.height, 15, player.velocity.X * 0.5f, player.velocity.Y * 0.5f, 150, ParticleColor, 1.5f);
                 }
 
                 // This code releases all grappling hooks and kills/despawns them.
@@ -137,18 +134,19 @@ namespace Spellwright.Items
                 // The actual method that moves the player back to bed/spawn.
                 //player.Spawn(PlayerSpawnContext.RecallFromItem);
 
-                player.Teleport(BoundLocation, 5);
+                //player.Teleport(BoundLocation, 5);
+                player.Teleport(BoundLocation, 20);
                 player.velocity = Vector2.Zero;
                 if (Main.netMode == NetmodeID.Server)
                 {
                     RemoteClient.CheckSection(player.whoAmI, player.position);
-                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, BoundLocation.X, BoundLocation.Y, 5);
+                    NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, BoundLocation.X, BoundLocation.Y, 20);
                 }
 
                 // Make dust 70 times for a cool effect. This dust is the dust at the destination.
-                for (int d = 0; d < 70; d++)
+                for (int d = 0; d < 30; d++)
                 {
-                    Dust.NewDust(player.position, player.width, player.height, 15, 0f, 0f, 150, default, 1.5f);
+                    var dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.MagicMirror, 0f, 0f, 150, ParticleColor, 1.5f);
                 }
 
                 if (Item.consumable)

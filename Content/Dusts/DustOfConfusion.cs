@@ -19,9 +19,6 @@ namespace Spellwright.Content.Dusts
             dust.rotation += dust.velocity.X * 0.15f;
             dust.scale *= 0.99f;
 
-
-
-
             //float light = 0.35f * dust.scale;
 
             //Lighting.AddLight(dust.position, light, light, light);
@@ -44,9 +41,6 @@ namespace Spellwright.Content.Dusts
                     dust.position += projectile.position - projectile.oldPosition;
             }
 
-
-
-
             float num4 = dust.scale * 0.6f;
             if (num4 > 1f)
                 num4 = 1f;
@@ -54,8 +48,6 @@ namespace Spellwright.Content.Dusts
             float num6 = num4 * num4;
 
             Lighting.AddLight(dust.position, num6, num6, num6);
-
-
 
             float num93 = dust.scale;
             if (num93 > 1f)
@@ -65,7 +57,6 @@ namespace Spellwright.Content.Dusts
                 num93 *= 0.1f;
 
             Lighting.AddLight(dust.position, 0f, num93 * 0.8f, num93);
-
 
             return false; // Return false to prevent vanilla behavior.
         }
