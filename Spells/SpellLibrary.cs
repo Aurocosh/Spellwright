@@ -80,6 +80,7 @@ namespace Spellwright.Spells
 
             // Movement
             RegisterSpell(new FlashStepSpell("FlashStep", "Flash step"));
+            RegisterSpell(new AirDashSpell("AirDash", "Air dash"));
 
             // Liquid
             RegisterSpell(new ConjureWaterSpell("ConjureWater", "Conjure water"));

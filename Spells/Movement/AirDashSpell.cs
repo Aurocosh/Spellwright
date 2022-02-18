@@ -7,9 +7,9 @@ using Terraria.DataStructures;
 
 namespace Spellwright.Spells.WarpSpells
 {
-    internal class FlashStepSpell : Spell
+    internal class AirDashSpell : Spell
     {
-        public FlashStepSpell(string name, string incantation) : base(name, incantation, SpellType.Cantrip)
+        public AirDashSpell(string name, string incantation) : base(name, incantation, SpellType.Cantrip)
         {
         }
 
@@ -19,13 +19,11 @@ namespace Spellwright.Spells.WarpSpells
             if (!dashPlayer.CanUseDash())
                 return false;
 
-            float playerX = player.Center.X;
-            float mouseX = Main.MouseWorld.X;
+            Vector2 velocity = Main.MouseWorld - player.Center;
+            velocity.Normalize();
+            velocity *= 10;
 
-            int dashDirection = mouseX > playerX ? 1 : -1;
-            var newVelocity = new Vector2(dashDirection * 20, 0);
-
-            dashPlayer.Dash(newVelocity, 60);
+            dashPlayer.Dash(velocity, 40);
 
             return true;
         }

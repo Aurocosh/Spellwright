@@ -32,7 +32,7 @@ namespace Spellwright.Players
 
         public bool CanUseDash()
         {
-            return true
+            return DashTimer == 0
                 //&& Player.dashType == 0 // player doesn't have Tabi or EoCShield equipped (give priority to those dashes)
                 //&& !Player.setSolar // player isn't wearing solar armor
                 && !Player.mount.Active; // player isn't mounted, since dashes on a mount look weird
