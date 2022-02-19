@@ -73,6 +73,7 @@ namespace Spellwright.Spells
             RegisterSpell(new HomeReflectionSpell("HomeReflection", "Home reflection"));
             RegisterSpell(new OceanStepSpell("OceanStep", "Ocean step"));
             RegisterSpell(new BaseJumpSpell("BaseJump", "Base jump"));
+            RegisterSpell(new DemonStepSpell("DemonStep", "Demon step"));
 
             // Cantrips
             RegisterSpell(new BoltOfConfusionSpell("BoltOfConfusion", "Bolt of confusion"));
