@@ -69,9 +69,10 @@ namespace Spellwright.Spells
             RegisterSpell(new ReactiveArmorSpell("ReactiveArmor", "Reactive armor"));
             RegisterSpell(new GreedyVortexSpell("GreedyVortex", "Greedy vortex"));
 
-            // Warps
+            // Teleportation
             RegisterSpell(new HomeReflectionSpell("HomeReflection", "Home reflection"));
             RegisterSpell(new OceanStepSpell("OceanStep", "Ocean step"));
+            RegisterSpell(new BaseJumpSpell("BaseJump", "Base jump"));
 
             // Cantrips
             RegisterSpell(new BoltOfConfusionSpell("BoltOfConfusion", "Bolt of confusion"));
