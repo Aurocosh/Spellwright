@@ -20,6 +20,12 @@ namespace Spellwright.Extensions
 
         public static bool ConsumeItems(this Player player, int itemTypeId, int amount = 1, bool reverseOrder = false)
         {
+            bool IsValid(Item item) => item.type == itemTypeId;
+            return ConsumeItems(player, IsValid, amount, reverseOrder);
+        }
+
+        public static bool ConsumeItems(this Player player, Func<Item, bool> filter, int amount = 1, bool reverseOrder = false)
+        {
             if (amount <= 0)
                 return false;
 
@@ -40,13 +46,13 @@ namespace Spellwright.Extensions
             for (int i = startingIndex; i < limit; i += step)
             {
                 Item item = player.inventory[i];
-                if (item.type == itemTypeId && item.stack > 0)
+                if (filter.Invoke(item) && item.stack > 0)
                 {
-                    amountInInventory += item.stack;
                     fittingItems.Add(item);
+                    amountInInventory += item.stack;
+                    if (amountInInventory > amount)
+                        break;
                 }
-                if (amountInInventory > amount)
-                    break;
             }
 
             if (amountInInventory < amount)
@@ -64,6 +70,43 @@ namespace Spellwright.Extensions
             }
 
             return true;
+        }
+
+        public static bool HasItems(this Player player, int itemTypeId, int amount = 1, bool reverseOrder = false)
+        {
+            bool IsValid(Item item) => item.type == itemTypeId;
+            return HasItems(player, IsValid, amount, reverseOrder);
+        }
+
+        public static bool HasItems(this Player player, Func<Item, bool> filter, int amount = 1, bool reverseOrder = false)
+        {
+            if (amount <= 0)
+                return false;
+
+            int startingIndex = 0;
+            int limit = 58;
+            int step = 1;
+
+            if (reverseOrder)
+            {
+                startingIndex = 57;
+                limit = -1;
+                step = -1;
+            }
+
+            int amountInInventory = 0;
+            for (int i = startingIndex; i < limit; i += step)
+            {
+                Item item = player.inventory[i];
+                if (filter.Invoke(item) && item.stack > 0)
+                {
+                    amountInInventory += item.stack;
+                    if (amountInInventory > amount)
+                        return true;
+                }
+            }
+
+            return false;
         }
     }
 }

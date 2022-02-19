@@ -63,17 +63,17 @@ namespace Spellwright.Spells.Base
                 if (firstLiquidType == LiquidID.Water && secondLiquidType == LiquidID.Lava)
                 {
                     if (WorldGen.PlaceTile(xPos, yPos, 56, false, false, player.whoAmI, 0) && Main.netMode == NetmodeID.MultiplayerClient)
-                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, TileID.Stone, xPos, yPos, 56f, 0, 0, 0);
+                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, xPos, yPos, TileID.Stone, 0, 0, 0);
                 }
                 else if (firstLiquidType == LiquidID.Water && secondLiquidType == LiquidID.Honey)
                 {
                     if (WorldGen.PlaceTile(xPos, yPos, TileID.HoneyBlock, false, false, player.whoAmI, 0) && Main.netMode == NetmodeID.MultiplayerClient)
-                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, xPos, yPos, 229f, 0, 0, 0);
+                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, xPos, yPos, TileID.HoneyBlock, 0, 0, 0);
                 }
                 else if (firstLiquidType == LiquidID.Lava && secondLiquidType == LiquidID.Honey)
                 {
                     if (WorldGen.PlaceTile(xPos, yPos, TileID.CrispyHoneyBlock, false, false, player.whoAmI, 0) && Main.netMode == NetmodeID.MultiplayerClient)
-                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, xPos, yPos, 230f, 0, 0, 0);
+                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, xPos, yPos, TileID.CrispyHoneyBlock, 0, 0, 0);
                 }
             }
 

@@ -98,7 +98,8 @@ namespace Spellwright.Spells
 
             // Minions
             RegisterSpell(new BirdOfMidasSpell("BirdOfMidas", "Bird of midas"));
-
+            // 
+            RegisterSpell(new WillOfTorchGodSpell("WillOfTorchGod", "Will of Torch god"));
         }
     }
 }

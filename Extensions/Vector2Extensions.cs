@@ -13,5 +13,13 @@ namespace Spellwright.Extensions
         {
             return new Vector2(-vector2.Y, vector2.X);
         }
+
+        public static Point ToGridPoint(this Vector2 vector2)
+        {
+            int x = (int)(vector2.X / 16f);
+            int y = (int)(vector2.Y / 16f);
+
+            return new Point(x, y);
+        }
     }
 }
