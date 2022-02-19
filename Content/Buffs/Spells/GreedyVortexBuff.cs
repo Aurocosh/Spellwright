@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Buffs
+namespace Spellwright.Content.Buffs.Spells
 {
     public class GreedyVortexBuff : ModBuff
     {

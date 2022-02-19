@@ -95,6 +95,10 @@ namespace Spellwright.Spells
             // Item spawn
             RegisterSpell(new BindMirrorSpell("BindMirror", "Bind mirror"));
             RegisterSpell(new WarpMirrorSpell("WarpMirror", "Warp mirror"));
+
+            // Minions
+            RegisterSpell(new BirdOfMidasSpell("BirdOfMidas", "Bird of midas"));
+
         }
     }
 }

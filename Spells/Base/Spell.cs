@@ -5,6 +5,7 @@ using Spellwright.Spells.SpellExtraData;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
@@ -22,6 +23,7 @@ namespace Spellwright.Spells
         protected int reagentType;
         protected int reagentUseCost;
         protected float useTimeMultiplier;
+        public LegacySoundStyle useSound;
         public virtual int SpellLevel => 0;
         public string InternalName { get; }
         public string Incantation { get; }
@@ -40,6 +42,7 @@ namespace Spellwright.Spells
         public virtual int GetUseDelay(int playerLevel) => useDelay;
         protected virtual int GetDamage(int playerLevel) => damage;
         protected virtual float GetKnockback(int playerLevel) => knockback;
+        protected virtual LegacySoundStyle GetUseSound(int playerLevel) => useSound;
         protected virtual DamageClass DamageType => damageType;
 
         protected void AddApplicableModifier(SpellModifier spellModifier) => appplicableModifiers.Add(spellModifier);

@@ -1,4 +1,4 @@
-﻿using Spellwright.Content.Buffs;
+﻿using Spellwright.Content.Buffs.Spells;
 using Spellwright.Items.Reagents;
 using Spellwright.Spells.Base;
 using Spellwright.Spells.SpellExtraData;

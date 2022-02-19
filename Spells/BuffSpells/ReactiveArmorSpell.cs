@@ -1,11 +1,11 @@
-﻿using Spellwright.Content.Buffs;
+﻿using Spellwright.Content.Buffs.Spells;
 using Spellwright.Items.Reagents;
 using Spellwright.Spells.Base;
 using Spellwright.Spells.SpellExtraData;
 using Spellwright.Util;
 using Terraria;
 using Terraria.ModLoader;
-using static Spellwright.Content.Buffs.ReactiveArmorBuff;
+using static Spellwright.Content.Buffs.Spells.ReactiveArmorBuff;
 
 namespace Spellwright.Spells.BuffSpells
 {

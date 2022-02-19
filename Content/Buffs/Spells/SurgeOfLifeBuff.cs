@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace Spellwright.Content.Buffs
+namespace Spellwright.Content.Buffs.Spells
 {
     public class SurgeOfLifeBuff : ModBuff
     {
@@ -46,13 +46,11 @@ namespace Spellwright.Content.Buffs
             Tile tileAtFeet = Main.tile[x, y];
             Tile tileUnderFeet = Main.tile[x, y + 1];
             if (tileAtFeet != null && tileUnderFeet != null)
-            {
                 if (tileAtFeet.LiquidAmount == 0 && WorldGen.SolidTile(x, y + 1))
                 {
                     int tileType = tileUnderFeet.TileType;
                     isStandingOnGrass = UtilTiles.IsTileGrass(tileType);
                 }
-            }
 
             int regenValue = LifeRegenValue;
 
