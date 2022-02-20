@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
@@ -10,10 +11,13 @@ namespace Spellwright.Util
 {
     internal static class UtilExplosion
     {
-        public static void DealExplosionDamage(Projectile projectile, int damage, int radius)
+        public static void DealExplosionDamage(Projectile projectile, int damage, int radius, Func<Entity, bool> canHit = null)
         {
             foreach (NPC npc in Main.npc)
             {
+                if (canHit != null && !canHit.Invoke(npc))
+                    continue;
+
                 float distance = Vector2.Distance(npc.Center, projectile.Center);
                 if (distance / 16f <= radius)
                 {
@@ -24,8 +28,10 @@ namespace Spellwright.Util
 
             foreach (Player player in Main.player)
             {
+                if (canHit != null && !canHit.Invoke(player))
+                    continue;
                 if (player == null || player.whoAmI == 255 || !player.active)
-                    return;
+                    continue;
                 if (!ProjectileLoader.CanHitPlayer(projectile, player) || !PlayerLoader.CanBeHitByProjectile(player, projectile))
                     continue;
 
@@ -54,6 +60,46 @@ namespace Spellwright.Util
                 minI = 0;
 
             ExplodeTiles(position, radius, minI, maxI, minJ, maxJ, wallSplode);
+        }
+
+        public static void ExplodeTiles(IEnumerable<Point> positions, bool wallSplode)
+        {
+            AchievementsHelper.CurrentlyMining = true;
+
+            foreach (var point in positions)
+            {
+                if (!WorldGen.InWorld(point.X, point.Y))
+                    continue;
+
+                Tile tile = Main.tile[point.X, point.Y];
+                if (tile == null || !tile.HasTile)
+                    continue;
+                if (!CanExplodeTile(point.X, point.Y))
+                    continue;
+
+                WorldGen.KillTile(point.X, point.Y);
+                if (!Main.tile[point.X, point.Y].HasTile && Main.netMode != NetmodeID.SinglePlayer)
+                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, point.X, point.Y);
+
+                if (wallSplode)
+                {
+                    var wallCoords = UtilCoordinates.GetPointsInSqRadius(point, 1, 1);
+                    foreach (var coord in wallCoords)
+                    {
+                        Tile wallTile = Main.tile[coord.X, coord.Y];
+                        if (wallTile == null || !wallTile.HasTile)
+                            continue;
+                        if (!WallLoader.CanExplode(coord.X, coord.Y, wallTile.WallType))
+                            continue;
+
+                        WorldGen.KillWall(coord.X, coord.Y);
+                        if (wallTile.WallType == 0 && Main.netMode != NetmodeID.SinglePlayer)
+                            NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, coord.X, coord.Y);
+                    }
+                }
+            }
+
+            AchievementsHelper.CurrentlyMining = false;
         }
 
         public static void ExplodeTiles(Vector2 position, int radius, int minI, int maxI, int minJ, int maxJ, bool wallSplode)

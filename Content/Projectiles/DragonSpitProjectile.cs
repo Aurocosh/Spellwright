@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Spellwright.Extensions;
 using Spellwright.Util;
 using Terraria;
 using Terraria.Audio;
@@ -12,8 +13,6 @@ namespace Spellwright.Content.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dragon spit");
-            //ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5; // The length of old position to be recorded
-            //ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
         }
 
         public override void SetDefaults()
@@ -29,7 +28,6 @@ namespace Spellwright.Content.Projectiles
             Projectile.light = 0.8f;
             Projectile.ignoreWater = false;
             Projectile.tileCollide = true;
-            //Projectile.extraUpdates = 1;
             Projectile.penetrate = -1;
 
             AIType = ProjectileID.Shuriken;
@@ -60,26 +58,24 @@ namespace Spellwright.Content.Projectiles
 
         private void Explode()
         {
-            Vector2 position = Projectile.Center;
-
             int radius = 4;
             int damage = 20;
 
-            UtilExplosion.ExplodeTiles(position, radius, false);
+            Vector2 position = Projectile.Center;
+            var start = position.ToGridPoint();
+
+            var circlePoints = UtilCoordinates.GetPointsInCircle(start, radius);
+            UtilExplosion.ExplodeTiles(circlePoints, false);
             UtilExplosion.DealExplosionDamage(Projectile, damage, radius);
-            Projectile.Kill();
 
-            SoundEngine.PlaySound(SoundID.Item14, position);
-
-            float dustWidth = Projectile.width / 2f;
             UtilDust.SpawnExplosionDust(position, Projectile.velocity, DustID.Torch, Color.Red, 30, 1);
+            SoundEngine.PlaySound(SoundID.Item14, position);
+            Projectile.Kill();
         }
 
         public override void Kill(int timeLeft)
         {
-            // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
-            Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            //Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
         }
     }
 }

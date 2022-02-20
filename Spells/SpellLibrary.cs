@@ -59,6 +59,7 @@ namespace Spellwright.Spells
             // Explosive
             RegisterSpell(new DragonSpitSpell("DragonSpit", "Dragon spit"));
             RegisterSpell(new BlastPebbleSpell("BlastPebble", "Blast pebble"));
+            RegisterSpell(new ShapedChargeSpell("ShapedCharge", "Shaped charge"));
 
             // Buffs
             RegisterSpell(new InnerSunshineSpell("InnerSunshine", "Inner sunshine"));

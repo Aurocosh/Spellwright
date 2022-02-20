@@ -26,7 +26,7 @@ namespace Spellwright.Util
             var squarePoints = GetPointsInSqRadius(radius, radius);
             foreach (var point in squarePoints)
             {
-                if (point.DistanceSq() <= radiusSq)
+                if (point.DistanceSq() < radiusSq)
                     yield return center + point;
             }
         }
@@ -47,6 +47,8 @@ namespace Spellwright.Util
 
         public static IEnumerable<Point> FloodFill(Point start, IEnumerable<Point> expansionDirs, Func<Point, bool> predicate, int limit)
         {
+            yield return start;
+
             var expansionFront = new LinkedList<Point>();
             expansionFront.AddFirst(start);
             var explored = new HashSet<Point>() { start };

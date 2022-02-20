@@ -24,10 +24,5 @@ namespace Spellwright.Extensions
         {
             return point.X * point.X + point.Y * point.Y;
         }
-
-        public static Vector2 ToVector2(this Point point)
-        {
-            return new Vector2(point.X, point.Y);
-        }
     }
 }
