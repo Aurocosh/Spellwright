@@ -67,12 +67,13 @@ namespace Spellwright.Spells
             RegisterSpell(new BattlecrySpell("Battlecry", "Battlecry"));
             RegisterSpell(new ReactiveArmorSpell("ReactiveArmor", "Reactive armor"));
             RegisterSpell(new GreedyVortexSpell("GreedyVortex", "Greedy vortex"));
+            RegisterSpell(new ManaStarfallSpell("ManaStarfall", "Mana starfall"));
 
             // Teleportation
             RegisterSpell(new HomeReflectionSpell("HomeReflection", "Home reflection"));
             RegisterSpell(new OceanGateSpell("OceanGate", "Ocean gate"));
             RegisterSpell(new BaseJumpSpell("BaseJump", "Base jump"));
-            RegisterSpell(new DemonGateSpell("DemonGate", "Demon gate"));
+            RegisterSpell(new HellGateSpell("HellGate", "Hell gate"));
 
             // Cantrips
             RegisterSpell(new BoltOfConfusionSpell("BoltOfConfusion", "Bolt of confusion"));

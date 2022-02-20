@@ -5,9 +5,9 @@ using static Terraria.Player;
 
 namespace Spellwright.Spells.WarpSpells
 {
-    internal class DemonGateSpell : TeleportationSpell
+    internal class HellGateSpell : TeleportationSpell
     {
-        public DemonGateSpell(string name, string incantation) : base(name, incantation)
+        public HellGateSpell(string name, string incantation) : base(name, incantation)
         {
         }
 
