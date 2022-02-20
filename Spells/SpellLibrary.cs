@@ -73,7 +73,7 @@ namespace Spellwright.Spells
             RegisterSpell(new HomeReflectionSpell("HomeReflection", "Home reflection"));
             RegisterSpell(new OceanStepSpell("OceanStep", "Ocean step"));
             RegisterSpell(new BaseJumpSpell("BaseJump", "Base jump"));
-            RegisterSpell(new DemonStepSpell("DemonStep", "Demon step"));
+            RegisterSpell(new DemonGateSpell("DemonGate", "Demon gate"));
 
             // Cantrips
             RegisterSpell(new BoltOfConfusionSpell("BoltOfConfusion", "Bolt of confusion"));
@@ -100,8 +100,14 @@ namespace Spellwright.Spells
 
             // Minions
             RegisterSpell(new BirdOfMidasSpell("BirdOfMidas", "Bird of midas"));
-            // 
+
+            // Tile spawn
             RegisterSpell(new WillOfTorchGodSpell("WillOfTorchGod", "Will of Torch god"));
+            RegisterSpell(new ShellOfIceSpell("ShellOfIce", "Shell of ice"));
+
+            // Tile break
+            RegisterSpell(new IceBreakerSpell("IceBreaker", "Ice breaker"));
+
         }
     }
 }

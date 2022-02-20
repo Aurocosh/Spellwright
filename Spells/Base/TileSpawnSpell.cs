@@ -1,5 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Extensions;
+using Spellwright.Other;
 using Spellwright.Spells.SpellExtraData;
+using Spellwright.Util;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -11,38 +15,71 @@ namespace Spellwright.Spells.Base
         protected int tileType;
 
         protected virtual int GetTileType(int playerLevel) => tileType;
-        protected virtual bool CanReplaceTile(Tile tile, int i, int j, int playerLevel) => !tile.HasTile;
+
+        protected virtual TilePlaceAction CanPlaceTile(Tile tile, int i, int j, int playerLevel)
+        {
+            return UtilTiles.CanReplaceTile(tile);
+        }
+
+        protected virtual IEnumerable<Point> GetTilePositions(Point center, Player player, int playerLevel, SpellData spellData)
+        {
+            yield return center;
+        }
 
         public TileSpawnSpell(string name, string incantation, SpellType spellType = SpellType.Spell) : base(name, incantation, spellType)
         {
-            tileType = ProjectileID.WoodenArrowFriendly;
+            tileType = TileID.Dirt;
             useTimeMultiplier = 1f;
+        }
+
+        public override bool Cast(Player player, int playerLevel, SpellData spellData)
+        {
+            var center = player.Center.ToGridPoint();
+            return PlaceTiles(center, player, playerLevel, spellData);
         }
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IProjectileSource source, Vector2 position, Vector2 direction)
         {
-            direction.Normalize();
+            var center = Main.MouseWorld.ToGridPoint();
+            return PlaceTiles(center, player, playerLevel, spellData);
+        }
 
-            Vector2 mousePosition = Main.MouseWorld;
-
-            int xPos = (int)(mousePosition.X / 16.0f);
-            int yPos = (int)(mousePosition.Y / 16.0f);
-
-            if (!WorldGen.InWorld(xPos, yPos))
-                return false;
-
-
+        private bool PlaceTiles(Point center, Player player, int playerLevel, SpellData spellData)
+        {
+            bool placedAtLeastOne = false;
             int tileType = GetTileType(playerLevel);
-            Tile tile = Framing.GetTileSafely(xPos, yPos);
+            var tilePositions = GetTilePositions(center, player, playerLevel, spellData);
+            foreach (var point in tilePositions)
+            {
+                if (!WorldGen.InWorld(point.X, point.Y))
+                    continue;
+                Tile tile = Framing.GetTileSafely(point.X, point.Y);
+                TilePlaceAction tilePlaceAction = CanPlaceTile(tile, point.X, point.Y, playerLevel);
 
-            bool canPlaceTile = CanReplaceTile(tile, xPos, yPos, playerLevel);
-            if (!canPlaceTile)
-                return false;
+                if (tilePlaceAction == TilePlaceAction.CanReplace)
+                {
+                    WorldGen.KillTile(point.X, point.Y, false, false, true);
+                    var tileState = Framing.GetTileSafely(point.X, point.Y);
+                    if (!tileState.HasTile && Main.netMode == NetmodeID.MultiplayerClient)
+                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 4, point.X, point.Y);
+                }
+                if (tilePlaceAction == TilePlaceAction.CanPlace || tilePlaceAction == TilePlaceAction.CanReplace)
+                {
+                    bool placed = WorldGen.PlaceTile(point.X, point.Y, tileType, false, false, Main.myPlayer);
+                    if (placed && Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        placedAtLeastOne = true;
+                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, point.X, point.Y, tileType, 0);
+                    }
+                }
+                else
+                {
+                    bool sloped = WorldGen.SlopeTile(point.X, point.Y);
+                    if (sloped && Main.netMode == NetmodeID.MultiplayerClient)
+                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 14, point.X, point.Y);
+                }
+            }
 
-            bool placed = WorldGen.PlaceTile(xPos, yPos, tileType, false, false, Main.myPlayer);
-            if (placed && Main.netMode == NetmodeID.MultiplayerClient)
-                NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, xPos, yPos, tileType, 0);
-
-            return true;
+            return placedAtLeastOne;
         }
     }
 }

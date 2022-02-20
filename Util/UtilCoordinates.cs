@@ -7,18 +7,35 @@ namespace Spellwright.Util
 {
     internal class UtilCoordinates
     {
+        public static IEnumerable<Point> GetPointsInRing(Point center, int innerRadius, int outerRadius)
+        {
+            int innerRadiusSq = innerRadius * innerRadius;
+            int outerRadiusSq = outerRadius * outerRadius;
+            var squarePoints = GetPointsInSqRadius(outerRadius, outerRadius);
+            foreach (var point in squarePoints)
+            {
+                int distanceSq = point.DistanceSq();
+                if (innerRadiusSq <= distanceSq && distanceSq < outerRadiusSq)
+                    yield return center + point;
+            }
+        }
+
         public static IEnumerable<Point> GetPointsInCircle(Point center, int radius)
         {
-            for (int x = -radius; x <= radius; x++)
+            int radiusSq = radius * radius;
+            var squarePoints = GetPointsInSqRadius(radius, radius);
+            foreach (var point in squarePoints)
             {
-                for (int y = -radius; y <= radius; y++)
-                {
-                    int radiusSq = radius * radius;
-                    var point = new Point(x, y);
-                    if (point.DistanceSq() <= radiusSq)
-                        yield return center + point;
-                }
+                if (point.DistanceSq() <= radiusSq)
+                    yield return center + point;
             }
+        }
+
+        public static IEnumerable<Point> GetPointsInSqRadius(int radiusX, int radiusY)
+        {
+            for (int x = -radiusX; x <= radiusX; x++)
+                for (int y = -radiusY; y <= radiusY; y++)
+                    yield return new Point(x, y);
         }
 
         public static IEnumerable<Point> GetPointsInSqRadius(Point center, int radiusX, int radiusY)
@@ -28,7 +45,7 @@ namespace Spellwright.Util
                     yield return center + new Point(x, y);
         }
 
-        public static IEnumerable<Point> FloodFill(Point start, IEnumerable<Point> expansionDirs, Func<Point, Boolean> predicate, int limit)
+        public static IEnumerable<Point> FloodFill(Point start, IEnumerable<Point> expansionDirs, Func<Point, bool> predicate, int limit)
         {
             var expansionFront = new LinkedList<Point>();
             expansionFront.AddFirst(start);
