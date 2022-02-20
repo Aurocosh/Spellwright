@@ -108,5 +108,40 @@ namespace Spellwright.Extensions
 
             return false;
         }
+
+        public static void ClearBuffs(this Player player, IEnumerable<int> buffTypes)
+        {
+            var buffHash = new HashSet<int>(buffTypes);
+            for (int i = 0; i < Player.MaxBuffs; i++)
+            {
+                int buffTime = player.buffTime[i];
+                int buffType = player.buffType[i];
+
+                if (buffTime > 0 && buffHash.Contains(buffType))
+                {
+                    player.buffTime[i] = 0;
+                    player.buffType[i] = 0;
+                }
+            }
+
+            // Code from DelBuff
+            //single pass compactor (vanilla is n^2)
+            int packedIdx = 0;
+            for (int i = 0; i < Player.MaxBuffs - 1; i++)
+            {
+                if (player.buffTime[i] == 0 || player.buffType[i] == 0)
+                    continue;
+
+                if (packedIdx < i)
+                {
+                    player.buffTime[packedIdx] = player.buffTime[i];
+                    player.buffType[packedIdx] = player.buffType[i];
+                    player.buffTime[i] = 0;
+                    player.buffType[i] = 0;
+                }
+
+                packedIdx++;
+            }
+        }
     }
 }

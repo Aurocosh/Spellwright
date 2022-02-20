@@ -48,6 +48,7 @@ namespace Spellwright.Spells
             //
             RegisterSpell(new MaterialShellSpell("BarkShell", "Bark shell", 3, TileID.BorealWood));
             RegisterSpell(new MaterialShellSpell("EarthShell", "Earth shell", 5, TileID.Dirt));
+            RegisterSpell(new PurifySpell("Purify", "Purify"));
 
             // Projectiles
             RegisterSpell(new StoneBulletSpell("StoneBullet", "Stone bullet"));
