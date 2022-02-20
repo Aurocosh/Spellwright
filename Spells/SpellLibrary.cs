@@ -83,6 +83,7 @@ namespace Spellwright.Spells
             // Healing
             RegisterSpell(new StitchWoundsSpell("StitchWounds", "Stitch wounds"));
             RegisterSpell(new SurgeOfLifeSpell("SurgeOfLife", "Surge of life"));
+            RegisterSpell(new PulseHealingSpell("PulseHealing", "Pulse healing"));
 
             // Movement
             RegisterSpell(new FlashStepSpell("FlashStep", "Flash step"));
