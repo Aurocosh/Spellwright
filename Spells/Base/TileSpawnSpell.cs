@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Constants;
 using Spellwright.Extensions;
-using Spellwright.Other;
 using Spellwright.Spells.SpellExtraData;
 using Spellwright.Util;
 using System.Collections.Generic;

@@ -107,6 +107,7 @@ namespace Spellwright.Spells
 
             // Tile break
             RegisterSpell(new IceBreakerSpell("IceBreaker", "Ice breaker"));
+            RegisterSpell(new SnuffOutSpell("SnuffOut", "Snuff out"));
 
         }
     }

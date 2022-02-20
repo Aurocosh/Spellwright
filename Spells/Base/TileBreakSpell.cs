@@ -11,6 +11,7 @@ namespace Spellwright.Spells.Base
     internal abstract class TileBreakSpell : Spell
     {
         protected int tileType;
+        protected bool noItem;
 
         protected virtual bool CanBreakTile(Tile tile, int x, int y, int playerLevel)
         {
@@ -25,6 +26,7 @@ namespace Spellwright.Spells.Base
         public TileBreakSpell(string name, string incantation, SpellType spellType = SpellType.Spell) : base(name, incantation, spellType)
         {
             tileType = TileID.Dirt;
+            noItem = true;
             useTimeMultiplier = 1f;
         }
 
@@ -51,7 +53,7 @@ namespace Spellwright.Spells.Base
                 if (!CanBreakTile(tile, point.X, point.Y, playerLevel))
                     continue;
 
-                WorldGen.KillTile(point.X, point.Y, false, false, true);
+                WorldGen.KillTile(point.X, point.Y, false, false, noItem);
                 var tileState = Framing.GetTileSafely(point.X, point.Y);
                 if (!tileState.HasTile && Main.netMode == NetmodeID.MultiplayerClient)
                 {

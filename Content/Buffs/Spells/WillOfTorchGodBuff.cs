@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
+using Spellwright.Constants;
 using Spellwright.Extensions;
-using Spellwright.Other;
 using Spellwright.Util;
 using Terraria;
 using Terraria.ID;

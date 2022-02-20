@@ -17,7 +17,7 @@ namespace Spellwright.Spells.WarpSpells
 
         protected override IEnumerable<Point> GetTilePositions(Point center, Player player, int playerLevel, SpellData spellData)
         {
-            return UtilCoordinates.GetPointsInRing(center, 3, 6);
+            return UtilCoordinates.GetPointsInRing(center, 3, 7);
         }
     }
 }

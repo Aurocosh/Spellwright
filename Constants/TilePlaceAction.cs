@@ -1,4 +1,4 @@
-﻿namespace Spellwright.Other
+﻿namespace Spellwright.Constants
 {
     internal enum TilePlaceAction
     {
