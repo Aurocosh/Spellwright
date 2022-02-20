@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using Terraria;
 
 namespace Spellwright.Extensions
 {
@@ -23,6 +24,10 @@ namespace Spellwright.Extensions
         public static int DistanceSq(this Point point)
         {
             return point.X * point.X + point.Y * point.Y;
+        }
+        public static Vector2 ToWorldVector2(this Point point)
+        {
+            return point.ToVector2() * 16f;
         }
     }
 }

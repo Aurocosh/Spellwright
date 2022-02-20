@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Lib.Primitives;
 using Spellwright.Spells.Base;
 using Spellwright.Spells.SpellExtraData;
-using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -17,7 +17,7 @@ namespace Spellwright.Spells.WarpSpells
 
         protected override IEnumerable<Point> GetTilePositions(Point center, Player player, int playerLevel, SpellData spellData)
         {
-            return UtilCoordinates.GetPointsInCircle(center, 9);
+            return new SolidCircle(center, 9);
         }
     }
 }

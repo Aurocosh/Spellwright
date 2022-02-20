@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Constants;
 using Spellwright.Extensions;
+using Spellwright.Lib.Primitives;
 using Spellwright.Util;
 using Terraria;
 using Terraria.ID;
@@ -33,7 +34,7 @@ namespace Spellwright.Content.Buffs.Spells
                 willPlayer.SkipValue--;
                 return;
             }
-            willPlayer.SkipValue = 10;
+            willPlayer.SkipValue = 30;
 
             var centerPoint = player.Center.ToGridPoint();
             if (centerPoint == willPlayer.LastPlayerPoint)
@@ -90,7 +91,7 @@ namespace Spellwright.Content.Buffs.Spells
                     continue;
 
                 bool hasTorchesNearby = false;
-                var nearbyPoints = UtilCoordinates.GetPointsInSqRadius(point, 8, 8);
+                var nearbyPoints = new SolidRectangle(point, 8);
                 foreach (var nearbyPoint in nearbyPoints)
                 {
                     Tile nearbyTile = Main.tile[nearbyPoint.X, nearbyPoint.Y];

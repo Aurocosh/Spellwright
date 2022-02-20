@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
+using Spellwright.Lib.Primitives;
 using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;
@@ -67,7 +68,7 @@ namespace Spellwright.Content.Projectiles
             var affectedPoints = new HashSet<Point>();
             foreach (Point point in explosionCenterPoints)
             {
-                var circlePoints = UtilCoordinates.GetPointsInCircle(point, radius);
+                var circlePoints = new SolidCircle(point, radius);
                 affectedPoints.UnionWith(circlePoints);
             }
 

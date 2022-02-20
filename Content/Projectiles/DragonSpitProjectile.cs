@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
+using Spellwright.Lib.Primitives;
 using Spellwright.Util;
 using Terraria;
 using Terraria.Audio;
@@ -64,7 +65,7 @@ namespace Spellwright.Content.Projectiles
             Vector2 position = Projectile.Center;
             var start = position.ToGridPoint();
 
-            var circlePoints = UtilCoordinates.GetPointsInCircle(start, radius);
+            var circlePoints = new SolidCircle(start, radius);
             UtilExplosion.ExplodeTiles(circlePoints, false);
             UtilExplosion.DealExplosionDamage(Projectile, damage, radius);
 

@@ -98,7 +98,7 @@ namespace Spellwright.Players
 
                 if (CurrentCantrip.ConsumeReagents(player, playerLevel, CantripData))
                 {
-                    CurrentCantrip.Cast(player, PlayerLevel, CantripData, projectileSource, spawnPosition, velocity);
+                    CurrentCantrip.Cast(player, PlayerLevel, CantripData, projectileSource, mousePosition, velocity);
                     nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
                 }
             }

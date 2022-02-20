@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Lib.Primitives;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -83,7 +84,7 @@ namespace Spellwright.Util
 
                 if (wallSplode)
                 {
-                    var wallCoords = UtilCoordinates.GetPointsInSqRadius(point, 1, 1);
+                    var wallCoords = new SolidRectangle(point, 1);
                     foreach (var coord in wallCoords)
                     {
                         Tile wallTile = Main.tile[coord.X, coord.Y];

@@ -76,6 +76,7 @@ namespace Spellwright.Spells
             RegisterSpell(new OceanGateSpell("OceanGate", "Ocean gate"));
             RegisterSpell(new BaseJumpSpell("BaseJump", "Base jump"));
             RegisterSpell(new HellGateSpell("HellGate", "Hell gate"));
+            RegisterSpell(new ShadowStepSpell("ShadowStep", "Shadow step"));
 
             // Cantrips
             RegisterSpell(new BoltOfConfusionSpell("BoltOfConfusion", "Bolt of confusion"));
