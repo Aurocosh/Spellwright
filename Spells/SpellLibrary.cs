@@ -70,6 +70,7 @@ namespace Spellwright.Spells
             RegisterSpell(new ReactiveArmorSpell("ReactiveArmor", "Reactive armor"));
             RegisterSpell(new GreedyVortexSpell("GreedyVortex", "Greedy vortex"));
             RegisterSpell(new ManaStarfallSpell("ManaStarfall", "Mana starfall"));
+            RegisterSpell(new GaleForceSpell("GaleForce", "Gale force"));
 
             // Teleportation
             RegisterSpell(new HomeReflectionSpell("HomeReflection", "Home reflection"));
