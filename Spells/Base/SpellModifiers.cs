@@ -2,6 +2,6 @@
 {
     internal enum SpellModifier
     {
-        IsAoe
+        IsAoe = 1
     }
 }

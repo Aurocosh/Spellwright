@@ -24,10 +24,11 @@ namespace Spellwright.Spells
             if (!isModifiersApplicable)
                 return SpellCastResult.ModifiersInvalid;
 
-            bool isSpellDataValid = spell.ProcessExtraData(spellStructure, out SpellData spellData);
+            bool isSpellDataValid = spell.ProcessExtraData(spellStructure, out object extraData);
             if (!isSpellDataValid)
                 return SpellCastResult.ArgumentInvalid;
 
+            var spellData = new SpellData(spellStructure.SpellModifiers, spellStructure.Argument, extraData);
             SpellwrightPlayer spellwrightPlayer = SpellwrightPlayer.Instance;
             if (spell.Type == SpellType.Invocation)
             {

@@ -38,18 +38,41 @@ namespace Spellwright.Players
         {
             tag.Add("PlayerLevel", PlayerLevel);
             tag.Add("GuaranteedUsesLeft", GuaranteedUsesLeft);
-            tag.Add("CurrentSpell", CurrentSpell?.InternalName ?? "");
-            tag.Add("CurrentCantrip", CurrentCantrip?.InternalName ?? "");
+
+            if (CurrentSpell != null && SpellData != null)
+            {
+                tag.Add("CurrentSpell", CurrentSpell.InternalName ?? "");
+                tag.Add("CurrentSpellData", CurrentSpell.SerializeData(SpellData));
+            }
+            if (CurrentCantrip != null && CantripData != null)
+            {
+                tag.Add("CurrentCantrip", CurrentCantrip.InternalName ?? "");
+                tag.Add("CurrentCantripData", CurrentCantrip.SerializeData(CantripData));
+            }
         }
 
         public override void LoadData(TagCompound tag)
         {
             PlayerLevel = tag.GetInt("PlayerLevel");
             GuaranteedUsesLeft = tag.GetInt("GuaranteedUsesLeft");
+
+            SpellLibrary spellLibrary = Spellwright.instance.spellLibrary;
+
             string spellName = tag.GetString("CurrentSpell");
-            CurrentSpell = Spellwright.instance.spellLibrary.GetSpellByName(spellName);
+            CurrentSpell = spellLibrary.GetSpellByName(spellName);
+            if (CurrentSpell != null)
+            {
+                TagCompound spellDataTag = tag.GetCompound("CurrentSpellData");
+                SpellData = CurrentSpell.DeserializeData(spellDataTag);
+            }
+
             string cantripName = tag.GetString("CurrentCantrip");
-            CurrentCantrip = Spellwright.instance.spellLibrary.GetSpellByName(cantripName);
+            CurrentCantrip = spellLibrary.GetSpellByName(cantripName);
+            if (CurrentSpell != null)
+            {
+                TagCompound spellDataTag = tag.GetCompound("CurrentCantripData");
+                CantripData = CurrentSpell.DeserializeData(spellDataTag);
+            }
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)

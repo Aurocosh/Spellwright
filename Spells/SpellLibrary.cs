@@ -11,9 +11,8 @@ namespace Spellwright.Spells
 {
     internal class SpellLibrary
     {
-        private Dictionary<string, Spell> _spellNameMap = new Dictionary<string, Spell>();
-        private Dictionary<string, Spell> _spellIncantationMap = new Dictionary<string, Spell>();
-
+        private readonly Dictionary<string, Spell> _spellNameMap = new();
+        private readonly Dictionary<string, Spell> _spellIncantationMap = new();
         public SpellLibrary()
         {
             Init();
@@ -71,7 +70,7 @@ namespace Spellwright.Spells
 
             // Teleportation
             RegisterSpell(new HomeReflectionSpell("HomeReflection", "Home reflection"));
-            RegisterSpell(new OceanStepSpell("OceanStep", "Ocean step"));
+            RegisterSpell(new OceanGateSpell("OceanGate", "Ocean gate"));
             RegisterSpell(new BaseJumpSpell("BaseJump", "Base jump"));
             RegisterSpell(new DemonGateSpell("DemonGate", "Demon gate"));
 

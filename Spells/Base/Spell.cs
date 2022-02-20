@@ -4,10 +4,12 @@ using Spellwright.Spells.Base;
 using Spellwright.Spells.SpellExtraData;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace Spellwright.Spells
 {
@@ -99,10 +101,50 @@ namespace Spellwright.Spells
             throw new NotImplementedException();
         }
 
-        public virtual bool ProcessExtraData(SpellStructure spellStructure, out SpellData spellData)
+        public virtual bool ProcessExtraData(SpellStructure structure, out object extraData)
         {
-            spellData = new SpellData(spellStructure);
+            extraData = null;
             return true;
+        }
+
+
+        public TagCompound SerializeData(SpellData spellData)
+        {
+            var modifierIds = spellData.GetModifiers().Select(x => (int)x).ToList();
+            var extrasDataTag = new TagCompound();
+            SerializeExtraData(extrasDataTag, spellData.ExtraData);
+
+            var tag = new TagCompound();
+            tag.Add("SpellName", InternalName);
+            tag.Add("Argument", spellData.Argument);
+            tag.Add("ModifierList", modifierIds);
+            tag.Add("ExtraData", extrasDataTag);
+            return tag;
+        }
+
+        public SpellData DeserializeData(TagCompound tag)
+        {
+            var dataSpellName = tag.GetString("SpellName");
+            var argument = tag.GetString("Argument");
+            var modifierIds = tag.GetList<int>("ModifierList");
+            var extraDataTag = tag.GetCompound("ExtraData");
+
+            var modifiers = modifierIds.Select(x => (SpellModifier)x);
+
+            object extraSpellData = null;
+            if (dataSpellName == InternalName)
+                extraSpellData = DeserializeExtraData(extraDataTag);
+
+            return new SpellData(modifiers, argument, extraSpellData);
+        }
+
+        public virtual void SerializeExtraData(TagCompound tag, object extraData)
+        {
+        }
+
+        public virtual object DeserializeExtraData(TagCompound tag)
+        {
+            return null;
         }
     }
 }

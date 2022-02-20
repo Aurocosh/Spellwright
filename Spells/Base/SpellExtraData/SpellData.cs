@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Spellwright.Spells.SpellExtraData
 {
     internal class SpellData
     {
         private readonly HashSet<SpellModifier> spellModifiers;
-        private readonly List<SpellModifier> spellModifiersList;
         public string Argument { get; }
+        public object ExtraData { get; }
+
+        public T GetExtraData<T>() where T : class => ExtraData as T;
 
         public bool HasModifier(SpellModifier spellModifier) => spellModifiers.Contains(spellModifier);
-        public IReadOnlyList<SpellModifier> GetModifiers() => spellModifiersList;
+        public IReadOnlyList<SpellModifier> GetModifiers() => spellModifiers.ToList();
 
-        public SpellData(SpellStructure spellStructure)
+        public SpellData(IEnumerable<SpellModifier> spellModifiers, string argument, object extraSpellData)
         {
-            spellModifiers = spellStructure.SpellModifiers;
-            spellModifiersList = new List<SpellModifier>(spellModifiers);
-            Argument = spellStructure.Argument;
+            this.spellModifiers = new HashSet<SpellModifier>(spellModifiers);
+            Argument = argument;
+            ExtraData = extraSpellData;
         }
     }
 }

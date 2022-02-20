@@ -2,12 +2,13 @@
 using Spellwright.Spells.SpellExtraData;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ModLoader.IO;
 
 namespace Spellwright.Spells.WarpSpells
 {
-    internal class OceanStepSpell : TeleportationSpell
+    internal class OceanGateSpell : TeleportationSpell
     {
-        public OceanStepSpell(string name, string incantation) : base(name, incantation)
+        public OceanGateSpell(string name, string incantation) : base(name, incantation)
         {
         }
 
@@ -16,7 +17,7 @@ namespace Spellwright.Spells.WarpSpells
             bool isOnLeftSide = player.position.X / 16f < Main.maxTilesX / 2;
 
             int teleportDestination = 0;
-            if (spellData is OceanStepData oceanStepData)
+            if (spellData.ExtraData is OceanGateData oceanStepData)
                 teleportDestination = oceanStepData.TeleportDestination;
 
             bool teleportToRightSide;
@@ -44,7 +45,7 @@ namespace Spellwright.Spells.WarpSpells
             return true;
         }
 
-        public override bool ProcessExtraData(SpellStructure structure, out SpellData spellData)
+        public override bool ProcessExtraData(SpellStructure structure, out object extraData)
         {
             int teleportDestination = 0;
             if (structure.Argument.Length > 0)
@@ -60,21 +61,33 @@ namespace Spellwright.Spells.WarpSpells
                 }
                 else
                 {
-                    spellData = null;
+                    extraData = null;
                     return false;
                 }
             }
 
-            spellData = new OceanStepData(structure, teleportDestination);
+            extraData = new OceanGateData(teleportDestination);
             return true;
+        }
+
+        public override void SerializeExtraData(TagCompound tag, object extraData)
+        {
+            if (extraData is OceanGateData oceanGateData)
+                tag.Add("TeleportDestination", oceanGateData.TeleportDestination);
+        }
+
+        public override object DeserializeExtraData(TagCompound tag)
+        {
+            int teleportDestination = tag.GetInt("TeleportDestination");
+            return new OceanGateData(teleportDestination);
         }
     }
 
-    internal sealed class OceanStepData : SpellData
+    internal class OceanGateData
     {
         public int TeleportDestination { get; } // 0 - not set, 1 - left, 2 - right
 
-        public OceanStepData(SpellStructure structure, int teleportDestination) : base(structure)
+        public OceanGateData(int teleportDestination)
         {
             TeleportDestination = teleportDestination;
         }
