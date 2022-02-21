@@ -1,7 +1,8 @@
+using Microsoft.Xna.Framework;
 using Spellwright.Core;
-using Spellwright.Menus;
 using Spellwright.Spells;
 using Spellwright.UI.Components;
+using Spellwright.UI.States;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +11,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.UI;
 using Terraria.Utilities;
 
 namespace Spellwright
@@ -22,8 +24,10 @@ namespace Spellwright
         internal static Spellwright instance;
         internal static Dictionary<string, ModTranslation> translations;
 
-        internal SpellInput spellInput;
+        internal SpellInputUiState spellInputState;
         internal SpellLibrary spellLibrary;
+
+        internal UserInterface userInterface;
 
         public Spellwright()
         {
@@ -45,6 +49,14 @@ namespace Spellwright
             FieldInfo translationsField = typeof(LocalizationLoader).GetField("translations", BindingFlags.Static | BindingFlags.NonPublic);
             translations = (Dictionary<string, ModTranslation>)translationsField.GetValue(this);
             spellLibrary = new SpellLibrary();
+
+            spellInputState = new SpellInputUiState();
+
+            userInterface = new UserInterface();
+            userInterface.IsVisible = true;
+            userInterface.SetState(spellInputState);
+
+            spellInputState.Deactivate();
         }
 
         public override void Unload()
@@ -52,10 +64,18 @@ namespace Spellwright
             instance = null;
 
             UITextBox.textboxBackground = null;
-            spellInput = null;
+            spellInputState = null;
+            userInterface = null;
             spellLibrary = null;
             OpenIncantationUIHotKey = null;
             CastCantripHotKey = null;
+        }
+
+
+
+        public void UpdateUI(GameTime gameTime)
+        {
+            userInterface?.Update(gameTime);
         }
 
         internal static string GetTranslation(string category, string key)
@@ -75,16 +95,16 @@ namespace Spellwright
 
         public override void AddRecipeGroups()
         {
-            if (!Main.dedServ)
-                try
-                {
-                    spellInput = new SpellInput();
-                    spellInput.Visible = false;
-                }
-                catch (Exception e)
-                {
-                    Logger.Error(e.ToString());
-                }
+            //if (!Main.dedServ)
+            //    try
+            //    {
+            //        spellInputState = new SpellInput();
+            //        spellInputState.Visible = false;
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Logger.Error(e.ToString());
+            //    }
         }
 
         public override object Call(params object[] args)

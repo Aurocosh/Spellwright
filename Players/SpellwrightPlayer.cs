@@ -31,9 +31,7 @@ namespace Spellwright.Players
 
         public override void Initialize()
         {
-
         }
-
         public override void SaveData(TagCompound tag)
         {
             tag.Add("PlayerLevel", PlayerLevel);
@@ -82,7 +80,7 @@ namespace Spellwright.Players
 
             if (Spellwright.OpenIncantationUIHotKey.JustPressed)
             {
-                Spellwright.instance.spellInput.Show();
+                Spellwright.instance.spellInputState.Activate();
             }
             else if (Spellwright.CastCantripHotKey.Current && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
             {

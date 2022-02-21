@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria.GameContent;
+using Terraria.UI;
 
 namespace Spellwright.UI.Components
 {
@@ -12,10 +13,7 @@ namespace Spellwright.UI.Components
 
         public string Text
         {
-            get
-            {
-                return text;
-            }
+            get => text;
             set
             {
                 text = value;
@@ -39,36 +37,32 @@ namespace Spellwright.UI.Components
             if (Text != null)
             {
                 Vector2 vector = Font.MeasureString(Text);
-                width = vector.X;
-                height = vector.Y;
+                Width = new StyleDimension(vector.X, 0);
+                Height = new StyleDimension(vector.Y, 0);
             }
             else
             {
-                width = 0f;
-                height = 0f;
+                Width = new StyleDimension(0, 0);
+                Height = new StyleDimension(0, 0);
             }
         }
 
-        public override float Width
-        {
-            get { return width * Scale; }
-        }
+        //public override float Height
+        //{
+        //    get
+        //    {
+        //        if (height == 0f)
+        //            return Font.MeasureString("Y").Y * Scale;
+        //        return height * Scale;
+        //    }
+        //}
 
-        public override float Height
+        protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            get
-            {
-                if (height == 0f)
-                    return Font.MeasureString("Y").Y * Scale;
-                return height * Scale;
-            }
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
+            CalculatedStyle dimensions = GetDimensions();
+            var position = new Vector2(dimensions.X, dimensions.Y);
             if (Text != null)
-                spriteBatch.DrawString(Font, Text, AbsolutePosition, ForegroundColor, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
-            base.Draw(spriteBatch);
+                spriteBatch.DrawString(Font, Text, position, ForegroundColor, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
         }
     }
 }

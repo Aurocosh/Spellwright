@@ -155,7 +155,9 @@ namespace Spellwright.Items
 
         public override bool AltFunctionUse(Player player)
         {
-            Spellwright.instance.spellInput.Show();
+            Spellwright.instance.spellInputState.Activate();
+            //Spellwright.instance.userInterface.IsVisible = false;
+            //Spellwright.instance.userInterface.Use();
             return false;
         }
 

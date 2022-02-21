@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.UI;
 
 namespace Spellwright.UI.Components
 {
@@ -8,16 +9,16 @@ namespace Spellwright.UI.Components
     {
         public UIPanel()
         {
-            width = 600f;
-            height = 400f;
+            Width = new StyleDimension(600, 0);
+            Height = new StyleDimension(400, 0);
+
             BackgroundColor = new Color(33, 15, 91, 255) * 0.685f;
         }
-
-        public override void Draw(SpriteBatch spriteBatch)
+        protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            if (Visible)
-                Utils.DrawInvBG(spriteBatch, AbsolutePosition.X, AbsolutePosition.Y, Width, Height, BackgroundColor);
-            base.Draw(spriteBatch);
+            CalculatedStyle dimensions = GetDimensions();
+            var point = new Point((int)dimensions.X, (int)dimensions.Y);
+            Utils.DrawInvBG(spriteBatch, point.X, point.Y, dimensions.Width, dimensions.Height, BackgroundColor);
         }
     }
 }

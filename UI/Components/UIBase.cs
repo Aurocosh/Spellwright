@@ -1,31 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria;
+using Terraria.UI;
 
 namespace Spellwright.UI.Components
 {
-    internal class UIBase
+    internal class UIBase : UIElement
     {
-        protected float width;
-        protected float height;
-
-        private readonly List<UIBase> children = new();
-
-        public UIBase Parent { get; set; }
-        public Vector2 Position { get; set; } = Vector2.Zero;
-        public Vector2 AbsolutePosition => Parent != null ? Parent.AbsolutePosition + Position : Position;
-
-        public virtual float Width
-        {
-            get { return width; }
-            set { width = value; }
-        }
-        public virtual float Height
-        {
-            get { return height; }
-            set { height = value; }
-        }
+        protected bool IsActive { get; set; }
 
         public Color ForegroundColor { get; set; } = Color.White;
         public Color BackgroundColor { get; set; } = Color.White;
@@ -34,43 +15,33 @@ namespace Spellwright.UI.Components
         public float Opacity { get; set; } = 1f;
         public bool Visible { get; set; } = true;
 
-        public virtual void Update()
-        {
-        }
-
         public UIBase()
         {
         }
 
-        public void CenterToParent()
+        public override void Update(GameTime gameTime)
         {
-            var pos = Parent != null ? new Vector2(Width, Height) : new Vector2(Main.screenWidth, Main.screenHeight);
-            pos.X = (pos.X - Width) / 2f;
-            pos.Y = (pos.Y - Height) / 2f;
-            Position = pos;
+            base.Update(gameTime);
+            Update();
+        }
+        public virtual void Update()
+        {
         }
 
-        public virtual void AddChild(UIBase view)
+        public override void OnActivate()
         {
-            view.Parent = this;
-            children.Add(view);
+            IsActive = true;
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public override void OnDeactivate()
         {
-            if (!Visible)
-                return;
-
-            int childCount = children.Count;
-            for (int i = 0; i < childCount; i++)
-            {
-                if (childCount != children.Count)
-                    return;
-                UIBase uIView = children[i];
-                if (uIView.Visible)
-                    uIView.Draw(spriteBatch);
-            }
+            IsActive = false;
         }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (IsActive && Visible)
+                base.Draw(spriteBatch);
+        }
     }
 }

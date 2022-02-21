@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -20,19 +21,20 @@ namespace Spellwright.UI
                     "Spellwright: Spell input",
                     delegate
                     {
-                        DrawUpdateAll(Main.spriteBatch);
+                        SpriteBatch spriteBatch = Main.spriteBatch;
+                        Spellwright.instance.userInterface?.Draw(spriteBatch, new GameTime());
+
+                        spriteBatch.End();
+                        spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, Main.UIScaleMatrix);
                         return true;
                     },
                     InterfaceScaleType.UI)
                 );
         }
-        private static void DrawUpdateAll(SpriteBatch spriteBatch)
-        {
-            Spellwright.instance.spellInput.Draw(spriteBatch);
-            Spellwright.instance.spellInput.Update();
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, Main.UIScaleMatrix);
+        public override void UpdateUI(GameTime gameTime)
+        {
+            Spellwright.instance.userInterface?.Update(gameTime);
         }
     }
 }

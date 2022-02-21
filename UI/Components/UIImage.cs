@@ -2,14 +2,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
+using Terraria.UI;
 
 namespace Spellwright.UI.Components
 {
     internal class UIImage : UIBase
     {
         private Rectangle? boundingRectangle = null;
+        private Asset<Texture2D> imageTexture = null;
         private SpriteEffects SpriteEffect { get; set; }
-        private Asset<Texture2D> ImageTexture { get; set; }
 
         public UIImage()
         {
@@ -17,6 +18,15 @@ namespace Spellwright.UI.Components
         public UIImage(Asset<Texture2D> texture)
         {
             ImageTexture = texture;
+        }
+        private Asset<Texture2D> ImageTexture
+        {
+            get => imageTexture;
+            set
+            {
+                imageTexture = value;
+                UpdateDimensions();
+            }
         }
 
         public Rectangle SourceRectangle
@@ -30,38 +40,34 @@ namespace Spellwright.UI.Components
             set
             {
                 boundingRectangle = new Rectangle?(value);
+                UpdateDimensions();
             }
         }
 
-        public override float Width
+        private void UpdateDimensions()
         {
-            get
-            {
-                if (boundingRectangle.HasValue)
-                    return boundingRectangle.Value.Width * Scale;
-                return ImageTexture.Width() * Scale;
-            }
+            float width;
+            if (boundingRectangle.HasValue)
+                width = boundingRectangle.Value.Width * Scale;
+            else
+                width = ImageTexture.Width() * Scale;
+            Width = new StyleDimension(width, 0);
+
+            float height;
+            if (boundingRectangle.HasValue)
+                height = boundingRectangle.Value.Height * Scale;
+            else
+                height = ImageTexture.Height() * Scale;
+            Height = new StyleDimension(height, 0);
         }
 
-        public override float Height
+        protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            get
-            {
-                if (boundingRectangle.HasValue)
-                    return boundingRectangle.Value.Height * Scale;
-                return ImageTexture.Height() * Scale;
-            }
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            if (Visible)
-            {
-                Texture2D texture = ImageTexture.Value;
-                if (texture != null)
-                    spriteBatch.Draw(texture, AbsolutePosition, boundingRectangle, ForegroundColor * Opacity, 0f, Vector2.Zero, Scale, SpriteEffect, 0f);
-            }
-            base.Draw(spriteBatch);
+            CalculatedStyle dimensions = GetDimensions();
+            var position = new Vector2(dimensions.X, dimensions.Y);
+            Texture2D texture = ImageTexture.Value;
+            if (texture != null)
+                spriteBatch.Draw(texture, position, boundingRectangle, ForegroundColor * Opacity, 0f, Vector2.Zero, Scale, SpriteEffect, 0f);
         }
     }
 }

@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using Terraria;
+using Terraria.UI;
 
 namespace Spellwright.UI.Components
 {
     internal class UITextBox : UIBase
     {
-        private RasterizerState _rasterizerState = new() { ScissorTestEnable = true };
         internal static Asset<Texture2D> textboxBackground;
         private static Texture2D textboxFill;
 
@@ -36,12 +36,12 @@ namespace Spellwright.UI.Components
         private static float blinkTime = 1f;
         private static float timer = 0f;
 
-        public delegate void KeyPressedHandler(object sender, char key);
+        public delegate void TextChangeHandler(object sender, string text);
 
         public event EventHandler OnTabPressed;
         public event EventHandler OnEscPressed;
         public event EventHandler OnEnterPresseed;
-        public event KeyPressedHandler OnKeyPressed;
+        public event TextChangeHandler OnKeyPressed;
 
         private bool drawCarrot = true;
         private UILabel label = new UILabel();
@@ -55,11 +55,14 @@ namespace Spellwright.UI.Components
             textboxBackground = Spellwright.instance.Assets.Request<Texture2D>("UI/Components/TextboxEdge", AssetRequestMode.ImmediateLoad);
 
             label.ForegroundColor = Color.Black;
-            label.Scale = Height / label.Height;
-            label.Position = new Vector2(4, 4);
-            AddChild(label);
+            label.Scale = 0.4f;
+            label.Left = new StyleDimension(4, 0);
+            label.Top = new StyleDimension(4, 0);
+            Append(label);
 
-            width = 400;
+            var sdf = textboxBackground.Height();
+            Height = new StyleDimension(sdf, 0);
+            Width = new StyleDimension(400, 0);
         }
 
         public void Focus()
@@ -82,18 +85,6 @@ namespace Spellwright.UI.Components
             }
         }
 
-        public override float Width
-        {
-            get { return width; }
-            //set { width = value; }
-        }
-
-        public override float Height
-        {
-            get { return textboxBackground.Height(); }
-            //set { height = value; }
-        }
-
         public override void Update()
         {
             base.Update();
@@ -108,10 +99,19 @@ namespace Spellwright.UI.Components
                 if (timer >= blinkTime)
                     timer = 0;
             }
+            CalculatedStyle dimensions = GetDimensions();
+            CalculatedStyle labelDimensions = label.GetDimensions();
+
+            label.Scale = dimensions.Height / labelDimensions.Height;
+            label.Scale *= 0.4f;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        protected override void DrawSelf(SpriteBatch spriteBatch)
         {
+            CalculatedStyle dimensions = GetDimensions();
+            var point = new Point((int)dimensions.X, (int)dimensions.Y);
+            var position = new Vector2(dimensions.X, dimensions.Y);
+
             if (focused)
             {
                 Terraria.GameInput.PlayerInput.WritingText = true;
@@ -119,7 +119,7 @@ namespace Spellwright.UI.Components
                 string oldText = Text;
                 Text = Main.GetInputText(Text);
                 if (oldText != Text)
-                    OnKeyPressed?.Invoke(this, ' ');
+                    OnKeyPressed?.Invoke(this, Text);
                 if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Tab))
                     OnTabPressed?.Invoke(this, new EventArgs());
                 if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
@@ -131,9 +131,9 @@ namespace Spellwright.UI.Components
                 Main.instance.DrawWindowsIMEPanel(new Vector2(98f, Main.screenHeight - 36), 0f);
             }
 
-            spriteBatch.Draw(textboxBackground.Value, AbsolutePosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            int fillWidth = (int)Width - 2 * textboxBackground.Width();
-            Vector2 pos = AbsolutePosition;
+            spriteBatch.Draw(textboxBackground.Value, position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            int fillWidth = (int)dimensions.Width - 2 * textboxBackground.Width();
+            Vector2 pos = position;
             pos.X += textboxBackground.Width();
             if (TextboxFill != null)
                 spriteBatch.Draw(TextboxFill, pos, null, Color.White, 0f, Vector2.Zero, new Vector2(fillWidth, 1f), SpriteEffects.None, 0f);
@@ -143,40 +143,6 @@ namespace Spellwright.UI.Components
             if (drawCarrot && focused)
                 drawString += "|";
             label.Text = drawString;
-
-            pos = AbsolutePosition;
-
-            if (pos.X <= Main.screenWidth && pos.Y <= Main.screenHeight && pos.X + Width >= 0 && pos.Y + Height >= 0)
-            {
-                spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, _rasterizerState, null, Main.UIScaleMatrix);
-
-                var cutRect = new Rectangle((int)pos.X, (int)pos.Y, (int)Width, (int)Height);
-                cutRect = GetClippingRectangle(spriteBatch, cutRect);
-                Rectangle currentRect = spriteBatch.GraphicsDevice.ScissorRectangle;
-                spriteBatch.GraphicsDevice.ScissorRectangle = cutRect;
-
-                base.Draw(spriteBatch);
-
-                spriteBatch.GraphicsDevice.ScissorRectangle = currentRect;
-                spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, Main.UIScaleMatrix);
-            }
-        }
-        public static Rectangle GetClippingRectangle(SpriteBatch spriteBatch, Rectangle r)
-        {
-            var vector = new Vector2(r.X, r.Y);
-            Vector2 position = new Vector2(r.Width, r.Height) + vector;
-            vector = Vector2.Transform(vector, Main.UIScaleMatrix);
-            position = Vector2.Transform(position, Main.UIScaleMatrix);
-            var result = new Rectangle((int)vector.X, (int)vector.Y, (int)(position.X - vector.X), (int)(position.Y - vector.Y));
-            int width = spriteBatch.GraphicsDevice.Viewport.Width;
-            int height = spriteBatch.GraphicsDevice.Viewport.Height;
-            result.X = Utils.Clamp(result.X, 0, width);
-            result.Y = Utils.Clamp(result.Y, 0, height);
-            result.Width = Utils.Clamp(result.Width, 0, width - result.X);
-            result.Height = Utils.Clamp(result.Height, 0, height - result.Y);
-            return result;
         }
     }
 }

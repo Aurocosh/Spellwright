@@ -7,8 +7,9 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.UI;
 
-namespace Spellwright.Menus
+namespace Spellwright.UI
 {
     internal class SpellInput : UIPanel
     {
@@ -19,25 +20,42 @@ namespace Spellwright.Menus
         {
             previousTextLength = 0;
 
-            Width = 500f;
-            Height = 60f;
+            HAlign = .5f;
+            VAlign = .5f;
+
+            //Left = new StyleDimension(0, 0.5f);
+            //Top = new StyleDimension(0, 0.5f);
+
+            Width = new StyleDimension(500, 0);
+            Height = new StyleDimension(60, 0);
+
             BackgroundColor = new Color(60, 60, 60, 255) * 0.685f;
 
             textbox = new UITextBox();
-            textbox.Width = 450;
-            textbox.OnKeyPressed += new UITextBox.KeyPressedHandler(OnKeyPressed);
+            textbox.Width = new StyleDimension(450, 0);
+            textbox.OnKeyPressed += new UITextBox.TextChangeHandler(OnKeyPressed);
             textbox.OnEnterPresseed += new EventHandler(OnEnterPressed);
             textbox.OnEscPressed += new EventHandler(OnCancel);
             textbox.OnTabPressed += new EventHandler(OnCancel);
-            AddChild(textbox);
+            textbox.HAlign = .5f;
+            textbox.VAlign = .5f;
 
-            CenterToParent();
+            Append(textbox);
+
+            //CenterToParent();
         }
-
+        public override void OnActivate()
+        {
+            base.OnActivate();
+            Show();
+        }
+        public override void OnDeactivate()
+        {
+            base.OnDeactivate();
+            Hide();
+        }
         public void Show()
         {
-            if (Visible)
-                return;
             Visible = true;
             textbox.Focus();
         }
@@ -47,23 +65,40 @@ namespace Spellwright.Menus
             Visible = false;
             textbox.Unfocus();
             textbox.Text = "";
+            //Spellwright.instance.spellInputState.Deactivate();
+            //Spellwright.instance.userInterface.IsVisible = false;
         }
 
         public override void Update()
         {
-            float shiftX = (Width - textbox.Width) / 2f;
-            float shiftY = (Height - textbox.Height) / 2f;
-            textbox.Position = new Vector2(shiftX, shiftY);
 
-            CenterToParent();
+            //HAlign = .5f;
+            //VAlign = .5f;
+
+
+            //Left = new StyleDimension(0, 0.0f);
+            //Top = new StyleDimension(0, 0.0f);
+            //float shiftX = (ElementWidth - textbox.ElementWidth) / 2f;
+            //float shiftY = (ElementHeight - textbox.ElementHeight) / 2f;
+            //textbox.Position = new Vector2(shiftX, shiftY);
+
+            //CenterToParent();
 
             base.Update();
         }
 
-        private void OnKeyPressed(object sender, char key)
+
+
+        private void OnKeyPressed(object sender, string text)
         {
             if (textbox.Text.Length <= 0)
                 return;
+
+            if (textbox.Text.Length > 50)
+            {
+                textbox.Text = textbox.Text.Substring(0, 50);
+                return;
+            }
 
             bool characterIsAdded = textbox.Text.Length > previousTextLength;
             previousTextLength = textbox.Text.Length;
@@ -77,9 +112,6 @@ namespace Spellwright.Menus
                 //SpawnSparkles(ModContent.DustType<Sparkle>(), position, 5);
                 SoundEngine.PlaySound(SoundID.Item19, position);
             }
-
-            if (textbox.Text.Length > 50)
-                textbox.Text = textbox.Text.Substring(0, textbox.Text.Length - 1);
         }
 
         private static void SpawnSparkles(int dustType, Vector2 position, int dustCount)
@@ -146,7 +178,7 @@ namespace Spellwright.Menus
                 SoundEngine.PlaySound(SoundID.Item45, position);
             }
 
-            Hide();
+            Deactivate();
         }
 
         private void OnCancel(object sender, EventArgs e)
