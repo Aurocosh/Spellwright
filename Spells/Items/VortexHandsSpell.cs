@@ -2,7 +2,6 @@
 using Spellwright.Extensions;
 using Spellwright.Spells.Base;
 using Spellwright.Spells.SpellExtraData;
-using Spellwright.Util;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -51,9 +50,8 @@ namespace Spellwright.Spells.WarpSpells
         {
             for (int i = 0; i < dustCount; i++)
             {
-
-                Vector2 dustPosition = UtilVector2.GetPointOnRing(position, minRadius, maxRadius);
-                Vector2 velocity = UtilVector2.RandomVector(position, dustPosition, .1f, 2.5f);
+                Vector2 dustPosition = position + Main.rand.NextVector2CircularEdge(1, 1).ScaleRandom(minRadius, maxRadius);
+                Vector2 velocity = position.DirectionTo(dustPosition).ScaleRandom(.1f, 2.5f);
                 velocity = velocity.PerpendicularClockwise();
                 velocity *= direction;
 

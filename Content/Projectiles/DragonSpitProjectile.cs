@@ -37,8 +37,8 @@ namespace Spellwright.Content.Projectiles
         {
             var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, Projectile.velocity.X, Projectile.velocity.Y, 50, Color.Yellow, 1.2f);
             dust.noGravity = true;
-            int max = UtilRandom.NextInt(0, 3) == 1 ? 1 : 3;
-            dust.velocity = UtilVector2.RandomVector(max);
+            int max = Main.rand.Next(0, 3) == 1 ? 1 : 3;
+            dust.velocity = Main.rand.NextVector2Circular(1, 1) * max;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

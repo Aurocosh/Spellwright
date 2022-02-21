@@ -10,19 +10,19 @@ namespace Spellwright.Util
         {
             for (int i = 0; i < 4 * particleCoeff; i++)
             {
-                var dust = Dust.NewDustDirect(position, 0, 0, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
-                dust.position = position + UtilVector2.RandomVector(0, radius);
+                var dustPosition = position + Main.rand.NextVector2Circular(1, 1) * radius;
+                Dust.NewDust(dustPosition, 0, 0, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
             }
 
             for (int i = 0; i < 10 * particleCoeff; i++)
             {
-                var dust = Dust.NewDustDirect(position, 0, 0, dustType, 0f, 0f, 200, color, 2.7f);
-                dust.position = position + UtilVector2.RandomVector(0, radius);
+                var dustPosition = position + Main.rand.NextVector2Circular(1, 1) * radius;
+                var dust = Dust.NewDustDirect(dustPosition, 0, 0, dustType, 0f, 0f, 200, color, 2.7f);
                 dust.noGravity = true;
                 dust.velocity *= 3f;
 
-                var dust2 = Dust.NewDustDirect(position, 0, 0, dustType, 0f, 0f, 100, color, 1.5f);
-                dust2.position = position + UtilVector2.RandomVector(0, radius);
+                dustPosition = position + Main.rand.NextVector2Circular(1, 1) * radius;
+                var dust2 = Dust.NewDustDirect(dustPosition, 0, 0, dustType, 0f, 0f, 100, color, 1.5f);
                 dust2.noGravity = true;
                 dust2.velocity *= 2f;
                 dust2.fadeIn = 1.8f;
@@ -30,16 +30,16 @@ namespace Spellwright.Util
 
             for (int i = 0; i < 5 * particleCoeff; i++)
             {
-                var dust = Dust.NewDustDirect(position, 0, 0, dustType, 0f, 0f, 0, color, 2.7f);
-                dust.position = position + UtilVector2.RandomVector(radius).RotatedBy(projectileVelocity.ToRotation());
+                var dustPosition = position + Main.rand.NextVector2Circular(1, 1).RotatedBy(projectileVelocity.ToRotation()) * radius;
+                var dust = Dust.NewDustDirect(dustPosition, 0, 0, dustType, 0f, 0f, 0, color, 2.7f);
                 dust.noGravity = true;
                 dust.velocity *= 3f;
             }
 
             for (int i = 0; i < 10 * particleCoeff; i++)
             {
-                var dust = Dust.NewDustDirect(position, 0, 0, DustID.Smoke, 0f, 0f, 0, default, 1.5f);
-                dust.position = position + UtilVector2.RandomVector(radius).RotatedBy(projectileVelocity.ToRotation());
+                var dustPosition = position + Main.rand.NextVector2Circular(1, 1).RotatedBy(projectileVelocity.ToRotation()) * radius;
+                var dust = Dust.NewDustDirect(dustPosition, 0, 0, DustID.Smoke, 0f, 0f, 0, default, 1.5f);
                 dust.noGravity = true;
                 dust.velocity *= 3f;
             }

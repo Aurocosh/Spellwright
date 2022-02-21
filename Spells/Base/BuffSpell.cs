@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Extensions;
 using Spellwright.Spells.SpellExtraData;
-using Spellwright.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +26,8 @@ namespace Spellwright.Spells.Base
             Vector2 position = player.Center;
             for (int i = 0; i < 7; i++)
             {
-                Vector2 dustPosition = UtilVector2.GetPointOnRing(position, 10, 40);
-                Vector2 velocity = UtilVector2.RandomVector(position, dustPosition, .1f, 1.5f);
+                Vector2 dustPosition = position + Main.rand.NextVector2CircularEdge(1f, 1f).ScaleRandom(10, 40);
+                Vector2 velocity = position.DirectionTo(dustPosition).ScaleRandom(.1f, 1.5f);
 
                 var dust = Dust.NewDustDirect(dustPosition, 22, 22, DustID.TreasureSparkle, 0f, 0f, 100, default, 2.5f);
                 dust.velocity = velocity;
@@ -36,8 +36,8 @@ namespace Spellwright.Spells.Base
 
             for (int i = 0; i < 7; i++)
             {
-                Vector2 dustPosition = UtilVector2.GetPointOnRing(position, 10, 40);
-                Vector2 velocity = UtilVector2.RandomVector(.1f, .5f);
+                Vector2 dustPosition = position + Main.rand.NextVector2CircularEdge(1f, 1f).ScaleRandom(10, 40);
+                Vector2 velocity = position.DirectionTo(dustPosition).ScaleRandom(.1f, .5f);
 
                 var dust = Dust.NewDustDirect(dustPosition, 22, 22, DustID.TreasureSparkle, 0f, 0f, 100, default, 2.5f);
                 dust.velocity = velocity;

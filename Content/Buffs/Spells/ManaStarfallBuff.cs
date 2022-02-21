@@ -36,13 +36,13 @@ namespace Spellwright.Content.Buffs.Spells
                 rainPlayer.NextStarDelay--;
                 return;
             }
-            rainPlayer.NextStarDelay = UtilRandom.NextInt(minStarfallDelay, maxStarfallDelay);
+            rainPlayer.NextStarDelay = Main.rand.Next(minStarfallDelay, maxStarfallDelay);
 
             var center = player.Center;
-            var shiftY = UtilRandom.NextFloat(spawnMinHeight, spawnMaxHeight);
-            var shiftX = UtilRandom.NextFloat(-spawnRadius, spawnRadius);
+            var shiftY = Main.rand.NextFloat(spawnMinHeight, spawnMaxHeight);
+            var shiftX = Main.rand.NextFloat(-spawnRadius, spawnRadius);
             var velocity = Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(45));
-            var scale = UtilRandom.NextFloat(13f, 17f);
+            var scale = Main.rand.NextFloat(13f, 17f);
             velocity *= scale;
 
             var spawnPosition = center + new Vector2(shiftX, -shiftY);

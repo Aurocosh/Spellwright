@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Terraria;
 
 namespace Spellwright.Extensions
 {
@@ -20,6 +21,12 @@ namespace Spellwright.Extensions
             int y = (int)(vector2.Y / 16f);
 
             return new Point(x, y);
+        }
+        public static Vector2 ScaleRandom(this Vector2 vector, float minScale, float maxScale)
+        {
+            float scale = Main.rand.NextFloat(minScale, maxScale);
+            vector *= scale;
+            return vector;
         }
     }
 }

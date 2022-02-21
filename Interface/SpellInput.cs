@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
+using Spellwright.Extensions;
 using Spellwright.Spells;
 using Spellwright.Spells.Base;
 using Spellwright.UI.Components;
-using Spellwright.Util;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -86,8 +86,8 @@ namespace Spellwright.Menus
         {
             for (int i = 0; i < dustCount; i++)
             {
-                Vector2 dustPosition = UtilVector2.GetPointOnRing(position, 15, 300);
-                Vector2 velocity = UtilVector2.RandomVector(1, 5);
+                Vector2 dustPosition = position + Main.rand.NextVector2Unit().ScaleRandom(15, 300);
+                Vector2 velocity = Main.rand.NextVector2Unit().ScaleRandom(1, 5);
 
                 var dust = Dust.NewDustDirect(dustPosition, 22, 22, dustType, 0f, 0f, 100, default, 2.5f);
                 dust.velocity = velocity;
@@ -96,16 +96,16 @@ namespace Spellwright.Menus
         }
         private static void SpawnCircle(int dustType, Vector2 position, int dustCount, int minRadius, int maxRadius, int direction = 1)
         {
-            for (int i = 0; i < dustCount; i++)
-            {
-                Vector2 dustPosition = UtilVector2.GetPointOnRing(position, minRadius, maxRadius);
-                Vector2 velocity = UtilVector2.RandomVector(position, dustPosition, .1f, 2.5f, -60, 60);
-                velocity *= direction;
+            //for (int i = 0; i < dustCount; i++)
+            //{
+            //    Vector2 dustPosition = UtilVector2.GetPointOnRing(position, minRadius, maxRadius);
+            //    Vector2 velocity = UtilVector2.RandomVector(position, dustPosition, .1f, 2.5f, -60, 60);
+            //    velocity *= direction;
 
-                var dust = Dust.NewDustDirect(dustPosition, 22, 22, dustType, 0f, 0f, 100, default, 2.5f);
-                dust.velocity = velocity;
-                dust.noLightEmittence = true;
-            }
+            //    var dust = Dust.NewDustDirect(dustPosition, 22, 22, dustType, 0f, 0f, 100, default, 2.5f);
+            //    dust.velocity = velocity;
+            //    dust.noLightEmittence = true;
+            //}
         }
 
         private void OnEnterPressed(object sender, EventArgs e)

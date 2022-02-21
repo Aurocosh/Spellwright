@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -79,21 +80,20 @@ namespace Spellwright.Items
             return true;
         }
 
-        //public override void NetSend(BinaryWriter writer)
-        //{
-        //    int size = SpellIds.Count;
-        //    writer.Write(size);
-        //    for (int i = 0; i < size; i++)
-        //        writer.Write(SpellIds[i]);
-        //}
+        public override void NetSend(BinaryWriter writer)
+        {
+            writer.Write(LocationName);
+            writer.Write(BoundLocation.X);
+            writer.Write(BoundLocation.Y);
+        }
 
-        //public override void NetRecieve(BinaryReader reader)
-        //{
-        //    int size = reader.ReadInt32();
-        //    SpellIds = new List<int>(size);
-        //    for (int i = 0; i < size; i++)
-        //        SpellIds.Add(reader.ReadInt32());
-        //}
+        public override void NetReceive(BinaryReader reader)
+        {
+            LocationName = reader.ReadString();
+            float locationX = reader.ReadSingle();
+            float locationY = reader.ReadSingle();
+            BoundLocation = new Vector2(locationX, locationY);
+        }
 
         // UseStyle is called each frame that the item is being actively used.
         public override void UseStyle(Player player, Rectangle heldItemFrame)

@@ -23,7 +23,7 @@ namespace Spellwright.Content.Buffs.Spells
 
             if (playerLevel >= 3)
             {
-                maxSpeedMult = 1.3f;
+                maxSpeedMult = 1.2f;
             }
             if (playerLevel >= 5)
             {
@@ -37,7 +37,7 @@ namespace Spellwright.Content.Buffs.Spells
             }
             if (playerLevel >= 9)
             {
-                maxSpeedMult *= 1.5f;
+                maxSpeedMult *= 1.4f;
                 Player.jumpHeight += 15;
                 player.jumpSpeedBoost += 2.4f;
                 player.extraFall += 10;
