@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using Spellwright.Core;
-using Spellwright.Spells;
+using Spellwright.Core.Spells;
+using Spellwright.Network;
 using Spellwright.UI.Components;
 using Spellwright.UI.States;
 using System;
@@ -25,7 +25,6 @@ namespace Spellwright
         internal static Dictionary<string, ModTranslation> translations;
 
         internal SpellInputUiState spellInputState;
-        internal SpellLibrary spellLibrary;
 
         internal UserInterface userInterface;
 
@@ -48,7 +47,6 @@ namespace Spellwright
 
             FieldInfo translationsField = typeof(LocalizationLoader).GetField("translations", BindingFlags.Static | BindingFlags.NonPublic);
             translations = (Dictionary<string, ModTranslation>)translationsField.GetValue(this);
-            spellLibrary = new SpellLibrary();
 
             spellInputState = new SpellInputUiState();
 
@@ -66,17 +64,18 @@ namespace Spellwright
             UITextBox.textboxBackground = null;
             spellInputState = null;
             userInterface = null;
-            spellLibrary = null;
             OpenIncantationUIHotKey = null;
             CastCantripHotKey = null;
+
+            SpellLoader.Unload();
         }
-
-
 
         public void UpdateUI(GameTime gameTime)
         {
             userInterface?.Update(gameTime);
         }
+        internal static string GetTranslationKey(string category, string name) => $"Mods.Spellwright.{category}.{name}";
+        internal static string GetTranslationKey(string category, string subcategory, string name) => $"Mods.Spellwright.{category}.{subcategory}.{name}";
 
         internal static string GetTranslation(string category, string key)
         {

@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
+using Spellwright.Content.Spells;
+using Spellwright.Content.Spells.Base;
 using Spellwright.Extensions;
-using Spellwright.Spells;
-using Spellwright.Spells.Base;
 using Spellwright.UI.Components;
 using System;
 using Terraria;
@@ -23,9 +23,6 @@ namespace Spellwright.UI
             HAlign = .5f;
             VAlign = .5f;
 
-            //Left = new StyleDimension(0, 0.5f);
-            //Top = new StyleDimension(0, 0.5f);
-
             Width = new StyleDimension(500, 0);
             Height = new StyleDimension(60, 0);
 
@@ -41,8 +38,6 @@ namespace Spellwright.UI
             textbox.VAlign = .5f;
 
             Append(textbox);
-
-            //CenterToParent();
         }
         public override void OnActivate()
         {
@@ -65,29 +60,7 @@ namespace Spellwright.UI
             Visible = false;
             textbox.Unfocus();
             textbox.Text = "";
-            //Spellwright.instance.spellInputState.Deactivate();
-            //Spellwright.instance.userInterface.IsVisible = false;
         }
-
-        public override void Update()
-        {
-
-            //HAlign = .5f;
-            //VAlign = .5f;
-
-
-            //Left = new StyleDimension(0, 0.0f);
-            //Top = new StyleDimension(0, 0.0f);
-            //float shiftX = (ElementWidth - textbox.ElementWidth) / 2f;
-            //float shiftY = (ElementHeight - textbox.ElementHeight) / 2f;
-            //textbox.Position = new Vector2(shiftX, shiftY);
-
-            //CenterToParent();
-
-            base.Update();
-        }
-
-
 
         private void OnKeyPressed(object sender, string text)
         {
@@ -104,12 +77,9 @@ namespace Spellwright.UI
             previousTextLength = textbox.Text.Length;
             if (characterIsAdded)
             {
-                Vector2 position = Main.LocalPlayer.position;
-                //SpawnSparkles(DustID.BoneTorch, position, 5);
-                //SpawnSparkles(DustID.GoldFlame, position, 5);
+                Vector2 position = Main.LocalPlayer.Center;
                 //SpawnSparkles(DustID.Firefly, position, 5);
                 SpawnSparkles(DustID.SilverCoin, position, 5);
-                //SpawnSparkles(ModContent.DustType<Sparkle>(), position, 5);
                 SoundEngine.PlaySound(SoundID.Item19, position);
             }
         }

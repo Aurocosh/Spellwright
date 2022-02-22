@@ -1,4 +1,4 @@
-﻿using Spellwright.Players;
+﻿using Spellwright.Common.Players;
 using Terraria;
 using Terraria.ModLoader;
 

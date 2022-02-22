@@ -17,7 +17,7 @@ namespace Spellwright.Content.Dusts
         { // Calls every frame the dust is active
             dust.position += dust.velocity;
             dust.rotation += dust.velocity.X * 0.15f;
-            dust.scale *= 0.99f;
+            dust.scale *= 0.95f;
 
             //float light = 0.35f * dust.scale;
 

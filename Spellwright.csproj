@@ -12,7 +12,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Dusts\" />
-    <Folder Include="Interface\" />
-    <Folder Include="Spells\Base\Types\" />
   </ItemGroup>
 </Project>

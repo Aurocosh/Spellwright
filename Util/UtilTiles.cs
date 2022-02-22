@@ -1,4 +1,4 @@
-﻿using Spellwright.Constants;
+﻿using Spellwright.Lib.Constants;
 using Terraria;
 using Terraria.ID;
 
