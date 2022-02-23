@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Spellwright.Network
+namespace Spellwright.Network.Base
 {
     internal abstract class ServerPacketHandler<T> : GenericPacketHandler<T>
     {

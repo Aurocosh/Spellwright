@@ -1,7 +1,8 @@
-﻿using Terraria;
+﻿using Spellwright.Network.Base;
+using Terraria;
 using static Spellwright.Content.Buffs.Spells.ReactiveArmorBuff;
 
-namespace Spellwright.Network
+namespace Spellwright.Network.Handlers
 {
     internal class ReactiveArmorDefenseHandler : IntSyncPacketHandler
     {

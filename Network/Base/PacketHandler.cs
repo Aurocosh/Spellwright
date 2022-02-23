@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spellwright.Network
+namespace Spellwright.Network.Base
 {
     internal abstract class PacketHandler
     {

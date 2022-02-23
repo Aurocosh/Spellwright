@@ -1,4 +1,5 @@
 ﻿using Spellwright.Data;
+using Spellwright.Network.Base;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;

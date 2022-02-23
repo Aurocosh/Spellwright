@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Spellwright.Network
+namespace Spellwright.Network.Base
 {
     internal abstract class GenericPacketHandler<T> : PacketHandler
     {

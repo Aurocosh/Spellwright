@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Data;
-using Spellwright.Extensions;
+using Spellwright.DustSpawners;
 using Spellwright.Network;
+using Spellwright.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,28 +26,21 @@ namespace Spellwright.Content.Spells.Base.Types
             AddApplicableModifier(SpellModifier.IsAoe);
         }
 
-        protected virtual void DoExtraActions(Player player, int playerLevel)
+        protected virtual void DoExtraActions(IEnumerable<Player> affectedPlayers, int playerLevel)
         {
-            Vector2 position = player.Center;
-            for (int i = 0; i < 7; i++)
+            var spawner = new AoeCastDustSpawner
             {
-                Vector2 dustPosition = position + Main.rand.NextVector2CircularEdge(1f, 1f).ScaleRandom(10, 40);
-                Vector2 velocity = position.DirectionTo(dustPosition).ScaleRandom(.1f, 1.5f);
+                Caster = Main.LocalPlayer,
+                AffectedPlayers = affectedPlayers.ToArray(),
+                DustType = DustID.TreasureSparkle,
+                EffectRadius = (byte)range,
+                RingDustCount = 60,
+                EffectDustCount = 14
+            };
 
-                var dust = Dust.NewDustDirect(dustPosition, 22, 22, DustID.TreasureSparkle, 0f, 0f, 100, default, 2.5f);
-                dust.velocity = velocity;
-                dust.noLightEmittence = true;
-            }
-
-            for (int i = 0; i < 7; i++)
-            {
-                Vector2 dustPosition = position + Main.rand.NextVector2CircularEdge(1f, 1f).ScaleRandom(10, 40);
-                Vector2 velocity = position.DirectionTo(dustPosition).ScaleRandom(.1f, .5f);
-
-                var dust = Dust.NewDustDirect(dustPosition, 22, 22, DustID.TreasureSparkle, 0f, 0f, 100, default, 2.5f);
-                dust.velocity = velocity;
-                dust.noLightEmittence = true;
-            }
+            spawner.Spawn();
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                ModNetHandler.aoeCastDustHandler.Send(spawner);
         }
 
         protected void AddEffect(int effectId, Func<int, int> durationGetter)
@@ -67,9 +61,10 @@ namespace Spellwright.Content.Spells.Base.Types
             foreach (BuffSpellEffect effect in effects)
             {
                 int duration = effect.durationGetter.Invoke(playerLevel);
-                DoExtraActions(player, playerLevel);
                 player.AddBuff(effect.effectId, duration);
             }
+            var affectedPlayers = UtilList.Singleton(player);
+            DoExtraActions(affectedPlayers, playerLevel);
 
             return true;
         }
@@ -92,7 +87,7 @@ namespace Spellwright.Content.Spells.Base.Types
                 float distanceSquared = Vector2.DistanceSquared(otherPlayer.Center, castPosition);
                 return distanceSquared <= radiusSquared;
             }
-            var playersAffected = Main.player.Where(IsAffected);
+            var affectedPlayers = Main.player.Where(IsAffected);
 
             var buffDatas = new BuffData[effects.Count];
             for (int i = 0; i < effects.Count; i++)
@@ -104,7 +99,7 @@ namespace Spellwright.Content.Spells.Base.Types
             }
 
             int myPlayer = player.whoAmI;
-            foreach (var affectedPlayer in playersAffected)
+            foreach (var affectedPlayer in affectedPlayers)
             {
                 int playerId = affectedPlayer.whoAmI;
                 string playerName = affectedPlayer.name;
@@ -118,9 +113,8 @@ namespace Spellwright.Content.Spells.Base.Types
                     foreach (var buffData in buffDatas)
                         affectedPlayer.AddBuff(buffData.Type, buffData.Duration);
                 }
-
-                DoExtraActions(affectedPlayer, playerLevel);
             }
+            DoExtraActions(affectedPlayers, playerLevel);
 
             return true;
         }

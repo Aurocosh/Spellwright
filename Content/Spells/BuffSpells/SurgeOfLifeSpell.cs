@@ -3,6 +3,7 @@ using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -18,12 +19,16 @@ namespace Spellwright.Content.Spells.BuffSpells
             reagentType = ModContent.ItemType<RareSpellReagent>();
             SetExtraReagentCost(SpellModifier.IsAoe, 1);
         }
-        protected override void DoExtraActions(Player player, int playerLevel)
+        protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {
-            base.DoExtraActions(player, playerLevel);
+            base.DoExtraActions(players, playerLevel);
+
             int regenRate = 2 + playerLevel;
-            var surgeOfLifePlayer = player.GetModPlayer<SurgeOfLifePlayer>();
-            surgeOfLifePlayer.LifeRegenValue = regenRate;
+            foreach (var player in players)
+            {
+                var surgeOfLifePlayer = player.GetModPlayer<SurgeOfLifePlayer>();
+                surgeOfLifePlayer.LifeRegenValue = regenRate;
+            }
         }
     }
 }

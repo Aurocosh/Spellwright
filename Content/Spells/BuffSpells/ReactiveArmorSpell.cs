@@ -3,6 +3,7 @@ using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using static Spellwright.Content.Buffs.Spells.ReactiveArmorBuff;
@@ -20,12 +21,17 @@ namespace Spellwright.Content.Spells.BuffSpells
             reagentUseCost = 1;
             SetExtraReagentCost(SpellModifier.IsAoe, 8);
         }
-        protected override void DoExtraActions(Player player, int playerLevel)
+        protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {
-            base.DoExtraActions(player, playerLevel);
-            var reactiveArmorPlayer = player.GetModPlayer<ReactiveArmorPlayer>();
-            reactiveArmorPlayer.BonusDefense = 0;
-            reactiveArmorPlayer.MaxBonusDefense = 4 + 2 * playerLevel;
+            base.DoExtraActions(players, playerLevel);
+
+            int maxBonusDefense = 4 + 2 * playerLevel;
+            foreach (Player player in players)
+            {
+                var reactiveArmorPlayer = player.GetModPlayer<ReactiveArmorPlayer>();
+                reactiveArmorPlayer.BonusDefense = 0;
+                reactiveArmorPlayer.MaxBonusDefense = maxBonusDefense;
+            }
         }
     }
 }

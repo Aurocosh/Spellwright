@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spellwright.Network
+namespace Spellwright.Network.Base
 {
     internal abstract class RoutedPacketHandler<T> : GenericPacketHandler<T>
     {
@@ -13,13 +13,9 @@ namespace Spellwright.Network
             int toWho = reader.ReadInt32();
             T data = ReadData(reader);
             if (Main.netMode == NetmodeID.MultiplayerClient && toWho == Main.myPlayer)
-            {
                 HandleData(data, fromWho, fromServer);
-            }
             if (Main.netMode == NetmodeID.Server)
-            {
                 Send(toWho, fromWho, data);
-            }
         }
 
         public override void Send(int toWho, int fromWho, T data)

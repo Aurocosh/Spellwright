@@ -1,7 +1,8 @@
 ﻿using Spellwright.Common.Players;
+using Spellwright.Network.Base;
 using Terraria;
 
-namespace Spellwright.Network
+namespace Spellwright.Network.Handlers
 {
     internal class PlayerLevelHandler : IntSyncPacketHandler
     {

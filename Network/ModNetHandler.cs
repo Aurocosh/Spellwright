@@ -1,4 +1,6 @@
-﻿using Spellwright.Network.Handlers;
+﻿using Spellwright.Network.Base;
+using Spellwright.Network.Dusts;
+using Spellwright.Network.Handlers;
 using System.Collections.Generic;
 using System.IO;
 
@@ -9,16 +11,17 @@ namespace Spellwright.Network
         private static byte nextHandlerType = 0;
         private static readonly List<PacketHandler> packetHandlers = new();
 
+        // Value sync
         internal static ReactiveArmorDefenseHandler reactiveArmorDefenseSync = new();
         internal static ReactiveArmorMaxDefenseHandler reactiveArmorMaxDefenseSync = new();
         internal static DashPlayerTimerHandler dashPlayerTimerSync = new();
         internal static PlayerLevelHandler PlayerLevelSync = new();
+
+        // Communication
         internal static OtherPlayerBuffsHandler OtherPlayerBuffsHandler = new();
 
-        //static ModNetHandler()
-        //{
-
-        //}
+        // Dusts
+        internal static AoeCastDustHandler aoeCastDustHandler = new();
 
         internal static byte RegisterHandler(PacketHandler packetHandler)
         {

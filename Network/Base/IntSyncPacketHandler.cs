@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Terraria.ModLoader;
 
-namespace Spellwright.Network
+namespace Spellwright.Network.Base
 {
     internal abstract class IntSyncPacketHandler : SyncPacketHandler<int>
     {
