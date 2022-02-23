@@ -121,7 +121,7 @@ namespace Spellwright.Content.Items
             tooltips.Clear();
             tooltips.Add(nameTooltip);
 
-            Spellwright spellwright = Spellwright.instance;
+            Spellwright spellwright = Spellwright.Instance;
             SpellwrightPlayer spellwrightPlayer = Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
             ModSpell spell = spellwrightPlayer.CurrentSpell;
             int playerLevel = spellwrightPlayer.PlayerLevel;
@@ -146,7 +146,7 @@ namespace Spellwright.Content.Items
 
         public override bool AltFunctionUse(Player player)
         {
-            Spellwright.instance.spellInputState.Activate();
+            Spellwright.Instance.spellInputState.Activate();
             //Spellwright.instance.userInterface.IsVisible = false;
             //Spellwright.instance.userInterface.Use();
             return false;

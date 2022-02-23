@@ -13,6 +13,8 @@ namespace Spellwright.Content.Spells.Warp
         public override void SetStaticDefaults()
         {
             UseType = SpellType.Cantrip;
+            teleportStyle = 1;
+            resetVelocity = false;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IProjectileSource source, Vector2 position, Vector2 direction)
@@ -44,8 +46,8 @@ namespace Spellwright.Content.Spells.Warp
                 canTeleport = true;
             }
 
-            Teleport(player, teleportPosition, canTeleport, 1);
-            return true;
+            Teleport(player, teleportPosition, canTeleport);
+            return canTeleport;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Spellwright.Content.Spells.Warp
         public override void SetStaticDefaults()
         {
             UseType = SpellType.Invocation;
+            teleportStyle = 7;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
@@ -38,8 +39,8 @@ namespace Spellwright.Content.Spells.Warp
             if (!canTeleport)
                 teleportPosition = player.CheckForGoodTeleportationSpot(ref canTeleport, centerX + idkHalf, idkHalf, teleportStartY, teleportRangeY, settings);
 
-            Teleport(player, teleportPosition, canTeleport, 7);
-            return true;
+            Teleport(player, teleportPosition, canTeleport);
+            return canTeleport;
         }
     }
 

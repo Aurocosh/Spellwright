@@ -3,13 +3,13 @@ using Spellwright.Content.Projectiles;
 using Spellwright.Util;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Buffs.Spells
 {
     public class ManaStarfallBuff : ModBuff
     {
+        private static int nextStarDelay = 0;
         private static readonly int minStarfallDelay = UtilTime.SecondsToTicks(5);
         private static readonly int maxStarfallDelay = UtilTime.SecondsToTicks(12);
         private static readonly int spawnMinHeight = 30 * 16;
@@ -26,17 +26,15 @@ namespace Spellwright.Content.Buffs.Spells
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient)
+            if (player.whoAmI != Main.myPlayer)
                 return;
 
-            StarlightRainPlayer rainPlayer = player.GetModPlayer<StarlightRainPlayer>();
-
-            if (rainPlayer.NextStarDelay > 0)
+            if (nextStarDelay > 0)
             {
-                rainPlayer.NextStarDelay--;
+                nextStarDelay--;
                 return;
             }
-            rainPlayer.NextStarDelay = Main.rand.Next(minStarfallDelay, maxStarfallDelay);
+            nextStarDelay = Main.rand.Next(minStarfallDelay, maxStarfallDelay);
 
             var center = player.Center;
             var shiftY = Main.rand.NextFloat(spawnMinHeight, spawnMaxHeight);
@@ -49,12 +47,7 @@ namespace Spellwright.Content.Buffs.Spells
 
             int projectileId = ModContent.ProjectileType<ManaStarfallProjectile>();
             var projectileSource = new ProjectileSource_Item(player, null);
-            int projectileID = Projectile.NewProjectile(projectileSource, spawnPosition, velocity, projectileId, 500, 10, player.whoAmI);
-        }
-
-        public class StarlightRainPlayer : ModPlayer
-        {
-            public int NextStarDelay { get; set; } = 0;
+            Projectile.NewProjectile(projectileSource, spawnPosition, velocity, projectileId, 500, 10, player.whoAmI);
         }
     }
 }

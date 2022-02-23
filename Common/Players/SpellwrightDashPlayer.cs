@@ -1,11 +1,13 @@
 using Microsoft.Xna.Framework;
+using Spellwright.Network;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Common.Players
 {
     public class SpellwrightDashPlayer : ModPlayer
     {
-        public bool isDashing = false;
         public int DashTimer = 0;
 
         public void Dash(Vector2 velocity, int dashDuration)
@@ -14,8 +16,9 @@ namespace Spellwright.Common.Players
                 return;
 
             Player.velocity = velocity;
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, Player.whoAmI);
 
-            isDashing = true;
             DashTimer = dashDuration;
         }
 
@@ -36,6 +39,24 @@ namespace Spellwright.Common.Players
                 //&& Player.dashType == 0 // player doesn't have Tabi or EoCShield equipped (give priority to those dashes)
                 //&& !Player.setSolar // player isn't wearing solar armor
                 && !Player.mount.Active; // player isn't mounted, since dashes on a mount look weird
+        }
+
+        public override void clientClone(ModPlayer clientClone)
+        {
+            var clone = clientClone as SpellwrightDashPlayer;
+            clone.DashTimer = DashTimer;
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModNetHandler.dashPlayerTimerSync.Send(toWho, fromWho, DashTimer);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            var clone = clientPlayer as SpellwrightDashPlayer;
+            if (clone.DashTimer < DashTimer)
+                ModNetHandler.dashPlayerTimerSync.Send(DashTimer);
         }
     }
 }

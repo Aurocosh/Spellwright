@@ -20,7 +20,6 @@ namespace Spellwright.Content.Spells.BuffSpells
             AddEffect(BuffID.Flipper, durationGetter);
 
             reagentType = ModContent.ItemType<CommonSpellReagent>();
-            SetExtraReagentCost(SpellModifier.IsAoe, 1);
         }
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {

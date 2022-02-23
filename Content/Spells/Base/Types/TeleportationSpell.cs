@@ -6,12 +6,17 @@ namespace Spellwright.Content.Spells.Base.Types
 {
     internal abstract class TeleportationSpell : ModSpell
     {
+        protected int teleportStyle;
+        protected bool resetVelocity;
+
         public TeleportationSpell()
         {
             UseType = SpellType.Invocation;
+            resetVelocity = true;
+            teleportStyle = 5;
         }
 
-        protected static void Teleport(Player player, Vector2 position, bool canTeleport, int teleportStyle)
+        protected void Teleport(Player player, Vector2 position, bool canTeleport)
         {
             int noTeleportSign = 0;
             if (!canTeleport)
@@ -21,12 +26,10 @@ namespace Spellwright.Content.Spells.Base.Types
             }
 
             player.Teleport(position, teleportStyle);
-            player.velocity = Vector2.Zero;
-            if (Main.netMode == NetmodeID.Server)
-            {
-                RemoteClient.CheckSection(player.whoAmI, player.position);
+            if (resetVelocity)
+                player.velocity = Vector2.Zero;
+            if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, position.X, position.Y, teleportStyle, noTeleportSign);
-            }
         }
     }
 }

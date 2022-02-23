@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Projectiles
 {
-    internal class FireBallSpell : ProjectileSpell
+    internal class FireballSpell : ProjectileSpell
     {
         public override int GetGuaranteedUses(int playerLevel) => 25 + 5 * playerLevel;
         protected override int GetDamage(int playerLevel) => 20 + 5 * playerLevel;

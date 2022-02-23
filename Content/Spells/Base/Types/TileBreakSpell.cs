@@ -59,7 +59,7 @@ namespace Spellwright.Content.Spells.Base.Types
                 if (!tileState.HasTile && Main.netMode == NetmodeID.MultiplayerClient)
                 {
                     brokeAtLeastOne = true;
-                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 4, point.X, point.Y);
+                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, point.X, point.Y);
                 }
             }
 

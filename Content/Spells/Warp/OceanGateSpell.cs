@@ -43,8 +43,8 @@ namespace Spellwright.Content.Spells.Warp
             if (canTeleport)
                 vector = landingPoint.ToWorldCoordinates(8f, 16f) - new Vector2(player.width / 2, player.height);
 
-            Teleport(player, vector, canTeleport, 5);
-            return true;
+            Teleport(player, vector, canTeleport);
+            return canTeleport;
         }
 
         public override bool ProcessExtraData(SpellStructure structure, out object extraData)

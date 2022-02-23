@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Network;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -31,6 +32,25 @@ namespace Spellwright.Common.Players
         public override void Initialize()
         {
         }
+
+        public override void clientClone(ModPlayer clientClone)
+        {
+            var clone = clientClone as SpellwrightPlayer;
+            clone.PlayerLevel = PlayerLevel;
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModNetHandler.PlayerLevelSync.Send(toWho, fromWho, PlayerLevel);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            var clone = clientPlayer as SpellwrightPlayer;
+            if (clone.PlayerLevel != PlayerLevel)
+                ModNetHandler.PlayerLevelSync.Send(PlayerLevel);
+        }
+
         public override void SaveData(TagCompound tag)
         {
             tag.Add("PlayerLevel", PlayerLevel);
@@ -54,14 +74,14 @@ namespace Spellwright.Common.Players
             GuaranteedUsesLeft = tag.GetInt("GuaranteedUsesLeft");
 
             string spellName = tag.GetString("CurrentSpell");
-            if (ModContent.TryFind(Spellwright.instance.Name, spellName, out CurrentSpell))
+            if (ModContent.TryFind(Spellwright.Instance.Name, spellName, out CurrentSpell))
             {
                 TagCompound spellDataTag = tag.GetCompound("CurrentSpellData");
                 SpellData = CurrentSpell.DeserializeData(spellDataTag);
             }
 
             string cantripName = tag.GetString("CurrentCantrip");
-            if (ModContent.TryFind(Spellwright.instance.Name, cantripName, out CurrentCantrip))
+            if (ModContent.TryFind(Spellwright.Instance.Name, cantripName, out CurrentCantrip))
             {
                 TagCompound spellDataTag = tag.GetCompound("CurrentCantripData");
                 CantripData = CurrentSpell.DeserializeData(spellDataTag);
@@ -74,7 +94,7 @@ namespace Spellwright.Common.Players
                 nextCantripDelay--;
 
             if (Spellwright.OpenIncantationUIHotKey.JustPressed)
-                Spellwright.instance.spellInputState.Activate();
+                Spellwright.Instance.spellInputState.Activate();
             else if (Spellwright.CastCantripHotKey.Current && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
             {
                 Player player = Main.LocalPlayer;

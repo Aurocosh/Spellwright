@@ -40,9 +40,7 @@ namespace Spellwright.Content.Projectiles
         public override void Kill(int timeLeft)
         {
             DoDeathEffects();
-
-            if (Projectile.owner == Main.myPlayer)
-                Item.NewItem(Projectile.position, ItemID.Star, 1, false, 0, true);
+            Item.NewItem(Projectile.position, ItemID.Star, 1, false, 0, true);
         }
 
         private void DoDeathEffects()

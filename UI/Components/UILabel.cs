@@ -23,18 +23,23 @@ namespace Spellwright.UI.Components
 
         public UILabel()
         {
-            Font = FontAssets.DeathText.Value;
+            InitializeFont();
             Text = "";
         }
         public UILabel(string text)
         {
-            Font = FontAssets.DeathText.Value;
+            InitializeFont();
             Text = text;
+        }
+
+        private void InitializeFont()
+        {
+            Font = FontAssets.DeathText?.Value;
         }
 
         private void RefreshDimensions()
         {
-            if (Text != null)
+            if (Text != null && Font != null)
             {
                 Vector2 vector = Font.MeasureString(Text);
                 Width = new StyleDimension(vector.X, 0);
@@ -61,7 +66,7 @@ namespace Spellwright.UI.Components
         {
             CalculatedStyle dimensions = GetDimensions();
             var position = new Vector2(dimensions.X, dimensions.Y);
-            if (Text != null)
+            if (Text != null && Font != null)
                 spriteBatch.DrawString(Font, Text, position, ForegroundColor, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
         }
     }

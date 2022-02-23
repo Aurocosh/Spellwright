@@ -22,7 +22,7 @@ namespace Spellwright.UI
                     delegate
                     {
                         SpriteBatch spriteBatch = Main.spriteBatch;
-                        Spellwright.instance.userInterface?.Draw(spriteBatch, new GameTime());
+                        Spellwright.Instance.userInterface?.Draw(spriteBatch, new GameTime());
 
                         spriteBatch.End();
                         spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, Main.UIScaleMatrix);
@@ -34,7 +34,7 @@ namespace Spellwright.UI
 
         public override void UpdateUI(GameTime gameTime)
         {
-            Spellwright.instance.userInterface?.Update(gameTime);
+            Spellwright.Instance.userInterface?.Update(gameTime);
         }
     }
 }

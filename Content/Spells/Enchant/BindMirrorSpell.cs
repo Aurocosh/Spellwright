@@ -1,6 +1,7 @@
 ﻿using Spellwright.Content.Items;
 using Spellwright.Content.Spells.Base;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Enchant
@@ -29,6 +30,9 @@ namespace Spellwright.Content.Spells.Enchant
             var modItem = item.ModItem as BoundMagicMirror;
             modItem.LocationName = locationName;
             modItem.BoundLocation = player.position;
+
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                NetMessage.SendData(MessageID.SyncItem, -1, -1, null, itemId, 1);
 
             return true;
         }

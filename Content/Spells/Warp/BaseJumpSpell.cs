@@ -35,8 +35,8 @@ namespace Spellwright.Content.Spells.Warp
             bool canTeleport = false;
             Vector2 teleportPosition = UtilPlayer.CheckForGoodTeleportationSpot(ref canTeleport, player, startX, rangeX, startY, rangeY, settings);
 
-            Teleport(player, teleportPosition, canTeleport, 5);
-            return true;
+            Teleport(player, teleportPosition, canTeleport);
+            return canTeleport;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Data;
 using Spellwright.Extensions;
+using Spellwright.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,7 +77,7 @@ namespace Spellwright.Content.Spells.Base.Types
         private bool AoeCast(Player player, int playerLevel)
         {
             int aoeRange = GetRange(player) * 16;
-            Vector2 castPosition = player.position;
+            Vector2 castPosition = player.Center;
             int radiusSquared = aoeRange * aoeRange;
 
             bool IsAffected(Player otherPlayer)
@@ -87,30 +89,38 @@ namespace Spellwright.Content.Spells.Base.Types
                 if (!CanApplyToPlayer(otherPlayer))
                     return false;
 
-                Vector2 distanceVector = player.position - castPosition;
-                float distanceSquared = distanceVector.LengthSquared();
-
+                float distanceSquared = Vector2.DistanceSquared(otherPlayer.Center, castPosition);
                 return distanceSquared <= radiusSquared;
             }
             var playersAffected = Main.player.Where(IsAffected);
 
-            var effectValues = new List<Tuple<int, int>>(effects.Count);
-            foreach (var effect in effects)
+            var buffDatas = new BuffData[effects.Count];
+            for (int i = 0; i < effects.Count; i++)
             {
+                var effect = effects[i];
                 int buffId = effect.effectId;
                 int duration = effect.durationGetter.Invoke(playerLevel);
-                effectValues.Add(new Tuple<int, int>(buffId, duration));
+                buffDatas[i] = new BuffData(buffId, duration);
             }
 
+            int myPlayer = player.whoAmI;
             foreach (var affectedPlayer in playersAffected)
-                foreach (var effectValue in effectValues)
-                {
-                    int buffId = effectValue.Item1;
-                    int duration = effectValue.Item2;
+            {
+                int playerId = affectedPlayer.whoAmI;
+                string playerName = affectedPlayer.name;
 
-                    DoExtraActions(affectedPlayer, playerLevel);
-                    affectedPlayer.AddBuff(buffId, duration);
+                if (Main.netMode == NetmodeID.MultiplayerClient && playerId != myPlayer)
+                {
+                    ModNetHandler.OtherPlayerBuffsHandler.Send(playerId, myPlayer, buffDatas);
                 }
+                else
+                {
+                    foreach (var buffData in buffDatas)
+                        affectedPlayer.AddBuff(buffData.Type, buffData.Duration);
+                }
+
+                DoExtraActions(affectedPlayer, playerLevel);
+            }
 
             return true;
         }

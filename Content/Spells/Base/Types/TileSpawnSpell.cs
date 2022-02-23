@@ -72,7 +72,7 @@ namespace Spellwright.Content.Spells.Base.Types
                         NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, point.X, point.Y, tileType, 0);
                     }
                 }
-                else
+                else if (tile.Slope != 0)
                 {
                     bool sloped = WorldGen.SlopeTile(point.X, point.Y);
                     if (sloped && Main.netMode == NetmodeID.MultiplayerClient)

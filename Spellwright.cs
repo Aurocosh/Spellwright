@@ -21,7 +21,7 @@ namespace Spellwright
         internal static ModKeybind OpenIncantationUIHotKey;
         internal static ModKeybind CastCantripHotKey;
 
-        internal static Spellwright instance;
+        internal static Spellwright Instance;
         internal static Dictionary<string, ModTranslation> translations;
 
         internal SpellInputUiState spellInputState;
@@ -37,7 +37,7 @@ namespace Spellwright
             // Since we are using hooks not in older versions, and since ItemID.Count changed, we need to do this.
             if (BuildInfo.tMLVersion < new Version(0, 11, 5))
                 throw new Exception("\nThis mod uses functionality only present in the latest tModLoader. Please update tModLoader to use this mod\n\n");
-            instance = this;
+            Instance = this;
 
             OpenIncantationUIHotKey = KeybindLoader.RegisterKeybind(this, "Start incantation", "K");
             CastCantripHotKey = KeybindLoader.RegisterKeybind(this, "Cast cantrip", "K");
@@ -49,7 +49,6 @@ namespace Spellwright
             translations = (Dictionary<string, ModTranslation>)translationsField.GetValue(this);
 
             spellInputState = new SpellInputUiState();
-
             userInterface = new UserInterface();
             userInterface.IsVisible = true;
             userInterface.SetState(spellInputState);
@@ -59,7 +58,7 @@ namespace Spellwright
 
         public override void Unload()
         {
-            instance = null;
+            Instance = null;
 
             UITextBox.textboxBackground = null;
             spellInputState = null;
@@ -135,16 +134,7 @@ namespace Spellwright
         }
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
-            var msgType = (SpellwrightMessageType)reader.ReadByte();
-            switch (msgType)
-            {
-                case SpellwrightMessageType.TODO_1:
-                    int asd = reader.ReadInt32();
-                    break;
-                default:
-                    Logger.Warn("Unknown message type: " + msgType);
-                    break;
-            }
+            ModNetHandler.HandlePacket(reader, whoAmI);
         }
     }
 }
