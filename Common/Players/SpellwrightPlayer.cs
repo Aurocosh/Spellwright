@@ -41,14 +41,15 @@ namespace Spellwright.Common.Players
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            ModNetHandler.PlayerLevelSync.Send(toWho, fromWho, PlayerLevel);
+            int playerId = Player.whoAmI;
+            ModNetHandler.PlayerLevelSync.Sync(toWho, playerId, playerId, PlayerLevel);
         }
 
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             var clone = clientPlayer as SpellwrightPlayer;
             if (clone.PlayerLevel != PlayerLevel)
-                ModNetHandler.PlayerLevelSync.Send(PlayerLevel);
+                ModNetHandler.PlayerLevelSync.Sync(Player.whoAmI, PlayerLevel);
         }
 
         public override void SaveData(TagCompound tag)

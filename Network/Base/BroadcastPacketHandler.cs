@@ -8,7 +8,7 @@ namespace Spellwright.Network.Base
     {
         public override void HandlePacket(BinaryReader reader, byte fromWho, bool fromServer)
         {
-            T value = ReadData(reader);
+            var value = (T)dataReader.Read(reader);
             if (Main.netMode == NetmodeID.Server)
                 Send(-1, fromWho, value);
             else

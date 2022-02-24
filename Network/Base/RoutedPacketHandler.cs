@@ -11,7 +11,7 @@ namespace Spellwright.Network.Base
         public override void HandlePacket(BinaryReader reader, byte fromWho, bool fromServer)
         {
             int toWho = reader.ReadInt32();
-            T data = ReadData(reader);
+            var data = (T)dataReader.Read(reader);
             if (Main.netMode == NetmodeID.MultiplayerClient && toWho == Main.myPlayer)
                 HandleData(data, fromWho, fromServer);
             if (Main.netMode == NetmodeID.Server)
@@ -22,7 +22,7 @@ namespace Spellwright.Network.Base
         {
             ModPacket packet = GetPacket(fromWho);
             packet.Write(toWho);
-            WriteData(packet, data);
+            dataWriter.Write(packet, data);
             packet.Send(toWho, fromWho);
         }
         public override void Send(T data)

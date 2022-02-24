@@ -54,6 +54,9 @@ namespace Spellwright
             userInterface.SetState(spellInputState);
 
             spellInputState.Deactivate();
+
+            var test = ModNetHandler.packetHandlers.Count;
+
         }
 
         public override void Unload()

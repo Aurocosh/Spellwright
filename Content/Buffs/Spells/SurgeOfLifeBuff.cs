@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
+using Spellwright.Network;
 using Spellwright.Util;
 using Terraria;
 using Terraria.ID;
@@ -71,15 +72,33 @@ namespace Spellwright.Content.Buffs.Spells
             Player.lifeRegenTime += (int)(Player.lifeRegenTime * 0.2f);
             Player.lifeRegen += regenValue;
         }
+
+        public override void clientClone(ModPlayer clientClone)
+        {
+            var clone = clientClone as SurgeOfLifePlayer;
+            clone.LifeRegenValue = LifeRegenValue;
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            int playerId = Player.whoAmI;
+            ModNetHandler.reactiveArmorDefenseSync.Sync(toWho, playerId, playerId, LifeRegenValue);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            var clone = clientPlayer as SurgeOfLifePlayer;
+            if (clone.LifeRegenValue != LifeRegenValue)
+                ModNetHandler.reactiveArmorDefenseSync.Sync(Player.whoAmI, LifeRegenValue);
+        }
+
         public override void SaveData(TagCompound tag)
         {
-            tag.Add("LifeRegenBuffed", LifeRegenBuffed);
             tag.Add("LifeRegenValue", LifeRegenValue);
         }
 
         public override void LoadData(TagCompound tag)
         {
-            LifeRegenBuffed = tag.GetBool("LifeRegenBuffed");
             LifeRegenValue = tag.GetInt("LifeRegenValue");
         }
     }

@@ -6,12 +6,12 @@ namespace Spellwright.DustSpawners
 {
     internal class AoeCastDustSpawner : DustSpawner
     {
-        public Player Caster;
-        public Player[] AffectedPlayers;
-        public int DustType = 0;
-        public byte EffectRadius = 0;
-        public byte RingDustCount = 0;
-        public byte EffectDustCount = 0;
+        public Player Caster { get; set; }
+        public Player[] AffectedPlayers { get; set; }
+        public int DustType { get; set; } = 0;
+        public byte EffectRadius { get; set; } = 0;
+        public byte RingDustCount { get; set; } = 0;
+        public byte EffectDustCount { get; set; } = 0;
 
         public override void Spawn()
         {

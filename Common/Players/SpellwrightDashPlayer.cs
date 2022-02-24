@@ -49,14 +49,15 @@ namespace Spellwright.Common.Players
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            ModNetHandler.dashPlayerTimerSync.Send(toWho, fromWho, DashTimer);
+            int playerId = Player.whoAmI;
+            ModNetHandler.dashPlayerTimerSync.Sync(toWho, playerId, playerId, DashTimer);
         }
 
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             var clone = clientPlayer as SpellwrightDashPlayer;
             if (clone.DashTimer < DashTimer)
-                ModNetHandler.dashPlayerTimerSync.Send(DashTimer);
+                ModNetHandler.dashPlayerTimerSync.Sync(Player.whoAmI, DashTimer);
         }
     }
 }

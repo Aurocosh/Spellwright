@@ -49,17 +49,18 @@ namespace Spellwright.Content.Buffs.Spells
 
             public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
             {
-                ModNetHandler.reactiveArmorDefenseSync.Send(toWho, fromWho, BonusDefense);
-                ModNetHandler.reactiveArmorMaxDefenseSync.Send(toWho, fromWho, MaxBonusDefense);
+                int playerId = Player.whoAmI;
+                ModNetHandler.reactiveArmorDefenseSync.Sync(toWho, playerId, playerId, BonusDefense);
+                ModNetHandler.reactiveArmorMaxDefenseSync.Sync(toWho, playerId, playerId, MaxBonusDefense);
             }
 
             public override void SendClientChanges(ModPlayer clientPlayer)
             {
                 var clone = clientPlayer as ReactiveArmorPlayer;
                 if (clone.BonusDefense != BonusDefense)
-                    ModNetHandler.reactiveArmorDefenseSync.Send(BonusDefense);
+                    ModNetHandler.reactiveArmorDefenseSync.Sync(Player.whoAmI, BonusDefense);
                 if (clone.MaxBonusDefense != MaxBonusDefense)
-                    ModNetHandler.reactiveArmorMaxDefenseSync.Send(MaxBonusDefense);
+                    ModNetHandler.reactiveArmorMaxDefenseSync.Sync(Player.whoAmI, MaxBonusDefense);
             }
 
             public override void SaveData(TagCompound tag)

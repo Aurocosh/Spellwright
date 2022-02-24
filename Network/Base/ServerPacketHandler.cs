@@ -7,7 +7,7 @@ namespace Spellwright.Network.Base
     {
         public override void HandlePacket(BinaryReader reader, byte fromWho, bool fromServer)
         {
-            T value = ReadData(reader);
+            var value = (T)dataReader.Read(reader);
             HandleData(value, fromWho, fromServer);
         }
         public override void Send(int toWho, int fromWho, T data)
