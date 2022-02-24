@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace Spellwright.Network.Base.MessageProcessors.Readers
+namespace Spellwright.Network.Base.MessageProcessors.GenericReaders
 {
     internal class MethodMessageReader<T> : IMessageReader
     {

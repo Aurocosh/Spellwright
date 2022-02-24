@@ -2,7 +2,7 @@
 using Terraria;
 using static Spellwright.Content.Buffs.Spells.ReactiveArmorBuff;
 
-namespace Spellwright.Network.Handlers
+namespace Spellwright.Network.Sync
 {
     internal class ReactiveArmorDefenseHandler : SyncPacketHandler<int>
     {

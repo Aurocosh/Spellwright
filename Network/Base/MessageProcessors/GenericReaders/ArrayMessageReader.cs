@@ -1,18 +1,17 @@
 ﻿using Spellwright.Network.Base.MessageProcessors.Base;
 using System;
-using System.Collections;
 using System.IO;
 
-namespace Spellwright.Network.Base.MessageProcessors.Readers
+namespace Spellwright.Network.Base.MessageProcessors.GenericReaders
 {
-    internal class ListMessageReader : IMessageReader
+    internal class ArrayMessageReader : IMessageReader
     {
-        private readonly Type listType;
+        private readonly Type elementType;
         private readonly IMessageReader dataReader;
 
-        public ListMessageReader(Type type, IMessageReader reader)
+        public ArrayMessageReader(Type type, IMessageReader reader)
         {
-            listType = type;
+            elementType = type;
             dataReader = reader;
         }
 
@@ -20,13 +19,13 @@ namespace Spellwright.Network.Base.MessageProcessors.Readers
         {
             int count = reader.ReadInt32();
 
-            var list = (IList)Activator.CreateInstance(listType);
+            var array = Array.CreateInstance(elementType, count);
             for (int i = 0; i < count; i++)
             {
                 var value = dataReader.Read(reader);
-                list.Add(value);
+                array.SetValue(value, i);
             }
-            return list;
+            return array;
         }
     }
 }

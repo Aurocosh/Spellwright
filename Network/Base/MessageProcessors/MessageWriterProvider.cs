@@ -1,5 +1,6 @@
-﻿using Spellwright.Network.Base.MessageProcessors.Base;
-using Spellwright.Network.Base.MessageProcessors.Writers;
+﻿using Microsoft.Xna.Framework;
+using Spellwright.Network.Base.MessageProcessors.Base;
+using Spellwright.Network.Base.MessageProcessors.GenericWriters;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -33,6 +34,10 @@ namespace Spellwright.Network.Base.MessageProcessors
 
             Type extraType = typeof(ExtraMessageUtils);
             AddStaticWriter<Player>(extraType, "WritePlayer");
+
+            Type utilsType = typeof(Utils);
+            AddStaticWriter<Vector2>(utilsType, "WriteVector2");
+            AddStaticWriter<Color>(utilsType, "WriteRGB");
         }
 
         private static void AddWriter<T>(Type type, string methodName)

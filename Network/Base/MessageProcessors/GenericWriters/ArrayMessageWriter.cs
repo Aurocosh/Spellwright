@@ -1,26 +1,26 @@
 ﻿using Spellwright.Network.Base.MessageProcessors.Base;
-using System.Collections;
+using System;
 using Terraria.ModLoader;
 
-namespace Spellwright.Network.Base.MessageProcessors.Writers
+namespace Spellwright.Network.Base.MessageProcessors.GenericWriters
 {
-    internal class ListMessageWriter : IMessageWriter
+    internal class ArrayMessageWriter : IMessageWriter
     {
         private readonly IMessageWriter dataWriter;
-        public ListMessageWriter(IMessageWriter writer)
+        public ArrayMessageWriter(IMessageWriter writer)
         {
             dataWriter = writer;
         }
 
         public void Write(ModPacket packet, object data)
         {
-            var list = data as IList;
-            int count = list.Count;
+            var array = data as Array;
+            int count = array.Length;
 
             packet.Write(count);
             for (int i = 0; i < count; i++)
             {
-                var value = list[i];
+                var value = array.GetValue(i);
                 dataWriter.Write(packet, value);
             }
         }

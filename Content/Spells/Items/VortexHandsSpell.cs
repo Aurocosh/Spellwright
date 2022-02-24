@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base;
+using Spellwright.DustSpawners;
 using Spellwright.Extensions;
+using Spellwright.Network;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,7 +28,6 @@ namespace Spellwright.Content.Spells.Items
                 Item item = Main.item[i];
                 if (!item.active || item.noGrabDelay != 0 || item.playerIndexTheItemIsReservedFor != player.whoAmI || !player.CanAcceptItemIntoInventory(item))
                     continue;
-
                 if (!ItemLoader.CanPickup(item, player))
                     continue;
 
@@ -40,24 +41,18 @@ namespace Spellwright.Content.Spells.Items
                 }
             }
 
-            SpawnVortex(DustID.Cloud, player.Center, 95, 20, 600, 1);
+            var spawner = new VortexDustSpawner
+            {
+                Caster = player,
+                DustType = DustID.Cloud,
+                DustCount = 95,
+                Radius = 40
+            };
+            spawner.Spawn();
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                ModNetHandler.vortexDustHandler.Send(spawner);
 
             return true;
-        }
-
-        private static void SpawnVortex(int dustType, Vector2 position, int dustCount, int minRadius, int maxRadius, int direction = 1)
-        {
-            for (int i = 0; i < dustCount; i++)
-            {
-                Vector2 dustPosition = position + Main.rand.NextVector2CircularEdge(1, 1).ScaleRandom(minRadius, maxRadius);
-                Vector2 velocity = position.DirectionTo(dustPosition).ScaleRandom(.1f, 2.5f);
-                velocity = velocity.PerpendicularClockwise();
-                velocity *= direction;
-
-                var dust = Dust.NewDustDirect(dustPosition, 22, 22, dustType, 0f, 0f, 100, default, 1.5f);
-                dust.velocity = velocity;
-                dust.noLightEmittence = true;
-            }
         }
     }
 }

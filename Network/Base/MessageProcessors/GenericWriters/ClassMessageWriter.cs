@@ -1,10 +1,9 @@
-﻿using Spellwright.Network.Base.MessageProcessors;
-using Spellwright.Network.Base.MessageProcessors.Base;
+﻿using Spellwright.Network.Base.MessageProcessors.Base;
 using System;
 using System.Reflection;
 using Terraria.ModLoader;
 
-namespace Spellwright.Network.Base.MessageProcessors.Writers
+namespace Spellwright.Network.Base.MessageProcessors.GenericWriters
 {
     internal class ClassMessageWriter : IMessageWriter
     {

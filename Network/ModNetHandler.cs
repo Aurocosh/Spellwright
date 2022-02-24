@@ -1,7 +1,7 @@
-﻿using Spellwright.Network.Base;
-using Spellwright.Network.Dusts;
-using Spellwright.Network.Handlers;
+﻿using Spellwright.DustSpawners;
+using Spellwright.Network.Base;
 using Spellwright.Network.RoutedHandlers;
+using Spellwright.Network.Sync;
 using System.Collections.Generic;
 using System.IO;
 
@@ -25,7 +25,8 @@ namespace Spellwright.Network
         internal static OtherPlayerAddBuffsHandler OtherPlayerAddBuffsHandler = new();
 
         // Dusts
-        internal static AoeCastDustHandler aoeCastDustHandler = new();
+        internal static DustSpawnPacketHandler<AoeCastDustSpawner> aoeCastDustHandler = new();
+        internal static DustSpawnPacketHandler<VortexDustSpawner> vortexDustHandler = new();
 
         internal static byte RegisterHandler(PacketHandler packetHandler)
         {

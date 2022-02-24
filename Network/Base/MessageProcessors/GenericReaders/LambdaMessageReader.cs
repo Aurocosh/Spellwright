@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Spellwright.Network.Base.MessageProcessors.Readers
+namespace Spellwright.Network.Base.MessageProcessors.GenericReaders
 {
     internal class LambdaMessageReader<T> : IMessageReader
     {

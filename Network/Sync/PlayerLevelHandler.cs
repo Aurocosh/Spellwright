@@ -2,7 +2,7 @@
 using Spellwright.Network.Base;
 using Terraria;
 
-namespace Spellwright.Network.Handlers
+namespace Spellwright.Network.Sync
 {
     internal class PlayerLevelHandler : SyncPacketHandler<int>
     {

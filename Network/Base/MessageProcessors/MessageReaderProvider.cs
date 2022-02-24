@@ -1,5 +1,6 @@
-﻿using Spellwright.Network.Base.MessageProcessors.Base;
-using Spellwright.Network.Base.MessageProcessors.Readers;
+﻿using Microsoft.Xna.Framework;
+using Spellwright.Network.Base.MessageProcessors.Base;
+using Spellwright.Network.Base.MessageProcessors.GenericReaders;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,6 +34,10 @@ namespace Spellwright.Network.Base.MessageProcessors
 
             Type extraType = typeof(ExtraMessageUtils);
             AddStaticReader<Player>(extraType, "ReadPlayer");
+
+            Type utilsType = typeof(Utils);
+            AddStaticReader<Vector2>(utilsType, "ReadVector2");
+            AddStaticReader<Color>(utilsType, "ReadRGB");
         }
 
         private static void AddReader<T>(Type type, string methodName)
