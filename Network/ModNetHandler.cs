@@ -28,6 +28,9 @@ namespace Spellwright.Network
         internal static DustSpawnPacketHandler<AoeCastDustSpawner> aoeCastDustHandler = new();
         internal static DustSpawnPacketHandler<VortexDustSpawner> vortexDustHandler = new();
 
+        // Events
+        internal static StartRainHandler startRainHandler = new();
+
         internal static byte RegisterHandler(PacketHandler packetHandler)
         {
             packetHandlers.Add(packetHandler);
