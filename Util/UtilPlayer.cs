@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using static Terraria.Player;
 
 namespace Spellwright.Util
@@ -105,6 +106,21 @@ namespace Spellwright.Util
             }
 
             return vector;
+        }
+        public static void Teleport(Player player, Vector2 position, bool canTeleport, int teleportStyle, bool resetVelocity)
+        {
+            int noTeleportSign = 0;
+            if (!canTeleport)
+            {
+                noTeleportSign = 1;
+                position = player.position;
+            }
+
+            player.Teleport(position, teleportStyle);
+            if (resetVelocity)
+                player.velocity = Vector2.Zero;
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, position.X, position.Y, teleportStyle, noTeleportSign);
         }
     }
 }

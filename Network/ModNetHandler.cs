@@ -26,6 +26,7 @@ namespace Spellwright.Network
 
         // Dusts
         internal static DustSpawnPacketHandler<AoeCastDustSpawner> aoeCastDustHandler = new();
+        internal static DustSpawnPacketHandler<SoulDisturbanceSpawner> soulDisturbanceHandler = new();
         internal static DustSpawnPacketHandler<VortexDustSpawner> vortexDustHandler = new();
 
         // Events
