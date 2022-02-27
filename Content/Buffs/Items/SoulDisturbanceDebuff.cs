@@ -169,9 +169,9 @@ namespace Spellwright.Content.Buffs.Items
 
             var possibleOptions = new List<int>();
             if (player.statLife < player.statLifeMax2 * .95f)
-                possibleOptions.Add(1);
+                possibleOptions.Add(0);
             if (player.statLife > player.statLifeMax2 * .25f)
-                possibleOptions.Add(2);
+                possibleOptions.Add(1);
 
             int action = possibleOptions.GetRandom();
             if (action == 0)
