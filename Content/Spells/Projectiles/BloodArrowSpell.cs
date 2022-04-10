@@ -49,7 +49,7 @@ namespace Spellwright.Content.Spells.Projectiles
             useTimeMultiplier = 3f;
         }
 
-        public override bool Cast(Player player, int playerLevel, SpellData spellData, IProjectileSource source, Vector2 position, Vector2 velocity)
+        public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 velocity)
         {
             base.Cast(player, playerLevel, spellData, source, position, velocity);
             int damage = (int)(player.statLifeMax2 * .08f);

@@ -36,7 +36,7 @@ namespace Spellwright.Content.Spells.Base.Types
             var center = player.Center.ToGridPoint();
             return BreakTiles(center, player, playerLevel, spellData);
         }
-        public override bool Cast(Player player, int playerLevel, SpellData spellData, IProjectileSource source, Vector2 position, Vector2 direction)
+        public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)
         {
             var center = Main.MouseWorld.ToGridPoint();
             return BreakTiles(center, player, playerLevel, spellData);

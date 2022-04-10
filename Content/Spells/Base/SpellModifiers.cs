@@ -2,6 +2,7 @@
 {
     public enum SpellModifier
     {
-        IsAoe = 1
+        IsAoe = 1,
+        IsExtended = 2
     }
 }

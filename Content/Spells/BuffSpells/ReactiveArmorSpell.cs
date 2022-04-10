@@ -1,6 +1,8 @@
 ﻿using Spellwright.Content.Buffs.Spells;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.CostModifiers;
+using Spellwright.Content.Spells.Base.Reagents;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Network;
 using Spellwright.Util;
@@ -19,9 +21,8 @@ namespace Spellwright.Content.Spells.BuffSpells
             int buff = ModContent.BuffType<ReactiveArmorBuff>();
             AddEffect(buff, (playerLevel) => UtilTime.MinutesToTicks(10 + 3 * playerLevel));
 
-            reagentType = ModContent.ItemType<RareSpellReagent>();
-            reagentUseCost = 1;
-            SetExtraReagentCost(SpellModifier.IsAoe, 8);
+            spellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            SetSpellCostModifier(SpellModifier.IsAoe, new MultCostModifier(4));
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

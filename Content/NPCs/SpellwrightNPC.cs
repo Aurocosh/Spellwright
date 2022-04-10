@@ -8,8 +8,10 @@ using System;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -42,16 +44,14 @@ namespace Spellwright.Content.NPCs
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
-            // Biomes
-            NPC.Happiness.LikeBiome(PrimaryBiomeID.Forest);
-            NPC.Happiness.LoveBiome(PrimaryBiomeID.Hallow);
-            NPC.Happiness.DislikeBiome(PrimaryBiomeID.Snow);
-
-            // NPCs
-            NPC.Happiness.HateNPC(NPCID.Stylist);
-            NPC.Happiness.DislikeNPC(NPCID.Golfer);
-            NPC.Happiness.LikeNPC(NPCID.Guide);
-            NPC.Happiness.LoveNPC(NPCID.Wizard);
+            NPC.Happiness
+                .SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
+                .SetBiomeAffection<HallowBiome>(AffectionLevel.Love)
+                .SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike)
+                .SetNPCAffection(NPCID.Stylist, AffectionLevel.Hate)
+                .SetNPCAffection(NPCID.Golfer, AffectionLevel.Dislike)
+                .SetNPCAffection(NPCID.Guide, AffectionLevel.Like)
+                .SetNPCAffection(NPCID.Wizard, AffectionLevel.Love);
         }
 
         public override void SetDefaults()
@@ -195,7 +195,7 @@ namespace Spellwright.Content.NPCs
                     //int hiveBackpackItemIndex = Main.LocalPlayer.FindItem(ItemID.HiveBackpack);
                     //Main.LocalPlayer.inventory[hiveBackpackItemIndex].TurnToAir();
 
-                    player.QuickSpawnItem(ModContent.ItemType<SilverMirror>());
+                    player.QuickSpawnItem(new EntitySource_Gift(NPC), ModContent.ItemType<SilverMirror>());
 
                     return;
                 }

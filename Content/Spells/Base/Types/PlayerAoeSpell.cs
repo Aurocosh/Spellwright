@@ -49,7 +49,7 @@ namespace Spellwright.Content.Spells.Base.Types
                 return PersonalCast(player, playerLevel, spellData);
         }
 
-        public sealed override bool Cast(Player player, int playerLevel, SpellData spellData, IProjectileSource source, Vector2 position, Vector2 direction)
+        public sealed override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)
         {
             if (spellData.HasModifier(SpellModifier.IsAoe))
                 return AoeCast(player, playerLevel, spellData);

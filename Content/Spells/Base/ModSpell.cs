@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Content.Spells.Base.CostModifiers;
+using Spellwright.Content.Spells.Base.Reagents;
 using Spellwright.Core.Spells;
-using Spellwright.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,15 +30,15 @@ namespace Spellwright.Content.Spells.Base
         protected DamageClass damageType;
         protected bool canAutoReuse;
         protected int useDelay;
-        protected int reagentType;
-        protected int reagentUseCost;
+        protected SpellCost spellCost;
         protected float useTimeMultiplier;
         public LegacySoundStyle useSound;
+        protected float costModifier;
         public virtual int SpellLevel => 0;
         public SpellType UseType { get; protected set; }
 
         private readonly HashSet<SpellModifier> appplicableModifiers;
-        private readonly Dictionary<SpellModifier, int> extraReagentCosts;
+        private readonly Dictionary<SpellModifier, ICostModifier> spellCostModifiers;
 
         public bool IsModifiersApplicable(IEnumerable<SpellModifier> spellModifiers) => appplicableModifiers.IsSupersetOf(spellModifiers);
         public virtual bool CanAutoReuse(int playerLevel) => canAutoReuse;
@@ -52,7 +53,7 @@ namespace Spellwright.Content.Spells.Base
 
         protected void AddApplicableModifier(SpellModifier spellModifier) => appplicableModifiers.Add(spellModifier);
         protected void RemoveApplicableModifier(SpellModifier spellModifier) => appplicableModifiers.Remove(spellModifier);
-        protected void SetExtraReagentCost(SpellModifier spellModifier, int amount) => extraReagentCosts[spellModifier] = amount;
+        protected void SetSpellCostModifier(SpellModifier spellModifier, ICostModifier costModifier) => spellCostModifiers[spellModifier] = costModifier;
 
         protected ModSpell()
         {
@@ -63,11 +64,11 @@ namespace Spellwright.Content.Spells.Base
             useDelay = 120;
             damage = 0;
             knockback = 0;
-            reagentType = -1;
-            reagentUseCost = 0;
+            spellCost = null;
             damageType = DamageClass.Generic;
+            costModifier = 1f;
             appplicableModifiers = new HashSet<SpellModifier>();
-            extraReagentCosts = new Dictionary<SpellModifier, int>();
+            spellCostModifiers = new Dictionary<SpellModifier, ICostModifier>();
         }
         protected sealed override void Register()
         {
@@ -115,21 +116,18 @@ namespace Spellwright.Content.Spells.Base
 
         public virtual bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {
-            if (reagentType <= 0)
+            if (spellCost == null)
                 return true;
 
-            int useCost = reagentUseCost;
+            float actualCostModifier = costModifier;
             foreach (var modifier in spellData.GetModifiers())
-                if (extraReagentCosts.TryGetValue(modifier, out var extraCost))
-                    useCost += extraCost;
+                if (spellCostModifiers.TryGetValue(modifier, out var spellCostModifier))
+                    actualCostModifier = spellCostModifier.ModifyCost(actualCostModifier);
 
-            if (useCost == 0)
-                return true;
-
-            if (!player.ConsumeItems(reagentType, useCost))
+            bool success = spellCost.Consume(player, playerLevel, actualCostModifier, spellData);
+            if (!success)
             {
-                string message = Spellwright.GetTranslation("Messages", "NotEnoughReagents");
-                Main.NewText(message, new Color(255, 140, 40, 255));
+                Main.NewText(spellCost.LastError, spellCost.ErrorColor);
                 return false;
             }
             return true;
@@ -139,7 +137,7 @@ namespace Spellwright.Content.Spells.Base
         {
             throw new NotImplementedException();
         }
-        public virtual bool Cast(Player player, int playerLevel, SpellData spellData, IProjectileSource source, Vector2 position, Vector2 direction)
+        public virtual bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)
         {
             throw new NotImplementedException();
         }

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -40,7 +41,7 @@ namespace Spellwright.Content.Projectiles
         public override void Kill(int timeLeft)
         {
             DoDeathEffects();
-            Item.NewItem(Projectile.position, ItemID.Star, 1, false, 0, true);
+            Item.NewItem(new EntitySource_DropAsItem(Projectile), Projectile.position, ItemID.Star, 1, false, 0, true);
         }
 
         private void DoDeathEffects()

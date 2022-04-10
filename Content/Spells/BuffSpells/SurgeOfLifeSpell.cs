@@ -1,6 +1,8 @@
 ﻿using Spellwright.Content.Buffs.Spells;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.CostModifiers;
+using Spellwright.Content.Spells.Base.Reagents;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Network;
 using Spellwright.Util;
@@ -18,8 +20,10 @@ namespace Spellwright.Content.Spells.BuffSpells
             int buff = ModContent.BuffType<SurgeOfLifeBuff>();
             AddEffect(buff, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
 
-            reagentType = ModContent.ItemType<RareSpellReagent>();
-            SetExtraReagentCost(SpellModifier.IsAoe, 1);
+            costModifier = 0f;
+
+            spellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            SetSpellCostModifier(SpellModifier.IsAoe, new AddCostModifier(4));
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

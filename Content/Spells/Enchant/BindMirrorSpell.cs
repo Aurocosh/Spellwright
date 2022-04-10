@@ -1,6 +1,8 @@
 ﻿using Spellwright.Content.Items;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.Reagents;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,10 +15,8 @@ namespace Spellwright.Content.Spells.Enchant
         public override void SetStaticDefaults()
         {
             UseType = SpellType.Invocation;
-
             itemType = ModContent.ItemType<BoundMagicMirror>();
-            reagentType = ModContent.ItemType<SilverMirror>();
-            reagentUseCost = 1;
+            spellCost = new SingleItemSpellCost(ModContent.ItemType<SilverMirror>());
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
@@ -25,7 +25,7 @@ namespace Spellwright.Content.Spells.Enchant
                 return false;
             string locationName = spellData.Argument;
 
-            var itemId = Item.NewItem(player.Center, itemType, 1, false, 0, true);
+            var itemId = Item.NewItem(new EntitySource_ItemUse(player, null), player.Center, itemType, 1, false, 0, true);
             Item item = Main.item[itemId];
             var modItem = item.ModItem as BoundMagicMirror;
             modItem.LocationName = locationName;

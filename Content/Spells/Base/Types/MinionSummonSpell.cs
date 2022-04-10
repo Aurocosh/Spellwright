@@ -49,7 +49,7 @@ namespace Spellwright.Content.Spells.Base.Types
 
             var position = player.Center;
             position.Y -= 50;
-            var projectileSource = new ProjectileSource_Item(player, null);
+            var projectileSource = new EntitySource_ItemUse(player, null);
             var projectile = Projectile.NewProjectileDirect(projectileSource, position, Vector2.Zero, realProjectileType, realDamage, realKnockback, Main.myPlayer);
             projectile.originalDamage = realDamage;
 

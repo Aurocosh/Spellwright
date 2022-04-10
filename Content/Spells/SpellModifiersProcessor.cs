@@ -7,8 +7,9 @@ namespace Spellwright.Content.Spells
     {
         private static readonly Dictionary<string, SpellModifier> modifierMap = new()
         {
-            { "grand", SpellModifier.IsAoe },
-            { "aoe", SpellModifier.IsAoe }
+            { "Area", SpellModifier.IsAoe },
+            { "aoe", SpellModifier.IsAoe },
+            { "Extended", SpellModifier.IsExtended }
         };
 
         public static SpellModifier? GetModifier(string value)

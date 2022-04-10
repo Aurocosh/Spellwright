@@ -1,5 +1,6 @@
 ﻿using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.Reagents;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria;
@@ -19,7 +20,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             AddEffect(BuffID.Gills, durationGetter);
             AddEffect(BuffID.Flipper, durationGetter);
 
-            reagentType = ModContent.ItemType<CommonSpellReagent>();
+            spellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>());
         }
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {

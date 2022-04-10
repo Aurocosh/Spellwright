@@ -1,4 +1,5 @@
 ﻿using Spellwright.Content.Projectiles;
+using Spellwright.Content.Spells.Base.Reagents;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,8 +19,7 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileType = ModContent.ProjectileType<StoneBulletProjectile>();
             projectileSpeed = 450;
             canAutoReuse = true;
-            reagentType = ItemID.StoneBlock;
-            reagentUseCost = 1;
+            spellCost = new SingleItemSpellCost(ItemID.StoneBlock, 1);
         }
     }
 }

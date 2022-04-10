@@ -20,7 +20,7 @@ namespace Spellwright.Content.Spells.Base.Types
             canAutoReuse = true;
             useTimeMultiplier = 7f;
         }
-        public override bool Cast(Player player, int playerLevel, SpellData spellData, IProjectileSource source, Vector2 position, Vector2 direction)
+        public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)
         {
             Vector2 mousePosition = Main.MouseWorld;
 
