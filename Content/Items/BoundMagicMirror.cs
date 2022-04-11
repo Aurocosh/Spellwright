@@ -25,11 +25,14 @@ namespace Spellwright.Content.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bound Magic Mirror");
+            Tooltip.SetDefault("Enchanted magical mirror eternally bound to a place in this world.\nLook into the mirror to teleport to this place.");
         }
 
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.IceMirror); // Copies the defaults from the Ice Mirror.
+            Item.value = Item.buyPrice(0, 0, 30, 0);
+            Item.rare = ItemRarityID.Yellow;
         }
 
         public override ModItem Clone(Item item)

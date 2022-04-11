@@ -9,6 +9,7 @@ namespace Spellwright.Content.Spells.BuffSpells
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 3;
             AddEffect(ModContent.BuffType<ManaStarfallBuff>(), (playerLevel) => UtilTime.MinutesToTicks(10 + playerLevel));
         }
     }

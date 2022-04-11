@@ -8,6 +8,25 @@
 
 Mods: {
 	Spellwright: {
+		SpellTypes: {
+			Spell: Spell
+			Invocation: Invocation
+			Cantrip: Cantrip
+		}
+
+		DescriptionParts: {
+			SpellLevel: SpellLevel
+			SpellType: SpellType
+			Stability: Stability
+			Damage: Damage
+			AddedBuffs: Added buffs
+			AoeRange: Aoe range
+			Spray: Spray
+			ProjectileCount: Projectile count
+			Damage: Damage
+			Description: Description
+		}
+
 		Config: {
 			ItemHeader: Items
 			
@@ -18,13 +37,251 @@ Mods: {
 		}
 		
 		Spells: {
-			BarkShell: {
-				Name: Bark Shell
-				Description: Creates lump of wood around caster
+			# Buff spells
+			BattlecrySpell: {
+				Name: Battlecry
+				Description: Buffs player with wild battlecry. Wild battlecry Increases enemy spawn rate as much as a standard battle potion would. Stacks with battle potion effects
+				Incantation: Battlecry
 			}
-			StoneBullet: {
+			EyesOfProfitSpell: {
+				Name: Eyes Of Profit
+				Description: Gives player effect of spelunking. Consumes 2 golden coins. If the player has no gold in inventory this spell will not work.
+			}
+			GaleForceSpell: {
+				Name: Gale Force
+				Description:
+					'''Increases player movement speed.
+					Level 3 Increases player movement speed 20%.
+					Level 5 Boosts player jump height by 15 blocks.
+					Level 7 Increases acceleration and deceleration by 50%.
+					Level 9 Increases player movement speed 20% and boosts player jump height by 15 blocks.
+					'''
+			}
+			GreedyVortexSpell: {
+				Name: Greedy Vortex
+				Description: Buffs player with greedy vortex for 10 minutes. While active it will significantly increase pick up range of all normal items. Does not affect stars and hearts
+			}
+			InnerSunshineSpell: {
+				Name: Inner Sunshine
+				Description: Buffs player with shine
+			}
+			KissOfCloverSpell: {
+				Name: Kiss Of Clover
+				Description: 
+					'''Grants player luck based buffs.
+					Level 2 prevents fall damage.
+					Level 4 additionally grants bonus luck .1 always.
+					Level 6 also boosts critical chance by 10%.
+					Level 8 additionally grants bonus .2 always and bonus .5 luck during a full moon
+					'''
+			}
+			ManaStarfallSpell: {
+				Name: Mana Starfall
+				Description: Occasional stars fall from the sky, dealing heavy damage if they hit the enemy. Upon hitting the ground they fall apart into mana stars
+			}
+			PulseHealingSpell: {
+				Name: Pulse Healing
+				Description: Buff heals the player for a large amount of health every 3 minutes
+			}
+			ReactiveArmorSpell: {
+				Name: Reactive Armor
+				Description: 
+					'''Buffs player with reactive armor. Reactive armor grants additional armor to the player.
+					Initially bonus armor is equal to zero, but with each hit that player receives bonus armor
+					increases by 1 up to the max limit of the spell. Max granted armor is 10 + 3 * UserLevel.
+					Buff is compatible with iron skin
+					'''
+			}
+			SurgeOfLifeSpell: {
+				Name: Surge Of Life
+				Description: Grants regeneration to you and all nearby players. Regeneration rate is doubled when the player is standing on grass
+			}
+			TigerEyesSpell: {
+				Name: Tiger Eyes
+				Description: Buffs player with hunter buff
+			}
+			WillOfTorchGodSpell: {
+				Name: Will Of Torch God
+				Description:
+					'''Automatically place torches if light level is too low. Torches are automatically
+					transformed into appropriate torches for the biome. Any picked up torch is transformed
+					into the first available torch in inventory. Buff has no duration.
+					Can be canceled by right clicking
+					'''
+			}
+
+			# Enchant
+			BindMirrorSpell: {
+				Name: Bind Mirror
+				Description:
+					'''Creates a bound mirror from a silver mirror. Bound mirror is linked to the place where it
+					was created. When a mirror is used it will teleport the user to the linked place. This spell 
+					can be extended. To the incantation a column followed by any text can be appended. Following
+					text will be recorded in the mirror shard as a label.
+					Bound mirrors are infinite use items.
+					'''
+			}
+			WarpMirrorSpell: {
+				Name: Warp Mirror
+				Description:
+					'''Creates a warped mirror from a silver mirror. Warped mirror is linked to the place where
+					it was created. When a mirror is used it will teleport the user to the linked place. This
+					spell can be extended. To the incantation a column followed by any text can be appended.
+					Following text will be recorded in the mirror shard as a label.
+					Warped mirrors are single use items.
+					'''
+			}
+
+			# Explosive
+			BlastPebbleSpell: {
+				Name: Blast Pebble
+				Description: Creates medium projectile that is affected by gravity and explodes on touch
+			}
+			DragonSpitSpell: {
+				Name: Dragon Spit
+				Description: Creates small projectile that explodes in a small radius on contact. Explosion radius is very small
+			}
+			ShapedChargeSpell: {
+				Name: Shaped Charge
+				Description: Creates a projectile that explodes on contact. Spell creates several explosions in line that form a short tunnel afterwards
+			}
+
+			# Healing
+			StitchWoundsSpell: {
+				Name: Stitch Wounds
+				Description: Heals caster for a small amount instantly. Cannot heal more than 35% of players health. Also stops bleeding
+			}
+			
+			# Items
+			VortexHandsSpell: {
+				Name: Vortex Hands
+				Description: Instantly collects all items around the player in set radius
+			}
+			
+			# LiquidSpawn
+			ConjureLavaSpell: {
+				Name: Conjure Lava
+				Description: Creates lava where the player clicks with his cursor
+			}
+			ConjureWaterSpell: {
+				Name: Conjure Water
+				Description: Creates water where the player clicks with his cursor
+			}
+			
+			# Minions
+			BirdOfMidasSpell: {
+				Name: Bird Of Midas
+				Description: Summons bird of midas. Bird of midas is a golden raven, on hit this minion will inflict enemies with midas debuff
+			}
+
+			# Movement
+			AirDashSpell: {
+				Name: Air Dash
+				Description: When used it will accelerate the user in the direction of the cursor
+			}
+			FlashStepSpell: {
+				Name: Flash Step
+				Description: On activation player performs long dash in horizontal direction while also accelerating to the max speed
+			}
+
+			# Other
+			PurifySpell: {
+				Name: Purify
+				Description: Instantly removes all debuffs
+			}
+			
+			# Projectiles
+			BloodArrowSpell: {
+				Name: Blood Arrow
+				Description:
+					'''Creates an arrow out of your blood. Creation of each arrow consumes your health, but
+					bloody arrows have very high damage. And they deal more damage as players' health gets lower.
+					'''
+			}
+			FanOfFlamesSpell: {
+				Name: Fan Of Flames
+				Description: Creates several fireballs with a slight spread in their trajectory
+			}
+			FireballSpell: {
+				Name: Fireball
+				Description: Shoots fireballs
+			}
+			SparkCasterSpell: {
+				Name: Spark Caster
+				Description:
+					'''Creates small and fast spark projectiles. Projectile deals a small amount of damage and 
+					has a chance to set a hit target on fire. Projectiles create light.
+					At level 2 frostburn sparks are added
+					At level 4 poison sparks are added
+					At level 6 cursed sparks are added
+					At level 8 ichor sparks are added
+					'''
+			}
+			StoneBulletSpell: {
 				Name: Stone Bullet
 				Description: Shoots small projectile made out of stone
+			}
+			
+			# TileBreak
+			IceBreakerSpell: {
+				Name: Ice Breaker
+				Description: Destroys ice around player
+			}
+			SnuffOutSpell: {
+				Name: Snuff Out
+				Description: Snuff outs all nearby torches
+			}
+			
+			# TileSpawn
+			ShellOfIceSpell: {
+				Name: Shell Of Ice
+				Description: Creates a ring of ice around the player
+			}
+
+			# Warp
+			BaseJumpSpell: {
+				Name: Base Jump
+				Description: Teleports you to space. Works anywhere and can be used to quickly get out from underground to the surface
+			}
+			HellGateSpell: {
+				Name: Hell Gate
+				Description: Teleports player to hell. Acts just like a demon conch
+			}
+			HomeReflectionSpell: {
+				Name: Home Reflection
+				Description: Teleports player to his spawn point
+			}
+			OceanGateSpell: {
+				Name: Ocean Gate
+				Description:
+					'''Teleports player to either east or west ocean. Additional parameters can be specified 
+					(east, west, left, right). If no parameters were specified then it will work just like magic
+					conch, meaning that it will teleport the player to the farthest ocean from his current position.
+					If the parameter is specified then the player will be teleported to the ocean corresponding 
+					to the parameter
+					'''
+			}
+			ShadowStepSpell: {
+				Name: Shadow Step
+				Description: When used it will teleport the caster short distance towards the cursor. At level 7 it will be able to teleport user through walls
+			}
+
+			# WorldEvents
+			RainCallSpell: {
+				Name: Rain Call
+				Description: Changes weather to rain
+			}
+
+
+			
+
+
+
+
+			
+			StoneBullet: {
+				Name: StoneBullet
+				Description: Heals caster for a small amount instantly. Cannot heal more than 35% of players health. Also stops bleeding
 			}
 		}
 		
@@ -41,8 +298,43 @@ Mods: {
 		MapObject: {
 			ExampleClock: Example Clock
 		}
+
+		ItemName: {
+			CommonSpellReagent: "Common Spell Reagent"
+			MythicalSpellReagent: "Mythical Spell Reagent"
+			RareSpellReagent: "Rare Spell Reagent"
+			BizzareFruit: "Bizzare Fruit"
+			BoundMagicMirror: "Bound Magic Mirror"
+			SilverMirror: "Silver Mirror"
+			WarpedMagicMirror: "Warped Magic Mirror"
+
+			ExamplePet: "{$Mods.ExampleMod.Common.PaperAirplane}"
+		}
 		
 		ItemTooltip: {
+			CommonSpellReagent: 
+				'''Collection of most common spell reagents
+				required for spellcraft.
+				'''
+			MythicalSpellReagent: 
+				'''Extremely rare and powerful reagents required for
+				creation of extremely powerful spells.
+				'''
+			RareSpellReagent : "Advanced spell reagents required for various advanced spells."
+			BizzareFruit: 
+				'''Weird heart shaped fruit. If you stare at it
+				long enough it will stare back at you.
+				'''
+			BoundMagicMirror: 
+				'''Enchanted magical mirror eternally bound to a place in this world.
+				Look into the mirror to teleport to this place.
+				'''
+			SilverMirror : "Silver mirror that was polished to perfection."
+			WarpedMagicMirror: 
+				'''Frail magical mirror bound to a place in this world.
+				Look into the mirror to teleport to this place once.
+				'''
+
 			# These 2 examples show using substitutions. Here we use a vanilla Key and a key from this Mod to generate the text: "Nearby players get a bonus against: Octopus". 
 			# Note that the translation files for other languages don't need to define ItemTooltip.OctopusBanner, they would only need to define NPCName.Octopus, as seen in zh-Hans.hjson file. 
 			OctopusBanner: "{$CommonItemTooltip.BannerBonus}{$Mods.ExampleMod.NPCName.Octopus}"
@@ -54,9 +346,6 @@ Mods: {
 				'''
 		}
 		
-		ItemName: {
-			ExamplePet: "{$Mods.ExampleMod.Common.PaperAirplane}"
-		}
 		
 		ProjectileName: {
 			ExamplePet: "{$Mods.ExampleMod.Common.PaperAirplane}"

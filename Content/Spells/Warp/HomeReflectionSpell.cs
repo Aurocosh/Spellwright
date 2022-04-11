@@ -8,6 +8,7 @@ namespace Spellwright.Content.Spells.Warp
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 0;
             UseType = SpellType.Invocation;
         }
 

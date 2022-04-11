@@ -51,8 +51,7 @@ namespace Spellwright.Content.Spells
             }
             return SpellCastResult.Success;
         }
-
-        private static SpellStructure ProcessIncantation(string incantationText)
+        public static SpellStructure ProcessIncantation(string incantationText)
         {
             incantationText = incantationText.Trim().ToLower();
 

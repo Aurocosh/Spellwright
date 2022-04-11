@@ -13,7 +13,7 @@ namespace Spellwright.Content.Spells.Base.Types
     internal abstract class PlayerAoeSpell : ModSpell
     {
         protected int range = 10;
-        protected virtual int GetRange(Player player) => range;
+        protected virtual int GetRange(int playerLevel) => range;
         protected virtual bool CanApplyToPlayer(Player player) => true;
 
         public PlayerAoeSpell()
@@ -67,7 +67,7 @@ namespace Spellwright.Content.Spells.Base.Types
 
         private bool AoeCast(Player player, int playerLevel, SpellData spellData)
         {
-            int aoeRange = GetRange(player) * 16;
+            int aoeRange = GetRange(playerLevel) * 16;
             Vector2 castPosition = player.Center;
             int radiusSquared = aoeRange * aoeRange;
 
@@ -87,6 +87,14 @@ namespace Spellwright.Content.Spells.Base.Types
             ApplyEffect(affectedPlayers, playerLevel, spellData);
             DoExtraActions(affectedPlayers, playerLevel);
             return true;
+        }
+
+        public override List<SpellParameter> GetDescriptionValues(int playerLevel, bool fullVersion)
+        {
+            var values = base.GetDescriptionValues(playerLevel, fullVersion);
+            int aoeRange = GetRange(playerLevel) * 16;
+            values.Add(new SpellParameter("AoeRange", aoeRange.ToString()));
+            return values;
         }
     }
 }

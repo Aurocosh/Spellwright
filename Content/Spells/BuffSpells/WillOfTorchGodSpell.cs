@@ -10,6 +10,7 @@ namespace Spellwright.Content.Spells.BuffSpells
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 1;
             int buffId = ModContent.BuffType<WillOfTorchGodBuff>();
             AddEffect(buffId, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
             RemoveApplicableModifier(SpellModifier.IsAoe);

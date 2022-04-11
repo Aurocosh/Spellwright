@@ -1,4 +1,5 @@
 ﻿using Spellwright.Content.Items;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Reagents;
 using Terraria;
@@ -14,9 +15,13 @@ namespace Spellwright.Content.Spells.Enchant
 
         public override void SetStaticDefaults()
         {
+            SpellLevel = 8;
             UseType = SpellType.Invocation;
             itemType = ModContent.ItemType<BoundMagicMirror>();
-            spellCost = new SingleItemSpellCost(ModContent.ItemType<SilverMirror>());
+            var itemSpellCost = new MultipleItemSpellCost();
+            itemSpellCost.AddItemCost(ModContent.ItemType<SilverMirror>());
+            itemSpellCost.AddItemCost(ModContent.ItemType<RareSpellReagent>(), 3);
+            spellCost = itemSpellCost;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
@@ -33,6 +38,8 @@ namespace Spellwright.Content.Spells.Enchant
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.SyncItem, -1, -1, null, itemId, 1);
+
+            Main.NewText(modItem.Tooltip.Key);
 
             return true;
         }

@@ -10,6 +10,7 @@ namespace Spellwright.Content.Spells.Movement
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 0;
             UseType = SpellType.Cantrip;
         }
 

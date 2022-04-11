@@ -38,6 +38,7 @@ namespace Spellwright.Content.Spells.Projectiles
 
         public override void SetStaticDefaults()
         {
+            SpellLevel = 1;
             stability = .98f;
 
             damage = 100;

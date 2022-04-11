@@ -28,6 +28,12 @@ namespace Spellwright
 
         internal UserInterface userInterface;
 
+        static Spellwright()
+        {
+            FieldInfo translationsField = typeof(LocalizationLoader).GetField("translations", BindingFlags.Static | BindingFlags.NonPublic);
+            translations = (Dictionary<string, ModTranslation>)translationsField.GetValue(null);
+        }
+
         public Spellwright()
         {
         }
@@ -45,9 +51,6 @@ namespace Spellwright
             if (Main.rand == null)
                 Main.rand = new UnifiedRandom();
 
-            FieldInfo translationsField = typeof(LocalizationLoader).GetField("translations", BindingFlags.Static | BindingFlags.NonPublic);
-            translations = (Dictionary<string, ModTranslation>)translationsField.GetValue(this);
-
             spellInputState = new SpellInputUiState();
             userInterface = new UserInterface();
             userInterface.IsVisible = true;
@@ -56,7 +59,6 @@ namespace Spellwright
             spellInputState.Deactivate();
 
             var test = ModNetHandler.packetHandlers.Count;
-
         }
 
         public override void Unload()
@@ -92,6 +94,21 @@ namespace Spellwright
             if (!translations.TryGetValue(translationKey, out var translation))
                 return translationKey;
             return translation.GetTranslation(Language.ActiveCulture);
+        }
+
+        internal static ModTranslation GetTranslationObject(string category, string key)
+        {
+            string translationKey = $"Mods.Spellwright.{category}.{key}";
+            if (!translations.TryGetValue(translationKey, out var translation))
+                return null;
+            return translation;
+        }
+        internal static ModTranslation GetTranslationObject(string category, string subcategory, string key)
+        {
+            string translationKey = $"Mods.Spellwright.{category}.{subcategory}.{key}";
+            if (!translations.TryGetValue(translationKey, out var translation))
+                return null;
+            return translation;
         }
 
         public override void AddRecipeGroups()

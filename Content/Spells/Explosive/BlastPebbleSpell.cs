@@ -7,11 +7,11 @@ namespace Spellwright.Content.Spells.Explosive
 {
     internal class BlastPebbleSpell : ProjectileSpell
     {
-        public override int SpellLevel => 1;
         public override int GetGuaranteedUses(int playerLevel) => 5 + 1 * playerLevel;
 
         public override void SetStaticDefaults()
         {
+            SpellLevel = 3;
             UseType = SpellType.Spell;
 
             stability = .2f;

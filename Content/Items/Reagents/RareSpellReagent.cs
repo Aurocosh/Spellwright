@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Items.Reagents
@@ -12,12 +13,15 @@ namespace Spellwright.Content.Items.Reagents
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rare Spell Reagent");
+            Tooltip.SetDefault("Advanced spell reagents required for various advanced spells.");
         }
 
         public override void SetDefaults()
         {
-            Item.maxStack = 99;
+            Item.maxStack = 999;
             Item.ammo = Item.type;
+            Item.value = Item.buyPrice(0, 0, 10, 0);
+            Item.rare = ItemRarityID.LightPurple;
         }
         public override void AddRecipes()
         {

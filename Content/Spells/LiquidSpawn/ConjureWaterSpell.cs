@@ -8,6 +8,7 @@ namespace Spellwright.Content.Spells.LiquidSpawn
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 1;
             UseType = SpellType.Spell;
             stability = 1f;
             liquidType = LiquidID.Water;

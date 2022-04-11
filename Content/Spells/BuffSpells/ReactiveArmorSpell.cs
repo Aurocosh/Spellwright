@@ -18,6 +18,8 @@ namespace Spellwright.Content.Spells.BuffSpells
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 4;
+
             int buff = ModContent.BuffType<ReactiveArmorBuff>();
             AddEffect(buff, (playerLevel) => UtilTime.MinutesToTicks(10 + 3 * playerLevel));
 

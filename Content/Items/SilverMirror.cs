@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,6 +14,9 @@ namespace Spellwright.Content.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Silver mirror");
+            Tooltip.SetDefault("Silver mirror that was polished to perfection.");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
         }
 
         public override void SetDefaults()
@@ -23,6 +27,8 @@ namespace Spellwright.Content.Items
             Item.useTime = 60;
             Item.useTurn = true;
             Item.maxStack = 30;
+            Item.value = Item.buyPrice(0, 0, 4, 0);
+            Item.rare = ItemRarityID.Green;
         }
         public override void AddRecipes()
         {

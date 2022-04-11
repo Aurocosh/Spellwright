@@ -10,6 +10,7 @@ namespace Spellwright.Content.Spells.Warp
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 4;
             UseType = SpellType.Invocation;
             teleportStyle = 7;
         }

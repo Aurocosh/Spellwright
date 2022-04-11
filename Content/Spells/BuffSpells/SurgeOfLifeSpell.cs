@@ -17,6 +17,8 @@ namespace Spellwright.Content.Spells.BuffSpells
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 3;
+
             int buff = ModContent.BuffType<SurgeOfLifeBuff>();
             AddEffect(buff, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
 

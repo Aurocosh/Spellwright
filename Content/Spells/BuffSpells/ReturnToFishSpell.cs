@@ -11,10 +11,10 @@ namespace Spellwright.Content.Spells.BuffSpells
 {
     internal class ReturnToFishSpell : BuffSpell
     {
-        public override int SpellLevel => 3;
-
         public override void SetStaticDefaults()
         {
+            SpellLevel = 3;
+
             static int durationGetter(int playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel);
 
             AddEffect(BuffID.Gills, durationGetter);

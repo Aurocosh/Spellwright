@@ -7,6 +7,7 @@ namespace Spellwright.Core.Spells
     internal class SpellLibrary
     {
         private static readonly Dictionary<string, ModSpell> spellIncantationMap = new();
+
         internal static void SetSpellIncantation(string newIncantation, ModSpell modSpell)
         {
             if (spellIncantationMap.TryGetValue(newIncantation, out var existingSpell))

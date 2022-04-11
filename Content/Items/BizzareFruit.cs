@@ -18,6 +18,7 @@ namespace Spellwright.Content.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bizzare fruit");
+            Tooltip.SetDefault("Weird heart shaped fruit. If you stare at it\nlong enough it will stare back at you.");
         }
 
         public override void SetDefaults()
@@ -28,8 +29,8 @@ namespace Spellwright.Content.Items
             Item.maxStack = 1;
             Item.UseSound = SoundID.Item4;
             Item.useAnimation = 30;
-            Item.rare = 7;
-            Item.value = Item.buyPrice(0, 1);
+            Item.value = Item.buyPrice(0, 0, 10);
+            Item.rare = ItemRarityID.Red;
         }
 
         public override bool? UseItem(Player player)

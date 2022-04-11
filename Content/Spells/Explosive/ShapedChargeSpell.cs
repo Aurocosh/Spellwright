@@ -7,11 +7,11 @@ namespace Spellwright.Content.Spells.Explosive
 {
     internal class ShapedChargeSpell : ProjectileSpell
     {
-        public override int SpellLevel => 1;
         public override int GetGuaranteedUses(int playerLevel) => 12 + 3 * playerLevel;
 
         public override void SetStaticDefaults()
         {
+            SpellLevel = 5;
             UseType = SpellType.Spell;
 
             damage = 1;

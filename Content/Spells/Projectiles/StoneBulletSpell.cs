@@ -13,6 +13,7 @@ namespace Spellwright.Content.Spells.Projectiles
 
         public override void SetStaticDefaults()
         {
+            SpellLevel = 0;
             stability = 1.0f;
             knockback = 2;
             damageType = DamageClass.Throwing;

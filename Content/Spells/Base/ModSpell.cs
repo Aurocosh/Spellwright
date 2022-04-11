@@ -9,7 +9,6 @@ using System.Text;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -34,7 +33,7 @@ namespace Spellwright.Content.Spells.Base
         protected float useTimeMultiplier;
         public LegacySoundStyle useSound;
         protected float costModifier;
-        public virtual int SpellLevel => 0;
+        public virtual int SpellLevel { get; protected set; }
         public SpellType UseType { get; protected set; }
 
         private readonly HashSet<SpellModifier> appplicableModifiers;
@@ -50,6 +49,49 @@ namespace Spellwright.Content.Spells.Base
         protected virtual float GetKnockback(int playerLevel) => knockback;
         protected virtual LegacySoundStyle GetUseSound(int playerLevel) => useSound;
         protected virtual DamageClass DamageType => damageType;
+
+        public virtual string GetFullDescription(int playerLevel, bool fullVersion)
+        {
+            string name = DisplayName.ToString();
+
+            var descriptionParts = new List<string>();
+            descriptionParts.Add(name);
+
+            var descriptionValues = GetDescriptionValues(playerLevel, fullVersion);
+            string description = Description.ToString();
+            descriptionValues.Add(new SpellParameter("Description", description));
+
+            foreach (var value in descriptionValues)
+            {
+                var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name);
+                var descriptionPart = $"{parameterName}: {value.Value}";
+                descriptionParts.Add(descriptionPart);
+            }
+
+            return string.Join("\n", descriptionParts);
+        }
+
+        public virtual List<SpellParameter> GetDescriptionValues(int playerLevel, bool fullVersion)
+        {
+            var values = new List<SpellParameter>();
+            values.Add(new SpellParameter("SpellLevel", SpellLevel.ToString()));
+
+            if (fullVersion)
+            {
+                string useTypeLocal = Spellwright.GetTranslation("SpellTypes", UseType.ToString());
+                values.Add(new SpellParameter("SpellType", useTypeLocal));
+            }
+
+            float stability = GetStability(playerLevel);
+            if (stability > 0)
+                values.Add(new SpellParameter("Stability", $"{(int)(stability * 100)}%"));
+
+            int damage = GetDamage(playerLevel);
+            if (damage > 0)
+                values.Add(new SpellParameter("Damage", damage.ToString()));
+
+            return values;
+        }
 
         protected void AddApplicableModifier(SpellModifier spellModifier) => appplicableModifiers.Add(spellModifier);
         protected void RemoveApplicableModifier(SpellModifier spellModifier) => appplicableModifiers.Remove(spellModifier);
@@ -78,12 +120,18 @@ namespace Spellwright.Content.Spells.Base
 
             var nameKey = Spellwright.GetTranslationKey("Spells", Name, "Name");
             var descriptionKey = Spellwright.GetTranslationKey("Spells", Name, "Description");
-            var incantationKey = Spellwright.GetTranslationKey("Spells", Name, "Incantation");
 
-            DisplayName = LocalizationLoader.CreateTranslation(nameKey);
-            Description = LocalizationLoader.CreateTranslation(descriptionKey);
+            if (Spellwright.translations.TryGetValue(nameKey, out var translation))
+                DisplayName = translation;
+            else
+                DisplayName = LocalizationLoader.CreateTranslation(nameKey);
 
-            var localIncantation = Language.GetText(incantationKey).Value;
+            if (Spellwright.translations.TryGetValue(descriptionKey, out translation))
+                Description = translation;
+            else
+                Description = LocalizationLoader.CreateTranslation(descriptionKey);
+
+            var localIncantation = Spellwright.GetTranslation("Spells", Name, "Incantation");
             if (!localIncantation.StartsWith("Mods.Spellwright"))
                 SpellLibrary.SetSpellIncantation(localIncantation, this);
 

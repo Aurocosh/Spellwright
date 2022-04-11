@@ -13,6 +13,7 @@ namespace Spellwright.Content.Spells.TileBreak
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 2;
             UseType = SpellType.Invocation;
 
             tileType = TileID.Torches;

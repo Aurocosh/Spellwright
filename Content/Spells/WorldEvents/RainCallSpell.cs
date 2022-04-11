@@ -9,6 +9,7 @@ namespace Spellwright.Content.Spells.Enchant
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 4;
             UseType = SpellType.Invocation;
         }
 

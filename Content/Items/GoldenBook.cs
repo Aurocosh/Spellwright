@@ -19,7 +19,8 @@ namespace Spellwright.Content.Items
         }
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("This is an example magic weapon");
+            DisplayName.SetDefault("Spellweave book");
+            Tooltip.SetDefault("Magical artefact capable of binding your words to its pages.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
@@ -40,8 +41,8 @@ namespace Spellwright.Content.Items
             Item.noMelee = true; // Makes the item not do damage with it's melee hitbox.
             Item.shootSpeed = 7; // How fast the item shoots the projectile.
 
-            Item.value = 10000;
-            Item.rare = 2;
+            Item.value = Item.buyPrice(0, 2);
+            Item.rare = ItemRarityID.Red;
         }
 
         public override float UseSpeedMultiplier(Player player)
@@ -116,10 +117,9 @@ namespace Spellwright.Content.Items
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var nameTooltip = tooltips[0];
-            nameTooltip.text += " Test";
+            var itemName = tooltips[0];
             tooltips.Clear();
-            tooltips.Add(nameTooltip);
+            tooltips.Add(itemName);
 
             Spellwright spellwright = Spellwright.Instance;
             SpellwrightPlayer spellwrightPlayer = Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
@@ -129,19 +129,23 @@ namespace Spellwright.Content.Items
                 tooltips.Add(new TooltipLine(spellwright, "", "You have no active spells"));
             else
             {
+                string name = spell.DisplayName.GetTranslation(Language.ActiveCulture);
+                tooltips.Add(new TooltipLine(spellwright, "Spell name", name));
+
+                var descriptionValues = spell.GetDescriptionValues(playerLevel, false);
+                foreach (var value in descriptionValues)
+                {
+                    var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name);
+                    var descriptionPart = $"{parameterName}: {value.Value}";
+                    tooltips.Add(new TooltipLine(spellwright, parameterName, descriptionPart));
+                }
+
                 if (spellwrightPlayer.GuaranteedUsesLeft > 0)
-                    tooltips.Add(new TooltipLine(spellwright, "Spell uses", $"Spell uses left {spellwrightPlayer.GuaranteedUsesLeft}"));
+                    tooltips.Add(new TooltipLine(spellwright, "Spell uses", $"Spell uses left: {spellwrightPlayer.GuaranteedUsesLeft}"));
 
-                float stability = spell.GetStability(playerLevel);
-                if (stability > 0)
-                    tooltips.Add(new TooltipLine(spellwright, "Spell stability", $"Spell stability {(int)(stability * 100)}%"));
-
-                tooltips.Add(new TooltipLine(spellwright, "Description", spell.Description.GetTranslation(Language.ActiveCulture)));
+                string description = spell.Description.GetTranslation(Language.ActiveCulture);
+                tooltips.Add(new TooltipLine(spellwright, "Description", $"Description: {description}"));
             }
-
-            foreach (TooltipLine tooltip in tooltips)
-                if (tooltip.mod.Equals("Terraria") && tooltip.Name.Equals("Tooltip2"))
-                    tooltip.text = "SpellIds: " + "1";
         }
 
         public override bool AltFunctionUse(Player player)

@@ -14,6 +14,7 @@ namespace Spellwright.Content.Spells.Items
         public static int defaultItemGrabRange = 480;
         public override void SetStaticDefaults()
         {
+            SpellLevel = 2;
             UseType = SpellType.Invocation;
         }
 

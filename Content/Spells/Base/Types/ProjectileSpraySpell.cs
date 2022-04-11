@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 
@@ -44,6 +45,16 @@ namespace Spellwright.Content.Spells.Base.Types
             }
 
             return true;
+        }
+
+        public override List<SpellParameter> GetDescriptionValues(int playerLevel, bool fullVersion)
+        {
+            var values = base.GetDescriptionValues(playerLevel, fullVersion);
+            int projectileSpray = GetProjectileSpray(playerLevel);
+            values.Add(new SpellParameter("Spray", projectileSpray.ToString()));
+            int projectileCount = GetProjectileCount(playerLevel);
+            values.Add(new SpellParameter("ProjectileCount", projectileCount.ToString()));
+            return values;
         }
     }
 }

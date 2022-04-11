@@ -1,5 +1,6 @@
 ﻿using Spellwright.Data;
 using Spellwright.Network;
+using Spellwright.Util;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -49,6 +50,24 @@ namespace Spellwright.Content.Spells.Base.Types
                         affectedPlayer.AddBuff(buffData.Type, buffData.Duration);
                 }
             }
+        }
+
+        public override List<SpellParameter> GetDescriptionValues(int playerLevel, bool fullVersion)
+        {
+            var values = base.GetDescriptionValues(playerLevel, fullVersion);
+
+            var effectDescriptions = new List<string>();
+            foreach (var effect in effects)
+            {
+                var buffName = Lang.GetBuffName(effect.effectId);
+                var duration = UtilTime.TicksToString(effect.durationGetter.Invoke(playerLevel));
+
+                effectDescriptions.Add($"{buffName}({duration})");
+            }
+            var effectList = string.Join(", ", effectDescriptions);
+            values.Add(new SpellParameter("AddedBuffs", effectList));
+
+            return values;
         }
 
         protected struct BuffSpellEffect

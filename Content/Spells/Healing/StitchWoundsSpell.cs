@@ -14,6 +14,7 @@ namespace Spellwright.Content.Spells.Healing
 
         public override void SetStaticDefaults()
         {
+            SpellLevel = 0;
             UseType = SpellType.Invocation;
             damage = 50;
         }
