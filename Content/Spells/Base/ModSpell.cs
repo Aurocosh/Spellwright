@@ -19,7 +19,6 @@ namespace Spellwright.Content.Spells.Base
         public int Type { get; private set; }
 
         public ModTranslation DisplayName { get; internal set; }
-
         public ModTranslation Description { get; internal set; }
 
         protected int guaranteedUses;

@@ -32,7 +32,7 @@ namespace Spellwright.Content.Spells.Special
             var descriptionParts = new List<string>();
             descriptionParts.Add(name);
 
-            var descriptionValues = GetDescriptionValues(playerLevel, true);
+            var descriptionValues = spell.GetDescriptionValues(playerLevel, true);
             string description = spell.Description.GetTranslation(Language.ActiveCulture);
             descriptionValues.Add(new SpellParameter("Description", description));
 

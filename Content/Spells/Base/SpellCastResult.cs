@@ -5,6 +5,7 @@
         Success,
         IncantationInvalid,
         ModifiersInvalid,
-        ArgumentInvalid
+        ArgumentInvalid,
+        LevelTooLow
     }
 }

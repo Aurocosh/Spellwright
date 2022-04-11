@@ -20,6 +20,10 @@ namespace Spellwright.Content.Spells
             if (spell == null)
                 return SpellCastResult.IncantationInvalid;
 
+            SpellwrightPlayer spellwrightPlayer = SpellwrightPlayer.Instance;
+            if (spell.SpellLevel > spellwrightPlayer.PlayerLevel)
+                return SpellCastResult.LevelTooLow;
+
             bool isModifiersApplicable = spell.IsModifiersApplicable(spellStructure.SpellModifiers);
             if (!isModifiersApplicable)
                 return SpellCastResult.ModifiersInvalid;
@@ -29,7 +33,6 @@ namespace Spellwright.Content.Spells
                 return SpellCastResult.ArgumentInvalid;
 
             var spellData = new SpellData(spellStructure.SpellModifiers, spellStructure.Argument, extraData);
-            SpellwrightPlayer spellwrightPlayer = SpellwrightPlayer.Instance;
             if (spell.UseType == SpellType.Invocation)
             {
                 Player player = Main.LocalPlayer;
