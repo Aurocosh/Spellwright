@@ -19,20 +19,98 @@ namespace Spellwright.Content.Spells.Special
         {
             if (spellData == null)
                 return false;
-            if (spellData.ExtraData is not string recallData)
-                return false;
+            if (spellData.ExtraData is not string recallData || recallData is null || recallData.Trim().Length == 0)
+                return PringSpellList(player, playerLevel);
+            else
+                return PrintSpellInfo(player, playerLevel, recallData);
+        }
 
+        private static bool PringSpellList(Player player, int playerLevel)
+        {
+            var modSpells = SpellLibrary.GetRegisteredSpells();
+            var spellsByLevel = new Dictionary<int, List<ModSpell>>();
+
+            foreach (var spell in modSpells)
+            {
+                int spellLevel = spell.SpellLevel;
+                if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))
+                {
+                    spells = new List<ModSpell>();
+                    spellsByLevel[spellLevel] = spells;
+                }
+                spells.Add(spell);
+            }
+
+            var spellLevelLists = new List<string>();
+            spellLevelLists.Add(Spellwright.GetTranslation("General", "KnownSpells"));
+
+            var testKey = Spellwright.GetTranslationKey("General", "KnownSpells");
+            var test = Language.GetText(testKey).Value;
+            spellLevelLists.Add(test);
+
+            for (int i = 0; i < 11; i++)
+            {
+                if (!spellsByLevel.TryGetValue(i, out List<ModSpell> spells))
+                    continue;
+                if (spells.Count == 0)
+                    continue;
+
+                var levelWord = Spellwright.GetTranslation("General", "Level");
+                var levelHeader = $"{levelWord} {i}";
+
+                var lines = new List<string>();
+                lines.Add(levelHeader);
+                foreach (var spell in spells)
+                {
+                    var name = spell.DisplayName.GetTranslation(Language.ActiveCulture);
+                    lines.Add(name);
+                }
+
+                spellLevelLists.Add(string.Join("\n", lines));
+            }
+
+            var result = string.Join("\n\n", spellLevelLists.ToArray());
+
+            UI.States.UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
+            uiMessageState.SetMessage(result);
+            Spellwright.Instance.userInterface.SetState(uiMessageState);
+
+            return true;
+        }
+
+        private static bool PrintSpellInfo(Player player, int playerLevel, string recallData)
+        {
             var spellStructure = SpellProcessor.ProcessIncantation(recallData);
             ModSpell spell = SpellLibrary.GetSpellByIncantation(spellStructure.SpellName);
             if (spell == null)
+            {
+                Main.NewText(Spellwright.GetTranslation("CastErrors", "IncantationInvalid"), Color.Red);
                 return false;
+            }
+
+            bool isModifiersApplicable = spell.IsModifiersApplicable(spellStructure.SpellModifiers);
+            if (!isModifiersApplicable)
+            {
+                Main.NewText(Spellwright.GetTranslation("CastErrors", "ModifiersInvalid"), Color.Red);
+                return false;
+            }
+
+            bool isSpellDataValid = spell.ProcessExtraData(spellStructure, out object extraData);
+            if (!isSpellDataValid)
+            {
+                Main.NewText(Spellwright.GetTranslation("CastErrors", "DataInvalid"), Color.Red);
+                return false;
+            }
+
+            var costModifier = spell.GetCostModifier(spellStructure.SpellModifiers);
+            var subSpellData = new SpellData(spellStructure.SpellModifiers, spellStructure.Argument, costModifier, extraData);
 
             string name = spell.DisplayName.GetTranslation(Language.ActiveCulture);
 
             var descriptionParts = new List<string>();
             descriptionParts.Add(name);
 
-            var descriptionValues = spell.GetDescriptionValues(playerLevel, true);
+            var descriptionValues = spell.GetDescriptionValues(player, playerLevel, subSpellData, true);
             string description = spell.Description.GetTranslation(Language.ActiveCulture);
             descriptionValues.Add(new SpellParameter("Description", description));
 
@@ -44,18 +122,16 @@ namespace Spellwright.Content.Spells.Special
             }
 
             var fulllMessage = string.Join("\n", descriptionParts);
-            Main.NewTextMultiline(fulllMessage, false, Color.White);
+
+            UI.States.UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
+            uiMessageState.SetMessage(fulllMessage);
+            Spellwright.Instance.userInterface.SetState(uiMessageState);
 
             return true;
         }
+
         public override bool ProcessExtraData(SpellStructure structure, out object extraData)
         {
-            if (structure.Argument.Length == 0)
-            {
-                extraData = null;
-                return false;
-            }
-
             extraData = structure.Argument;
             return true;
         }

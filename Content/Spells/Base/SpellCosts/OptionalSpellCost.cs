@@ -27,10 +27,10 @@ namespace Spellwright.Content.Spells.Base.Reagents
             spellCosts.Clear();
         }
 
-        public override bool Consume(Player player, int playerLevel, float costModifier, SpellData spellData)
+        public override bool Consume(Player player, int playerLevel, SpellData spellData)
         {
             foreach (SpellCost cost in spellCosts)
-                if (cost.Consume(player, playerLevel, costModifier, spellData))
+                if (cost.Consume(player, playerLevel, spellData))
                     return true;
 
             var errors = new List<string>();
@@ -41,6 +41,25 @@ namespace Spellwright.Content.Spells.Base.Reagents
             }
 
             return false;
+        }
+
+        public override string GetDescription(Player player, int playerLevel, SpellData spellData)
+        {
+            var separatorWord = Spellwright.GetTranslation("General", "Or").ToLower();
+            var separator = $" {separatorWord} ";
+
+            var descriptions = new List<string>();
+            foreach (SpellCost cost in spellCosts)
+            {
+                var description = cost.GetDescription(player, playerLevel, spellData);
+                if (description != null)
+                    descriptions.Add(description);
+            }
+
+            if (descriptions.Count == 0)
+                return null;
+            else
+                return string.Join(separator, descriptions);
         }
     }
 }

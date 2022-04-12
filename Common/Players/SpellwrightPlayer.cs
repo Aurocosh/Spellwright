@@ -13,6 +13,7 @@ namespace Spellwright.Common.Players
     internal class SpellwrightPlayer : ModPlayer
     {
         private int nextCantripDelay = 0;
+        private bool isVisible = false;
 
         public int GuaranteedUsesLeft = 0;
         public ModSpell CurrentSpell = null;
@@ -95,7 +96,34 @@ namespace Spellwright.Common.Players
                 nextCantripDelay--;
 
             if (Spellwright.OpenIncantationUIHotKey.JustPressed)
-                Spellwright.Instance.spellInputState.Activate();
+            {
+                Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
+                //Spellwright.Instance.spellInputState.Activate();
+            }
+
+            //if (Spellwright.OpenIncantationUIHotKey.JustPressed)
+            //{
+            //    if (isVisible)
+            //    {
+            //        isVisible = false;
+            //        //Spellwright.Instance.uiMessageState.Deactivate();
+
+            //        Main.InGameUI.SetState(null);
+            //        Main.menuMode = MenuID.None;
+
+            //    }
+            //    else
+            //    {
+            //        Spellwright.Instance.uiMessageState.SetMessage("tesdf lkjsadfsd \n\n\n\ndadasdasdasd\n\n\nasdasdasdasdasd lkjsadfsd \n\n\n\ndadasdasdasd\n\n\nasdasdasdasdasd lkjsadfsd \n\n\n\ndadasdasdasd\n\n\nasdasdasdasdasd lkjsadfsd \n\n\n\ndadasdasdasd\n\n\nasdasdasdasdasd lkjsadfsd \n\n\n\ndadasdasdasd\n\n\nasdasdasdasdasd lkjsadfsd \n\n\n\ndadasdasdasd\n\n\nasdasdasdasdasd");
+
+            //        Main.InGameUI.SetState(Spellwright.Instance.uiMessageState);
+            //        Main.menuMode = 956545;
+
+            //        isVisible = true;
+            //        //Spellwright.Instance.uiMessageState.Activate();
+            //    }
+            //}
+
             else if (Spellwright.CastCantripHotKey.Current && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
             {
                 Player player = Main.LocalPlayer;

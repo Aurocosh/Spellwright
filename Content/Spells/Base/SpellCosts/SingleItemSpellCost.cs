@@ -15,12 +15,12 @@ namespace Spellwright.Content.Spells.Base.Reagents
             Cost = cost;
         }
 
-        public override bool Consume(Player player, int playerLevel, float costModifier, SpellData spellData)
+        public override bool Consume(Player player, int playerLevel, SpellData spellData)
         {
             if (ItemType <= 0)
                 return true;
 
-            int realCost = (int)Math.Floor(Cost * costModifier);
+            int realCost = (int)Math.Floor(Cost * spellData.CostModifier);
             if (realCost <= 0)
                 return true;
 
@@ -30,6 +30,19 @@ namespace Spellwright.Content.Spells.Base.Reagents
                 return false;
             }
             return true;
+        }
+
+        public override string GetDescription(Player player, int playerLevel, SpellData spellData)
+        {
+            if (ItemType <= 0)
+                return null;
+
+            int realCost = (int)Math.Floor(Cost * spellData.CostModifier);
+            if (realCost <= 0)
+                return null;
+
+            var itemName = Lang.GetItemNameValue(ItemType);
+            return $"{itemName}-{realCost}";
         }
     }
 }

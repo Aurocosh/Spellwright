@@ -13,6 +13,7 @@ namespace Spellwright.Content.Spells.Base.Reagents
             ErrorColor = new Color(255, 140, 40, 255);
         }
 
-        public abstract bool Consume(Player player, int playerLevel, float costModifier, SpellData spellData);
+        public abstract bool Consume(Player player, int playerLevel, SpellData spellData);
+        public abstract string GetDescription(Player player, int playerLevel, SpellData spellData);
     }
 }

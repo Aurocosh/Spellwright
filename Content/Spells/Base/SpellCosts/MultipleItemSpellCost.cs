@@ -50,9 +50,9 @@ namespace Spellwright.Content.Spells.Base.Reagents
             return true;
         }
 
-        public override bool Consume(Player player, int playerLevel, float costModifier, SpellData spellData)
+        public override bool Consume(Player player, int playerLevel, SpellData spellData)
         {
-            if (!CanConsume(player, costModifier))
+            if (!CanConsume(player, spellData.CostModifier))
             {
                 LastError = Spellwright.GetTranslation("Messages", "NotEnoughReagents");
                 return false;
@@ -63,7 +63,7 @@ namespace Spellwright.Content.Spells.Base.Reagents
                 int itemType = itemTypes[i];
                 int cost = costs[i];
 
-                int realCost = (int)Math.Floor(cost * costModifier);
+                int realCost = (int)Math.Floor(cost * spellData.CostModifier);
                 if (realCost <= 0)
                     return true;
 
@@ -71,6 +71,31 @@ namespace Spellwright.Content.Spells.Base.Reagents
             }
 
             return true;
+        }
+        public override string GetDescription(Player player, int playerLevel, SpellData spellData)
+        {
+            var separatorWord = Spellwright.GetTranslation("General", "And").ToLower();
+            var separator = $" {separatorWord} ";
+
+            var descriptions = new List<string>();
+            for (int i = 0; i < itemTypes.Count; i++)
+            {
+                int itemType = itemTypes[i];
+                int cost = costs[i];
+
+                int realCost = (int)Math.Floor(cost * spellData.CostModifier);
+                if (realCost <= 0)
+                    continue;
+
+                var itemName = Lang.GetItemNameValue(itemType);
+                var description = $"{itemName}-{realCost}";
+                descriptions.Add(description);
+            }
+
+            if (descriptions.Count == 0)
+                return null;
+            else
+                return string.Join(separator, descriptions);
         }
     }
 }

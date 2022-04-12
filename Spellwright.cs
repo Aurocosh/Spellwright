@@ -4,9 +4,7 @@ using Spellwright.Network;
 using Spellwright.UI.Components;
 using Spellwright.UI.States;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -22,17 +20,11 @@ namespace Spellwright
         internal static ModKeybind CastCantripHotKey;
 
         internal static Spellwright Instance;
-        internal static Dictionary<string, ModTranslation> translations;
 
         internal SpellInputUiState spellInputState;
+        internal UIMessageState uiMessageState;
 
         internal UserInterface userInterface;
-
-        static Spellwright()
-        {
-            FieldInfo translationsField = typeof(LocalizationLoader).GetField("translations", BindingFlags.Static | BindingFlags.NonPublic);
-            translations = (Dictionary<string, ModTranslation>)translationsField.GetValue(null);
-        }
 
         public Spellwright()
         {
@@ -52,13 +44,16 @@ namespace Spellwright
                 Main.rand = new UnifiedRandom();
 
             spellInputState = new SpellInputUiState();
+            uiMessageState = new UIMessageState();
             userInterface = new UserInterface();
             userInterface.IsVisible = true;
-            userInterface.SetState(spellInputState);
-
-            spellInputState.Deactivate();
 
             var test = ModNetHandler.packetHandlers.Count;
+        }
+
+        public override void PostAddRecipes()
+        {
+            SpellLibrary.Refresh();
         }
 
         public override void Unload()
@@ -67,11 +62,13 @@ namespace Spellwright
 
             UITextBox.textboxBackground = null;
             spellInputState = null;
+            uiMessageState = null;
             userInterface = null;
             OpenIncantationUIHotKey = null;
             CastCantripHotKey = null;
 
             SpellLoader.Unload();
+            SpellLibrary.Unload();
         }
 
         public void UpdateUI(GameTime gameTime)
@@ -84,31 +81,12 @@ namespace Spellwright
         internal static string GetTranslation(string category, string key)
         {
             string translationKey = $"Mods.Spellwright.{category}.{key}";
-            if (!translations.TryGetValue(translationKey, out var translation))
-                return translationKey;
-            return translation.GetTranslation(Language.ActiveCulture);
+            return Language.GetText(translationKey).Value;
         }
         internal static string GetTranslation(string category, string subcategory, string key)
         {
             string translationKey = $"Mods.Spellwright.{category}.{subcategory}.{key}";
-            if (!translations.TryGetValue(translationKey, out var translation))
-                return translationKey;
-            return translation.GetTranslation(Language.ActiveCulture);
-        }
-
-        internal static ModTranslation GetTranslationObject(string category, string key)
-        {
-            string translationKey = $"Mods.Spellwright.{category}.{key}";
-            if (!translations.TryGetValue(translationKey, out var translation))
-                return null;
-            return translation;
-        }
-        internal static ModTranslation GetTranslationObject(string category, string subcategory, string key)
-        {
-            string translationKey = $"Mods.Spellwright.{category}.{subcategory}.{key}";
-            if (!translations.TryGetValue(translationKey, out var translation))
-                return null;
-            return translation;
+            return Language.GetText(translationKey).Value;
         }
 
         public override void AddRecipeGroups()

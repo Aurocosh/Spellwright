@@ -2,6 +2,7 @@
 using Spellwright.Content.Spells.Base.CostModifiers;
 using Spellwright.Content.Spells.Base.Reagents;
 using Spellwright.Core.Spells;
+using Spellwright.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,28 +50,28 @@ namespace Spellwright.Content.Spells.Base
         protected virtual LegacySoundStyle GetUseSound(int playerLevel) => useSound;
         protected virtual DamageClass DamageType => damageType;
 
-        public virtual string GetFullDescription(int playerLevel, bool fullVersion)
-        {
-            string name = DisplayName.ToString();
+        //public virtual string GetFullDescription(int playerLevel, bool fullVersion)
+        //{
+        //    string name = DisplayName.ToString();
 
-            var descriptionParts = new List<string>();
-            descriptionParts.Add(name);
+        //    var descriptionParts = new List<string>();
+        //    descriptionParts.Add(name);
 
-            var descriptionValues = GetDescriptionValues(playerLevel, fullVersion);
-            string description = Description.ToString();
-            descriptionValues.Add(new SpellParameter("Description", description));
+        //    var descriptionValues = GetDescriptionValues(playerLevel, fullVersion);
+        //    string description = Description.ToString();
+        //    descriptionValues.Add(new SpellParameter("Description", description));
 
-            foreach (var value in descriptionValues)
-            {
-                var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name);
-                var descriptionPart = $"{parameterName}: {value.Value}";
-                descriptionParts.Add(descriptionPart);
-            }
+        //    foreach (var value in descriptionValues)
+        //    {
+        //        var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name);
+        //        var descriptionPart = $"{parameterName}: {value.Value}";
+        //        descriptionParts.Add(descriptionPart);
+        //    }
 
-            return string.Join("\n", descriptionParts);
-        }
+        //    return string.Join("\n", descriptionParts);
+        //}
 
-        public virtual List<SpellParameter> GetDescriptionValues(int playerLevel, bool fullVersion)
+        public virtual List<SpellParameter> GetDescriptionValues(Player player, int playerLevel, SpellData spellData, bool fullVersion)
         {
             var values = new List<SpellParameter>();
             values.Add(new SpellParameter("SpellLevel", SpellLevel.ToString()));
@@ -79,6 +80,12 @@ namespace Spellwright.Content.Spells.Base
             {
                 string useTypeLocal = Spellwright.GetTranslation("SpellTypes", UseType.ToString());
                 values.Add(new SpellParameter("SpellType", useTypeLocal));
+
+                if (spellCost != null)
+                {
+                    string costDescription = spellCost.GetDescription(player, playerLevel, spellData);
+                    values.Add(new SpellParameter("UseCost", costDescription));
+                }
             }
 
             float stability = GetStability(playerLevel);
@@ -120,23 +127,28 @@ namespace Spellwright.Content.Spells.Base
             var nameKey = Spellwright.GetTranslationKey("Spells", Name, "Name");
             var descriptionKey = Spellwright.GetTranslationKey("Spells", Name, "Description");
 
-            if (Spellwright.translations.TryGetValue(nameKey, out var translation))
-                DisplayName = translation;
-            else
-                DisplayName = LocalizationLoader.CreateTranslation(nameKey);
+            DisplayName = UtilLang.GetOrCreateTranslation(nameKey);
+            Description = UtilLang.GetOrCreateTranslation(descriptionKey);
 
-            if (Spellwright.translations.TryGetValue(descriptionKey, out translation))
-                Description = translation;
-            else
-                Description = LocalizationLoader.CreateTranslation(descriptionKey);
+            //if (Spellwright.translations.TryGetValue(nameKey, out var translation))
+            //    DisplayName = translation;
+            //else
+            //    DisplayName = LocalizationLoader.CreateTranslation(nameKey);
 
-            var localIncantation = Spellwright.GetTranslation("Spells", Name, "Incantation");
-            if (!localIncantation.StartsWith("Mods.Spellwright"))
-                SpellLibrary.SetSpellIncantation(localIncantation, this);
+            //if (Spellwright.translations.TryGetValue(descriptionKey, out translation))
+            //    Description = translation;
+            //else
+            //    Description = LocalizationLoader.CreateTranslation(descriptionKey);
 
-            var defaultIncantation = GetDefaultIncantation();
-            if (defaultIncantation.ToLower() != localIncantation.ToLower())
-                SpellLibrary.SetSpellIncantation(defaultIncantation, this);
+            SpellLibrary.RegisterSpell(this);
+
+            //var localIncantation = Spellwright.GetTranslation("Spells", Name, "Incantation");
+            //if (!localIncantation.StartsWith("Mods.Spellwright"))
+            //    SpellLibrary.SetSpellIncantation(localIncantation, this);
+
+            //var defaultIncantation = GetDefaultIncantation();
+            //if (defaultIncantation.ToLower() != localIncantation.ToLower())
+            //    SpellLibrary.SetSpellIncantation(defaultIncantation, this);
         }
         public sealed override void SetupContent()
         {
@@ -161,17 +173,21 @@ namespace Spellwright.Content.Spells.Base
             return builder.ToString();
         }
 
+        public float GetCostModifier(IEnumerable<SpellModifier> spellModifiers)
+        {
+            float actualCostModifier = costModifier;
+            foreach (var modifier in spellModifiers)
+                if (spellCostModifiers.TryGetValue(modifier, out var spellCostModifier))
+                    actualCostModifier = spellCostModifier.ModifyCost(actualCostModifier);
+            return actualCostModifier;
+        }
+
         public virtual bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {
             if (spellCost == null)
                 return true;
 
-            float actualCostModifier = costModifier;
-            foreach (var modifier in spellData.GetModifiers())
-                if (spellCostModifiers.TryGetValue(modifier, out var spellCostModifier))
-                    actualCostModifier = spellCostModifier.ModifyCost(actualCostModifier);
-
-            bool success = spellCost.Consume(player, playerLevel, actualCostModifier, spellData);
+            bool success = spellCost.Consume(player, playerLevel, spellData);
             if (!success)
             {
                 Main.NewText(spellCost.LastError, spellCost.ErrorColor);
@@ -217,12 +233,13 @@ namespace Spellwright.Content.Spells.Base
             var extraDataTag = tag.GetCompound("ExtraData");
 
             var modifiers = modifierIds.Select(x => (SpellModifier)x);
+            var costModifier = GetCostModifier(modifiers);
 
             object extraSpellData = null;
             if (dataSpellName == Name)
                 extraSpellData = DeserializeExtraData(extraDataTag);
 
-            return new SpellData(modifiers, argument, extraSpellData);
+            return new SpellData(modifiers, argument, costModifier, extraSpellData);
         }
 
         public virtual void SerializeExtraData(TagCompound tag, object extraData)

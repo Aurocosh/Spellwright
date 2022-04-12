@@ -89,9 +89,9 @@ namespace Spellwright.Content.Spells.Base.Types
             return true;
         }
 
-        public override List<SpellParameter> GetDescriptionValues(int playerLevel, bool fullVersion)
+        public override List<SpellParameter> GetDescriptionValues(Player player, int playerLevel, SpellData spellData, bool fullVersion)
         {
-            var values = base.GetDescriptionValues(playerLevel, fullVersion);
+            var values = base.GetDescriptionValues(player, playerLevel, spellData, fullVersion);
             int aoeRange = GetRange(playerLevel) * 16;
             values.Add(new SpellParameter("AoeRange", aoeRange.ToString()));
             return values;

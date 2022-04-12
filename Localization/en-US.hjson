@@ -15,8 +15,8 @@ Mods: {
 		}
 
 		DescriptionParts: {
-			SpellLevel: SpellLevel
-			SpellType: SpellType
+			SpellLevel: Spell level
+			SpellType: Spell type
 			Stability: Stability
 			Damage: Damage
 			AddedBuffs: Added buffs
@@ -25,6 +25,20 @@ Mods: {
 			ProjectileCount: Projectile count
 			Damage: Damage
 			Description: Description
+			UseCost: Use cost
+		}
+
+		General: {
+			Or: Or
+			And: And
+			Level: Level
+			KnownSpells: Known spells
+		}
+
+		CastErrors: {
+			IncantationInvalid: Spell incantation is invalid
+			ModifiersInvalid: One of the spell modifiers is not valid or not applicable
+			DataInvalid: Spell argument is invalid
 		}
 
 		Config: {
@@ -41,7 +55,7 @@ Mods: {
 			BattlecrySpell: {
 				Name: Battlecry
 				Description: Buffs player with wild battlecry. Wild battlecry Increases enemy spawn rate as much as a standard battle potion would. Stacks with battle potion effects
-				Incantation: Battlecry
+				Incantation: BattlecryTest
 			}
 			EyesOfProfitSpell: {
 				Name: Eyes Of Profit

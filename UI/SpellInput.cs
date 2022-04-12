@@ -47,19 +47,14 @@ namespace Spellwright.UI
         public override void OnDeactivate()
         {
             base.OnDeactivate();
-            Hide();
+            Visible = false;
+            textbox.Unfocus();
+            textbox.Text = "";
         }
         public void Show()
         {
             Visible = true;
             textbox.Focus();
-        }
-
-        public void Hide()
-        {
-            Visible = false;
-            textbox.Unfocus();
-            textbox.Text = "";
         }
 
         private void OnKeyPressed(object sender, string text)
@@ -113,6 +108,8 @@ namespace Spellwright.UI
         private void OnEnterPressed(object sender, EventArgs e)
         {
             string spellText = textbox.Text;
+            Spellwright.Instance.userInterface.SetState(null);
+
             SpellCastResult castResult = SpellProcessor.ProcessCast(spellText);
             Main.ClosePlayerChat();
 
@@ -154,13 +151,11 @@ namespace Spellwright.UI
                 //SoundEngine.PlaySound(SoundID.Item20, position);
                 SoundEngine.PlaySound(SoundID.Item45, position);
             }
-
-            Deactivate();
         }
 
         private void OnCancel(object sender, EventArgs e)
         {
-            Hide();
+            Spellwright.Instance.userInterface.SetState(null);
         }
     }
 }

@@ -32,7 +32,8 @@ namespace Spellwright.Content.Spells
             if (!isSpellDataValid)
                 return SpellCastResult.ArgumentInvalid;
 
-            var spellData = new SpellData(spellStructure.SpellModifiers, spellStructure.Argument, extraData);
+            var costModifier = spell.GetCostModifier(spellStructure.SpellModifiers);
+            var spellData = new SpellData(spellStructure.SpellModifiers, spellStructure.Argument, costModifier, extraData);
             if (spell.UseType == SpellType.Invocation)
             {
                 Player player = Main.LocalPlayer;

@@ -122,7 +122,8 @@ namespace Spellwright.Content.Items
             tooltips.Add(itemName);
 
             Spellwright spellwright = Spellwright.Instance;
-            SpellwrightPlayer spellwrightPlayer = Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
+            Player player = Main.LocalPlayer;
+            SpellwrightPlayer spellwrightPlayer = player.GetModPlayer<SpellwrightPlayer>();
             ModSpell spell = spellwrightPlayer.CurrentSpell;
             int playerLevel = spellwrightPlayer.PlayerLevel;
             if (spell == null)
@@ -132,7 +133,7 @@ namespace Spellwright.Content.Items
                 string name = spell.DisplayName.GetTranslation(Language.ActiveCulture);
                 tooltips.Add(new TooltipLine(spellwright, "Spell name", name));
 
-                var descriptionValues = spell.GetDescriptionValues(playerLevel, false);
+                var descriptionValues = spell.GetDescriptionValues(player, playerLevel, spellwrightPlayer.SpellData, false);
                 foreach (var value in descriptionValues)
                 {
                     var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name);
@@ -150,7 +151,8 @@ namespace Spellwright.Content.Items
 
         public override bool AltFunctionUse(Player player)
         {
-            Spellwright.Instance.spellInputState.Activate();
+            Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
+            //Spellwright.Instance.spellInputState.Activate();
             //Spellwright.instance.userInterface.IsVisible = false;
             //Spellwright.instance.userInterface.Use();
             return false;

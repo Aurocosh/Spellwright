@@ -24,19 +24,26 @@ namespace Spellwright.Content.Spells.Base.Reagents
             spellCostMap[level] = spellCost;
         }
 
-        public override bool Consume(Player player, int playerLevel, float costModifier, SpellData spellData)
+        public override bool Consume(Player player, int playerLevel, SpellData spellData)
         {
             if (!spellCostMap.TryGetValue(playerLevel, out var spellCost))
             {
                 LastError = invalidCostMessage;
                 return false;
             }
-            if (!spellCost.Consume(player, playerLevel, costModifier, spellData))
+            if (!spellCost.Consume(player, playerLevel, spellData))
             {
                 LastError = spellCost.LastError;
                 return false;
             }
             return true;
+        }
+
+        public override string GetDescription(Player player, int playerLevel, SpellData spellData)
+        {
+            if (!spellCostMap.TryGetValue(playerLevel, out var spellCost))
+                return null;
+            return spellCost.GetDescription(player, playerLevel, spellData);
         }
     }
 }

@@ -52,9 +52,9 @@ namespace Spellwright.Content.Spells.Base.Types
             }
         }
 
-        public override List<SpellParameter> GetDescriptionValues(int playerLevel, bool fullVersion)
+        public override List<SpellParameter> GetDescriptionValues(Player player, int playerLevel, SpellData spellData, bool fullVersion)
         {
-            var values = base.GetDescriptionValues(playerLevel, fullVersion);
+            var values = base.GetDescriptionValues(player, playerLevel, spellData, fullVersion);
 
             var effectDescriptions = new List<string>();
             foreach (var effect in effects)
