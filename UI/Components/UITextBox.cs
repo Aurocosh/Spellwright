@@ -52,7 +52,7 @@ namespace Spellwright.UI.Components
 
         public UITextBox()
         {
-            textboxBackground = Spellwright.Instance.Assets.Request<Texture2D>("UI/Components/TextboxEdge", AssetRequestMode.ImmediateLoad);
+            textboxBackground = Spellwright.Instance.Assets.Request<Texture2D>("UI/Images/TextboxEdge", AssetRequestMode.ImmediateLoad);
 
             label.ForegroundColor = Color.Black;
             label.Scale = 0.4f;

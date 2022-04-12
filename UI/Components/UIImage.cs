@@ -67,7 +67,7 @@ namespace Spellwright.UI.Components
             var position = new Vector2(dimensions.X, dimensions.Y);
             Texture2D texture = ImageTexture.Value;
             if (texture != null)
-                spriteBatch.Draw(texture, position, boundingRectangle, ForegroundColor * Opacity, 0f, Vector2.Zero, Scale, SpriteEffect, 0f);
+                spriteBatch.Draw(texture, position, boundingRectangle, ForegroundColor, 0f, Vector2.Zero, Scale, SpriteEffect, 0f);
         }
     }
 }

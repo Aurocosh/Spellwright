@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Core.Spells;
+using Spellwright.UI.States;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
@@ -44,10 +45,6 @@ namespace Spellwright.Content.Spells.Special
             var spellLevelLists = new List<string>();
             spellLevelLists.Add(Spellwright.GetTranslation("General", "KnownSpells"));
 
-            var testKey = Spellwright.GetTranslationKey("General", "KnownSpells");
-            var test = Language.GetText(testKey).Value;
-            spellLevelLists.Add(test);
-
             for (int i = 0; i < 11; i++)
             {
                 if (!spellsByLevel.TryGetValue(i, out List<ModSpell> spells))
@@ -71,7 +68,7 @@ namespace Spellwright.Content.Spells.Special
 
             var result = string.Join("\n\n", spellLevelLists.ToArray());
 
-            UI.States.UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
+            UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
             uiMessageState.SetMessage(result);
             Spellwright.Instance.userInterface.SetState(uiMessageState);
 
@@ -123,7 +120,7 @@ namespace Spellwright.Content.Spells.Special
 
             var fulllMessage = string.Join("\n", descriptionParts);
 
-            UI.States.UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
+            UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
             uiMessageState.SetMessage(fulllMessage);
             Spellwright.Instance.userInterface.SetState(uiMessageState);
 

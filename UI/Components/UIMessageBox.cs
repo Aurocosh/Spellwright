@@ -15,10 +15,10 @@ namespace Spellwright.UI.Components
     {
         protected UIScrollbar Scrollbar;
 
-        private string _text;
-        private float _height;
-        private bool _heightNeedsRecalculating;
-        private readonly List<Tuple<string, float>> _drawTexts = new List<Tuple<string, float>>();
+        private string text;
+        private float height;
+        private bool heightNeedsRecalculating;
+        private readonly List<Tuple<string, float>> _drawTexts = new();
 
         public UIMessageBox(string text)
         {
@@ -28,12 +28,12 @@ namespace Spellwright.UI.Components
         public override void OnActivate()
         {
             base.OnActivate();
-            _heightNeedsRecalculating = true;
+            heightNeedsRecalculating = true;
         }
 
         internal void SetText(string text)
         {
-            _text = text;
+            this.text = text;
             ResetScrollbar();
         }
 
@@ -42,7 +42,7 @@ namespace Spellwright.UI.Components
             if (Scrollbar != null)
             {
                 Scrollbar.ViewPosition = 0;
-                _heightNeedsRecalculating = true;
+                heightNeedsRecalculating = true;
             }
         }
 
@@ -50,7 +50,6 @@ namespace Spellwright.UI.Components
         {
             base.DrawSelf(spriteBatch);
             CalculatedStyle space = GetInnerDimensions();
-            DynamicSpriteFont font = FontAssets.MouseText.Value;
             float position = 0f;
             if (Scrollbar != null)
             {
@@ -70,7 +69,7 @@ namespace Spellwright.UI.Components
         public override void RecalculateChildren()
         {
             base.RecalculateChildren();
-            if (!_heightNeedsRecalculating)
+            if (!heightNeedsRecalculating)
             {
                 return;
             }
@@ -83,7 +82,7 @@ namespace Spellwright.UI.Components
             _drawTexts.Clear();
             float position = 0f;
             float textHeight = font.MeasureString("A").Y;
-            foreach (string line in _text.Split('\n'))
+            foreach (string line in text.Split('\n'))
             {
                 string drawString = line;
                 do
@@ -109,8 +108,8 @@ namespace Spellwright.UI.Components
                 }
                 while (drawString.Length > 0);
             }
-            _height = position;
-            _heightNeedsRecalculating = false;
+            height = position;
+            heightNeedsRecalculating = false;
         }
 
         public override void Recalculate()
@@ -129,21 +128,19 @@ namespace Spellwright.UI.Components
         {
             base.ScrollWheel(evt);
             if (Scrollbar != null)
-            {
                 Scrollbar.ViewPosition -= evt.ScrollWheelValue;
-            }
         }
 
         public void SetScrollbar(UIScrollbar scrollbar)
         {
             Scrollbar = scrollbar;
             UpdateScrollbar();
-            _heightNeedsRecalculating = true;
+            heightNeedsRecalculating = true;
         }
 
         private void UpdateScrollbar()
         {
-            Scrollbar?.SetView(GetInnerDimensions().Height, _height);
+            Scrollbar?.SetView(GetInnerDimensions().Height, height);
         }
     }
 }

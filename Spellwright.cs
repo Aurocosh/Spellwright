@@ -21,7 +21,7 @@ namespace Spellwright
 
         internal static Spellwright Instance;
 
-        internal SpellInputUiState spellInputState;
+        internal UISpellInputState spellInputState;
         internal UIMessageState uiMessageState;
 
         internal UserInterface userInterface;
@@ -43,7 +43,7 @@ namespace Spellwright
             if (Main.rand == null)
                 Main.rand = new UnifiedRandom();
 
-            spellInputState = new SpellInputUiState();
+            spellInputState = new UISpellInputState();
             uiMessageState = new UIMessageState();
             userInterface = new UserInterface();
             userInterface.IsVisible = true;

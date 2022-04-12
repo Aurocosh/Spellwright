@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Extensions;
@@ -9,51 +9,54 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.UI;
 
-namespace Spellwright.UI
+namespace Spellwright.UI.States
 {
-    internal class SpellInput : UIPanel
+    internal class UISpellInputState : UIState
     {
         private int previousTextLength;
+
+        private UIPanel mainPanel;
         public UITextBox textbox;
 
-        public SpellInput()
+        public override void OnInitialize()
         {
-            previousTextLength = 0;
+            mainPanel = new UIPanel
+            {
+                Width = new StyleDimension(500, 0),
+                Height = new StyleDimension(60, 0),
+                HAlign = .5f,
+                VAlign = .5f,
+                BackgroundColor = new Color(60, 60, 60, 255) * 0.685f
+            };
 
-            HAlign = .5f;
-            VAlign = .5f;
+            textbox = new UITextBox
+            {
+                Width = new StyleDimension(450, 0),
+                HAlign = .5f,
+                VAlign = .5f
+            };
 
-            Width = new StyleDimension(500, 0);
-            Height = new StyleDimension(60, 0);
-
-            BackgroundColor = new Color(60, 60, 60, 255) * 0.685f;
-
-            textbox = new UITextBox();
-            textbox.Width = new StyleDimension(450, 0);
             textbox.OnKeyPressed += new UITextBox.TextChangeHandler(OnKeyPressed);
             textbox.OnEnterPresseed += new EventHandler(OnEnterPressed);
             textbox.OnEscPressed += new EventHandler(OnCancel);
             textbox.OnTabPressed += new EventHandler(OnCancel);
-            textbox.HAlign = .5f;
-            textbox.VAlign = .5f;
 
-            Append(textbox);
+            mainPanel.Append(textbox);
+
+            Append(mainPanel);
         }
+
         public override void OnActivate()
         {
-            base.OnActivate();
             Show();
         }
         public override void OnDeactivate()
         {
-            base.OnDeactivate();
-            Visible = false;
             textbox.Unfocus();
             textbox.Text = "";
         }
         public void Show()
         {
-            Visible = true;
             textbox.Focus();
         }
 
