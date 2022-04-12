@@ -54,7 +54,7 @@ Mods: {
 			# Buff spells
 			BattlecrySpell: {
 				Name: Battlecry
-				Description: Buffs player with wild battlecry. Wild battlecry Increases enemy spawn rate as much as a standard battle potion would. Stacks with battle potion effects
+				Description: Buffs player with battlecry. Battlecry Increases enemy spawn rate and is twice as effective as a standard battle potion. Stacks with battle potion effects
 				Incantation: BattlecryTest
 			}
 			EyesOfProfitSpell: {

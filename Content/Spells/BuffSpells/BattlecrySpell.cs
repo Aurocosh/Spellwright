@@ -1,7 +1,8 @@
-﻿using Spellwright.Content.Spells.Base;
+﻿using Spellwright.Content.Buffs.Spells;
+using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
-using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.BuffSpells
 {
@@ -10,7 +11,7 @@ namespace Spellwright.Content.Spells.BuffSpells
         public override void SetStaticDefaults()
         {
             SpellLevel = 2;
-            AddEffect(BuffID.Battle, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
+            AddEffect(ModContent.BuffType<BattlecryBuff>(), (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
             RemoveApplicableModifier(SpellModifier.IsAoe);
         }
     }
