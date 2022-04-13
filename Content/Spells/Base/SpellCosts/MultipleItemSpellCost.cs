@@ -54,7 +54,23 @@ namespace Spellwright.Content.Spells.Base.Reagents
         {
             if (!CanConsume(player, spellData.CostModifier))
             {
-                LastError = Spellwright.GetTranslation("Messages", "NotEnoughReagents");
+                var costParts = new List<string>();
+                for (int i = 0; i < itemTypes.Count; i++)
+                {
+                    int itemType = itemTypes[i];
+                    int cost = costs[i];
+
+                    int realCost = (int)Math.Floor(cost * spellData.CostModifier);
+                    if (realCost <= 0)
+                        continue;
+
+                    var itemName = Lang.GetItemNameValue(itemType);
+                    var costPart = $"{realCost} {itemName}";
+                    costParts.Add(costPart);
+                }
+
+                var costText = string.Join(", ", costParts);
+                LastError = Spellwright.GetTranslation("SpellCost", "NotEnoughReagents").Format(costText);
                 return false;
             }
 
@@ -74,7 +90,7 @@ namespace Spellwright.Content.Spells.Base.Reagents
         }
         public override string GetDescription(Player player, int playerLevel, SpellData spellData)
         {
-            var separatorWord = Spellwright.GetTranslation("General", "And").ToLower();
+            var separatorWord = Spellwright.GetTranslation("General", "And").Value.ToLower();
             var separator = $" {separatorWord} ";
 
             var descriptions = new List<string>();

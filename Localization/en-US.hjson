@@ -41,6 +41,28 @@ Mods: {
 			DataInvalid: Spell argument is invalid
 		}
 
+		MysticSense: {
+			MyCurrentLevel: My current level is {0}
+			NoPermamentBuffs: I have no permament buffs
+			HavePermamentBuffs: I have following permament buffs
+		}
+
+		SpellCost: {
+			NotEnoughReagents: Not enough reagents. Reagents required: {0}
+		}
+		
+		BoundMirror: {
+			LocationName: Location: {0}
+			LocationCoordinates: X:{0} Y:{1}
+		}
+
+		CastResult: {
+			IncantationInvalid: Spell incantation is invalid
+			ModifiersInvalid: Spell modifier is invalid
+			ArgumentInvalid: Spell argument is invalid
+			LevelTooLow: Your level is too low
+		}
+
 		Config: {
 			ItemHeader: Items
 			

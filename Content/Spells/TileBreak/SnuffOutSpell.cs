@@ -34,7 +34,7 @@ namespace Spellwright.Content.Spells.TileBreak
                 return true;
             }
 
-            return UtilCoordinates.FloodFill(center, PointConstants.DirectNeighbours, IsValid, 3000);
+            return UtilCoordinates.FloodFill(new[] { center }, PointConstants.DirectNeighbours, IsValid, 3000);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Spellwright.Content.Spells.Base.Reagents
 
         public LevelMappedSpellCost()
         {
-            invalidCostMessage = Spellwright.GetTranslation("Messages", "CostIsInvalid");
+            invalidCostMessage = Spellwright.GetTranslation("Messages", "CostIsInvalid").Value;
             spellCostMap = new();
         }
         public LevelMappedSpellCost(string invalidMessage)

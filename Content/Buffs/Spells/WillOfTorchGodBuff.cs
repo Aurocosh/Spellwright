@@ -69,7 +69,7 @@ namespace Spellwright.Content.Buffs.Spells
                 return true;
             }
 
-            var circlePoints = UtilCoordinates.FloodFill(centerPoint, PointConstants.DirectNeighbours, IsValid, 400);
+            var circlePoints = UtilCoordinates.FloodFill(new[] { centerPoint }, PointConstants.DirectNeighbours, IsValid, 400);
             foreach (var point in circlePoints)
             {
                 int distanceToOldCenterSq = (point - oldCentralPoint).DistanceSq();

@@ -6,13 +6,14 @@ namespace Spellwright.Util
 {
     internal class UtilCoordinates
     {
-        public static IEnumerable<Point> FloodFill(Point start, IEnumerable<Point> expansionDirs, Func<Point, bool> predicate, int limit)
+        public static IEnumerable<Point> FloodFill(IEnumerable<Point> start, IEnumerable<Point> expansionDirs, Func<Point, bool> predicate, int limit)
         {
-            yield return start;
+            foreach (var point in start)
+                yield return point;
 
-            var expansionFront = new LinkedList<Point>();
-            expansionFront.AddFirst(start);
-            var explored = new HashSet<Point>() { start };
+            var expansionFront = new LinkedList<Point>(start);
+            var explored = new HashSet<Point>(start);
+            //expansionFront.AddFirst(point);
 
             while (expansionFront.Count > 0 && explored.Count < limit)
             {

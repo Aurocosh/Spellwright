@@ -14,7 +14,7 @@ namespace Spellwright.Content.Spells.Special
         {
             UseType = SpellType.Invocation;
 
-            var mappedSpellCost = new LevelMappedSpellCost(Spellwright.GetTranslation("Messages", "PlayerLevelIsAlreadyMaxed"));
+            var mappedSpellCost = new LevelMappedSpellCost(Spellwright.GetTranslation("Messages", "PlayerLevelIsAlreadyMaxed").Value);
             mappedSpellCost.SetSpellCost(0, new SingleItemSpellCost(ItemID.FallenStar, 30));
             mappedSpellCost.SetSpellCost(1, new SingleItemSpellCost(ItemID.MeteoriteBar, 40));
             mappedSpellCost.SetSpellCost(2, new SingleItemSpellCost(ItemID.DemoniteBar, 50));

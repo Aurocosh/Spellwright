@@ -26,7 +26,9 @@ namespace Spellwright.Content.Spells.Base.Reagents
 
             if (!player.ConsumeItems(ItemType, Cost))
             {
-                LastError = Spellwright.GetTranslation("Messages", "NotEnoughReagents");
+                var itemName = Lang.GetItemNameValue(ItemType);
+                var costText = $"{realCost} {itemName}";
+                LastError = Spellwright.GetTranslation("SpellCost", "NotEnoughReagents").Format(costText);
                 return false;
             }
             return true;

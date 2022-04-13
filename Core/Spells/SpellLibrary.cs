@@ -20,7 +20,7 @@ namespace Spellwright.Core.Spells
             spellIncantationMap.Clear();
             foreach (ModSpell modSpell in registeredSpells)
             {
-                var localIncantation = Spellwright.GetTranslation("Spells", modSpell.Name, "Incantation");
+                var localIncantation = Spellwright.GetTranslation("Spells", modSpell.Name, "Incantation").Value;
                 if (!localIncantation.StartsWith("Mods.Spellwright"))
                     SetSpellIncantation(localIncantation, modSpell);
                 var defaultIncantation = GetDefaultIncantation(modSpell);

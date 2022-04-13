@@ -57,7 +57,7 @@ namespace Spellwright.Content.Spells.Base
 
             if (fullVersion)
             {
-                string useTypeLocal = Spellwright.GetTranslation("SpellTypes", UseType.ToString());
+                string useTypeLocal = Spellwright.GetTranslation("SpellTypes", UseType.ToString()).Value;
                 values.Add(new SpellParameter("SpellType", useTypeLocal));
 
                 if (spellCost != null)

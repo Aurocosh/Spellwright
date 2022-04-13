@@ -120,11 +120,10 @@ namespace Spellwright.UI.States
 
             if (castResult == SpellCastResult.Success)
             {
-                SpawnCircle(DustID.GoldCoin, position, 75, 20, 80, 1);
-                SpawnCircle(DustID.GoldCoin, position, 15, 20, 80, -1);
-                SpawnCircle(DustID.GoldCoin, position, 15, 90, 130);
+                //SpawnCircle(DustID.GoldCoin, position, 75, 20, 80, 1);
+                //SpawnCircle(DustID.GoldCoin, position, 15, 20, 80, -1);
+                //SpawnCircle(DustID.GoldCoin, position, 15, 90, 130);
                 SoundEngine.PlaySound(SoundID.Item4, position);
-                //SoundEngine.PlaySound(SoundID.Item30, position);
             }
             else if (castResult == SpellCastResult.IncantationInvalid)
             {
@@ -132,6 +131,9 @@ namespace Spellwright.UI.States
                 SpawnCircle(DustID.SilverCoin, position, 15, 90, 130);
                 //SoundEngine.PlaySound(SoundID.Item20, position);
                 SoundEngine.PlaySound(SoundID.Item45, position);
+
+                var message = Spellwright.GetTranslation("CastResult", "IncantationInvalid");
+                Main.NewText(message, Color.OrangeRed);
             }
             else if (castResult == SpellCastResult.ModifiersInvalid)
             {
@@ -139,6 +141,9 @@ namespace Spellwright.UI.States
                 SpawnCircle(DustID.IceTorch, position, 15, 90, 130);
                 //SoundEngine.PlaySound(SoundID.Item20, position);
                 SoundEngine.PlaySound(SoundID.Item45, position);
+
+                var message = Spellwright.GetTranslation("CastResult", "ModifiersInvalid");
+                Main.NewText(message, Color.OrangeRed);
             }
             else if (castResult == SpellCastResult.LevelTooLow)
             {
@@ -146,6 +151,9 @@ namespace Spellwright.UI.States
                 SpawnCircle(DustID.DemonTorch, position, 15, 90, 130);
                 //SoundEngine.PlaySound(SoundID.Item20, position);
                 SoundEngine.PlaySound(SoundID.Item45, position);
+
+                var message = Spellwright.GetTranslation("CastResult", "LevelTooLow");
+                Main.NewText(message, Color.OrangeRed);
             }
             else
             {
@@ -153,6 +161,9 @@ namespace Spellwright.UI.States
                 SpawnCircle(DustID.Torch, position, 15, 90, 130);
                 //SoundEngine.PlaySound(SoundID.Item20, position);
                 SoundEngine.PlaySound(SoundID.Item45, position);
+
+                var message = Spellwright.GetTranslation("CastResult", "ArgumentInvalid");
+                Main.NewText(message, Color.OrangeRed);
             }
         }
 

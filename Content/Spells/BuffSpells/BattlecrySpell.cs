@@ -13,6 +13,9 @@ namespace Spellwright.Content.Spells.BuffSpells
             SpellLevel = 2;
             AddEffect(ModContent.BuffType<BattlecryBuff>(), (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
             RemoveApplicableModifier(SpellModifier.IsAoe);
+
+            AddApplicableModifier(SpellModifier.IsDispel);
+            AddApplicableModifier(SpellModifier.IsEternal);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Spellwright.Common.Players;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Buffs.Spells
@@ -18,7 +19,9 @@ namespace Spellwright.Content.Buffs.Spells
     {
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
-            if (player.HasBuff(ModContent.BuffType<BattlecryBuff>()))
+            int buffId = ModContent.BuffType<BattlecryBuff>();
+            var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
+            if (buffPlayer.HasPermamentBuff(buffId) || player.HasBuff(buffId))
             {
                 spawnRate = (int)(spawnRate * 0.25f);
                 maxSpawns = (int)(maxSpawns * 4f);

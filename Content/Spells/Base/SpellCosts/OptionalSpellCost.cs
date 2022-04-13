@@ -45,7 +45,7 @@ namespace Spellwright.Content.Spells.Base.Reagents
 
         public override string GetDescription(Player player, int playerLevel, SpellData spellData)
         {
-            var separatorWord = Spellwright.GetTranslation("General", "Or").ToLower();
+            var separatorWord = Spellwright.GetTranslation("General", "Or").Value.ToLower();
             var separator = $" {separatorWord} ";
 
             var descriptions = new List<string>();

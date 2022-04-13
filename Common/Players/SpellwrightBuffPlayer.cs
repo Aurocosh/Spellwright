@@ -15,6 +15,8 @@ namespace Spellwright.Common.Players
         public readonly HashSet<int> PermamentBuffs = new();
         public readonly Dictionary<int, int> BuffLevels = new();
 
+        public bool HasPermamentBuff(int buffId) => PermamentBuffs.Contains(buffId);
+
         public override bool CloneNewInstances => false;
 
         public void SetPermamentBuffs(IEnumerable<int> buffIds)
@@ -47,38 +49,28 @@ namespace Spellwright.Common.Players
 
         public override void PostUpdateBuffs()
         {
-            if (PermamentBuffs.Contains(BuffID.Shine))
-            {
-                Player.buffImmune[BuffID.Shine] = true;
+            if (IsPermament(BuffID.Shine))
                 Lighting.AddLight((int)(Player.position.X + (float)(Player.width / 2)) / 16, (int)(Player.position.Y + (float)(Player.height / 2)) / 16, 0.8f, 0.95f, 1f);
-            }
-
-            if (PermamentBuffs.Contains(BuffID.Spelunker))
-            {
-                Player.buffImmune[BuffID.Spelunker] = true;
+            if (IsPermament(BuffID.Spelunker))
                 Player.findTreasure = true;
-            }
-
-            int galeForceBuffId = ModContent.BuffType<GaleForceBuff>();
-            if (PermamentBuffs.Contains(galeForceBuffId))
-            {
-                Player.buffImmune[galeForceBuffId] = true;
+            if (IsPermament(BuffID.Hunter))
+                Player.detectCreature = true;
+            if (IsPermament(ModContent.BuffType<GaleForceBuff>()))
                 GaleForceBuff.DoAction(Player);
-            }
-
-            int returnToFishBuffId = ModContent.BuffType<ReturnToFishBuff>();
-            if (PermamentBuffs.Contains(returnToFishBuffId))
-            {
-                Player.buffImmune[returnToFishBuffId] = true;
+            if (IsPermament(ModContent.BuffType<ReturnToFishBuff>()))
                 ReturnToFishBuff.DoAction(Player);
-            }
-
-            int kissOfCloverBuffId = ModContent.BuffType<KissOfCloverBuff>();
-            if (PermamentBuffs.Contains(kissOfCloverBuffId))
-            {
-                Player.buffImmune[kissOfCloverBuffId] = true;
+            if (IsPermament(ModContent.BuffType<KissOfCloverBuff>()))
                 KissOfCloverBuff.DoAction(Player);
+        }
+
+        private bool IsPermament(int buffId)
+        {
+            if (HasPermamentBuff(buffId))
+            {
+                Player.buffImmune[buffId] = true;
+                return true;
             }
+            return false;
         }
 
         public override void clientClone(ModPlayer clientClone)

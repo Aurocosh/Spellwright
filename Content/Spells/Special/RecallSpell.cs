@@ -43,7 +43,7 @@ namespace Spellwright.Content.Spells.Special
             }
 
             var spellLevelLists = new List<string>();
-            spellLevelLists.Add(Spellwright.GetTranslation("General", "KnownSpells"));
+            spellLevelLists.Add(Spellwright.GetTranslation("General", "KnownSpells").Value);
 
             for (int i = 0; i < 11; i++)
             {
@@ -52,7 +52,7 @@ namespace Spellwright.Content.Spells.Special
                 if (spells.Count == 0)
                     continue;
 
-                var levelWord = Spellwright.GetTranslation("General", "Level");
+                var levelWord = Spellwright.GetTranslation("General", "Level").Value;
                 var levelHeader = $"{levelWord} {i}";
 
                 var lines = new List<string>();

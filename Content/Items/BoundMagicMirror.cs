@@ -53,13 +53,13 @@ namespace Spellwright.Content.Items
         {
             if (LocationName.Length != 0)
             {
-                var tooltipLine = new TooltipLine(Mod, "Location name", Spellwright.GetTranslation("Generic", "LocationName") + ":" + LocationName);
+                var tooltipLine = new TooltipLine(Mod, "Location name", Spellwright.GetTranslation("BoundMirror", "LocationName").Format(LocationName));
                 tooltips.Add(tooltipLine);
             }
 
             int x = (int)(BoundLocation.X / 16f);
             int y = (int)(BoundLocation.Y / 16f);
-            var coordinateLine = new TooltipLine(Mod, "Location coordinates", Spellwright.GetTranslation("Generic", "LocationCoordinates") + $"X:{x} Y:{y}");
+            var coordinateLine = new TooltipLine(Mod, "Location coordinates", Spellwright.GetTranslation("BoundMirror", "LocationCoordinates").Format(x, y));
             tooltips.Add(coordinateLine);
         }
 

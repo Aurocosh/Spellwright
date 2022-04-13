@@ -136,7 +136,7 @@ namespace Spellwright.Content.Items
                 var descriptionValues = spell.GetDescriptionValues(player, playerLevel, spellwrightPlayer.SpellData, false);
                 foreach (var value in descriptionValues)
                 {
-                    var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name);
+                    var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name).Value;
                     var descriptionPart = $"{parameterName}: {value.Value}";
                     tooltips.Add(new TooltipLine(spellwright, parameterName, descriptionPart));
                 }

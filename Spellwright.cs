@@ -78,15 +78,15 @@ namespace Spellwright
         internal static string GetTranslationKey(string category, string name) => $"Mods.Spellwright.{category}.{name}";
         internal static string GetTranslationKey(string category, string subcategory, string name) => $"Mods.Spellwright.{category}.{subcategory}.{name}";
 
-        internal static string GetTranslation(string category, string key)
+        internal static LocalizedText GetTranslation(string category, string key)
         {
             string translationKey = $"Mods.Spellwright.{category}.{key}";
-            return Language.GetText(translationKey).Value;
+            return Language.GetText(translationKey);
         }
-        internal static string GetTranslation(string category, string subcategory, string key)
+        internal static LocalizedText GetTranslation(string category, string subcategory, string key)
         {
             string translationKey = $"Mods.Spellwright.{category}.{subcategory}.{key}";
-            return Language.GetText(translationKey).Value;
+            return Language.GetText(translationKey);
         }
 
         public override void AddRecipeGroups()
