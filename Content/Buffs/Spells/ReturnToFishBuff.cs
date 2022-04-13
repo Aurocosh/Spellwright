@@ -16,24 +16,26 @@ namespace Spellwright.Content.Buffs.Spells
 
         public override void Update(Player player, ref int buffIndex)
         {
-            var spellwrightPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            int playerLevel = spellwrightPlayer.PlayerLevel;
+            DoAction(player);
+        }
 
-            if (playerLevel >= 2)
+        public static void DoAction(Player player)
+        {
+            var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
+            int buffPlayerLevel = buffPlayer.GetBuffLevel(ModContent.BuffType<ReturnToFishBuff>());
+
+            if (buffPlayerLevel >= 2)
             {
                 player.accFlipper = true;
             }
-            if (playerLevel >= 4)
+            if (buffPlayerLevel >= 4)
             {
                 player.gills = true;
             }
-            if (playerLevel >= 6)
+            if (buffPlayerLevel >= 6)
             {
                 player.ignoreWater = true;
             }
-
-            //if (swimTime <= 10)
-            //    swimTime = 30;
         }
     }
 }

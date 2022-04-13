@@ -3,6 +3,7 @@
     public enum SpellModifier
     {
         IsAoe = 1,
-        IsExtended = 2
+        IsEternal = 2,
+        IsDispel = 3
     }
 }

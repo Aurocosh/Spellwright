@@ -13,7 +13,6 @@ namespace Spellwright.Content.Buffs.Spells
             Description.SetDefault("Grants additional defense that increases with each hit received.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
-
         }
 
         public override void Update(Player player, ref int buffIndex)

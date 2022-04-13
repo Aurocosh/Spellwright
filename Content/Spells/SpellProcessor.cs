@@ -24,6 +24,9 @@ namespace Spellwright.Content.Spells
             if (spell.SpellLevel > spellwrightPlayer.PlayerLevel)
                 return SpellCastResult.LevelTooLow;
 
+            if (spellwrightPlayer.PlayerLevel < 5 && spellStructure.SpellModifiers.Contains(SpellModifier.IsEternal))
+                return SpellCastResult.LevelTooLow;
+
             bool isModifiersApplicable = spell.IsModifiersApplicable(spellStructure.SpellModifiers);
             if (!isModifiersApplicable)
                 return SpellCastResult.ModifiersInvalid;

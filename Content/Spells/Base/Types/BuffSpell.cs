@@ -1,10 +1,13 @@
-﻿using Spellwright.Data;
+﻿using Spellwright.Common.Players;
+using Spellwright.Data;
 using Spellwright.Network;
 using Spellwright.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
+using static Spellwright.Common.Players.SpellwrightBuffPlayer;
 
 namespace Spellwright.Content.Spells.Base.Types
 {
@@ -25,6 +28,84 @@ namespace Spellwright.Content.Spells.Base.Types
 
         protected override void ApplyEffect(IEnumerable<Player> affectedPlayers, int playerLevel, SpellData spellData)
         {
+            if (spellData.HasModifier(SpellModifier.IsDispel))
+            {
+                RemovePermamentEffect(affectedPlayers);
+            }
+            else if (spellData.HasModifier(SpellModifier.IsEternal))
+            {
+                SetBuffLevel(affectedPlayers, playerLevel);
+                AddPermamentEffect(affectedPlayers);
+            }
+            else
+            {
+                SetBuffLevel(affectedPlayers, playerLevel);
+                AddBuffs(affectedPlayers, playerLevel);
+            }
+        }
+        private void RemovePermamentEffect(IEnumerable<Player> affectedPlayers)
+        {
+            var buffIds = effects.Select(x => x.effectId).ToArray();
+
+            int myPlayer = Main.myPlayer;
+            foreach (var affectedPlayer in affectedPlayers)
+            {
+                int playerId = affectedPlayer.whoAmI;
+                if (Main.netMode == NetmodeID.MultiplayerClient && playerId != myPlayer)
+                {
+                    ModNetHandler.OtherPlayerRemovePermamentEffectHandler.Send(playerId, myPlayer, buffIds);
+                }
+                else
+                {
+                    var modPlayer = affectedPlayer.GetModPlayer<SpellwrightBuffPlayer>();
+                    foreach (var buffId in buffIds)
+                        modPlayer.PermamentBuffs.Remove(buffId);
+                }
+            }
+        }
+        private void AddPermamentEffect(IEnumerable<Player> affectedPlayers)
+        {
+            var buffIds = effects.Select(x => x.effectId).ToArray();
+
+            int myPlayer = Main.myPlayer;
+            foreach (var affectedPlayer in affectedPlayers)
+            {
+                int playerId = affectedPlayer.whoAmI;
+                if (Main.netMode == NetmodeID.MultiplayerClient && playerId != myPlayer)
+                {
+                    ModNetHandler.otherPlayerAddPermamentEffectHandler.Send(playerId, myPlayer, buffIds);
+                }
+                else
+                {
+                    var modPlayer = affectedPlayer.GetModPlayer<SpellwrightBuffPlayer>();
+                    foreach (var buffId in buffIds)
+                        modPlayer.PermamentBuffs.Add(buffId);
+                }
+            }
+        }
+
+        private void SetBuffLevel(IEnumerable<Player> affectedPlayers, int playerLevel)
+        {
+            var buffLevels = new List<BuffLevelData>();
+            foreach (var effect in effects)
+                buffLevels.Add(new BuffLevelData(effect.effectId, playerLevel));
+
+            if (buffLevels.Count == 0)
+                return;
+
+            int myPlayer = Main.myPlayer;
+            foreach (var affectedPlayer in affectedPlayers)
+            {
+                var effectPlayer = affectedPlayer.GetModPlayer<SpellwrightBuffPlayer>();
+                effectPlayer.SetBuffLevels(buffLevels);
+                int playerId = affectedPlayer.whoAmI;
+                if (Main.netMode == NetmodeID.MultiplayerClient && playerId != myPlayer)
+                    ModNetHandler.EffectLevelHandler.Sync(playerId, buffLevels);
+            }
+        }
+
+        private void AddBuffs(IEnumerable<Player> affectedPlayers, int playerLevel)
+        {
             var buffDatas = new BuffData[effects.Count];
             for (int i = 0; i < effects.Count; i++)
             {
@@ -38,11 +119,11 @@ namespace Spellwright.Content.Spells.Base.Types
             foreach (var affectedPlayer in affectedPlayers)
             {
                 int playerId = affectedPlayer.whoAmI;
-                string playerName = affectedPlayer.name;
-
+                //if (playerId == myPlayer)
+                //    continue;
                 if (Main.netMode == NetmodeID.MultiplayerClient && playerId != myPlayer)
                 {
-                    ModNetHandler.OtherPlayerAddBuffsHandler.Send(playerId, myPlayer, buffDatas);
+                    ModNetHandler.otherPlayerAddBuffsHandler.Send(playerId, myPlayer, buffDatas);
                 }
                 else
                 {

@@ -1,0 +1,181 @@
+﻿using Spellwright.Content.Buffs.Spells;
+using Spellwright.Network;
+using Spellwright.Util;
+using System.Collections.Generic;
+using System.Linq;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
+
+namespace Spellwright.Common.Players
+{
+    internal class SpellwrightBuffPlayer : ModPlayer
+    {
+        public readonly HashSet<int> PermamentBuffs = new();
+        public readonly Dictionary<int, int> BuffLevels = new();
+
+        public override bool CloneNewInstances => false;
+
+        public void SetPermamentBuffs(IEnumerable<int> buffIds)
+        {
+            PermamentBuffs.Clear();
+            PermamentBuffs.UnionWith(buffIds);
+        }
+
+        public void SetBuffLevel(BuffLevelData buffLevel)
+        {
+            BuffLevels[buffLevel.BuffId] = buffLevel.Level;
+        }
+
+        public void SetBuffLevels(List<BuffLevelData> buffLevels)
+        {
+            foreach (var buffLevel in buffLevels)
+                BuffLevels[buffLevel.BuffId] = buffLevel.Level;
+        }
+
+        public int GetBuffLevel(int buffId)
+        {
+            if (BuffLevels.TryGetValue(buffId, out var level))
+                return level;
+            return 0;
+        }
+
+        public override void PreUpdateBuffs()
+        {
+        }
+
+        public override void PostUpdateBuffs()
+        {
+            if (PermamentBuffs.Contains(BuffID.Shine))
+            {
+                Player.buffImmune[BuffID.Shine] = true;
+                Lighting.AddLight((int)(Player.position.X + (float)(Player.width / 2)) / 16, (int)(Player.position.Y + (float)(Player.height / 2)) / 16, 0.8f, 0.95f, 1f);
+            }
+
+            if (PermamentBuffs.Contains(BuffID.Spelunker))
+            {
+                Player.buffImmune[BuffID.Spelunker] = true;
+                Player.findTreasure = true;
+            }
+
+            int galeForceBuffId = ModContent.BuffType<GaleForceBuff>();
+            if (PermamentBuffs.Contains(galeForceBuffId))
+            {
+                Player.buffImmune[galeForceBuffId] = true;
+                GaleForceBuff.DoAction(Player);
+            }
+
+            int returnToFishBuffId = ModContent.BuffType<ReturnToFishBuff>();
+            if (PermamentBuffs.Contains(returnToFishBuffId))
+            {
+                Player.buffImmune[returnToFishBuffId] = true;
+                ReturnToFishBuff.DoAction(Player);
+            }
+
+            int kissOfCloverBuffId = ModContent.BuffType<KissOfCloverBuff>();
+            if (PermamentBuffs.Contains(kissOfCloverBuffId))
+            {
+                Player.buffImmune[kissOfCloverBuffId] = true;
+                KissOfCloverBuff.DoAction(Player);
+            }
+        }
+
+        public override void clientClone(ModPlayer clientClone)
+        {
+            var clone = clientClone as SpellwrightBuffPlayer;
+            clone.SetPermamentBuffs(PermamentBuffs);
+
+            clone.BuffLevels.Clear();
+            foreach (var effectLevel in BuffLevels)
+                clone.BuffLevels.Add(effectLevel.Key, effectLevel.Value);
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            int playerId = Player.whoAmI;
+            var effectIds = PermamentBuffs.Cast<int>().ToArray();
+            ModNetHandler.permamentPlayerEffectsHandler.Sync(toWho, playerId, playerId, effectIds);
+
+            var levelData = new List<BuffLevelData>();
+            foreach (var effectLevel in BuffLevels)
+                levelData.Add(new BuffLevelData(effectLevel.Key, effectLevel.Value));
+            ModNetHandler.EffectLevelHandler.Sync(toWho, playerId, playerId, levelData);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            var clone = clientPlayer as SpellwrightBuffPlayer;
+            if (!clone.PermamentBuffs.SetEquals(PermamentBuffs))
+            {
+                var effectIds = PermamentBuffs.Cast<int>().ToArray();
+                ModNetHandler.permamentPlayerEffectsHandler.Sync(Player.whoAmI, effectIds);
+            }
+
+            foreach (var effectLevel in BuffLevels)
+            {
+                int buffId = effectLevel.Key;
+                int level = effectLevel.Value;
+                if (!clone.BuffLevels.TryGetValue(buffId, out int cloneLevel) || level != cloneLevel)
+                    ModNetHandler.SingleEffectLevelHandler.Sync(Player.whoAmI, new BuffLevelData(buffId, level));
+            }
+        }
+
+        public override void SaveData(TagCompound tag)
+        {
+            var permamentEffectTags = new List<TagCompound>();
+            foreach (var buffId in PermamentBuffs)
+                permamentEffectTags.Add(UtilBuff.SerializeBuff(buffId));
+            tag.Add("PermamentEffects", permamentEffectTags);
+
+            var effectLevelTags = new List<TagCompound>();
+            foreach (var effectLevel in BuffLevels)
+            {
+                int buffId = effectLevel.Key;
+                int level = effectLevel.Value;
+
+                var effectTag = UtilBuff.SerializeBuff(buffId);
+                effectTag["Level"] = level;
+                effectLevelTags.Add(effectTag);
+            }
+            tag.Add("EffectLevels", effectLevelTags);
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            PermamentBuffs.Clear();
+            var permamentEffectTags = tag.GetList<TagCompound>("PermamentEffects");
+            foreach (var elementTag in permamentEffectTags)
+            {
+                int buffId = UtilBuff.DeserializeBuff(elementTag);
+                PermamentBuffs.Add(buffId);
+            }
+
+            BuffLevels.Clear();
+            var effectLevelTags = tag.GetList<TagCompound>("EffectLevels");
+            foreach (var elementTag in effectLevelTags)
+            {
+                int buffId = UtilBuff.DeserializeBuff(elementTag);
+                int level = elementTag.GetInt("Level");
+                BuffLevels.Add(buffId, level);
+            }
+        }
+        internal class BuffLevelData
+        {
+            public int BuffId { get; set; }
+            public int Level { get; set; }
+
+            public BuffLevelData()
+            {
+                BuffId = 0;
+                Level = 0;
+            }
+
+            public BuffLevelData(int buffId, int level)
+            {
+                BuffId = buffId;
+                Level = level;
+            }
+        }
+    }
+}

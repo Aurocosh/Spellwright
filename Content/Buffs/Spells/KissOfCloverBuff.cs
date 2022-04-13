@@ -17,18 +17,23 @@ namespace Spellwright.Content.Buffs.Spells
 
         public override void Update(Player player, ref int buffIndex)
         {
+            DoAction(player);
+        }
+
+        public static void DoAction(Player player)
+        {
             player.noFallDmg = true;
 
-            var modPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            int playerLevel = modPlayer.PlayerLevel;
+            var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
+            int buffPlayerLevel = buffPlayer.GetBuffLevel(ModContent.BuffType<KissOfCloverBuff>());
 
-            if (playerLevel >= 4)
+            if (buffPlayerLevel >= 4)
             {
                 player.luck += .1f;
                 player.luckMaximumCap += .1f;
             }
 
-            if (playerLevel >= 6)
+            if (buffPlayerLevel >= 6)
             {
                 player.GetCritChance(DamageClass.Throwing) += 10;
                 player.GetCritChance(DamageClass.Summon) += 10;
@@ -37,7 +42,7 @@ namespace Spellwright.Content.Buffs.Spells
                 player.GetCritChance(DamageClass.Magic) += 10;
             }
 
-            if (playerLevel >= 8)
+            if (buffPlayerLevel >= 8)
             {
                 player.luck += .1f;
                 player.luckMaximumCap += .1f;

@@ -50,27 +50,6 @@ namespace Spellwright.Content.Spells.Base
         protected virtual LegacySoundStyle GetUseSound(int playerLevel) => useSound;
         protected virtual DamageClass DamageType => damageType;
 
-        //public virtual string GetFullDescription(int playerLevel, bool fullVersion)
-        //{
-        //    string name = DisplayName.ToString();
-
-        //    var descriptionParts = new List<string>();
-        //    descriptionParts.Add(name);
-
-        //    var descriptionValues = GetDescriptionValues(playerLevel, fullVersion);
-        //    string description = Description.ToString();
-        //    descriptionValues.Add(new SpellParameter("Description", description));
-
-        //    foreach (var value in descriptionValues)
-        //    {
-        //        var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name);
-        //        var descriptionPart = $"{parameterName}: {value.Value}";
-        //        descriptionParts.Add(descriptionPart);
-        //    }
-
-        //    return string.Join("\n", descriptionParts);
-        //}
-
         public virtual List<SpellParameter> GetDescriptionValues(Player player, int playerLevel, SpellData spellData, bool fullVersion)
         {
             var values = new List<SpellParameter>();
@@ -117,6 +96,10 @@ namespace Spellwright.Content.Spells.Base
             costModifier = 1f;
             appplicableModifiers = new HashSet<SpellModifier>();
             spellCostModifiers = new Dictionary<SpellModifier, ICostModifier>();
+
+            SetSpellCostModifier(SpellModifier.IsDispel, new MultCostModifier(0));
+            SetSpellCostModifier(SpellModifier.IsAoe, new MultCostModifier(4));
+            SetSpellCostModifier(SpellModifier.IsEternal, new MultCostModifier(4));
         }
         protected sealed override void Register()
         {

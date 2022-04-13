@@ -18,11 +18,16 @@ namespace Spellwright.Network
         internal static ReactiveArmorDefenseHandler reactiveArmorDefenseSync = new();
         internal static PlayerLevelHandler PlayerLevelSync = new();
         internal static DashPlayerTimerHandler dashPlayerTimerSync = new();
+        internal static PermamentPlayerEffectsHandler permamentPlayerEffectsHandler = new();
+        internal static EffectLevelHandler EffectLevelHandler = new();
+        internal static SingleEffectLevelHandler SingleEffectLevelHandler = new();
 
         // Communication
         internal static OtherPlayerHealHandler otherPlayerHealHandler = new();
         internal static OtherPlayerClearBuffsHandler otherPlayerClearBuffsHandler = new();
-        internal static OtherPlayerAddBuffsHandler OtherPlayerAddBuffsHandler = new();
+        internal static OtherPlayerAddBuffsHandler otherPlayerAddBuffsHandler = new();
+        internal static OtherPlayerRemovePermamentEffectHandler OtherPlayerRemovePermamentEffectHandler = new();
+        internal static OtherPlayerAddPermamentEffectHandler otherPlayerAddPermamentEffectHandler = new();
 
         // Dusts
         internal static DustSpawnPacketHandler<AoeCastDustSpawner> aoeCastDustHandler = new();

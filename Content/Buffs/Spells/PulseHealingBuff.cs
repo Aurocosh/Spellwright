@@ -14,6 +14,7 @@ namespace Spellwright.Content.Buffs.Spells
             DisplayName.SetDefault("Pulse healing");
             Description.SetDefault("Powerful healing that occures occasionally");
             Main.buffNoTimeDisplay[Type] = false;
+            Main.buffNoSave[Type] = true;
             Main.debuff[Type] = false;
         }
 

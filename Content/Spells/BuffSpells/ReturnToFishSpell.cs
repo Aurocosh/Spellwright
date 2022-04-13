@@ -19,6 +19,9 @@ namespace Spellwright.Content.Spells.BuffSpells
             AddEffect(ModContent.BuffType<ReturnToFishBuff>(), durationGetter);
 
             spellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>());
+
+            AddApplicableModifier(SpellModifier.IsDispel);
+            AddApplicableModifier(SpellModifier.IsEternal);
         }
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {

@@ -16,26 +16,31 @@ namespace Spellwright.Content.Buffs.Spells
 
         public override void Update(Player player, ref int buffIndex)
         {
-            var spellwrightPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            int playerLevel = spellwrightPlayer.PlayerLevel;
+            DoAction(player);
+        }
+
+        public static void DoAction(Player player)
+        {
+            var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
+            int buffPlayerLevel = buffPlayer.GetBuffLevel(ModContent.BuffType<GaleForceBuff>());
 
             float maxSpeedMult = 1;
 
-            if (playerLevel >= 3)
+            if (buffPlayerLevel >= 3)
             {
                 maxSpeedMult = 1.2f;
             }
-            if (playerLevel >= 5)
+            if (buffPlayerLevel >= 5)
             {
                 Player.jumpHeight += 15;
                 player.jumpSpeedBoost += 2.4f;
                 player.extraFall += 10;
             }
-            if (playerLevel >= 7)
+            if (buffPlayerLevel >= 7)
             {
                 player.runAcceleration *= 1.5f;
             }
-            if (playerLevel >= 9)
+            if (buffPlayerLevel >= 9)
             {
                 maxSpeedMult *= 1.4f;
                 Player.jumpHeight += 15;
