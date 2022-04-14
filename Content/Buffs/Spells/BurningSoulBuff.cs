@@ -35,7 +35,7 @@ namespace Spellwright.Content.Buffs.Spells
             position.X -= 3;
 
             Vector2 dustPosition = position + Main.rand.NextVector2CircularEdge(0.5f, 1).ScaleRandom(0, 50);
-            var dust = Dust.NewDustDirect(dustPosition, 0, 0, DustID.GreenTorch, 0f, 0f, 100, default, 1.5f);
+            var dust = Dust.NewDustDirect(dustPosition, 0, 0, DustID.PurpleTorch, 0f, 0f, 100, default, 1.5f);
             dust.noLightEmittence = true;
             dust.noGravity = true;
         }

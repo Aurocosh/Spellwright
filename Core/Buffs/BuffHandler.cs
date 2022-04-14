@@ -12,6 +12,11 @@ namespace Spellwright.Core.Buffs
 
             switch (buffId)
             {
+                case BuffID.ObsidianSkin:
+                    player.lavaImmune = true;
+                    player.fireWalk = true;
+                    player.buffImmune[BuffID.OnFire] = true;
+                    break;
                 case BuffID.Spelunker:
                     player.findTreasure = true;
                     break;
