@@ -18,7 +18,7 @@ namespace Spellwright.Content.Spells.Base.Types
             UseType = SpellType.Spell;
             liquidType = LiquidID.Water;
             canAutoReuse = true;
-            useTimeMultiplier = 7f;
+            useTimeMultiplier = 9f;
         }
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)
         {

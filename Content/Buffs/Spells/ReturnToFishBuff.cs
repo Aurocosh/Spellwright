@@ -16,11 +16,6 @@ namespace Spellwright.Content.Buffs.Spells
 
         public override void Update(Player player, ref int buffIndex)
         {
-            DoAction(player);
-        }
-
-        public static void DoAction(Player player)
-        {
             var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
             int buffPlayerLevel = buffPlayer.GetBuffLevel(ModContent.BuffType<ReturnToFishBuff>());
 

@@ -1,10 +1,9 @@
-﻿using Spellwright.Content.Buffs.Spells;
+﻿using Spellwright.Core.Buffs;
 using Spellwright.Network;
 using Spellwright.Util;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -49,28 +48,24 @@ namespace Spellwright.Common.Players
 
         public override void PostUpdateBuffs()
         {
-            if (IsPermament(BuffID.Shine))
-                Lighting.AddLight((int)(Player.position.X + (float)(Player.width / 2)) / 16, (int)(Player.position.Y + (float)(Player.height / 2)) / 16, 0.8f, 0.95f, 1f);
-            if (IsPermament(BuffID.Spelunker))
-                Player.findTreasure = true;
-            if (IsPermament(BuffID.Hunter))
-                Player.detectCreature = true;
-            if (IsPermament(ModContent.BuffType<GaleForceBuff>()))
-                GaleForceBuff.DoAction(Player);
-            if (IsPermament(ModContent.BuffType<ReturnToFishBuff>()))
-                ReturnToFishBuff.DoAction(Player);
-            if (IsPermament(ModContent.BuffType<KissOfCloverBuff>()))
-                KissOfCloverBuff.DoAction(Player);
-        }
-
-        private bool IsPermament(int buffId)
-        {
-            if (HasPermamentBuff(buffId))
+            foreach (var buffId in PermamentBuffs)
             {
                 Player.buffImmune[buffId] = true;
-                return true;
+                BuffHandler.UpdateBuff(buffId, Player);
             }
-            return false;
+
+            //if (IsPermament(BuffID.Shine))
+            //    Lighting.AddLight((int)(Player.position.X + (float)(Player.width / 2)) / 16, (int)(Player.position.Y + (float)(Player.height / 2)) / 16, 0.8f, 0.95f, 1f);
+            //if (IsPermament(BuffID.Spelunker))
+            //    Player.findTreasure = true;
+            //if (IsPermament(BuffID.Hunter))
+            //    Player.detectCreature = true;
+            //if (IsPermament(ModContent.BuffType<GaleForceBuff>()))
+            //    GaleForceBuff.DoAction(Player);
+            //if (IsPermament(ModContent.BuffType<ReturnToFishBuff>()))
+            //    ReturnToFishBuff.DoAction(Player);
+            //if (IsPermament(ModContent.BuffType<KissOfCloverBuff>()))
+            //    KissOfCloverBuff.DoAction(Player);
         }
 
         public override void clientClone(ModPlayer clientClone)

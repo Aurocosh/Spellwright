@@ -17,11 +17,6 @@ namespace Spellwright.Content.Buffs.Spells
 
         public override void Update(Player player, ref int buffIndex)
         {
-            DoAction(player);
-        }
-
-        public static void DoAction(Player player)
-        {
             player.noFallDmg = true;
 
             var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
