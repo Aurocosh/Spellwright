@@ -30,7 +30,7 @@ namespace Spellwright.Content.Spells.Enchant
                 return false;
             string locationName = spellData.Argument;
 
-            var itemId = Item.NewItem(new EntitySource_ItemUse(player, null), player.Center, itemType, 1, false, 0, true);
+            var itemId = Item.NewItem(new EntitySource_Parent(player), player.Center, itemType, 1, false, 0, true);
             Item item = Main.item[itemId];
             var modItem = item.ModItem as BoundMagicMirror;
             modItem.LocationName = locationName;

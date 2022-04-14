@@ -46,7 +46,7 @@ namespace Spellwright.Content.Buffs.Spells
             var spawnPosition = center + new Vector2(shiftX, -shiftY);
 
             int projectileId = ModContent.ProjectileType<ManaStarfallProjectile>();
-            var projectileSource = new EntitySource_ItemUse(player, null);
+            var projectileSource = new EntitySource_Parent(player);
             Projectile.NewProjectile(projectileSource, spawnPosition, velocity, projectileId, 500, 10, player.whoAmI);
         }
     }

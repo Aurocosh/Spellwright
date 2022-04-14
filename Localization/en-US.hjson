@@ -44,6 +44,8 @@ Mods: {
 
 		SpellCost: {
 			NotEnoughReagents: Not enough reagents. Reagents required: {0}
+			NotEnoughMana: Not enough mana. Mana required: {0}
+			ManaCost: Mana {0}
 		}
 		
 		BoundMirror: {
@@ -237,6 +239,10 @@ Mods: {
 				Name: Fireball
 				Description: Shoots fireballs
 			}
+			HeartThrowerSpell: {
+				Name: Heart Thrower
+				Description: Consumes a large amount of mana and spawns several projectiles that drop healing hearts
+			}
 			MoneyTroughSpell: {
 				Name: Money Trough
 				Description: Summons flying piggy bank
@@ -309,12 +315,13 @@ Mods: {
 			}
 			OceanGateSpell: {
 				Name: Ocean Gate
-				Description:
-					'''Teleports player to either east or west ocean. Additional parameters can be specified 
-					(east, west, left, right). If no parameters were specified then it will work just like magic
-					conch, meaning that it will teleport the player to the farthest ocean from his current position.
-					If the parameter is specified then the player will be teleported to the ocean corresponding 
-					to the parameter
+				Description: "Teleports player to either east or west ocean. Additional parameters can be specified (east, west, left, right). If no parameters were specified then it will work just like magic conch, meaning that it will teleport the player to the farthest ocean from his current position. If the parameter is specified then the player will be teleported to the ocean corresponding to the parameter"
+					Examples: 
+					'''\n\tOcean step - works just like a magic conch
+					\tOcean step: west - will teleport the player to the left ocean
+					\tOcean step: east - will teleport the player to the right ocean
+					\tOcean step: left - will teleport the player to the left ocean
+					\tOcean step: right - will teleport the player to the right ocean
 					'''
 			}
 			ShadowStepSpell: {

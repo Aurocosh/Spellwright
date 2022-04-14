@@ -104,10 +104,9 @@ namespace Spellwright.Common.Players
                 Vector2 velocity = center.DirectionTo(mousePosition);
                 var projectileSource = new EntitySource_Parent(player);
                 if (CurrentCantrip.ConsumeReagents(player, playerLevel, CantripData))
-                {
                     CurrentCantrip.Cast(player, PlayerLevel, CantripData, projectileSource, center, velocity);
-                    nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
-                }
+
+                nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
             }
         }
     }
