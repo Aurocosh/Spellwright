@@ -76,6 +76,10 @@ Mods: {
 				Description: Buffs player with battlecry. Battlecry Increases enemy spawn rate and is twice as effective as a standard battle potion. Stacks with battle potion effects
 				Incantation: BattlecryTest
 			}
+			BurningSoulSpell: {
+				Name: Burning Soul
+				Description: Stops player health regeneration and slowly drains players health while massively boosting mana regeneration and magical damage
+			}
 			EyesOfProfitSpell: {
 				Name: Eyes Of Profit
 				Description: Gives player effect of spelunking. Consumes 2 golden coins. If the player has no gold in inventory this spell will not work.
@@ -242,6 +246,10 @@ Mods: {
 			FireballSpell: {
 				Name: Fireball
 				Description: Shoots fireballs
+			}
+			GlassCannonSpell: {
+				Name: GlassCannon
+				Description: Projectile from this spell deals massive amounts of damage, however if this projectile misses and hits the ground, then the caster will receive damage equal to 80 percent of his health
 			}
 			HeartThrowerSpell: {
 				Name: Heart Thrower
