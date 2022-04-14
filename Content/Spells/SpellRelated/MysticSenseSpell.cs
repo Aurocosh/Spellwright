@@ -6,7 +6,7 @@ using Terraria;
 
 namespace Spellwright.Content.Spells.Special
 {
-    internal class MysticSense : ModSpell
+    internal class MysticSenseSpell : ModSpell
     {
         public override void SetStaticDefaults()
         {
@@ -21,18 +21,18 @@ namespace Spellwright.Content.Spells.Special
             var parts = new List<string>();
 
             var modPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            var message = Spellwright.GetTranslation("MysticSense", "MyCurrentLevel").Format(modPlayer.PlayerLevel);
+            var message = Spellwright.GetTranslation("Spells", Name, "MyCurrentLevel").Format(modPlayer.PlayerLevel);
             parts.Add(message);
 
             var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
             if (buffPlayer.PermamentBuffs.Count == 0)
             {
-                parts.Add(Spellwright.GetTranslation("MysticSense", "NoPermamentBuffs").Value);
+                parts.Add(Spellwright.GetTranslation("Spells", Name, "NoPermamentBuffs").Value);
             }
             else
             {
                 var buffLines = new List<string>();
-                buffLines.Add(Spellwright.GetTranslation("MysticSense", "HavePermamentBuffs").Value);
+                buffLines.Add(Spellwright.GetTranslation("Spells", Name, "HavePermamentBuffs").Value);
                 foreach (int buffId in buffPlayer.PermamentBuffs)
                 {
                     var buffName = Lang.GetBuffName(buffId);

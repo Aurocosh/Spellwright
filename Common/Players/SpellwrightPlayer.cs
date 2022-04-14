@@ -102,7 +102,7 @@ namespace Spellwright.Common.Players
                 Vector2 mousePosition = Main.MouseWorld;
                 Vector2 center = player.Center;
                 Vector2 velocity = center.DirectionTo(mousePosition);
-                var projectileSource = new EntitySource_ItemUse(player, null);
+                var projectileSource = new EntitySource_Parent(player);
                 if (CurrentCantrip.ConsumeReagents(player, playerLevel, CantripData))
                 {
                     CurrentCantrip.Cast(player, PlayerLevel, CantripData, projectileSource, center, velocity);

@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Dusts\" />
+    <Folder Include="Content\Spells\Special\" />
     <Folder Include="Network\Base\MessageProcessors\Readers\" />
     <Folder Include="Network\Dusts\" />
   </ItemGroup>

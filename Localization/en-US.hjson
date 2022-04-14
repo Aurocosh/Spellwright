@@ -26,6 +26,7 @@ Mods: {
 			Damage: Damage
 			Description: Description
 			UseCost: Use cost
+			Examples: Examples
 		}
 
 		General: {
@@ -39,12 +40,6 @@ Mods: {
 			IncantationInvalid: Spell incantation is invalid
 			ModifiersInvalid: One of the spell modifiers is not valid or not applicable
 			DataInvalid: Spell argument is invalid
-		}
-
-		MysticSense: {
-			MyCurrentLevel: My current level is {0}
-			NoPermamentBuffs: I have no permament buffs
-			HavePermamentBuffs: I have following permament buffs
 		}
 
 		SpellCost: {
@@ -242,6 +237,10 @@ Mods: {
 				Name: Fireball
 				Description: Shoots fireballs
 			}
+			MoneyTroughSpell: {
+				Name: Money Trough
+				Description: Summons flying piggy bank
+			}
 			SparkCasterSpell: {
 				Name: Spark Caster
 				Description:
@@ -258,6 +257,27 @@ Mods: {
 				Description: Shoots small projectile made out of stone
 			}
 			
+			# SpellRelated
+			AscendSpell: {
+				Name: Ascend
+				Description: Special spell that can increase the level of a player. Each level up has a cost that depends on the current level of the player
+			}
+			MysticSenseSpell: {
+				Name: Mystic Sense
+				Description: Special spell that displays player level as well as a list of all permanent buffs that a player has
+				MyCurrentLevel: My current level is {0}
+				NoPermamentBuffs: I have no permament buffs
+				HavePermamentBuffs: I have following permament buffs
+			}
+			RecallSpell: {
+				Name: Recall
+				Description: Special spell that displays either a list of all known spells or detailed information about a specific spell. List of spells will also display status of spells (Unlocked or not). To display a list of all spells you need to cast recall without an argument. To get information about a spell you need to cast recall with the name of desired spell as an argument.
+				Examples: 
+					'''\n\tRecall - show list of all spells
+					\tRecall: bind mirror - show information about spell Bind mirror
+					'''
+			}
+
 			# TileBreak
 			IceBreakerSpell: {
 				Name: Ice Breaker

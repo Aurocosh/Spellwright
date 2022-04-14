@@ -127,6 +127,16 @@ namespace Spellwright.Content.Spells.Special
             return true;
         }
 
+        public override List<SpellParameter> GetDescriptionValues(Player player, int playerLevel, SpellData spellData, bool fullVersion)
+        {
+            var values = base.GetDescriptionValues(player, playerLevel, spellData, fullVersion);
+            string examples = Spellwright.GetTranslation("Spells", Name, "Examples").Value;
+            examples = examples.Replace("\\t", "   ");
+            examples = examples.Replace("\\n", "\n");
+            values.Add(new SpellParameter("Examples", examples));
+            return values;
+        }
+
         public override bool ProcessExtraData(SpellStructure structure, out object extraData)
         {
             extraData = structure.Argument;

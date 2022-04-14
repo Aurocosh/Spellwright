@@ -31,7 +31,7 @@ namespace Spellwright.Content.Spells.Base
         protected int useDelay;
         protected SpellCost spellCost;
         protected float useTimeMultiplier;
-        public LegacySoundStyle useSound;
+        protected LegacySoundStyle useSound;
         protected float costModifier;
         public virtual int SpellLevel { get; protected set; }
         public SpellType UseType { get; protected set; }
@@ -47,8 +47,12 @@ namespace Spellwright.Content.Spells.Base
         public virtual int GetUseDelay(int playerLevel) => useDelay;
         protected virtual int GetDamage(int playerLevel) => damage;
         protected virtual float GetKnockback(int playerLevel) => knockback;
-        protected virtual LegacySoundStyle GetUseSound(int playerLevel) => useSound;
         protected virtual DamageClass DamageType => damageType;
+        protected virtual void PlayUseSound(Vector2 position)
+        {
+            if (useSound != null)
+                SoundEngine.PlaySound(useSound, position);
+        }
 
         public virtual List<SpellParameter> GetDescriptionValues(Player player, int playerLevel, SpellData spellData, bool fullVersion)
         {
