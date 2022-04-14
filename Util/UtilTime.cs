@@ -7,21 +7,20 @@ namespace Spellwright.Util
     {
         private static readonly int TicksInSecond = 60;
 
-        public static int SecondsToTicks(int seconds)
+        public static int SecondsToTicks(float seconds)
         {
-            return seconds * TicksInSecond;
+            return (int)(seconds * TicksInSecond);
         }
 
-        public static int MinutesToTicks(int minutes, int seconds = 0)
+        public static int MinutesToTicks(float minutes, float seconds = 0)
         {
-            return ((minutes * 60) + seconds) * TicksInSecond;
+            return (int)(((minutes * 60) + seconds) * TicksInSecond);
         }
 
-        public static int HoursToTicks(int hours, int minutes = 0, int seconds = 0)
+        public static int HoursToTicks(float hours, float minutes = 0, float seconds = 0)
         {
-            return ((hours * 3600) * (minutes * 60) + seconds) * TicksInSecond;
+            return (int)(((hours * 3600) * (minutes * 60) + seconds) * TicksInSecond);
         }
-
 
         public static string TicksToString(int ticks)
         {

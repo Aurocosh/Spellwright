@@ -12,6 +12,7 @@ namespace Spellwright.Content.Spells.Movement
         {
             SpellLevel = 3;
             UseType = SpellType.Cantrip;
+
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

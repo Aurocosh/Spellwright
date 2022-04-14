@@ -96,17 +96,24 @@ namespace Spellwright.Common.Players
 
             if (Spellwright.OpenIncantationUIHotKey.JustPressed)
                 Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
-            else if (Spellwright.CastCantripHotKey.Current && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
+            else if (Spellwright.CastCantripHotKey.JustPressed || Spellwright.CastCantripHotKey.Current)
             {
-                Player player = Main.LocalPlayer;
-                Vector2 mousePosition = Main.MouseWorld;
-                Vector2 center = player.Center;
-                Vector2 velocity = center.DirectionTo(mousePosition);
-                var projectileSource = new EntitySource_Parent(player);
-                if (CurrentCantrip.ConsumeReagents(player, playerLevel, CantripData))
-                    CurrentCantrip.Cast(player, PlayerLevel, CantripData, projectileSource, center, velocity);
+                bool canAutoReuse = CurrentCantrip.CanAutoReuse(PlayerLevel);
+                bool singleCasted = Spellwright.CastCantripHotKey.JustPressed && !canAutoReuse;
+                bool continuosCast = Spellwright.CastCantripHotKey.Current && canAutoReuse;
 
-                nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
+                if ((singleCasted || continuosCast) && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
+                {
+                    Player player = Main.LocalPlayer;
+                    Vector2 mousePosition = Main.MouseWorld;
+                    Vector2 center = player.Center;
+                    Vector2 velocity = center.DirectionTo(mousePosition);
+                    var projectileSource = new EntitySource_Parent(player);
+                    if (CurrentCantrip.ConsumeReagents(player, playerLevel, CantripData))
+                        CurrentCantrip.Cast(player, PlayerLevel, CantripData, projectileSource, center, velocity);
+
+                    nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
+                }
             }
         }
     }

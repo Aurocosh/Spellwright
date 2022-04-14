@@ -309,6 +309,10 @@ Mods: {
 				Name: Hell Gate
 				Description: Teleports player to hell. Acts just like a demon conch
 			}
+			HymnOfDiscordSpell: {
+				Name: Hymn of Discord
+				Description: Functions just like Rod of Discord. Allows teleportation to the cursor
+			}
 			HomeReflectionSpell: {
 				Name: Home Reflection
 				Description: Teleports player to his spawn point
@@ -326,7 +330,7 @@ Mods: {
 			}
 			ShadowStepSpell: {
 				Name: Shadow Step
-				Description: When used it will teleport the caster short distance towards the cursor. At level 7 it will be able to teleport user through walls
+				Description: When used it will teleport the caster short distance towards the cursor. Cannot teleport through walls
 			}
 
 			# WorldEvents
@@ -335,13 +339,6 @@ Mods: {
 				Description: Changes weather to rain
 			}
 
-
-			
-
-
-
-
-			
 			StoneBullet: {
 				Name: StoneBullet
 				Description: Heals caster for a small amount instantly. Cannot heal more than 35% of players health. Also stops bleeding
