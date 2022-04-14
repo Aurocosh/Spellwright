@@ -18,6 +18,9 @@ namespace Spellwright.Core.Buffs
                 case BuffID.Shine:
                     Lighting.AddLight((int)(player.position.X + player.width / 2) / 16, (int)(player.position.Y + player.height / 2) / 16, 0.8f, 0.95f, 1f);
                     break;
+                case BuffID.WaterWalking:
+                    player.waterWalk = true;
+                    break;
                 case BuffID.Hunter:
                     player.detectCreature = true;
                     break;

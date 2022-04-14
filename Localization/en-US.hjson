@@ -90,6 +90,10 @@ Mods: {
 					Level 9 Increases player movement speed 20% and boosts player jump height by 15 blocks.
 					'''
 			}
+			GossamerShoesSpell: {
+				Name: Gossamer Shoes
+				Description: Allows walking on water
+			}
 			GreedyVortexSpell: {
 				Name: Greedy Vortex
 				Description: Buffs player with greedy vortex for 10 minutes. While active it will significantly increase pick up range of all normal items. Does not affect stars and hearts
