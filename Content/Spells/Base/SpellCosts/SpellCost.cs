@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace Spellwright.Content.Spells.Base.Reagents
+namespace Spellwright.Content.Spells.Base.SpellCosts
 {
     public abstract class SpellCost
     {

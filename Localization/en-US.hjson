@@ -70,6 +70,24 @@ Mods: {
 		}
 		
 		Spells: {
+			# Sigils
+			SigilOfBerserkerSpell: {
+				Name: Sigil of Berserker
+				Description: Allows auto swinging all melee weapons and whips. Slightly increases melee attack speed. Gives two armor points per level of player. Increases melee damage proportionally to the lost health and player level. The lower your health is, the higher the attack and crit bonus. Max bonus crit and damage is 300% at 0 health and level 10. Incompatible with other sigils
+			}
+			SigilOfLegionSpell: {
+				Name: Sigil of Legion
+				Description: Gives 1 additional minion slot and 1 additional sentry slot per each two levels of player. Incompatible with other sigils
+			}
+			SigilOfSageSpell: {
+				Name: Sigil of Sage
+				Description: Gives bonus magic damage and crit proportional to your current mana and level. At level 10 and full mana bonus crit and damage are equal to 150%. Incompatible with other sigils
+			}
+			SigilOfSniperSpell: {
+				Name: Sigil of Sniper
+				Description: Increases view range and gives bonus ranged damage and crit when stationary. At level 10 bonus crit and damage are equal to 100%. Incompatible with other sigils
+			}
+
 			# Buff spells
 			BattlecrySpell: {
 				Name: Battlecry
@@ -78,7 +96,7 @@ Mods: {
 			}
 			BurningSoulSpell: {
 				Name: Burning Soul
-				Description: Stops player health regeneration and slowly drains players health while massively boosting mana regeneration and magical damage
+				Description: Stops player health regeneration and slowly drains players health. In exchange it increases magical damage and crit and also massively boosts mana regeneration 
 			}
 			EyesOfProfitSpell: {
 				Name: Eyes Of Profit

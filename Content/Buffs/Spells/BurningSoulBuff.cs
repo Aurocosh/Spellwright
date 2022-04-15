@@ -25,8 +25,8 @@ namespace Spellwright.Content.Buffs.Spells
 
             player.manaRegenBuff = true;
             player.manaRegenDelay--;
-            player.GetCritChance(DamageClass.Magic) += 50;
-            player.GetDamage(DamageClass.Magic) += 100;
+            player.GetCritChance(DamageClass.Magic) += .2f;
+            player.GetDamage(DamageClass.Magic) += 2f;
 
             var soulPlayer = player.GetModPlayer<BurningSoulPlayer>();
             soulPlayer.noLifeRegen = true;

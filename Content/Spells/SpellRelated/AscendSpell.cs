@@ -1,12 +1,12 @@
 ﻿using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.Reagents;
+using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.DustSpawners;
 using Spellwright.Network;
 using Terraria;
 using Terraria.ID;
 
-namespace Spellwright.Content.Spells.Special
+namespace Spellwright.Content.Spells.SpellRelated
 {
     internal class AscendSpell : ModSpell
     {

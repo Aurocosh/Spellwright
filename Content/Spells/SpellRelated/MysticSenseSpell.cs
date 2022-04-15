@@ -4,7 +4,7 @@ using Spellwright.UI.States;
 using System.Collections.Generic;
 using Terraria;
 
-namespace Spellwright.Content.Spells.Special
+namespace Spellwright.Content.Spells.SpellRelated
 {
     internal class MysticSenseSpell : ModSpell
     {
@@ -26,9 +26,7 @@ namespace Spellwright.Content.Spells.Special
 
             var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
             if (buffPlayer.PermamentBuffs.Count == 0)
-            {
                 parts.Add(Spellwright.GetTranslation("Spells", Name, "NoPermamentBuffs").Value);
-            }
             else
             {
                 var buffLines = new List<string>();

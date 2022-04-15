@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Content.Spells.Base.Description;
 using Spellwright.DustSpawners;
 using Spellwright.Network;
 using Spellwright.Util;

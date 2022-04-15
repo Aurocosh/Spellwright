@@ -1,7 +1,7 @@
 ﻿using Spellwright.Content.Items;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.Reagents;
+using Spellwright.Content.Spells.Base.SpellCosts;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Enchant

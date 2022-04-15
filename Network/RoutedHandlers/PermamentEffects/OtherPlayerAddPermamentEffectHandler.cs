@@ -2,7 +2,7 @@
 using Spellwright.Network.Base;
 using Terraria;
 
-namespace Spellwright.Network.RoutedHandlers
+namespace Spellwright.Network.RoutedHandlers.PermamentEffects
 {
     internal class OtherPlayerAddPermamentEffectHandler : RoutedPacketHandler<int[]>
     {

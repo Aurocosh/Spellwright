@@ -1,4 +1,4 @@
-﻿namespace Spellwright.Content.Spells.Base
+﻿namespace Spellwright.Content.Spells.Base.Description
 {
     public class SpellParameter
     {

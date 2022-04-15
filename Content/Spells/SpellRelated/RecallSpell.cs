@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.Description;
 using Spellwright.Core.Spells;
 using Spellwright.UI.States;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader.IO;
 
-namespace Spellwright.Content.Spells.Special
+namespace Spellwright.Content.Spells.SpellRelated
 {
     internal class RecallSpell : ModSpell
     {

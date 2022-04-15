@@ -1,5 +1,5 @@
 ﻿using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.Reagents;
+using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria.ID;

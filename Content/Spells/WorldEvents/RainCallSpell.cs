@@ -3,7 +3,7 @@ using Spellwright.Network;
 using Terraria;
 using Terraria.ID;
 
-namespace Spellwright.Content.Spells.Enchant
+namespace Spellwright.Content.Spells.WorldEvents
 {
     internal class RainCallSpell : ModSpell
     {

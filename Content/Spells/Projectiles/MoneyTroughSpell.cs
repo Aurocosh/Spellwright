@@ -2,7 +2,7 @@
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
 
-namespace Spellwright.Content.Spells.Special
+namespace Spellwright.Content.Spells.Projectiles
 {
     internal class MoneyTroughSpell : ProjectileSpell
     {

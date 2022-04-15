@@ -2,7 +2,7 @@
 using System;
 using Terraria;
 
-namespace Spellwright.Content.Spells.Base.Reagents
+namespace Spellwright.Content.Spells.Base.SpellCosts
 {
     internal class SingleItemSpellCost : SpellCost
     {

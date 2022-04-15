@@ -3,7 +3,7 @@ using Spellwright.Network.Base;
 using Terraria;
 using static Spellwright.Common.Players.SpellwrightBuffPlayer;
 
-namespace Spellwright.Network.Sync
+namespace Spellwright.Network.Sync.EffectLevels
 {
     internal class SingleEffectLevelHandler : SyncPacketHandler<BuffLevelData>
     {

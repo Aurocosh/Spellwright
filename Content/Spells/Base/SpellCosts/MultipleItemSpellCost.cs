@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 
-namespace Spellwright.Content.Spells.Base.Reagents
+namespace Spellwright.Content.Spells.Base.SpellCosts
 {
     internal class MultipleItemSpellCost : SpellCost
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using static Spellwright.Common.Players.SpellwrightBuffPlayer;
 
-namespace Spellwright.Network.Sync
+namespace Spellwright.Network.Sync.EffectLevels
 {
     internal class EffectLevelHandler : SyncPacketHandler<List<BuffLevelData>>
     {

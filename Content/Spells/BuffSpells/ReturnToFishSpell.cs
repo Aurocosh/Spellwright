@@ -1,7 +1,7 @@
 ﻿using Spellwright.Content.Buffs.Spells;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.Reagents;
+using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria;

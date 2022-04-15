@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base.CostModifiers;
-using Spellwright.Content.Spells.Base.Reagents;
+using Spellwright.Content.Spells.Base.Description;
+using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Core.Spells;
 using Spellwright.Util;
 using System;

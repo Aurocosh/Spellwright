@@ -1,7 +1,7 @@
 ﻿using Spellwright.Network.Base;
 using Terraria;
 
-namespace Spellwright.Network.RoutedHandlers
+namespace Spellwright.Network.WorldEvents
 {
     internal class StartRainHandler : ServerPacketHandler<bool>
     {

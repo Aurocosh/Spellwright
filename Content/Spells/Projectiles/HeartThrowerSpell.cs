@@ -1,6 +1,6 @@
 ﻿using Spellwright.Content.Projectiles;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.Reagents;
+using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria.ModLoader;
@@ -14,7 +14,7 @@ namespace Spellwright.Content.Spells.Projectiles
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 6;
+            SpellLevel = 5;
             UseType = SpellType.Cantrip;
 
             damage = 4;
