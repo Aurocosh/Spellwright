@@ -98,6 +98,10 @@ Mods: {
 				Name: Burning Soul
 				Description: Stops player health regeneration and slowly drains players health. In exchange it increases magical damage and crit and also massively boosts mana regeneration 
 			}
+			CallOfTheDepthsSpell: {
+				Name: Call of the Depths
+				Description: Increases player mining speed proportional to current depth. The deeper is player the faster he will dig blocks. Minimum bonus is 10% just below surface level. Maximum bonus is 50% at maximum depth 
+			}
 			EyesOfProfitSpell: {
 				Name: Eyes Of Profit
 				Description: Gives player effect of spelunking. Consumes 2 golden coins. If the player has no gold in inventory this spell will not work.
