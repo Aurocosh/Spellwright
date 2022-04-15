@@ -155,6 +155,10 @@ Mods: {
 					Buff is compatible with iron skin
 					'''
 			}
+			SelfDefenseHexSpell: {
+				Name: Self Defense Hex
+				Description: Buffs player with self defense hex. Whenever you are hurt all enemies around you will be afflicted with random damaging debuffs
+			}
 			SurgeOfLifeSpell: {
 				Name: Surge Of Life
 				Description: Grants regeneration to you and all nearby players. Regeneration rate is doubled when the player is standing on grass

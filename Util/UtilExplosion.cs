@@ -50,7 +50,6 @@ namespace Spellwright.Util
             }
         }
 
-
         public static void ExplodeTiles(Vector2 position, int radius, bool wallSplode)
         {
             int minI = (int)(position.X / 16f - (float)radius);

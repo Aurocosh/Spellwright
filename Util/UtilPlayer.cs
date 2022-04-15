@@ -13,6 +13,20 @@ namespace Spellwright.Util
         // 50-53 coins 
         // 54-57 ammo 
 
+        public static IEnumerable<Player> GetPlayersInRadius(Vector2 position, int radius)
+        {
+            int worldRadius = radius * 16;
+            long radiusSq = worldRadius * worldRadius;
+            foreach (Player player in Main.player)
+            {
+                if (player == null || player.whoAmI == 255 || !player.active)
+                    continue;
+                float distanceSq = Vector2.DistanceSquared(player.Center, position);
+                if (distanceSq <= radiusSq)
+                    yield return player;
+            }
+        }
+
         public static IEnumerable<int> GetInventoryIndexes(bool reverseOrder = false, bool includeHotbar = true, bool includeInventory = true, bool includeCoins = true, bool includeAmmo = true)
         {
             if (!reverseOrder)

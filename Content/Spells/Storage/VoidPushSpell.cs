@@ -11,7 +11,7 @@ namespace Spellwright.Content.Spells.WorldEvents
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 5;
+            SpellLevel = 6;
             UseType = SpellType.Invocation;
         }
 
