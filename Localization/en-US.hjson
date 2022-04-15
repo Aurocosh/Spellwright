@@ -370,7 +370,11 @@ Mods: {
 			# WorldEvents
 			RainCallSpell: {
 				Name: Rain Call
-				Description: Changes weather to rain
+				Description: Changes weather to rain. Can also dispel rain.
+			}
+			DesertRiteSpell: {
+				Name: Desert Rite
+				Description: Triggers sandstorm in desert. Can also dispel sandstorm.
 			}
 
 			StoneBullet: {

@@ -1,15 +1,16 @@
 ﻿using Spellwright.Content.Spells.Base;
 using Spellwright.Network;
 using Terraria;
+using Terraria.GameContent.Events;
 using Terraria.ID;
 
 namespace Spellwright.Content.Spells.WorldEvents
 {
-    internal class RainCallSpell : ModSpell
+    internal class DesertRiteSpell : ModSpell
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 4;
+            SpellLevel = 5;
             UseType = SpellType.Invocation;
 
             AddApplicableModifier(SpellModifier.IsDispel);
@@ -19,15 +20,15 @@ namespace Spellwright.Content.Spells.WorldEvents
         {
             if (!spellData.HasModifier(SpellModifier.IsDispel))
             {
-                Main.StartRain();
+                Sandstorm.StartSandstorm();
                 if (Main.netMode == NetmodeID.MultiplayerClient)
-                    ModNetHandler.StartRainHandler.Send(true);
+                    ModNetHandler.StartSandstormHandler.Send(true);
             }
             else
             {
-                Main.StopRain();
+                Sandstorm.StopSandstorm();
                 if (Main.netMode == NetmodeID.MultiplayerClient)
-                    ModNetHandler.StopRainHandler.Send(true);
+                    ModNetHandler.StopSandstormHandler.Send(true);
             }
 
             return true;

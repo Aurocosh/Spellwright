@@ -40,7 +40,10 @@ namespace Spellwright.Network
         internal static DustSpawnPacketHandler<LevelUpDustSpawner> levelUpDustHandler = new();
 
         // Events
-        internal static StartRainHandler startRainHandler = new();
+        internal static StartRainHandler StartRainHandler = new();
+        internal static StopRainHandler StopRainHandler = new();
+        internal static StartSandstormHandler StartSandstormHandler = new();
+        internal static StopSandstormHandler StopSandstormHandler = new();
 
         internal static byte RegisterHandler(PacketHandler packetHandler)
         {
