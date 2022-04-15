@@ -318,6 +318,16 @@ Mods: {
 					'''
 			}
 
+			# Storage
+			VoidPushSpell: {
+				Name: Void Push
+				Description: Moves all not favorited items in inventory into large and inaccessible personal inventory. Inventory size depends on caster level and is equal to 50 items per level
+			}
+			VoidPopSpell: {
+				Name: Void Pop
+				Description: Extracts all items stored in your void inventory at once and drops them on the ground near you
+			}
+
 			# TileBreak
 			IceBreakerSpell: {
 				Name: Ice Breaker
