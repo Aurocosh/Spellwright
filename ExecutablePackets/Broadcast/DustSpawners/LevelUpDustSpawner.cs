@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
+using Spellwright.Network.Base;
 using Terraria;
 using Terraria.ID;
 
 namespace Spellwright.DustSpawners
 {
-    internal class LevelUpDustSpawner : DustSpawner
+    internal class LevelUpDustSpawner : IExecutablePacket
     {
         public Player Caster { get; set; }
         public int Level { get; set; } = 0;
@@ -16,7 +17,7 @@ namespace Spellwright.DustSpawners
             Level = level;
         }
 
-        public override void Spawn()
+        public void Execute()
         {
             if (Level >= 1)
                 SpawnRing(DustID.CopperCoin, 3);

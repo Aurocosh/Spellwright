@@ -34,6 +34,7 @@ namespace Spellwright.Network.Base.MessageProcessors
 
             Type extraType = typeof(ExtraMessageUtils);
             AddStaticReader<Player>(extraType, "ReadPlayer");
+            AddStaticReader<Point>(extraType, "ReadPoint");
 
             Type utilsType = typeof(Utils);
             AddStaticReader<Vector2>(utilsType, "ReadVector2");

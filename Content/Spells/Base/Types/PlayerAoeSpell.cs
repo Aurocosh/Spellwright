@@ -35,7 +35,7 @@ namespace Spellwright.Content.Spells.Base.Types
                 EffectDustCount = 14
             };
 
-            spawner.Spawn();
+            spawner.Execute();
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 ModNetHandler.aoeCastDustHandler.Send(spawner);
         }

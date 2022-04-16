@@ -1,17 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
+using Spellwright.Network.Base;
 using Terraria;
 
 namespace Spellwright.DustSpawners
 {
-    internal class VortexDustSpawner : DustSpawner
+    internal class VortexDustSpawner : IExecutablePacket
     {
         public Player Caster { get; set; }
         public int DustType { get; set; } = 0;
         public byte DustCount { get; set; } = 0;
         public byte Radius { get; set; } = 0;
 
-        public override void Spawn()
+        public void Execute()
         {
             var position = Caster.Center;
             int radius = Radius * 16;

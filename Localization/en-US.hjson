@@ -218,6 +218,16 @@ Mods: {
 				Name: Stitch Wounds
 				Description: Heals caster for a small amount instantly. Cannot heal more than 35% of players health. Also stops bleeding
 			}
+
+			# Herbs
+			RitualOfHarvestSpell: {
+				Name: Ritual of Harvest
+				Description: Harvest and replants all blooming alchemy plants around you
+			}
+			AdventOfSummerSpell: {
+				Name: Advent of Summer
+				Description: Instantly fully grows all trees and alchemy plants around you
+			}
 			
 			# Items
 			VortexHandsSpell: {

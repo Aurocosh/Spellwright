@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
+using Spellwright.Network.Base;
 using Terraria;
 
 namespace Spellwright.DustSpawners
 {
-    internal class AoeCastDustSpawner : DustSpawner
+    internal class AoeCastDustSpawner : IExecutablePacket
     {
         public Player Caster { get; set; }
         public Player[] AffectedPlayers { get; set; }
@@ -13,7 +14,7 @@ namespace Spellwright.DustSpawners
         public byte RingDustCount { get; set; } = 0;
         public byte EffectDustCount { get; set; } = 0;
 
-        public override void Spawn()
+        public void Execute()
         {
             SpawnAoeRing();
 

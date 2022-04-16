@@ -34,6 +34,7 @@ namespace Spellwright.Network.Base.MessageProcessors
 
             Type extraType = typeof(ExtraMessageUtils);
             AddStaticWriter<Player>(extraType, "WritePlayer");
+            AddStaticWriter<Point>(extraType, "WritePoint");
 
             Type utilsType = typeof(Utils);
             AddStaticWriter<Vector2>(utilsType, "WriteVector2");

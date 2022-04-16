@@ -49,7 +49,7 @@ namespace Spellwright.Content.Spells.Items
                 DustCount = 95,
                 Radius = 40
             };
-            spawner.Spawn();
+            spawner.Execute();
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 ModNetHandler.vortexDustHandler.Send(spawner);
 

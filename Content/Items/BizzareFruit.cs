@@ -41,7 +41,7 @@ namespace Spellwright.Content.Items
                 player.AddBuff(ModContent.BuffType<SoulDisturbanceDebuff>(), UtilTime.MinutesToTicks(3));
 
                 var spawner = new SoulDisturbanceSpawner(player);
-                spawner.Spawn();
+                spawner.Execute();
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                     ModNetHandler.soulDisturbanceHandler.Send(spawner);
 

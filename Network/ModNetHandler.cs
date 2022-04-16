@@ -1,4 +1,5 @@
 ﻿using Spellwright.DustSpawners;
+using Spellwright.Manipulators;
 using Spellwright.Network.Base;
 using Spellwright.Network.RoutedHandlers;
 using Spellwright.Network.RoutedHandlers.Buffs;
@@ -34,16 +35,21 @@ namespace Spellwright.Network
         internal static OtherPlayerAddPermamentEffectHandler otherPlayerAddPermamentEffectHandler = new();
 
         // Dusts
-        internal static DustSpawnPacketHandler<AoeCastDustSpawner> aoeCastDustHandler = new();
-        internal static DustSpawnPacketHandler<SoulDisturbanceSpawner> soulDisturbanceHandler = new();
-        internal static DustSpawnPacketHandler<VortexDustSpawner> vortexDustHandler = new();
-        internal static DustSpawnPacketHandler<LevelUpDustSpawner> levelUpDustHandler = new();
+        internal static BroadcastExecutablePacketHandler<AoeCastDustSpawner> aoeCastDustHandler = new();
+        internal static BroadcastExecutablePacketHandler<SoulDisturbanceSpawner> soulDisturbanceHandler = new();
+        internal static BroadcastExecutablePacketHandler<VortexDustSpawner> vortexDustHandler = new();
+        internal static BroadcastExecutablePacketHandler<LevelUpDustSpawner> levelUpDustHandler = new();
+        internal static BroadcastExecutablePacketHandler<HerbAoeDustSpawner> HerbAoeDustHandler = new();
 
         // Events
         internal static StartRainHandler StartRainHandler = new();
         internal static StopRainHandler StopRainHandler = new();
         internal static StartSandstormHandler StartSandstormHandler = new();
         internal static StopSandstormHandler StopSandstormHandler = new();
+
+        // Commands
+        internal static ServerExecutablePacketHandler<AreaHerbAndTreeGrower> AreaHerbAndTreeGrowerHandler = new();
+
 
         internal static byte RegisterHandler(PacketHandler packetHandler)
         {

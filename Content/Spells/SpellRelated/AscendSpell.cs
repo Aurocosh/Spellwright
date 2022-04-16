@@ -38,7 +38,7 @@ namespace Spellwright.Content.Spells.SpellRelated
             spellwrightPlayer.PlayerLevel += 1;
 
             var spawner = new LevelUpDustSpawner(player, spellwrightPlayer.PlayerLevel);
-            spawner.Spawn();
+            spawner.Execute();
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 ModNetHandler.levelUpDustHandler.Send(spawner);
 

@@ -80,7 +80,7 @@ namespace Spellwright.Content.Buffs.Items
                 player.ClearBuff(ModContent.BuffType<SoulDisturbanceDebuff>());
 
                 var spawner = new SoulDisturbanceSpawner(player);
-                spawner.Spawn();
+                spawner.Execute();
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                     ModNetHandler.soulDisturbanceHandler.Send(spawner);
             }
@@ -155,7 +155,7 @@ namespace Spellwright.Content.Buffs.Items
             }
 
             var spawner = new SoulDisturbanceSpawner(player);
-            spawner.Spawn();
+            spawner.Execute();
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 ModNetHandler.soulDisturbanceHandler.Send(spawner);
         }
@@ -192,7 +192,7 @@ namespace Spellwright.Content.Buffs.Items
             }
 
             var spawner = new SoulDisturbanceSpawner(player);
-            spawner.Spawn();
+            spawner.Execute();
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 ModNetHandler.soulDisturbanceHandler.Send(spawner);
         }
@@ -236,7 +236,7 @@ namespace Spellwright.Content.Buffs.Items
             }
 
             var spawner = new SoulDisturbanceSpawner(player);
-            spawner.Spawn();
+            spawner.Execute();
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 ModNetHandler.soulDisturbanceHandler.Send(spawner);
         }

@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
+using Spellwright.Network.Base;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
 namespace Spellwright.DustSpawners
 {
-    internal class SoulDisturbanceSpawner : DustSpawner
+    internal class SoulDisturbanceSpawner : IExecutablePacket
     {
         private static LegacySoundStyle SoundStyle = new(SoundID.PlayerHit, 0);
 
@@ -21,7 +22,7 @@ namespace Spellwright.DustSpawners
             Caster = caster;
         }
 
-        public override void Spawn()
+        public void Execute()
         {
             var position = Caster.Center;
             int innerRadius = 5 * 16;
