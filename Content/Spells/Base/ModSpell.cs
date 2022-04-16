@@ -7,7 +7,6 @@ using Spellwright.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -93,6 +92,7 @@ namespace Spellwright.Content.Spells.Base
 
             guaranteedUses = 0;
             stability = 0;
+            canAutoReuse = false;
             useDelay = 120;
             damage = 0;
             knockback = 0;
@@ -118,25 +118,7 @@ namespace Spellwright.Content.Spells.Base
             DisplayName = UtilLang.GetOrCreateTranslation(nameKey);
             Description = UtilLang.GetOrCreateTranslation(descriptionKey);
 
-            //if (Spellwright.translations.TryGetValue(nameKey, out var translation))
-            //    DisplayName = translation;
-            //else
-            //    DisplayName = LocalizationLoader.CreateTranslation(nameKey);
-
-            //if (Spellwright.translations.TryGetValue(descriptionKey, out translation))
-            //    Description = translation;
-            //else
-            //    Description = LocalizationLoader.CreateTranslation(descriptionKey);
-
             SpellLibrary.RegisterSpell(this);
-
-            //var localIncantation = Spellwright.GetTranslation("Spells", Name, "Incantation");
-            //if (!localIncantation.StartsWith("Mods.Spellwright"))
-            //    SpellLibrary.SetSpellIncantation(localIncantation, this);
-
-            //var defaultIncantation = GetDefaultIncantation();
-            //if (defaultIncantation.ToLower() != localIncantation.ToLower())
-            //    SpellLibrary.SetSpellIncantation(defaultIncantation, this);
         }
         public sealed override void SetupContent()
         {
@@ -144,22 +126,6 @@ namespace Spellwright.Content.Spells.Base
         }
 
         public override void SetStaticDefaults() { }
-
-        private string GetDefaultIncantation()
-        {
-            var name = Name;
-            if (name.EndsWith("Spell"))
-                name = name.Substring(0, name.LastIndexOf("Spell"));
-
-            var builder = new StringBuilder();
-            foreach (char c in name)
-            {
-                if (char.IsUpper(c) && builder.Length > 0)
-                    builder.Append(' ');
-                builder.Append(c);
-            }
-            return builder.ToString();
-        }
 
         public float GetCostModifier(IEnumerable<SpellModifier> spellModifiers)
         {

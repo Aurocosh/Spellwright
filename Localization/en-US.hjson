@@ -106,6 +106,10 @@ Mods: {
 				Name: Eyes Of Profit
 				Description: Gives player effect of spelunking. Consumes 2 golden coins. If the player has no gold in inventory this spell will not work.
 			}
+			FortressStanceSpell: {
+				Name: Fortress Stance
+				Description: Grants massive defense boost for a couple of seconds. Extra armor granted by this buff is equal to 20 * level. This buff lasts for 2.5 seconds and it can be used once every 20 - 0.8 * level seconds. Alternative to dodge spells for those who like facetank enemies instead
+			}
 			GaleForceSpell: {
 				Name: Gale Force
 				Description:

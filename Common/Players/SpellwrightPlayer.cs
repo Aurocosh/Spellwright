@@ -3,8 +3,10 @@ using Spellwright.Content.Spells.Base;
 using Spellwright.Network;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameInput;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -91,6 +93,18 @@ namespace Spellwright.Common.Players
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
+            Player player = Main.LocalPlayer;
+
+            bool canAutoReuseCantrip = false;
+            if (CurrentCantrip != null)
+                canAutoReuseCantrip = CurrentCantrip.CanAutoReuse(PlayerLevel);
+
+            if (nextCantripDelay == 1 && !canAutoReuseCantrip)
+            {
+                var sound = SoundID.Item25.WithVolume(0.2f).WithPitchVariance(0.7f);
+                SoundEngine.PlaySound(sound, player.Center);
+            }
+
             if (nextCantripDelay > 0)
                 nextCantripDelay--;
 
@@ -98,13 +112,11 @@ namespace Spellwright.Common.Players
                 Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
             else if (Spellwright.CastCantripHotKey.JustPressed || Spellwright.CastCantripHotKey.Current)
             {
-                bool canAutoReuse = CurrentCantrip.CanAutoReuse(PlayerLevel);
-                bool singleCasted = Spellwright.CastCantripHotKey.JustPressed && !canAutoReuse;
-                bool continuosCast = Spellwright.CastCantripHotKey.Current && canAutoReuse;
+                bool singleCasted = Spellwright.CastCantripHotKey.JustPressed && !canAutoReuseCantrip;
+                bool continuosCast = Spellwright.CastCantripHotKey.Current && canAutoReuseCantrip;
 
                 if ((singleCasted || continuosCast) && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
                 {
-                    Player player = Main.LocalPlayer;
                     Vector2 mousePosition = Main.MouseWorld;
                     Vector2 center = player.Center;
                     Vector2 velocity = center.DirectionTo(mousePosition);
