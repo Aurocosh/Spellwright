@@ -146,6 +146,10 @@ Mods: {
 				Name: Mana Starfall
 				Description: Occasional stars fall from the sky, dealing heavy damage if they hit the enemy. Upon hitting the ground they fall apart into mana stars
 			}
+			ManaShieldSpell: {
+				Name: Mana Shield
+				Description: While active, a third of damage that you receive is absorbed by your mana pool
+			}
 			PulseHealingSpell: {
 				Name: Pulse Healing
 				Description: Buff heals the player for a large amount of health every 3 minutes

@@ -29,15 +29,12 @@ namespace Spellwright.Content.Buffs.Spells
             public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
             {
                 //base.Hurt(pvp, quiet, damage, hitDirection, crit);
-                if (Player.whoAmI != Main.myPlayer)
-                    return;
-                int minDamage = (int)(Player.statLifeMax2 * 0.3f);
-                if (damage < minDamage)
-                    return;
-                if (BonusDefense >= MaxBonusDefense)
-                    return;
-
-                BonusDefense++;
+                if (Player.whoAmI == Main.myPlayer && BonusDefense < MaxBonusDefense)
+                {
+                    int minDamage = (int)(Player.statLifeMax2 * 0.3f);
+                    if (damage >= minDamage)
+                        BonusDefense++;
+                }
             }
             public override void clientClone(ModPlayer clientClone)
             {
