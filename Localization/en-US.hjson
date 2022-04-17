@@ -251,8 +251,12 @@ Mods: {
 			
 			# Minions
 			BirdOfMidasSpell: {
-				Name: Bird Of Midas
+				Name: Bird of Midas
 				Description: Summons bird of midas. Bird of midas is a golden raven, on hit this minion will inflict enemies with midas debuff
+			}
+			SoulNibblerSpell: {
+				Name: Soul Nibbler
+				Description: Summons soul nibbler. Soul is a small slime. He does not deal much damage, but on each hit it will release healing projectiles that heal you and your allies
 			}
 
 			# Movement

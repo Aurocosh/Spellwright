@@ -11,7 +11,7 @@ namespace Spellwright.Content.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Raven of Midas");
-            Main.projFrames[Projectile.type] = 8;
+            Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
             Main.projPet[Projectile.type] = true;
