@@ -5,9 +5,10 @@ using Terraria.ModLoader.IO;
 
 namespace Spellwright.Common.Players
 {
-    public class SpellwrightVoidPlayer : ModPlayer
+    public class SpellwrightStatPlayer : ModPlayer
     {
         public List<Item> StoredItems = new();
+        public int MetaBoostCount { get; set; } = 0;
 
         public override void SaveData(TagCompound tag)
         {

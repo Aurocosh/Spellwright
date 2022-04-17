@@ -146,6 +146,10 @@ Mods: {
 				Name: Mana Starfall
 				Description: Occasional stars fall from the sky, dealing heavy damage if they hit the enemy. Upon hitting the ground they fall apart into mana stars
 			}
+			MetabolicBoostSpell: {
+				Name: Metabolic Boost
+				Description: Buffs you and all players around you with metabolic boost. Metabolic boost prevents potion sickness several times and disappears afterwards
+			}
 			ManaShieldSpell: {
 				Name: Mana Shield
 				Description: While active, a third of damage that you receive is absorbed by your mana pool

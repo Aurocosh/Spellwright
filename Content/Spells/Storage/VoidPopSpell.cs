@@ -16,11 +16,11 @@ namespace Spellwright.Content.Spells.WorldEvents
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
-            var voidPlayer = player.GetModPlayer<SpellwrightVoidPlayer>();
-            if (voidPlayer.StoredItems.Count == 0)
+            var statPlayer = player.GetModPlayer<SpellwrightStatPlayer>();
+            if (statPlayer.StoredItems.Count == 0)
                 return false;
 
-            foreach (var item in voidPlayer.StoredItems)
+            foreach (var item in statPlayer.StoredItems)
             {
                 item.position = player.Center;
                 if (item.stack > 0)
@@ -34,7 +34,7 @@ namespace Spellwright.Content.Spells.WorldEvents
                 }
             }
 
-            voidPlayer.StoredItems.Clear();
+            statPlayer.StoredItems.Clear();
             return true;
         }
     }

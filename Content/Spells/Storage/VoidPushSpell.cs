@@ -18,10 +18,10 @@ namespace Spellwright.Content.Spells.WorldEvents
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            var voidPlayer = player.GetModPlayer<SpellwrightVoidPlayer>();
+            var statPlayer = player.GetModPlayer<SpellwrightStatPlayer>();
 
             int maxStorageSize = 50 * spellPlayer.PlayerLevel;
-            List<Item> storedItems = voidPlayer.StoredItems;
+            List<Item> storedItems = statPlayer.StoredItems;
 
             bool storedAtLeastOne = false;
             var indexes = UtilPlayer.GetInventoryIndexes(reverseOrder: true, includeCoins: false, includeAmmo: false);

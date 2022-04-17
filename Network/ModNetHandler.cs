@@ -50,6 +50,8 @@ namespace Spellwright.Network
         // Commands
         internal static ServerExecutablePacketHandler<AreaHerbAndTreeGrower> AreaHerbAndTreeGrowerHandler = new();
 
+        // Stat set routed
+        internal static MetaBoostCountSetHandler MetaBoostCountSetHandler = new();
 
         internal static byte RegisterHandler(PacketHandler packetHandler)
         {
