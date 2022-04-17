@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Util;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -29,21 +30,10 @@ namespace Spellwright.Extensions
             if (amount <= 0)
                 return false;
 
-            int startingIndex = 0;
-            int limit = 58;
-            int step = 1;
-
-            if (reverseOrder)
-            {
-                startingIndex = 57;
-                limit = -1;
-                step = -1;
-            }
-
-            List<Item> fittingItems = new();
-
             int amountInInventory = 0;
-            for (int i = startingIndex; i < limit; i += step)
+            List<Item> fittingItems = new();
+            var indexes = UtilPlayer.GetInventoryIndexes(reverseOrder: reverseOrder);
+            foreach (int i in indexes)
             {
                 Item item = player.inventory[i];
                 if (filter.Invoke(item) && item.stack > 0)
@@ -107,6 +97,29 @@ namespace Spellwright.Extensions
             }
 
             return false;
+        }
+
+        public static int CountItems(this Player player, int itemTypeId)
+        {
+            bool IsValid(Item item) => item.type == itemTypeId;
+            return CountItems(player, IsValid);
+        }
+
+        public static int CountItems(this Player player, Func<Item, bool> filter)
+        {
+            int startingIndex = 0;
+            int limit = 58;
+            int step = 1;
+
+            int amountInInventory = 0;
+            for (int i = startingIndex; i < limit; i += step)
+            {
+                Item item = player.inventory[i];
+                if (filter.Invoke(item) && item.stack > 0)
+                    amountInInventory += item.stack;
+            }
+
+            return amountInInventory;
         }
 
         public static void ClearBuffs(this Player player, IEnumerable<int> buffTypes)

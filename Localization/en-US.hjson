@@ -365,7 +365,7 @@ Mods: {
 			# TileBreak
 			IceBreakerSpell: {
 				Name: Ice Breaker
-				Description: Destroys ice around player
+				Description: Destroys frail ice around player
 			}
 			SnuffOutSpell: {
 				Name: Snuff Out
@@ -376,6 +376,16 @@ Mods: {
 			ShellOfIceSpell: {
 				Name: Shell Of Ice
 				Description: Creates a ring of ice around the player
+			}
+			BlockSpitterSpell: {
+				Name: Block Spitter
+				Description: Creates a projectile that upon explosion fills a small area around itself with blocks from your inventory. Projectile will explode upon collision with blocks. Only one projectile can be fired at a time. If you try to fire a second projectile while the previous one is still in the air then instead of creating a new projectile the first one will explode mid air. First valid block item in your taskbar will be used by this spell
+				NoBlocksInToolbar: You have no valid blocks in your toolbar
+			}
+			WallSpitterSpell: {
+				Name: Wall Spitter
+				Description: Creates a projectile that upon explosion fills a small area around itself with walls from your inventory. Projectile will explode upon collision with blocks. Only one projectile can be fired at a time. If you try to fire a second projectile while the previous one is still in the air then instead of creating a new projectile the first one will explode mid air. First valid wall item in your taskbar will be used by this spell
+				NoWallsInToolbar: You have no valid walls in your toolbar
 			}
 
 			# Warp

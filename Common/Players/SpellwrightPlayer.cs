@@ -87,7 +87,7 @@ namespace Spellwright.Common.Players
             if (ModContent.TryFind(Spellwright.Instance.Name, cantripName, out CurrentCantrip))
             {
                 TagCompound spellDataTag = tag.GetCompound("CurrentCantripData");
-                CantripData = CurrentSpell.DeserializeData(spellDataTag);
+                CantripData = CurrentCantrip.DeserializeData(spellDataTag);
             }
         }
 
