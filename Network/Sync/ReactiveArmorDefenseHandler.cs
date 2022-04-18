@@ -1,6 +1,6 @@
 ﻿using Spellwright.Network.Base;
 using Terraria;
-using static Spellwright.Content.Buffs.Spells.ReactiveArmorBuff;
+using static Spellwright.Content.Buffs.Spells.Defensive.ReactiveArmorBuff;
 
 namespace Spellwright.Network.Sync
 {

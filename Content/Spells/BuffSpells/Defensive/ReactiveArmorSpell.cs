@@ -1,4 +1,4 @@
-﻿using Spellwright.Content.Buffs.Spells;
+﻿using Spellwright.Content.Buffs.Spells.Defensive;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Content.Spells.Base.Types;
@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Spellwright.Content.Buffs.Spells.ReactiveArmorBuff;
+using static Spellwright.Content.Buffs.Spells.Defensive.ReactiveArmorBuff;
 
-namespace Spellwright.Content.Spells.BuffSpells
+namespace Spellwright.Content.Spells.BuffSpells.Defensive
 {
     internal class ReactiveArmorSpell : BuffSpell
     {

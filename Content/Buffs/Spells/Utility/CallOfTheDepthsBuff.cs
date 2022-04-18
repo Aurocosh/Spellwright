@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Buffs.Spells
+namespace Spellwright.Content.Buffs.Spells.Utility
 {
     public class CallOfTheDepthsBuff : ModBuff
     {
@@ -23,11 +23,11 @@ namespace Spellwright.Content.Buffs.Spells
 
                 float proportion = depth / maxDepth;
                 if (proportion < .2f)
-                    proportion = .2f;
+                    player.pickSpeed -= .25f;
                 else if (proportion > .9f)
-                    proportion = 1f;
-                float maxBonus = .5f;
-                player.pickSpeed -= maxBonus * proportion;
+                    player.pickSpeed -= .5f;
+                else
+                    player.pickSpeed -= .25f + .25f * proportion;
             }
         }
     }

@@ -1,9 +1,9 @@
-﻿using Spellwright.Content.Buffs.Spells;
+﻿using Spellwright.Content.Buffs.Spells.Utility;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Spells.BuffSpells
+namespace Spellwright.Content.Spells.BuffSpells.Utility
 {
     internal class GreedyVortexSpell : BuffSpell
     {

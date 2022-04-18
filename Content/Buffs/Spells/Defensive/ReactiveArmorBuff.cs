@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace Spellwright.Content.Buffs.Spells
+namespace Spellwright.Content.Buffs.Spells.Defensive
 {
     public class ReactiveArmorBuff : ModBuff
     {

@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Buffs.Spells
+namespace Spellwright.Content.Buffs.Spells.Defensive
 {
     public class ManaShieldBuff : ModBuff
     {

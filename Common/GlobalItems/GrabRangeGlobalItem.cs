@@ -1,4 +1,4 @@
-using Spellwright.Content.Buffs.Spells;
+using Spellwright.Content.Buffs.Spells.Utility;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

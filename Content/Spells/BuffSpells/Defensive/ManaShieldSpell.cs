@@ -1,9 +1,9 @@
-﻿using Spellwright.Content.Buffs.Spells;
+﻿using Spellwright.Content.Buffs.Spells.Defensive;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Spells.BuffSpells
+namespace Spellwright.Content.Spells.BuffSpells.Defensive
 {
     internal class ManaShieldSpell : BuffSpell
     {

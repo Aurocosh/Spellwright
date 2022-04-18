@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Buffs.Spells
+namespace Spellwright.Content.Buffs.Spells.Utility
 {
     public class GaleForceBuff : ModBuff
     {
@@ -22,9 +22,7 @@ namespace Spellwright.Content.Buffs.Spells
             float maxSpeedMult = 1;
 
             if (buffPlayerLevel >= 3)
-            {
                 maxSpeedMult = 1.2f;
-            }
             if (buffPlayerLevel >= 5)
             {
                 Player.jumpHeight += 15;
@@ -32,9 +30,7 @@ namespace Spellwright.Content.Buffs.Spells
                 player.extraFall += 10;
             }
             if (buffPlayerLevel >= 7)
-            {
                 player.runAcceleration *= 1.5f;
-            }
             if (buffPlayerLevel >= 9)
             {
                 maxSpeedMult *= 1.4f;

@@ -1,4 +1,4 @@
-﻿using Spellwright.Content.Buffs.Spells;
+﻿using Spellwright.Content.Buffs.Spells.Defensive;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Extensions;
@@ -9,7 +9,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Spells.BuffSpells
+namespace Spellwright.Content.Spells.BuffSpells.Defensive
 {
     internal class FortressStanceSpell : BuffSpell
     {
@@ -25,13 +25,11 @@ namespace Spellwright.Content.Spells.BuffSpells
             var perimeter = 2 * Math.PI * radius;
             int dustCount = (int)(perimeter / 4);
             foreach (Player player in affectedPlayers)
-            {
                 for (int i = 0; i < dustCount; i++)
                 {
                     var dustPosition = player.Center + Main.rand.NextVector2Unit().ScaleRandom(radius - 1, radius + 1);
                     Dust.NewDust(dustPosition, 1, 1, DustID.Stone, 0, 0, Scale: 0.5f);
                 }
-            }
         }
 
         public override void SetStaticDefaults()

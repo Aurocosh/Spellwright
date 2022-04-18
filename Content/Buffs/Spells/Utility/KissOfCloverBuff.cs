@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.Enums;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Buffs.Spells
+namespace Spellwright.Content.Buffs.Spells.Utility
 {
     public class KissOfCloverBuff : ModBuff
     {

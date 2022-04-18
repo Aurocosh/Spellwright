@@ -3,7 +3,7 @@ using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria.ID;
 
-namespace Spellwright.Content.Spells.BuffSpells
+namespace Spellwright.Content.Spells.BuffSpells.Vanilla
 {
     internal class InnerSunshineSpell : BuffSpell
     {

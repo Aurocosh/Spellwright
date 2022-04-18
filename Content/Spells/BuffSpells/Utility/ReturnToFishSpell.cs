@@ -1,4 +1,4 @@
-﻿using Spellwright.Content.Buffs.Spells;
+﻿using Spellwright.Content.Buffs.Spells.Utility;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts;
@@ -7,7 +7,7 @@ using Spellwright.Util;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Spells.BuffSpells
+namespace Spellwright.Content.Spells.BuffSpells.Utility
 {
     internal class ReturnToFishSpell : BuffSpell
     {
