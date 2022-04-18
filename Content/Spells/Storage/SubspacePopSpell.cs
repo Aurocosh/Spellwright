@@ -6,7 +6,7 @@ using Terraria.ID;
 
 namespace Spellwright.Content.Spells.Storage
 {
-    internal class VoidPopSpell : ModSpell
+    internal class SubspacePopSpell : ModSpell
     {
         public override void SetStaticDefaults()
         {

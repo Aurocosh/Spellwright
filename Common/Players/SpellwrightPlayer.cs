@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Extensions;
 using Spellwright.Network;
 using System;
 using Terraria;
@@ -14,16 +15,13 @@ namespace Spellwright.Common.Players
 {
     internal class SpellwrightPlayer : ModPlayer
     {
+        private int playerLevel = 0;
         private int nextCantripDelay = 0;
-
-        //public int GuaranteedUsesLeft = 0;
-
-        //public ModSpell CurrentSpell = null;
-        //public SpellData SpellData = null;
 
         public ModSpell CurrentCantrip = null;
         public SpellData CantripData = null;
-        private int playerLevel = 0;
+
+        public Point LastDeathPoint = Point.Zero;
 
         public static SpellwrightPlayer Instance => Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
 
@@ -35,6 +33,11 @@ namespace Spellwright.Common.Players
 
         public override void Initialize()
         {
+        }
+
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            LastDeathPoint = Player.position.ToGridPoint();
         }
 
         public override void clientClone(ModPlayer clientClone)
@@ -59,6 +62,8 @@ namespace Spellwright.Common.Players
         public override void SaveData(TagCompound tag)
         {
             tag.Add("PlayerLevel", PlayerLevel);
+            tag.Add("LastDeathPointX", LastDeathPoint.X);
+            tag.Add("LastDeathPointY", LastDeathPoint.Y);
             //tag.Add("GuaranteedUsesLeft", GuaranteedUsesLeft);
 
             //if (CurrentSpell != null && SpellData != null)
@@ -76,6 +81,8 @@ namespace Spellwright.Common.Players
         public override void LoadData(TagCompound tag)
         {
             PlayerLevel = tag.GetInt("PlayerLevel");
+            LastDeathPoint.X = tag.GetInt("LastDeathPointX");
+            LastDeathPoint.Y = tag.GetInt("LastDeathPointY");
             //GuaranteedUsesLeft = tag.GetInt("GuaranteedUsesLeft");
 
             //string spellName = tag.GetString("CurrentSpell");

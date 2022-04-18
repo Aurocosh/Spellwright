@@ -385,12 +385,12 @@ Mods: {
 			}
 
 			# Storage
-			VoidPushSpell: {
-				Name: Void Push
+			SubspacePushSpell: {
+				Name: Subspace Push
 				Description: Moves all not favorited items in inventory into large and inaccessible personal inventory. Inventory size depends on caster level and is equal to 50 items per level
 			}
-			VoidPopSpell: {
-				Name: Void Pop
+			SubspacePopSpell: {
+				Name: Subspace Pop
 				Description: Extracts all items stored in your void inventory at once and drops them on the ground near you
 			}
 
@@ -428,6 +428,10 @@ Mods: {
 			BaseJumpSpell: {
 				Name: Base Jump
 				Description: Teleports you to space. Works anywhere and can be used to quickly get out from underground to the surface
+			}
+			GraveGateSpell: {
+				Name: Grave Gate
+				Description: Teleports you to the place of your last death. Works only once per death
 			}
 			HellGateSpell: {
 				Name: Hell Gate
