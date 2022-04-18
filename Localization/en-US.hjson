@@ -207,6 +207,10 @@ Mods: {
 				Name: Self Defense Hex
 				Description: Buffs player with self defense hex. Whenever you are hurt all enemies around you will be afflicted with random damaging debuffs
 			}
+			StateLockSpell: {
+				Name: State Lock
+				Description: Prevents loss of buffs and permanent buffs on death
+			}
 			SurgeOfLifeSpell: {
 				Name: Surge Of Life
 				Description: Grants regeneration to you and all nearby players. Regeneration rate is doubled when the player is standing on grass
@@ -432,6 +436,7 @@ Mods: {
 			GraveGateSpell: {
 				Name: Grave Gate
 				Description: Teleports you to the place of your last death. Works only once per death
+				NoDeathPoint: You do not remember the place
 			}
 			HellGateSpell: {
 				Name: Hell Gate

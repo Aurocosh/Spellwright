@@ -22,7 +22,7 @@ namespace Spellwright.Content.Spells.Warp
             var position = spellPlayer.LastDeathPoint;
             if (position == Point.Zero)
             {
-                var message = Spellwright.GetTranslation("Spells", Name, "NoRecentDeath");
+                var message = Spellwright.GetTranslation("Spells", Name, "NoDeathPoint");
                 Main.NewText(message, Color.Orange);
                 return false;
             }

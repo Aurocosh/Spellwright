@@ -1,9 +1,12 @@
-﻿using Spellwright.Core.Buffs;
+﻿using Spellwright.Content.Buffs.Spells;
+using Spellwright.Core.Buffs;
+using Spellwright.Data;
 using Spellwright.Network;
 using Spellwright.Util;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -11,6 +14,7 @@ namespace Spellwright.Common.Players
 {
     internal class SpellwrightBuffPlayer : ModPlayer
     {
+        private readonly List<BuffData> respawnBuffs = new();
         public readonly HashSet<int> PermamentBuffs = new();
         public readonly Dictionary<int, int> BuffLevels = new();
 
@@ -40,6 +44,40 @@ namespace Spellwright.Common.Players
             if (BuffLevels.TryGetValue(buffId, out var level))
                 return level;
             return 0;
+        }
+
+        public override void OnRespawn(Player player)
+        {
+            foreach (var buffData in respawnBuffs)
+                player.AddBuff(buffData.Type, buffData.Duration);
+            respawnBuffs.Clear();
+        }
+
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (Player.HasBuff(ModContent.BuffType<StateLockBuff>()))
+            {
+                respawnBuffs.Clear();
+
+                for (int i = 0; i < Player.MaxBuffs; i++)
+                {
+                    int buffType = Player.buffType[i];
+                    int buffTime = Player.buffTime[i];
+                    if (buffType > 0 && buffTime > 0)
+                    {
+                        if (!Main.debuff[buffType] && !Main.buffNoSave[buffType])
+                        {
+                            var buffData = new BuffData(buffType, buffTime);
+                            respawnBuffs.Add(buffData);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                PermamentBuffs.Clear();
+            }
+            return true;
         }
 
         public override void PreUpdateBuffs()
