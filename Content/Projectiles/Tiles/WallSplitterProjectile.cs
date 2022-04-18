@@ -3,21 +3,20 @@ using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
 using Spellwright.Util;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Projectiles
+namespace Spellwright.Content.Projectiles.Tiles
 {
-    public class WallSpitterProjectile : ModProjectile
+    public class WallCrumblerProjectile : ModProjectile
     {
         private static readonly HashSet<int> blacklistedItems = new();
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wall Spitter");
+            DisplayName.SetDefault("Wall Crumbler");
             blacklistedItems.Clear();
         }
 
@@ -42,22 +41,11 @@ namespace Spellwright.Content.Projectiles
         {
             for (int i = 0; i < 2; i++)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X, Projectile.velocity.Y, 50, Color.DarkGray, 1.2f);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X, Projectile.velocity.Y, 50, Color.DarkBlue, 1.2f);
                 dust.noGravity = true;
                 int max = Main.rand.Next(1, 3) == 1 ? 1 : 3;
                 dust.velocity = Main.rand.NextVector2Circular(1, 1) * max;
             }
-        }
-
-        public static Item GetValidItem(Player player)
-        {
-            foreach (var i in player.GetInventoryIndexes(InventoryArea.Hotbar))
-            {
-                var item = player.inventory[i];
-                if (item.stack > 0 && item.createWall != -1 && !blacklistedItems.Contains(item.type))
-                    return item;
-            }
-            return null;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -72,14 +60,6 @@ namespace Spellwright.Content.Projectiles
 
         private void Explode()
         {
-            var owner = Main.player[Projectile.owner];
-            Item selectedItem = GetValidItem(owner);
-            if (selectedItem == null)
-                return;
-
-            int itemCount = owner.CountItems(selectedItem.type);
-            int itemsLeft = itemCount;
-
             int radius = 8;
             Vector2 position = Projectile.Center;
             var centerPoint = position.ToGridPoint();
@@ -98,31 +78,19 @@ namespace Spellwright.Content.Projectiles
                 return true;
             }
 
-            var wallType = selectedItem.createWall;
-            var circlePoints = UtilCoordinates.FloodFill(new[] { centerPoint }, PointConstants.DirectNeighbours, IsValid, 10000).Take(itemsLeft);
+            var circlePoints = UtilCoordinates.FloodFill(new[] { centerPoint }, PointConstants.DirectNeighbours, IsValid, 10000);
             foreach (var point in circlePoints)
             {
-                if (itemsLeft <= 0)
-                    break;
-
                 Tile tile = Framing.GetTileSafely(point.X, point.Y);
-                if (tile.WallType > 0)
+                if (tile.WallType == 0)
                     continue;
 
-                WorldGen.PlaceWall(point.X, point.Y, wallType);
-                if (tile.WallType == wallType)
-                {
-                    itemsLeft--;
-                    WallLoader.PlaceInWorld(point.X, point.Y, selectedItem);
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 3, point.X, point.Y, wallType);
-                }
+                WorldGen.KillWall(point.X, point.Y);
+                if (tile.WallType == 0 && Main.netMode == NetmodeID.MultiplayerClient)
+                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, point.X, point.Y);
             }
 
-            int itemsConsumed = itemCount - itemsLeft;
-            owner.ConsumeItems(selectedItem.type, itemsConsumed, InventoryArea.All, true);
-
-            UtilDust.SpawnExplosionDust(position, Projectile.velocity, DustID.Stone, Color.DarkGray, 150, 3);
+            UtilDust.SpawnExplosionDust(position, Projectile.velocity, DustID.BlueTorch, Color.DarkBlue, 150, 3);
             SoundEngine.PlaySound(SoundID.Item14, position);
         }
     }

@@ -1,4 +1,4 @@
-﻿using Spellwright.Content.Projectiles;
+﻿using Spellwright.Content.Projectiles.Explosive;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ModLoader;

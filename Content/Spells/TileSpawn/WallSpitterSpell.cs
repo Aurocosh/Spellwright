@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Spellwright.Content.Projectiles;
+using Spellwright.Content.Projectiles.Tiles;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Types;
+using Spellwright.Util;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -44,17 +45,11 @@ namespace Spellwright.Content.Spells.TileSpawn
 
         private bool ActivateProjectiles(Player player)
         {
-            int whoAmI = player.whoAmI;
-            for (int i = 0; i < Main.maxProjectiles; i++)
+            foreach (var projectile in UtilProjectiles.FindProjectiles(player.whoAmI, projectileType))
             {
-                var projectile = Main.projectile[i];
-                if (projectile.active && projectile.owner == whoAmI && projectile.type == projectileType)
-                {
-                    projectile.Kill();
-                    return true;
-                }
+                projectile.Kill();
+                return true;
             }
-
             return false;
         }
     }

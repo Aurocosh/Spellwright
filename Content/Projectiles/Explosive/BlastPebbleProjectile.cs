@@ -7,7 +7,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Projectiles
+namespace Spellwright.Content.Projectiles.Explosive
 {
     public class BlastPebbleProjectile : ModProjectile
     {

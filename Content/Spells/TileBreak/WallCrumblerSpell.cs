@@ -7,9 +7,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Spells.TileSpawn
+namespace Spellwright.Content.Spells.TileBreak
 {
-    internal class BlockSpitterSpell : ProjectileSpell
+    internal class WallCrumblerSpell : ProjectileSpell
     {
         public override int GetGuaranteedUses(int playerLevel) => 30 + 5 * playerLevel;
 
@@ -23,7 +23,7 @@ namespace Spellwright.Content.Spells.TileSpawn
             damage = 1;
             knockback = 8f;
             damageType = DamageClass.Magic;
-            projectileType = ModContent.ProjectileType<BlockSpitterProjectile>();
+            projectileType = ModContent.ProjectileType<WallCrumblerProjectile>();
             projectileSpeed = 10;
             canAutoReuse = false;
             useTimeMultiplier = 9f;
@@ -33,13 +33,6 @@ namespace Spellwright.Content.Spells.TileSpawn
         {
             if (ActivateProjectiles(player))
                 return false;
-            if (BlockSpitterProjectile.GetValidItem(player) == null)
-            {
-                var error = Spellwright.GetTranslation("Spells", Name, "NoBlocksInToolbar");
-                Main.NewText(error, Color.Orange);
-                return false;
-            }
-
             return base.Cast(player, playerLevel, spellData, source, position, direction);
         }
 
