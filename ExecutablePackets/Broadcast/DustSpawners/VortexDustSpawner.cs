@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
-using Spellwright.Network.Base;
+using Spellwright.Network.Base.Executable;
 using Terraria;
 
-namespace Spellwright.DustSpawners
+namespace Spellwright.ExecutablePackets.Broadcast.DustSpawners
 {
     internal class VortexDustSpawner : IExecutablePacket
     {

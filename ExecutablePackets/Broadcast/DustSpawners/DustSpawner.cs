@@ -1,4 +1,4 @@
-﻿namespace Spellwright.DustSpawners
+﻿namespace Spellwright.ExecutablePackets.Broadcast.DustSpawners
 {
     internal abstract class DustSpawner
     {

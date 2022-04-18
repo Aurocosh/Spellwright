@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-namespace Spellwright.Content.Items
+namespace Spellwright.Content.Items.Mirrors
 {
     public class WarpedMagicMirror : BoundMagicMirror
     {

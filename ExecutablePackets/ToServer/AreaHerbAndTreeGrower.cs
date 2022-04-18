@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
-using Spellwright.Network.Base;
+using Spellwright.Network.Base.Executable;
 using Spellwright.Util;
 using Terraria;
 
-namespace Spellwright.Manipulators
+namespace Spellwright.ExecutablePackets.ToServer
 {
     internal class AreaHerbAndTreeGrower : IExecutablePacket
     {

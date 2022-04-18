@@ -1,4 +1,4 @@
-﻿namespace Spellwright.Network.Base
+﻿namespace Spellwright.Network.Base.Executable
 {
     internal interface IExecutablePacket
     {

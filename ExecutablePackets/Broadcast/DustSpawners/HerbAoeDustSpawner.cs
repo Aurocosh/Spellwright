@@ -1,10 +1,10 @@
 ﻿using Spellwright.Extensions;
-using Spellwright.Network.Base;
+using Spellwright.Network.Base.Executable;
 using System;
 using Terraria;
 using Terraria.ID;
 
-namespace Spellwright.DustSpawners
+namespace Spellwright.ExecutablePackets.Broadcast.DustSpawners
 {
     internal class HerbAoeDustSpawner : IExecutablePacket
     {

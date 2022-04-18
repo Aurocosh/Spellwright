@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Spells.Explosive
+namespace Spellwright.Content.Spells.TileSpawn
 {
     internal class BlockSpitterSpell : ProjectileSpell
     {

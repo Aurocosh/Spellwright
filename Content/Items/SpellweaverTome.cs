@@ -9,17 +9,24 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace Spellwright.Content.Items
 {
-    public class GoldenBook : ModItem
+    public class SpellweaverTome : ModItem
     {
-        public GoldenBook()
+        public ModSpell CurrentSpell = null;
+        public SpellData SpellData = null;
+        public int GuaranteedUsesLeft = 0;
+
+
+        public SpellweaverTome()
         {
         }
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spellweave book");
+            DisplayName.SetDefault("Spellweaver Tome");
             Tooltip.SetDefault("Magical artefact capable of binding your words to its pages.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller
@@ -45,43 +52,47 @@ namespace Spellwright.Content.Items
             Item.rare = ItemRarityID.Red;
         }
 
+        public override ModItem Clone(Item item)
+        {
+            var clone = (SpellweaverTome)base.Clone(item);
+            //clone.SpellIds = new List<int>(SpellIds);
+            return clone;
+
+        }
+
         public override float UseSpeedMultiplier(Player player)
         {
             SpellwrightPlayer spellwrightPlayer = Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
-            ModSpell spell = spellwrightPlayer.CurrentSpell;
             int playerLevel = spellwrightPlayer.PlayerLevel;
-            return spell?.GetUseSpeedMultiplier(playerLevel) ?? 4f;
+            return CurrentSpell?.GetUseSpeedMultiplier(playerLevel) ?? 4f;
         }
 
         public override bool? CanAutoReuseItem(Player player)
         {
             SpellwrightPlayer spellwrightPlayer = Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
-            ModSpell spell = spellwrightPlayer.CurrentSpell;
             int playerLevel = spellwrightPlayer.PlayerLevel;
-            return spell?.CanAutoReuse(playerLevel) ?? false;
+            return CurrentSpell?.CanAutoReuse(playerLevel) ?? false;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             SpellwrightPlayer spellwrightPlayer = Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
-            ModSpell spell = spellwrightPlayer.CurrentSpell;
-            SpellData spellData = spellwrightPlayer.SpellData;
             int playerLevel = spellwrightPlayer.PlayerLevel;
-            if (spell != null && spellData != null)
+            if (CurrentSpell != null && SpellData != null)
             {
-                if (!spell.ConsumeReagents(player, playerLevel, spellData))
+                if (!CurrentSpell.ConsumeReagents(player, playerLevel, SpellData))
                     return false;
 
                 bool canCast = false;
                 bool consumeCharge = false;
-                if (spellwrightPlayer.GuaranteedUsesLeft > 0)
+                if (GuaranteedUsesLeft > 0)
                 {
                     canCast = true;
                     consumeCharge = true;
                 }
                 else
                 {
-                    float stability = spell.GetStability(playerLevel);
+                    float stability = CurrentSpell.GetStability(playerLevel);
                     if (stability > 0)
                     {
                         var randomRoll = Main.rand.NextDouble();
@@ -92,14 +103,14 @@ namespace Spellwright.Content.Items
 
                 if (canCast)
                 {
-                    bool success = spell.Cast(player, playerLevel, spellData, source, position, velocity);
+                    bool success = CurrentSpell.Cast(player, playerLevel, SpellData, source, position, velocity);
                     if (success && consumeCharge)
-                        spellwrightPlayer.GuaranteedUsesLeft--;
+                        GuaranteedUsesLeft--;
                 }
                 else
                 {
-                    spellwrightPlayer.CurrentSpell = null;
-                    spellwrightPlayer.SpellData = null;
+                    CurrentSpell = null;
+                    SpellData = null;
                     SoundEngine.PlaySound(SoundID.Item35, position);
                 }
             }
@@ -124,16 +135,15 @@ namespace Spellwright.Content.Items
             Spellwright spellwright = Spellwright.Instance;
             Player player = Main.LocalPlayer;
             SpellwrightPlayer spellwrightPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            ModSpell spell = spellwrightPlayer.CurrentSpell;
             int playerLevel = spellwrightPlayer.PlayerLevel;
-            if (spell == null)
+            if (CurrentSpell == null)
                 tooltips.Add(new TooltipLine(spellwright, "", "You have no active spells"));
             else
             {
-                string name = spell.DisplayName.GetTranslation(Language.ActiveCulture);
+                string name = CurrentSpell.DisplayName.GetTranslation(Language.ActiveCulture);
                 tooltips.Add(new TooltipLine(spellwright, "Spell name", name));
 
-                var descriptionValues = spell.GetDescriptionValues(player, playerLevel, spellwrightPlayer.SpellData, false);
+                var descriptionValues = CurrentSpell.GetDescriptionValues(player, playerLevel, SpellData, false);
                 foreach (var value in descriptionValues)
                 {
                     var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name).Value;
@@ -141,10 +151,10 @@ namespace Spellwright.Content.Items
                     tooltips.Add(new TooltipLine(spellwright, parameterName, descriptionPart));
                 }
 
-                if (spellwrightPlayer.GuaranteedUsesLeft > 0)
-                    tooltips.Add(new TooltipLine(spellwright, "Spell uses", $"Spell uses left: {spellwrightPlayer.GuaranteedUsesLeft}"));
+                if (GuaranteedUsesLeft > 0)
+                    tooltips.Add(new TooltipLine(spellwright, "Spell uses", $"Spell uses left: {GuaranteedUsesLeft}"));
 
-                string description = spell.Description.GetTranslation(Language.ActiveCulture);
+                string description = CurrentSpell.Description.GetTranslation(Language.ActiveCulture);
                 tooltips.Add(new TooltipLine(spellwright, "Description", $"Description: {description}"));
             }
         }
@@ -161,6 +171,29 @@ namespace Spellwright.Content.Items
         public override bool ConsumeItem(Player player)
         {
             return false;
+        }
+
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add("GuaranteedUsesLeft", GuaranteedUsesLeft);
+
+            if (CurrentSpell != null && SpellData != null)
+            {
+                tag.Add("CurrentSpell", CurrentSpell.Name ?? "");
+                tag.Add("CurrentSpellData", CurrentSpell.SerializeData(SpellData));
+            }
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            GuaranteedUsesLeft = tag.GetInt("GuaranteedUsesLeft");
+
+            string spellName = tag.GetString("CurrentSpell");
+            if (ModContent.TryFind(Spellwright.Instance.Name, spellName, out CurrentSpell))
+            {
+                TagCompound spellDataTag = tag.GetCompound("CurrentSpellData");
+                SpellData = CurrentSpell.DeserializeData(spellDataTag);
+            }
         }
 
         //public override void NetSend(BinaryWriter writer)

@@ -6,6 +6,7 @@
         IncantationInvalid,
         ModifiersInvalid,
         ArgumentInvalid,
-        LevelTooLow
+        LevelTooLow,
+        NoTomeToBind
     }
 }

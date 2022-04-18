@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base;
-using Spellwright.DustSpawners;
+using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
 using Spellwright.Network;
 using Terraria;

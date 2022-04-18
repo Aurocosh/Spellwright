@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base.Description;
-using Spellwright.DustSpawners;
+using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Network;
 using Spellwright.Util;
 using System.Collections.Generic;

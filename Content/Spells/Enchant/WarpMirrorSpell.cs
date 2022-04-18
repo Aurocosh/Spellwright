@@ -1,4 +1,4 @@
-﻿using Spellwright.Content.Items;
+﻿using Spellwright.Content.Items.Mirrors;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts;

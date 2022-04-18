@@ -58,6 +58,7 @@ Mods: {
 			ModifiersInvalid: Spell modifier is invalid
 			ArgumentInvalid: Spell argument is invalid
 			LevelTooLow: Your level is too low
+			NoTomeToBind: You have no spell tome to which you can bind the spell
 		}
 
 		Config: {
@@ -459,6 +460,7 @@ Mods: {
 			BoundMagicMirror: "Bound Magic Mirror"
 			SilverMirror: "Silver Mirror"
 			WarpedMagicMirror: "Warped Magic Mirror"
+			SpellweaverTome: "Spellweaver Tome"
 
 			ExamplePet: "{$Mods.ExampleMod.Common.PaperAirplane}"
 		}
@@ -486,6 +488,7 @@ Mods: {
 				'''Frail magical mirror bound to a place in this world.
 				Look into the mirror to teleport to this place once.
 				'''
+			SpellweaverTome : "Magical artefact capable of binding your words to its pages."
 
 			# These 2 examples show using substitutions. Here we use a vanilla Key and a key from this Mod to generate the text: "Nearby players get a bonus against: Octopus". 
 			# Note that the translation files for other languages don't need to define ItemTooltip.OctopusBanner, they would only need to define NPCName.Octopus, as seen in zh-Hans.hjson file. 

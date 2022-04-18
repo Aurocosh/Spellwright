@@ -3,7 +3,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Spellwright.Content.Items
+namespace Spellwright.Content.Items.Mirrors
 {
     public class SilverMirror : ModItem
     {

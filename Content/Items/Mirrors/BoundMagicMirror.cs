@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace Spellwright.Content.Items
+namespace Spellwright.Content.Items.Mirrors
 {
     public class BoundMagicMirror : ModItem
     {

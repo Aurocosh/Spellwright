@@ -63,8 +63,7 @@ namespace Spellwright.Content.Projectiles
 
         public static Item GetValidItem(Player player)
         {
-            var indexes = UtilPlayer.GetInventoryIndexes(includeHotbar: true, includeAmmo: false, includeCoins: false, includeInventory: false);
-            foreach (var i in indexes)
+            foreach (var i in player.GetInventoryIndexes(InventoryArea.Hotbar))
             {
                 var item = player.inventory[i];
                 if (item.stack > 0 && item.createTile != -1 && !Main.tileFrameImportant[item.createTile] && !blacklistedTiles.Contains(item.type))
@@ -138,7 +137,7 @@ namespace Spellwright.Content.Projectiles
 
 
             int itemsConsumed = itemCount - itemsLeft;
-            owner.ConsumeItems(selectedItem.type, itemsConsumed, true);
+            owner.ConsumeItems(selectedItem.type, itemsConsumed, InventoryArea.All, true);
 
             UtilDust.SpawnExplosionDust(position, Projectile.velocity, DustID.Stone, Color.DarkGray, 150, 3);
             SoundEngine.PlaySound(SoundID.Item14, position);

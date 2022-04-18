@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 
-namespace Spellwright.Content.Spells.WorldEvents
+namespace Spellwright.Content.Spells.Storage
 {
     internal class VoidPopSpell : ModSpell
     {

@@ -1,13 +1,13 @@
 ﻿using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
-using Spellwright.DustSpawners;
+using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
+using Spellwright.ExecutablePackets.ToServer;
 using Spellwright.Extensions;
-using Spellwright.Manipulators;
 using Spellwright.Network;
 using Terraria;
 using Terraria.ID;
 
-namespace Spellwright.Content.Spells.WorldEvents
+namespace Spellwright.Content.Spells.Herbs
 {
     internal class AdventOfSummerSpell : ModSpell
     {

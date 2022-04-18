@@ -16,10 +16,12 @@ namespace Spellwright.Common.Players
     {
         private int nextCantripDelay = 0;
 
-        public int GuaranteedUsesLeft = 0;
-        public ModSpell CurrentSpell = null;
+        //public int GuaranteedUsesLeft = 0;
+
+        //public ModSpell CurrentSpell = null;
+        //public SpellData SpellData = null;
+
         public ModSpell CurrentCantrip = null;
-        public SpellData SpellData = null;
         public SpellData CantripData = null;
         private int playerLevel = 0;
 
@@ -57,13 +59,13 @@ namespace Spellwright.Common.Players
         public override void SaveData(TagCompound tag)
         {
             tag.Add("PlayerLevel", PlayerLevel);
-            tag.Add("GuaranteedUsesLeft", GuaranteedUsesLeft);
+            //tag.Add("GuaranteedUsesLeft", GuaranteedUsesLeft);
 
-            if (CurrentSpell != null && SpellData != null)
-            {
-                tag.Add("CurrentSpell", CurrentSpell.Name ?? "");
-                tag.Add("CurrentSpellData", CurrentSpell.SerializeData(SpellData));
-            }
+            //if (CurrentSpell != null && SpellData != null)
+            //{
+            //    tag.Add("CurrentSpell", CurrentSpell.Name ?? "");
+            //    tag.Add("CurrentSpellData", CurrentSpell.SerializeData(SpellData));
+            //}
             if (CurrentCantrip != null && CantripData != null)
             {
                 tag.Add("CurrentCantrip", CurrentCantrip.Name ?? "");
@@ -74,14 +76,14 @@ namespace Spellwright.Common.Players
         public override void LoadData(TagCompound tag)
         {
             PlayerLevel = tag.GetInt("PlayerLevel");
-            GuaranteedUsesLeft = tag.GetInt("GuaranteedUsesLeft");
+            //GuaranteedUsesLeft = tag.GetInt("GuaranteedUsesLeft");
 
-            string spellName = tag.GetString("CurrentSpell");
-            if (ModContent.TryFind(Spellwright.Instance.Name, spellName, out CurrentSpell))
-            {
-                TagCompound spellDataTag = tag.GetCompound("CurrentSpellData");
-                SpellData = CurrentSpell.DeserializeData(spellDataTag);
-            }
+            //string spellName = tag.GetString("CurrentSpell");
+            //if (ModContent.TryFind(Spellwright.Instance.Name, spellName, out CurrentSpell))
+            //{
+            //    TagCompound spellDataTag = tag.GetCompound("CurrentSpellData");
+            //    SpellData = CurrentSpell.DeserializeData(spellDataTag);
+            //}
 
             string cantripName = tag.GetString("CurrentCantrip");
             if (ModContent.TryFind(Spellwright.Instance.Name, cantripName, out CurrentCantrip))

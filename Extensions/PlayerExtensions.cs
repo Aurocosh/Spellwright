@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Spellwright.Util;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -19,21 +18,72 @@ namespace Spellwright.Extensions
             return new Rectangle((int)playerCenter.X - widthHalf, (int)playerCenter.Y - heightHalf, player.width + widthHalf * 2, player.height + heightHalf * 2);
         }
 
-        public static bool ConsumeItems(this Player player, int itemTypeId, int amount = 1, bool reverseOrder = false)
+        public static IEnumerable<int> GetInventoryIndexes(this Player player, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
         {
-            bool IsValid(Item item) => item.type == itemTypeId;
-            return ConsumeItems(player, IsValid, amount, reverseOrder);
+            if (!reverseOrder)
+            {
+                if (includedParts.HasFlag(InventoryArea.Hotbar))
+                    for (int i = 0; i < 10; i++)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Inventory))
+                    for (var i = 10; i < 50; i++)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Coins))
+                    for (var i = 50; i < 54; i++)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Ammo))
+                    for (var i = 54; i < 58; i++)
+                        yield return i;
+            }
+            else
+            {
+                if (includedParts.HasFlag(InventoryArea.Ammo))
+                    for (var i = 57; i >= 54; i--)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Coins))
+                    for (var i = 53; i >= 50; i--)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Inventory))
+                    for (var i = 49; i >= 10; i--)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Hotbar))
+                    for (var i = 9; i >= 0; i--)
+                        yield return i;
+            }
         }
 
-        public static bool ConsumeItems(this Player player, Func<Item, bool> filter, int amount = 1, bool reverseOrder = false)
+        public static Item InventoryFindItem(this Player player, int itemTypeId, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
+        {
+            bool IsValid(Item item) => item.type == itemTypeId;
+            return InventoryFindItem(player, IsValid, includedParts, reverseOrder);
+        }
+
+        public static Item InventoryFindItem(this Player player, Func<Item, bool> filter, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
+        {
+            foreach (int i in player.GetInventoryIndexes(includedParts, reverseOrder))
+            {
+                Item item = player.inventory[i];
+                if (filter.Invoke(item) && item.stack > 0)
+                    return item;
+            }
+
+            return null;
+        }
+
+        public static bool ConsumeItems(this Player player, int itemTypeId, int amount = 1, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
+        {
+            bool IsValid(Item item) => item.type == itemTypeId;
+            return ConsumeItems(player, IsValid, amount, includedParts, reverseOrder);
+        }
+
+        public static bool ConsumeItems(this Player player, Func<Item, bool> filter, int amount = 1, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
         {
             if (amount <= 0)
                 return false;
 
             int amountInInventory = 0;
             List<Item> fittingItems = new();
-            var indexes = UtilPlayer.GetInventoryIndexes(reverseOrder: reverseOrder);
-            foreach (int i in indexes)
+            foreach (int i in player.GetInventoryIndexes(includedParts, reverseOrder))
             {
                 Item item = player.inventory[i];
                 if (filter.Invoke(item) && item.stack > 0)
@@ -62,30 +112,19 @@ namespace Spellwright.Extensions
             return true;
         }
 
-        public static bool HasItems(this Player player, int itemTypeId, int amount = 1, bool reverseOrder = false)
+        public static bool HasItems(this Player player, int itemTypeId, int amount = 1, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
         {
             bool IsValid(Item item) => item.type == itemTypeId;
-            return HasItems(player, IsValid, amount, reverseOrder);
+            return HasItems(player, IsValid, amount, includedParts, reverseOrder);
         }
 
-        public static bool HasItems(this Player player, Func<Item, bool> filter, int amount = 1, bool reverseOrder = false)
+        public static bool HasItems(this Player player, Func<Item, bool> filter, int amount = 1, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
         {
             if (amount <= 0)
                 return false;
 
-            int startingIndex = 0;
-            int limit = 58;
-            int step = 1;
-
-            if (reverseOrder)
-            {
-                startingIndex = 57;
-                limit = -1;
-                step = -1;
-            }
-
             int amountInInventory = 0;
-            for (int i = startingIndex; i < limit; i += step)
+            foreach (int i in player.GetInventoryIndexes(includedParts, reverseOrder))
             {
                 Item item = player.inventory[i];
                 if (filter.Invoke(item) && item.stack > 0)
@@ -99,20 +138,16 @@ namespace Spellwright.Extensions
             return false;
         }
 
-        public static int CountItems(this Player player, int itemTypeId)
+        public static int CountItems(this Player player, int itemTypeId, InventoryArea includedParts = InventoryArea.All)
         {
             bool IsValid(Item item) => item.type == itemTypeId;
-            return CountItems(player, IsValid);
+            return CountItems(player, IsValid, includedParts);
         }
 
-        public static int CountItems(this Player player, Func<Item, bool> filter)
+        public static int CountItems(this Player player, Func<Item, bool> filter, InventoryArea includedParts = InventoryArea.All)
         {
-            int startingIndex = 0;
-            int limit = 58;
-            int step = 1;
-
             int amountInInventory = 0;
-            for (int i = startingIndex; i < limit; i += step)
+            foreach (int i in player.GetInventoryIndexes(includedParts, false))
             {
                 Item item = player.inventory[i];
                 if (filter.Invoke(item) && item.stack > 0)

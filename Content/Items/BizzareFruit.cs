@@ -1,6 +1,6 @@
 using Spellwright.Common.Players;
 using Spellwright.Content.Buffs.Items;
-using Spellwright.DustSpawners;
+using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Network;
 using Spellwright.Util;
 using Terraria;

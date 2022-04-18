@@ -1,11 +1,11 @@
 ﻿using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Util;
+using Spellwright.Extensions;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 
-namespace Spellwright.Content.Spells.WorldEvents
+namespace Spellwright.Content.Spells.Storage
 {
     internal class VoidPushSpell : ModSpell
     {
@@ -24,8 +24,7 @@ namespace Spellwright.Content.Spells.WorldEvents
             List<Item> storedItems = statPlayer.StoredItems;
 
             bool storedAtLeastOne = false;
-            var indexes = UtilPlayer.GetInventoryIndexes(reverseOrder: true, includeCoins: false, includeAmmo: false);
-            foreach (int i in indexes)
+            foreach (int i in player.GetInventoryIndexes(InventoryArea.MainSlots, true))
             {
                 if (storedItems.Count >= maxStorageSize)
                     break;

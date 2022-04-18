@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
-using Spellwright.Network.Base;
+using Spellwright.Network.Base.Executable;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
-namespace Spellwright.DustSpawners
+namespace Spellwright.ExecutablePackets.Broadcast.DustSpawners
 {
     internal class SoulDisturbanceSpawner : IExecutablePacket
     {

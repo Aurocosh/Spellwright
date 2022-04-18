@@ -1,8 +1,11 @@
 ﻿using Spellwright.Common.Players;
+using Spellwright.Content.Items;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Core.Spells;
+using Spellwright.Extensions;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells
 {
@@ -47,9 +50,21 @@ namespace Spellwright.Content.Spells
             }
             else if (spell.UseType == SpellType.Spell)
             {
-                spellwrightPlayer.GuaranteedUsesLeft = spell.GetGuaranteedUses(spellwrightPlayer.PlayerLevel);
-                spellwrightPlayer.CurrentSpell = spell;
-                spellwrightPlayer.SpellData = spellData;
+                var itemType = ModContent.ItemType<SpellweaverTome>();
+
+                Player player = Main.LocalPlayer;
+                var item = player.inventory[player.selectedItem];
+                if (item.type != itemType)
+                {
+                    item = player.InventoryFindItem(itemType, InventoryArea.Hotbar);
+                    if (item == null)
+                        return SpellCastResult.NoTomeToBind;
+                }
+
+                var bookItem = item.ModItem as SpellweaverTome;
+                bookItem.GuaranteedUsesLeft = spell.GetGuaranteedUses(spellwrightPlayer.PlayerLevel);
+                bookItem.CurrentSpell = spell;
+                bookItem.SpellData = spellData;
             }
             else
             {

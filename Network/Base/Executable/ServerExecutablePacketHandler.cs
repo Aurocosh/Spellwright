@@ -1,4 +1,4 @@
-﻿namespace Spellwright.Network.Base
+﻿namespace Spellwright.Network.Base.Executable
 {
     internal class ServerExecutablePacketHandler<T> : ServerPacketHandler<T>
         where T : IExecutablePacket

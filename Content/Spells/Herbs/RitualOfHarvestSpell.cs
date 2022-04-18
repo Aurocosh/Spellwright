@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
-using Spellwright.DustSpawners;
+using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
 using Spellwright.Network;
@@ -11,7 +11,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 
-namespace Spellwright.Content.Spells.WorldEvents
+namespace Spellwright.Content.Spells.Herbs
 {
     internal class RitualOfHarvestSpell : ModSpell
     {
@@ -81,10 +81,8 @@ namespace Spellwright.Content.Spells.WorldEvents
                     var tileStyle = item.placeStyle;
 
                     if (createdTile == TileID.ImmatureHerbs)
-                    {
                         if (WorldGen.PlaceTile(point.X, point.Y, createdTile, mute: false, false, player.whoAmI, tileStyle) && Main.netMode == NetmodeID.MultiplayerClient)
                             NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, point.X, point.Y, createdTile, tileStyle, 0, 0);
-                    }
                 }
             }
 

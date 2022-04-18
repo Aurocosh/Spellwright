@@ -125,46 +125,20 @@ namespace Spellwright.UI.States
                 //SpawnCircle(DustID.GoldCoin, position, 15, 90, 130);
                 SoundEngine.PlaySound(SoundID.Item4, position);
             }
-            else if (castResult == SpellCastResult.IncantationInvalid)
+            else
             {
                 SpawnCircle(DustID.SilverCoin, position, 40, 20, 80);
                 SpawnCircle(DustID.SilverCoin, position, 15, 90, 130);
                 //SoundEngine.PlaySound(SoundID.Item20, position);
                 SoundEngine.PlaySound(SoundID.Item45, position);
 
-                var message = Spellwright.GetTranslation("CastResult", "IncantationInvalid");
+                var message = Spellwright.GetTranslation("CastResult", castResult.ToString());
                 Main.NewText(message, Color.OrangeRed);
             }
-            else if (castResult == SpellCastResult.ModifiersInvalid)
-            {
-                SpawnCircle(DustID.IceTorch, position, 40, 20, 80);
-                SpawnCircle(DustID.IceTorch, position, 15, 90, 130);
-                //SoundEngine.PlaySound(SoundID.Item20, position);
-                SoundEngine.PlaySound(SoundID.Item45, position);
 
-                var message = Spellwright.GetTranslation("CastResult", "ModifiersInvalid");
-                Main.NewText(message, Color.OrangeRed);
-            }
-            else if (castResult == SpellCastResult.LevelTooLow)
-            {
-                SpawnCircle(DustID.DemonTorch, position, 40, 20, 80);
-                SpawnCircle(DustID.DemonTorch, position, 15, 90, 130);
-                //SoundEngine.PlaySound(SoundID.Item20, position);
-                SoundEngine.PlaySound(SoundID.Item45, position);
-
-                var message = Spellwright.GetTranslation("CastResult", "LevelTooLow");
-                Main.NewText(message, Color.OrangeRed);
-            }
-            else
-            {
-                SpawnCircle(DustID.Torch, position, 40, 20, 80);
-                SpawnCircle(DustID.Torch, position, 15, 90, 130);
-                //SoundEngine.PlaySound(SoundID.Item20, position);
-                SoundEngine.PlaySound(SoundID.Item45, position);
-
-                var message = Spellwright.GetTranslation("CastResult", "ArgumentInvalid");
-                Main.NewText(message, Color.OrangeRed);
-            }
+            //DustID.SilverCoin
+            //DustID.DemonTorch
+            //DustID.IceTorch
         }
 
         private void OnCancel(object sender, EventArgs e)

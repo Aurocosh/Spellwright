@@ -1,7 +1,7 @@
 ﻿using Spellwright.Network.Base;
 using Terraria.GameContent.Events;
 
-namespace Spellwright.Network.WorldEvents
+namespace Spellwright.Network.ServerPackets.WorldEvents.SandstormEvents
 {
     internal class StopSandstormHandler : ServerPacketHandler<bool>
     {

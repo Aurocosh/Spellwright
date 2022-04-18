@@ -1,7 +1,7 @@
 ﻿using Spellwright.Network.Base;
 using Terraria;
 
-namespace Spellwright.Network.WorldEvents
+namespace Spellwright.Network.ServerPackets.WorldEvents.RainEvents
 {
     internal class StopRainHandler : ServerPacketHandler<bool>
     {

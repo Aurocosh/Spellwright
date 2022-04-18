@@ -27,58 +27,6 @@ namespace Spellwright.Util
             }
         }
 
-        public static IEnumerable<int> GetInventoryIndexes(bool reverseOrder = false, bool includeHotbar = true, bool includeInventory = true, bool includeCoins = true, bool includeAmmo = true)
-        {
-            if (!reverseOrder)
-            {
-                if (includeHotbar)
-                    for (int i = 0; i < 10; i++)
-                        yield return i;
-                if (includeInventory)
-                    for (var i = 10; i < 50; i++)
-                        yield return i;
-                if (includeCoins)
-                    for (var i = 50; i < 54; i++)
-                        yield return i;
-                if (includeAmmo)
-                    for (var i = 54; i < 58; i++)
-                        yield return i;
-            }
-            else
-            {
-                if (includeAmmo)
-                    for (var i = 57; i >= 54; i--)
-                        yield return i;
-                if (includeCoins)
-                    for (var i = 53; i >= 50; i--)
-                        yield return i;
-                if (includeInventory)
-                    for (var i = 49; i >= 10; i--)
-                        yield return i;
-                if (includeHotbar)
-                    for (var i = 9; i >= 0; i--)
-                        yield return i;
-            }
-
-        }
-
-        public static IEnumerable<int> GestInventoryIndexes(bool reverseOrder = false)
-        {
-            int startingIndex = 0;
-            int limit = 58;
-            int step = 1;
-
-            if (reverseOrder)
-            {
-                startingIndex = 57;
-                limit = -1;
-                step = -1;
-            }
-
-            for (int i = startingIndex; i < limit; i += step)
-                yield return i;
-        }
-
         public static Vector2 CheckForGoodTeleportationSpot(ref bool canSpawn, Player player, int teleportStartX, int teleportRangeX, int teleportStartY, int teleportRangeY, RandomTeleportationAttemptSettings settings)
         {
             int attemptCount = 0;
