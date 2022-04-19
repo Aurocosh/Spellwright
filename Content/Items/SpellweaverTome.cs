@@ -152,10 +152,14 @@ namespace Spellwright.Content.Items
                 }
 
                 if (GuaranteedUsesLeft > 0)
-                    tooltips.Add(new TooltipLine(spellwright, "Spell uses", $"Spell uses left: {GuaranteedUsesLeft}"));
+                {
+                    var parameterName = Spellwright.GetTranslation("DescriptionParts", "SpellUses").Value;
+                    var descriptionPart = $"{parameterName}: {GuaranteedUsesLeft}";
+                    tooltips.Add(new TooltipLine(spellwright, parameterName, descriptionPart));
+                }
 
-                string description = CurrentSpell.Description.GetTranslation(Language.ActiveCulture);
-                tooltips.Add(new TooltipLine(spellwright, "Description", $"Description: {description}"));
+                //string description = CurrentSpell.Description.GetTranslation(Language.ActiveCulture);
+                //tooltips.Add(new TooltipLine(spellwright, "Description", $"Description: {description}"));
             }
         }
 

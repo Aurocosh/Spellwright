@@ -1,6 +1,7 @@
 ﻿using Spellwright.Common.Players;
 using Spellwright.Content.Items;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Core.Spells;
 using Spellwright.Extensions;
 using System.Collections.Generic;
@@ -26,12 +27,13 @@ namespace Spellwright.Content.Spells
             SpellwrightPlayer spellwrightPlayer = SpellwrightPlayer.Instance;
             if (spell.SpellLevel > spellwrightPlayer.PlayerLevel)
                 return SpellCastResult.LevelTooLow;
-
-            if (spellwrightPlayer.PlayerLevel < 5 && spellStructure.SpellModifiers.Contains(SpellModifier.IsEternal))
+            if (!CheckMofifierLevels(spellwrightPlayer.PlayerLevel, spellStructure.SpellModifiers))
                 return SpellCastResult.LevelTooLow;
 
             bool isModifiersApplicable = spell.IsModifiersApplicable(spellStructure.SpellModifiers);
             if (!isModifiersApplicable)
+                return SpellCastResult.ModifiersInvalid;
+            if (CountMultModifiers(spellStructure.SpellModifiers) > 1)
                 return SpellCastResult.ModifiersInvalid;
 
             bool isSpellDataValid = spell.ProcessExtraData(spellStructure, out object extraData);
@@ -61,8 +63,18 @@ namespace Spellwright.Content.Spells
                         return SpellCastResult.NoTomeToBind;
                 }
 
+                int spellUses = spell.GetGuaranteedUses(spellwrightPlayer.PlayerLevel);
+                if (spellData.HasModifier(SpellModifier.IsTwofold))
+                    spellUses *= 2;
+                if (spellData.HasModifier(SpellModifier.IsFivefold))
+                    spellUses *= 5;
+                if (spellData.HasModifier(SpellModifier.IsTenfold))
+                    spellUses *= 10;
+                if (spellData.HasModifier(SpellModifier.IsFiftyfold))
+                    spellUses *= 50;
+
                 var bookItem = item.ModItem as SpellweaverTome;
-                bookItem.GuaranteedUsesLeft = spell.GetGuaranteedUses(spellwrightPlayer.PlayerLevel);
+                bookItem.GuaranteedUsesLeft = spellUses;
                 bookItem.CurrentSpell = spell;
                 bookItem.SpellData = spellData;
             }
@@ -73,6 +85,38 @@ namespace Spellwright.Content.Spells
             }
             return SpellCastResult.Success;
         }
+
+        private static bool CheckMofifierLevels(int playerLevel, SpellModifier spellModifiers)
+        {
+            if (playerLevel < 5 && spellModifiers.HasFlag(SpellModifier.IsEternal))
+                return false;
+
+            if (playerLevel < 2 && spellModifiers.HasFlag(SpellModifier.IsTwofold))
+                return false;
+            if (playerLevel < 4 && spellModifiers.HasFlag(SpellModifier.IsFivefold))
+                return false;
+            if (playerLevel < 6 && spellModifiers.HasFlag(SpellModifier.IsTenfold))
+                return false;
+            if (playerLevel < 8 && spellModifiers.HasFlag(SpellModifier.IsFiftyfold))
+                return false;
+
+            return true;
+        }
+
+        private static int CountMultModifiers(SpellModifier spellModifier)
+        {
+            int count = 0;
+            if (spellModifier.HasFlag(SpellModifier.IsTwofold))
+                count += 1;
+            if (spellModifier.HasFlag(SpellModifier.IsFivefold))
+                count += 1;
+            if (spellModifier.HasFlag(SpellModifier.IsTenfold))
+                count += 1;
+            if (spellModifier.HasFlag(SpellModifier.IsFiftyfold))
+                count += 1;
+            return count;
+        }
+
         public static SpellStructure ProcessIncantation(string incantationText)
         {
             incantationText = incantationText.Trim().ToLower();
@@ -88,7 +132,7 @@ namespace Spellwright.Content.Spells
             if (words.Length == 0)
                 return null;
 
-            var spellModifiers = new List<SpellModifier>();
+            SpellModifier spellModifiers = SpellModifier.None;
             var spellParts = new List<string>();
 
             foreach (var word in words)
@@ -96,7 +140,7 @@ namespace Spellwright.Content.Spells
                 var modifier = SpellModifiersProcessor.GetModifier(word);
 
                 if (modifier != null)
-                    spellModifiers.Add(modifier.Value);
+                    spellModifiers = spellModifiers.Add(modifier.Value);
                 else
                     spellParts.Add(word);
             }

@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using Spellwright.Content.Spells.Base.Modifiers;
 
 namespace Spellwright.Content.Spells.Base
 {
     public class SpellStructure
     {
-        public HashSet<SpellModifier> SpellModifiers { get; }
+        public SpellModifier SpellModifiers { get; }
         public string SpellName { get; }
         public string Argument { get; }
 
-        public SpellStructure(List<SpellModifier> spellModifiers, string spellName, string argument)
+        public bool HasModifier(SpellModifier modifier) => SpellModifiers.HasFlag(modifier);
+
+        public SpellStructure(SpellModifier spellModifiers, string spellName, string argument)
         {
-            SpellModifiers = new HashSet<SpellModifier>(spellModifiers);
+            SpellModifiers = spellModifiers;
             SpellName = spellName;
             Argument = argument;
         }

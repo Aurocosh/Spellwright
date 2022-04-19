@@ -1,4 +1,5 @@
 ﻿using Spellwright.Content.Spells.Base.Description;
+using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Data;
 using Spellwright.Util;
 using System;

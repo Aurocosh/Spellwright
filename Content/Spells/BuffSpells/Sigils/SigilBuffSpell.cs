@@ -1,5 +1,6 @@
 ﻿using Spellwright.Content.Buffs.Spells.Sigils;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using System.Collections.Generic;
@@ -10,6 +11,13 @@ namespace Spellwright.Content.Spells.BuffSpells.Sigils
 {
     internal abstract class SigilBuffSpell : BuffSpell
     {
+        protected SigilBuffSpell()
+        {
+            RemoveApplicableModifier(SpellModifier.IsAoe);
+            RemoveApplicableModifier(SpellModifier.IsSelfless);
+            AddApplicableModifier(ModifierConstants.EternalModifiers);
+        }
+
         protected override void ApplyEffect(IEnumerable<Player> affectedPlayers, int playerLevel, SpellData spellData)
         {
             var sigilIds = new int[] {

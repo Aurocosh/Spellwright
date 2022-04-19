@@ -1,4 +1,4 @@
-﻿using Spellwright.Content.Spells.Base;
+﻿using Spellwright.Content.Spells.Base.Modifiers;
 using System.Collections.Generic;
 
 namespace Spellwright.Content.Spells
@@ -10,7 +10,12 @@ namespace Spellwright.Content.Spells
             { "area", SpellModifier.IsAoe },
             { "mass", SpellModifier.IsAoe },
             { "eternal", SpellModifier.IsEternal },
-            { "dispel", SpellModifier.IsDispel }
+            { "dispel", SpellModifier.IsDispel },
+            { "selfless", SpellModifier.IsSelfless },
+            { "twofold", SpellModifier.IsTwofold },
+            { "fivefold", SpellModifier.IsFivefold },
+            { "tenfold", SpellModifier.IsTenfold },
+            { "fiftyfold", SpellModifier.IsFiftyfold }
         };
 
         public static SpellModifier? GetModifier(string value)

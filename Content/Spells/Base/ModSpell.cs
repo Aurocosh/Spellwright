@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base.CostModifiers;
 using Spellwright.Content.Spells.Base.Description;
+using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Core.Spells;
+using Spellwright.Extensions;
 using Spellwright.Util;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -36,10 +37,10 @@ namespace Spellwright.Content.Spells.Base
         public virtual int SpellLevel { get; protected set; }
         public SpellType UseType { get; protected set; }
 
-        private readonly HashSet<SpellModifier> appplicableModifiers;
+        private SpellModifier appplicableModifiers;
         private readonly Dictionary<SpellModifier, ICostModifier> spellCostModifiers;
 
-        public bool IsModifiersApplicable(IEnumerable<SpellModifier> spellModifiers) => appplicableModifiers.IsSupersetOf(spellModifiers);
+        public bool IsModifiersApplicable(SpellModifier spellModifiers) => spellModifiers == SpellModifier.None || spellModifiers.MissesAny(appplicableModifiers);
         public virtual bool CanAutoReuse(int playerLevel) => canAutoReuse;
         public virtual float GetUseSpeedMultiplier(int playerLevel) => useTimeMultiplier;
         public virtual int GetGuaranteedUses(int playerLevel) => guaranteedUses;
@@ -82,8 +83,9 @@ namespace Spellwright.Content.Spells.Base
             return values;
         }
 
-        protected void AddApplicableModifier(SpellModifier spellModifier) => appplicableModifiers.Add(spellModifier);
-        protected void RemoveApplicableModifier(SpellModifier spellModifier) => appplicableModifiers.Remove(spellModifier);
+        protected void AddApplicableModifier(SpellModifier spellModifier) => appplicableModifiers = appplicableModifiers.Add(spellModifier);
+
+        protected void RemoveApplicableModifier(SpellModifier spellModifier) => appplicableModifiers = appplicableModifiers.Remove(spellModifier);
         protected void SetSpellCostModifier(SpellModifier spellModifier, ICostModifier costModifier) => spellCostModifiers[spellModifier] = costModifier;
 
         protected ModSpell()
@@ -99,12 +101,17 @@ namespace Spellwright.Content.Spells.Base
             spellCost = null;
             damageType = DamageClass.Generic;
             costModifier = 1f;
-            appplicableModifiers = new HashSet<SpellModifier>();
+            appplicableModifiers = SpellModifier.None;
             spellCostModifiers = new Dictionary<SpellModifier, ICostModifier>();
 
             SetSpellCostModifier(SpellModifier.IsDispel, new MultCostModifier(0));
             SetSpellCostModifier(SpellModifier.IsAoe, new MultCostModifier(4));
+            SetSpellCostModifier(SpellModifier.IsSelfless, new MultCostModifier(.75f));
             SetSpellCostModifier(SpellModifier.IsEternal, new MultCostModifier(4));
+            SetSpellCostModifier(SpellModifier.IsTwofold, new MultCostModifier(2));
+            SetSpellCostModifier(SpellModifier.IsFivefold, new MultCostModifier(5));
+            SetSpellCostModifier(SpellModifier.IsTenfold, new MultCostModifier(10));
+            SetSpellCostModifier(SpellModifier.IsFiftyfold, new MultCostModifier(50));
         }
         protected sealed override void Register()
         {
@@ -127,10 +134,10 @@ namespace Spellwright.Content.Spells.Base
 
         public override void SetStaticDefaults() { }
 
-        public float GetCostModifier(IEnumerable<SpellModifier> spellModifiers)
+        public float GetCostModifier(SpellModifier spellModifiers)
         {
             float actualCostModifier = costModifier;
-            foreach (var modifier in spellModifiers)
+            foreach (var modifier in spellModifiers.SplitValues<SpellModifier>())
                 if (spellCostModifiers.TryGetValue(modifier, out var spellCostModifier))
                     actualCostModifier = spellCostModifier.ModifyCost(actualCostModifier);
             return actualCostModifier;
@@ -167,14 +174,13 @@ namespace Spellwright.Content.Spells.Base
 
         public TagCompound SerializeData(SpellData spellData)
         {
-            var modifierIds = spellData.GetModifiers().Select(x => (int)x).ToList();
             var extrasDataTag = new TagCompound();
             SerializeExtraData(extrasDataTag, spellData.ExtraData);
 
             var tag = new TagCompound();
             tag.Add("SpellName", Name);
             tag.Add("Argument", spellData.Argument);
-            tag.Add("ModifierList", modifierIds);
+            tag.Add("Modifiers", (int)spellData.SpellModifiers);
             tag.Add("ExtraData", extrasDataTag);
             return tag;
         }
@@ -183,10 +189,9 @@ namespace Spellwright.Content.Spells.Base
         {
             var dataSpellName = tag.GetString("SpellName");
             var argument = tag.GetString("Argument");
-            var modifierIds = tag.GetList<int>("ModifierList");
+            var modifiers = (SpellModifier)tag.GetInt("Modifiers");
             var extraDataTag = tag.GetCompound("ExtraData");
 
-            var modifiers = modifierIds.Select(x => (SpellModifier)x);
             var costModifier = GetCostModifier(modifiers);
 
             object extraSpellData = null;

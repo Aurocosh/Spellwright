@@ -27,6 +27,7 @@ Mods: {
 			Description: Description
 			UseCost: Use cost
 			Examples: Examples
+			SpellUses: Spell uses
 		}
 
 		General: {

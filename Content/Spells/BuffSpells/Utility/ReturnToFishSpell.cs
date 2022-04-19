@@ -1,6 +1,7 @@
 ﻿using Spellwright.Content.Buffs.Spells.Utility;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
@@ -19,9 +20,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             AddEffect(ModContent.BuffType<ReturnToFishBuff>(), durationGetter);
 
             spellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>());
-
-            AddApplicableModifier(SpellModifier.IsDispel);
-            AddApplicableModifier(SpellModifier.IsEternal);
+            AddApplicableModifier(ModifierConstants.EternalModifiers);
         }
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {

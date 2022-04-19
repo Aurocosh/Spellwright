@@ -1,4 +1,4 @@
-﻿using Spellwright.Content.Spells.Base;
+﻿using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
@@ -13,9 +13,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Vanilla
             SpellLevel = 1;
             spellCost = new SingleItemSpellCost(ItemID.GoldCoin, 2);
             AddEffect(BuffID.Spelunker, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
-
-            AddApplicableModifier(SpellModifier.IsDispel);
-            AddApplicableModifier(SpellModifier.IsEternal);
+            AddApplicableModifier(ModifierConstants.EternalModifiers);
         }
     }
 }

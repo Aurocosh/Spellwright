@@ -1,5 +1,6 @@
 ﻿using Spellwright.Content.Buffs.Spells.Defensive;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Extensions;
 using Spellwright.Util;
@@ -39,6 +40,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
             AddEffect(ModContent.BuffType<FortressStanceBuff>(), (playerLevel) => UtilTime.SecondsToTicks(2.5f));
 
             RemoveApplicableModifier(SpellModifier.IsAoe);
+            RemoveApplicableModifier(SpellModifier.IsSelfless);
         }
     }
 }

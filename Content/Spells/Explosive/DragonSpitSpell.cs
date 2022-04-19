@@ -1,5 +1,6 @@
 ﻿using Spellwright.Content.Projectiles.Explosive;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ModLoader;
 
@@ -7,6 +8,11 @@ namespace Spellwright.Content.Spells.Explosive
 {
     internal class DragonSpitSpell : ProjectileSpell
     {
+        public DragonSpitSpell()
+        {
+            AddApplicableModifier(ModifierConstants.UsebleModifiers);
+        }
+
         public override int GetGuaranteedUses(int playerLevel) => 12 + 3 * playerLevel;
 
         public override void SetStaticDefaults()

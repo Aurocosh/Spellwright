@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base.Description;
+using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Network;
 using Spellwright.Util;
@@ -20,6 +21,7 @@ namespace Spellwright.Content.Spells.Base.Types
         public PlayerAoeSpell()
         {
             UseType = SpellType.Invocation;
+            AddApplicableModifier(SpellModifier.IsSelfless);
             AddApplicableModifier(SpellModifier.IsAoe);
         }
 
@@ -68,6 +70,8 @@ namespace Spellwright.Content.Spells.Base.Types
 
         private bool AoeCast(Player player, int playerLevel, SpellData spellData)
         {
+            bool isSelfless = spellData.HasModifier(SpellModifier.IsSelfless);
+
             int aoeRange = GetRange(playerLevel) * 16;
             Vector2 castPosition = player.Center;
             int radiusSquared = aoeRange * aoeRange;
@@ -77,6 +81,8 @@ namespace Spellwright.Content.Spells.Base.Types
                 if (otherPlayer == null)
                     return false;
                 if (!otherPlayer.active)
+                    return false;
+                if (isSelfless && otherPlayer == player)
                     return false;
                 if (!CanApplyToPlayer(otherPlayer))
                     return false;
