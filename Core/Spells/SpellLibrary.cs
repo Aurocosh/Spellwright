@@ -8,6 +8,7 @@ namespace Spellwright.Core.Spells
     internal class SpellLibrary
     {
         private static readonly List<ModSpell> registeredSpells = new();
+        private static readonly Dictionary<int, ModSpell> spellIdMap = new();
         private static readonly Dictionary<string, ModSpell> spellIncantationMap = new();
 
         public static void RegisterSpell(ModSpell modSpell)
@@ -17,9 +18,11 @@ namespace Spellwright.Core.Spells
 
         public static void Refresh()
         {
+            spellIdMap.Clear();
             spellIncantationMap.Clear();
             foreach (ModSpell modSpell in registeredSpells)
             {
+                spellIdMap.Add(modSpell.Type, modSpell);
                 var localIncantation = Spellwright.GetTranslation("Spells", modSpell.Name, "Incantation").Value;
                 if (!localIncantation.StartsWith("Mods.Spellwright"))
                     SetSpellIncantation(localIncantation, modSpell);
@@ -40,8 +43,16 @@ namespace Spellwright.Core.Spells
             return registeredSpells;
         }
 
+        public static ModSpell GetSpellById(int id)
+        {
+            if (spellIdMap.TryGetValue(id, out var modSpell))
+                return modSpell;
+            return null;
+        }
         public static ModSpell GetSpellByIncantation(string incantation)
         {
+            if (incantation == null)
+                return null;
             if (!spellIncantationMap.TryGetValue(incantation.ToLower(), out ModSpell spell))
                 return null;
             return spell;

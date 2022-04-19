@@ -60,6 +60,9 @@ Mods: {
 			ArgumentInvalid: Spell argument is invalid
 			LevelTooLow: Your level is too low
 			NoTomeToBind: You have no spell tome to which you can bind the spell
+			AlreadyUnlocked: Spell is already unlocked
+			NotUnlocked: Spell is not yet unlocked
+			NotEnoughReagents: Not enough reagents. Reagents required: {0}
 		}
 
 		Config: {

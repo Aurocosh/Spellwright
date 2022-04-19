@@ -104,16 +104,12 @@ namespace Spellwright.Content.Spells.Herbs
                 int frameX = tile.TileFrameX / 18;
                 if (frameX == 0 && Main.dayTime)
                     return true;
-
                 if (frameX == 1 && !Main.dayTime)
                     return true;
-
                 if (frameX == 3 && !Main.dayTime && (Main.bloodMoon || Main.moonPhase == 0))
                     return true;
-
                 if (frameX == 4 && (Main.raining || Main.cloudAlpha > 0f))
                     return true;
-
                 if (frameX == 5 && !Main.raining && Main.dayTime && Main.time > 40500.0)
                     return true;
             }

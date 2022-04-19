@@ -6,13 +6,14 @@ namespace Spellwright.Content.Spells.Base.Modifiers
     public enum SpellModifier
     {
         None = 0,
-        IsAoe = 1,
-        IsEternal = 2,
-        IsDispel = 4,
-        IsSelfless = 8,
-        IsTwofold = 16,
-        IsFivefold = 32,
-        IsTenfold = 64,
-        IsFiftyfold = 128,
+        IsUnlock = 1,
+        IsAoe = 2,
+        IsEternal = 4,
+        IsDispel = 8,
+        IsSelfless = 16,
+        IsTwofold = 32,
+        IsFivefold = 64,
+        IsTenfold = 128,
+        IsFiftyfold = 256,
     }
 }

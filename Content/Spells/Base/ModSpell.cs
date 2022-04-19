@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -87,6 +88,8 @@ namespace Spellwright.Content.Spells.Base
 
         protected void RemoveApplicableModifier(SpellModifier spellModifier) => appplicableModifiers = appplicableModifiers.Remove(spellModifier);
         protected void SetSpellCostModifier(SpellModifier spellModifier, ICostModifier costModifier) => spellCostModifiers[spellModifier] = costModifier;
+
+        protected LocalizedText GetTranslation(string key) => Spellwright.GetTranslation("Spells", Name, key);
 
         protected ModSpell()
         {

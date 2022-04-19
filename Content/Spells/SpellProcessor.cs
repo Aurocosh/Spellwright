@@ -1,11 +1,16 @@
-﻿using Spellwright.Common.Players;
+﻿using Microsoft.Xna.Framework;
+using Spellwright.Common.Players;
 using Spellwright.Content.Items;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
+using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Core.Spells;
+using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
+using Spellwright.Network;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells
@@ -15,29 +20,24 @@ namespace Spellwright.Content.Spells
         public static SpellCastResult ProcessCast(string incantationText)
         {
             SpellStructure spellStructure = ProcessIncantation(incantationText);
-            if (spellStructure == null)
-                return SpellCastResult.IncantationInvalid;
-            if (spellStructure.SpellName.Length == 0)
-                return SpellCastResult.IncantationInvalid;
-
-            ModSpell spell = SpellLibrary.GetSpellByIncantation(spellStructure.SpellName);
+            ModSpell spell = SpellLibrary.GetSpellByIncantation(spellStructure?.SpellName);
             if (spell == null)
                 return SpellCastResult.IncantationInvalid;
 
-            SpellwrightPlayer spellwrightPlayer = SpellwrightPlayer.Instance;
-            if (spell.SpellLevel > spellwrightPlayer.PlayerLevel)
-                return SpellCastResult.LevelTooLow;
-            if (!CheckMofifierLevels(spellwrightPlayer.PlayerLevel, spellStructure.SpellModifiers))
+            var spellPlayer = SpellwrightPlayer.Instance;
+            var unlockResult = CheckUnlock(spellStructure, spell, spellPlayer);
+            if (unlockResult != SpellCastResult.Success)
+                return unlockResult;
+
+            if (!CheckLevels(spell.SpellLevel, spellPlayer.PlayerLevel, spellStructure.SpellModifiers))
                 return SpellCastResult.LevelTooLow;
 
-            bool isModifiersApplicable = spell.IsModifiersApplicable(spellStructure.SpellModifiers);
-            if (!isModifiersApplicable)
+            if (!spell.IsModifiersApplicable(spellStructure.SpellModifiers))
                 return SpellCastResult.ModifiersInvalid;
             if (CountMultModifiers(spellStructure.SpellModifiers) > 1)
                 return SpellCastResult.ModifiersInvalid;
 
-            bool isSpellDataValid = spell.ProcessExtraData(spellStructure, out object extraData);
-            if (!isSpellDataValid)
+            if (!spell.ProcessExtraData(spellStructure, out object extraData))
                 return SpellCastResult.ArgumentInvalid;
 
             var costModifier = spell.GetCostModifier(spellStructure.SpellModifiers);
@@ -45,9 +45,9 @@ namespace Spellwright.Content.Spells
             if (spell.UseType == SpellType.Invocation)
             {
                 Player player = Main.LocalPlayer;
-                int playerLevel = spellwrightPlayer.PlayerLevel;
+                int playerLevel = spellPlayer.PlayerLevel;
                 if (!spell.ConsumeReagents(player, playerLevel, spellData))
-                    return SpellCastResult.IncantationInvalid;
+                    return SpellCastResult.NotEnoughReagents;
                 spell.Cast(player, playerLevel, spellData);
             }
             else if (spell.UseType == SpellType.Spell)
@@ -63,7 +63,7 @@ namespace Spellwright.Content.Spells
                         return SpellCastResult.NoTomeToBind;
                 }
 
-                int spellUses = spell.GetGuaranteedUses(spellwrightPlayer.PlayerLevel);
+                int spellUses = spell.GetGuaranteedUses(spellPlayer.PlayerLevel);
                 if (spellData.HasModifier(SpellModifier.IsTwofold))
                     spellUses *= 2;
                 if (spellData.HasModifier(SpellModifier.IsFivefold))
@@ -80,14 +80,57 @@ namespace Spellwright.Content.Spells
             }
             else
             {
-                spellwrightPlayer.CurrentCantrip = spell;
-                spellwrightPlayer.CantripData = spellData;
+                spellPlayer.CurrentCantrip = spell;
+                spellPlayer.CantripData = spellData;
             }
             return SpellCastResult.Success;
         }
 
-        private static bool CheckMofifierLevels(int playerLevel, SpellModifier spellModifiers)
+        private static SpellCastResult CheckUnlock(SpellStructure spellStructure, ModSpell spell, SpellwrightPlayer spellPlayer)
         {
+            if (spellStructure.HasModifier(SpellModifier.IsUnlock) && spellPlayer.UnlockedSpells.Contains(spell.Type))
+                return SpellCastResult.AlreadyUnlocked;
+            SpellCost spellCost = SpellUnlockCosts.GetUnlockCost(spell.Type);
+            if (spellCost == null)
+                return SpellCastResult.Success;
+            if (spell.SpellLevel > spellPlayer.PlayerLevel)
+                return SpellCastResult.LevelTooLow;
+
+            if (spellStructure.HasModifier(SpellModifier.IsUnlock))
+            {
+                Player player = Main.LocalPlayer;
+                var spellData = new SpellData(SpellModifier.IsUnlock, "", 1, null);
+                if (spellCost.Consume(player, spellPlayer.PlayerLevel, spellData))
+                {
+                    spellPlayer.UnlockedSpells.Add(spell.Type);
+
+                    var spawner = new LevelUpDustSpawner(player, spell.SpellLevel);
+                    spawner.Execute();
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                        ModNetHandler.levelUpDustHandler.Send(spawner);
+                    return SpellCastResult.SpellUnlocked;
+                }
+                else
+                {
+                    var message = Spellwright.GetTranslation("CastResult", "NotEnoughReagents");
+                    string costDescription = spellCost.GetDescription(player, spellPlayer.PlayerLevel, spellData);
+                    Main.NewText(message.Format(costDescription), Color.Orange);
+                    return SpellCastResult.CustomError;
+                }
+            }
+            else if (!spellPlayer.UnlockedSpells.Contains(spell.Type))
+            {
+                return SpellCastResult.NotUnlocked;
+            }
+
+            return SpellCastResult.Success;
+        }
+
+        private static bool CheckLevels(int spellLevel, int playerLevel, SpellModifier spellModifiers)
+        {
+            if (spellLevel > playerLevel)
+                return false;
+
             if (playerLevel < 5 && spellModifiers.HasFlag(SpellModifier.IsEternal))
                 return false;
 

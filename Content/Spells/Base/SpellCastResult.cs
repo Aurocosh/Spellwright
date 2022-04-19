@@ -7,6 +7,11 @@
         ModifiersInvalid,
         ArgumentInvalid,
         LevelTooLow,
-        NoTomeToBind
+        NoTomeToBind,
+        AlreadyUnlocked,
+        NotUnlocked,
+        SpellUnlocked,
+        NotEnoughReagents,
+        CustomError
     }
 }

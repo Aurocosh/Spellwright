@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Core.Spells;
 using Spellwright.Extensions;
 using Spellwright.Network;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -13,7 +15,7 @@ using Terraria.ModLoader.IO;
 
 namespace Spellwright.Common.Players
 {
-    internal class SpellwrightPlayer : ModPlayer
+    internal class SpellwrightPlayer : ModPlayer, ILoader
     {
         private int playerLevel = 0;
         private int nextCantripDelay = 0;
@@ -22,6 +24,8 @@ namespace Spellwright.Common.Players
         public SpellData CantripData = null;
 
         public Point LastDeathPoint = Point.Zero;
+
+        public readonly HashSet<int> UnlockedSpells = new();
 
         public static SpellwrightPlayer Instance => Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
 
@@ -64,18 +68,29 @@ namespace Spellwright.Common.Players
             tag.Add("PlayerLevel", PlayerLevel);
             tag.Add("LastDeathPointX", LastDeathPoint.X);
             tag.Add("LastDeathPointY", LastDeathPoint.Y);
-            //tag.Add("GuaranteedUsesLeft", GuaranteedUsesLeft);
 
-            //if (CurrentSpell != null && SpellData != null)
-            //{
-            //    tag.Add("CurrentSpell", CurrentSpell.Name ?? "");
-            //    tag.Add("CurrentSpellData", CurrentSpell.SerializeData(SpellData));
-            //}
             if (CurrentCantrip != null && CantripData != null)
             {
                 tag.Add("CurrentCantrip", CurrentCantrip.Name ?? "");
                 tag.Add("CurrentCantripData", CurrentCantrip.SerializeData(CantripData));
             }
+
+            var unlockedSpellNames = new List<TagCompound>();
+            foreach (var id in UnlockedSpells)
+            {
+                ModSpell modSpell = SpellLibrary.GetSpellById(id);
+                if (modSpell != null)
+                {
+                    var spellTag = new TagCompound
+                    {
+                        ["mod"] = modSpell.Mod.Name,
+                        ["name"] = modSpell.Name
+                    };
+                    unlockedSpellNames.Add(spellTag);
+                }
+            }
+
+            tag.Add("UnlockedSpells", unlockedSpellNames);
         }
 
         public override void LoadData(TagCompound tag)
@@ -83,20 +98,21 @@ namespace Spellwright.Common.Players
             PlayerLevel = tag.GetInt("PlayerLevel");
             LastDeathPoint.X = tag.GetInt("LastDeathPointX");
             LastDeathPoint.Y = tag.GetInt("LastDeathPointY");
-            //GuaranteedUsesLeft = tag.GetInt("GuaranteedUsesLeft");
-
-            //string spellName = tag.GetString("CurrentSpell");
-            //if (ModContent.TryFind(Spellwright.Instance.Name, spellName, out CurrentSpell))
-            //{
-            //    TagCompound spellDataTag = tag.GetCompound("CurrentSpellData");
-            //    SpellData = CurrentSpell.DeserializeData(spellDataTag);
-            //}
 
             string cantripName = tag.GetString("CurrentCantrip");
             if (ModContent.TryFind(Spellwright.Instance.Name, cantripName, out CurrentCantrip))
             {
                 TagCompound spellDataTag = tag.GetCompound("CurrentCantripData");
                 CantripData = CurrentCantrip.DeserializeData(spellDataTag);
+            }
+
+            var unlockedSpellNames = tag.GetList<TagCompound>("UnlockedSpells");
+            foreach (var spellTag in unlockedSpellNames)
+            {
+                var modName = spellTag.GetString("mod");
+                string spellName = spellTag.GetString("name");
+                if (ModContent.TryFind(modName, spellName, out ModSpell spell))
+                    UnlockedSpells.Add(spell.Type);
             }
         }
 

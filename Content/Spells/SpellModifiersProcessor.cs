@@ -7,6 +7,7 @@ namespace Spellwright.Content.Spells
     {
         private static readonly Dictionary<string, SpellModifier> modifierMap = new()
         {
+            { "unlock", SpellModifier.IsUnlock },
             { "area", SpellModifier.IsAoe },
             { "mass", SpellModifier.IsAoe },
             { "eternal", SpellModifier.IsEternal },

@@ -54,6 +54,7 @@ namespace Spellwright
         public override void PostAddRecipes()
         {
             SpellLibrary.Refresh();
+            SpellUnlockCosts.Initialize();
         }
 
         public override void Unload()
@@ -69,6 +70,7 @@ namespace Spellwright
 
             SpellLoader.Unload();
             SpellLibrary.Unload();
+            SpellUnlockCosts.Unload();
         }
 
         public void UpdateUI(GameTime gameTime)
