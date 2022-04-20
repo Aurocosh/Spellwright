@@ -9,6 +9,7 @@ namespace Spellwright.Common.Players
     public class SpellwrightDashPlayer : ModPlayer
     {
         public int DashTimer = 0;
+        public int NoGravityTimer = 0;
 
         public void Dash(Vector2 velocity, int dashDuration)
         {
@@ -22,6 +23,11 @@ namespace Spellwright.Common.Players
             DashTimer = dashDuration;
         }
 
+        public void DisableGraviry(int duration)
+        {
+            NoGravityTimer = duration;
+        }
+
         public override void PreUpdateMovement()
         {
             if (DashTimer > 0)
@@ -30,6 +36,12 @@ namespace Spellwright.Common.Players
                 Player.armorEffectDrawShadowEOCShield = true;
 
                 DashTimer--;
+            }
+
+            if (NoGravityTimer > 0)
+            {
+                Player.gravity = 0;
+                NoGravityTimer--;
             }
         }
 

@@ -333,6 +333,10 @@ Mods: {
 				Name: Flash Step
 				Description: On activation player performs long dash in horizontal direction while also accelerating to the max speed
 			}
+			GravityDashSpell: {
+				Name: Gravity Dash
+				Description: When used it will accelerate the user in the direction of the cursor and temporarily disable users gravity
+			}
 
 			# Other
 			PurifySpell: {
