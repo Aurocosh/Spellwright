@@ -35,8 +35,8 @@ namespace Spellwright.Content.Items
 
         public override bool? UseItem(Player player)
         {
-            SpellwrightPlayer modPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            if (modPlayer.PlayerLevel == 0)
+            SpellwrightPlayer spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
+            if (!spellPlayer.CanCastSpells)
             {
                 player.AddBuff(ModContent.BuffType<SoulDisturbanceDebuff>(), UtilTime.MinutesToTicks(3));
 

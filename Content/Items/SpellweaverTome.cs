@@ -17,7 +17,7 @@ namespace Spellwright.Content.Items
     {
         public ModSpell CurrentSpell = null;
         public SpellData SpellData = null;
-        public int GuaranteedUsesLeft = 0;
+        public int SpellUsesLeft = 0;
 
 
         public SpellweaverTome()
@@ -76,8 +76,11 @@ namespace Spellwright.Content.Items
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            SpellwrightPlayer spellwrightPlayer = Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
-            int playerLevel = spellwrightPlayer.PlayerLevel;
+            var spellPlayer = SpellwrightPlayer.Instance;
+            if (!spellPlayer.CanCastSpells)
+                return false;
+
+            int playerLevel = spellPlayer.PlayerLevel;
             if (CurrentSpell != null && SpellData != null)
             {
                 if (!CurrentSpell.ConsumeReagents(player, playerLevel, SpellData))
@@ -85,7 +88,7 @@ namespace Spellwright.Content.Items
 
                 bool canCast = false;
                 bool consumeCharge = false;
-                if (GuaranteedUsesLeft > 0)
+                if (SpellUsesLeft > 0)
                 {
                     canCast = true;
                     consumeCharge = true;
@@ -105,7 +108,7 @@ namespace Spellwright.Content.Items
                 {
                     bool success = CurrentSpell.Cast(player, playerLevel, SpellData, source, position, velocity);
                     if (success && consumeCharge)
-                        GuaranteedUsesLeft--;
+                        SpellUsesLeft--;
                 }
                 else
                 {
@@ -151,10 +154,10 @@ namespace Spellwright.Content.Items
                     tooltips.Add(new TooltipLine(spellwright, parameterName, descriptionPart));
                 }
 
-                if (GuaranteedUsesLeft > 0)
+                if (SpellUsesLeft > 0)
                 {
                     var parameterName = Spellwright.GetTranslation("DescriptionParts", "SpellUses").Value;
-                    var descriptionPart = $"{parameterName}: {GuaranteedUsesLeft}";
+                    var descriptionPart = $"{parameterName}: {SpellUsesLeft}";
                     tooltips.Add(new TooltipLine(spellwright, parameterName, descriptionPart));
                 }
 
@@ -165,10 +168,8 @@ namespace Spellwright.Content.Items
 
         public override bool AltFunctionUse(Player player)
         {
-            Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
-            //Spellwright.Instance.spellInputState.Activate();
-            //Spellwright.instance.userInterface.IsVisible = false;
-            //Spellwright.instance.userInterface.Use();
+            if (SpellwrightPlayer.Instance.CanCastSpells)
+                Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
             return false;
         }
 
@@ -179,7 +180,7 @@ namespace Spellwright.Content.Items
 
         public override void SaveData(TagCompound tag)
         {
-            tag.Add("GuaranteedUsesLeft", GuaranteedUsesLeft);
+            tag.Add("SpellUsesLeft", SpellUsesLeft);
 
             if (CurrentSpell != null && SpellData != null)
             {
@@ -190,7 +191,7 @@ namespace Spellwright.Content.Items
 
         public override void LoadData(TagCompound tag)
         {
-            GuaranteedUsesLeft = tag.GetInt("GuaranteedUsesLeft");
+            SpellUsesLeft = tag.GetInt("SpellUsesLeft");
 
             string spellName = tag.GetString("CurrentSpell");
             if (ModContent.TryFind(Spellwright.Instance.Name, spellName, out CurrentSpell))

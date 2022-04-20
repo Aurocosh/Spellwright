@@ -20,6 +20,8 @@ namespace Spellwright.Common.Players
         private int playerLevel = 0;
         private int nextCantripDelay = 0;
 
+        public bool CanCastSpells = false;
+
         public ModSpell CurrentCantrip = null;
         public SpellData CantripData = null;
 
@@ -66,9 +68,12 @@ namespace Spellwright.Common.Players
 
         public override void SaveData(TagCompound tag)
         {
+            tag.Add("CanCastSpells", CanCastSpells);
             tag.Add("PlayerLevel", PlayerLevel);
             tag.Add("LastDeathPointX", LastDeathPoint.X);
             tag.Add("LastDeathPointY", LastDeathPoint.Y);
+            tag.Add("VoidMarkPointX", VoidMarkPoint.X);
+            tag.Add("VoidMarkPointY", VoidMarkPoint.Y);
 
             if (CurrentCantrip != null && CantripData != null)
             {
@@ -96,9 +101,12 @@ namespace Spellwright.Common.Players
 
         public override void LoadData(TagCompound tag)
         {
+            CanCastSpells = tag.GetBool("CanCastSpells");
             PlayerLevel = tag.GetInt("PlayerLevel");
             LastDeathPoint.X = tag.GetInt("LastDeathPointX");
             LastDeathPoint.Y = tag.GetInt("LastDeathPointY");
+            VoidMarkPoint.X = tag.GetInt("VoidMarkPointX");
+            VoidMarkPoint.Y = tag.GetInt("VoidMarkPointY");
 
             string cantripName = tag.GetString("CurrentCantrip");
             if (ModContent.TryFind(Spellwright.Instance.Name, cantripName, out CurrentCantrip))
@@ -120,37 +128,39 @@ namespace Spellwright.Common.Players
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             Player player = Main.LocalPlayer;
-
-            bool canAutoReuseCantrip = false;
-            if (CurrentCantrip != null)
-                canAutoReuseCantrip = CurrentCantrip.CanAutoReuse(PlayerLevel);
-
-            if (nextCantripDelay == 1 && !canAutoReuseCantrip)
+            var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
+            if (spellPlayer.CanCastSpells)
             {
-                var sound = SoundID.Item25.WithVolume(0.2f).WithPitchVariance(0.7f);
-                SoundEngine.PlaySound(sound, player.Center);
-            }
+                bool canAutoReuseCantrip = false;
+                if (CurrentCantrip != null)
+                    canAutoReuseCantrip = CurrentCantrip.CanAutoReuse(PlayerLevel);
 
-            if (nextCantripDelay > 0)
-                nextCantripDelay--;
-
-            if (Spellwright.OpenIncantationUIHotKey.JustPressed)
-                Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
-            else if (Spellwright.CastCantripHotKey.JustPressed || Spellwright.CastCantripHotKey.Current)
-            {
-                bool singleCasted = Spellwright.CastCantripHotKey.JustPressed && !canAutoReuseCantrip;
-                bool continuosCast = Spellwright.CastCantripHotKey.Current && canAutoReuseCantrip;
-
-                if ((singleCasted || continuosCast) && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
+                if (nextCantripDelay == 1 && !canAutoReuseCantrip)
                 {
-                    Vector2 mousePosition = Main.MouseWorld;
-                    Vector2 center = player.Center;
-                    Vector2 velocity = center.DirectionTo(mousePosition);
-                    var projectileSource = new EntitySource_Parent(player);
-                    if (CurrentCantrip.ConsumeReagents(player, playerLevel, CantripData))
-                        CurrentCantrip.Cast(player, PlayerLevel, CantripData, projectileSource, center, velocity);
+                    var sound = SoundID.Item25.WithVolume(0.2f).WithPitchVariance(0.7f);
+                    SoundEngine.PlaySound(sound, player.Center);
+                }
 
-                    nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
+                if (nextCantripDelay > 0)
+                    nextCantripDelay--;
+                if (Spellwright.OpenIncantationUIHotKey.JustPressed)
+                    Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
+                else if (Spellwright.CastCantripHotKey.JustPressed || Spellwright.CastCantripHotKey.Current)
+                {
+                    bool singleCasted = Spellwright.CastCantripHotKey.JustPressed && !canAutoReuseCantrip;
+                    bool continuosCast = Spellwright.CastCantripHotKey.Current && canAutoReuseCantrip;
+
+                    if ((singleCasted || continuosCast) && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
+                    {
+                        Vector2 mousePosition = Main.MouseWorld;
+                        Vector2 center = player.Center;
+                        Vector2 velocity = center.DirectionTo(mousePosition);
+                        var projectileSource = new EntitySource_Parent(player);
+                        if (CurrentCantrip.ConsumeReagents(player, playerLevel, CantripData))
+                            CurrentCantrip.Cast(player, PlayerLevel, CantripData, projectileSource, center, velocity);
+
+                        nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
+                    }
                 }
             }
         }

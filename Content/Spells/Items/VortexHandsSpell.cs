@@ -20,7 +20,7 @@ namespace Spellwright.Content.Spells.Items
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
-            int itemGrabRange = 1000;
+            int itemGrabRange = 60 * 16;
             //var pickupRectangle = new Rectangle((int)player.position.X - itemGrabRange, (int)player.position.Y - itemGrabRange, player.width + itemGrabRange * 2, player.height + itemGrabRange * 2);
             var pickupRectangle = player.GetAreaRect(itemGrabRange);
 

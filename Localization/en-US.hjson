@@ -428,9 +428,9 @@ Mods: {
 				Name: Ice Breaker
 				Description: Destroys frail ice around player
 			}
-			SnuffOutSpell: {
-				Name: Snuff Out
-				Description: Snuff outs all nearby torches
+			TorchMufflerSpell: {
+				Name: Torch Muffler
+				Description: Destroys all nearby torches in large area
 			}
 			WallCrumblerSpell: {
 				Name: Wall Crumbler
@@ -518,6 +518,11 @@ Mods: {
 		
 		Currencies: {
 			ExampleCustomCurrency: example items
+		}
+
+		SpellwrightNpc:{
+			FruitOffer: You seems to be interested in my spellcraft. Take this {0} and eat it if you want to learn secrets of my art
+			LearnSpellcraft: Learn spellcraft
 		}
 		
 		NPCName: {

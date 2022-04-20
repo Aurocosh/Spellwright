@@ -72,7 +72,7 @@ namespace Spellwright.Content.Spells
                     spellUses *= 50;
 
                 var bookItem = item.ModItem as SpellweaverTome;
-                bookItem.GuaranteedUsesLeft = spellUses;
+                bookItem.SpellUsesLeft = spellUses;
                 bookItem.CurrentSpell = spell;
                 bookItem.SpellData = spellData;
             }

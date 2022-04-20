@@ -9,7 +9,7 @@ using Terraria.ID;
 
 namespace Spellwright.Content.Spells.TileBreak
 {
-    internal class SnuffOutSpell : TileBreakSpell
+    internal class TorchMufflerSpell : TileBreakSpell
     {
         public override void SetStaticDefaults()
         {

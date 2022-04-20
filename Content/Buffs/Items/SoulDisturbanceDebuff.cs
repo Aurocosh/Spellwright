@@ -58,7 +58,9 @@ namespace Spellwright.Content.Buffs.Items
             var buffTime = player.buffTime[disturbanceIndex];
 
             if (buffTime < UtilTime.SecondsToTicks(10))
-                HandleLevel(player);
+            {
+                HandleSpellcraftUnlock(player);
+            }
             else
             {
                 var modPlayer = player.GetModPlayer<SoulDisturbancePlayer>();
@@ -70,13 +72,14 @@ namespace Spellwright.Content.Buffs.Items
             }
         }
 
-        private static void HandleLevel(Player player)
+        private static void HandleSpellcraftUnlock(Player player)
         {
-            var spellwrightPlayer = player.GetModPlayer<SpellwrightPlayer>();
-
-            if (spellwrightPlayer.PlayerLevel == 0)
+            var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
+            if (!spellPlayer.CanCastSpells)
             {
-                spellwrightPlayer.PlayerLevel = 1;
+                spellPlayer.CanCastSpells = true;
+                spellPlayer.PlayerLevel = 0;
+
                 player.ClearBuff(ModContent.BuffType<SoulDisturbanceDebuff>());
 
                 var spawner = new SoulDisturbanceSpawner(player);

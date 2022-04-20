@@ -137,6 +137,8 @@ namespace Spellwright.Content.NPCs
             chat.Add("Words have power, a lot of power.");
             chat.Add("Don't speak my name lightly!");
             chat.Add("There is yet much to be learned.");
+
+            // TODO localization
             return chat;
         }
 
@@ -146,16 +148,16 @@ namespace Spellwright.Content.NPCs
 
             Player player = Main.LocalPlayer;
             var modPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            if (modPlayer.PlayerLevel == 0)
-                button2 = "Learn spellcraft";
+
+            bool hasFruit = player.HasItem(ModContent.ItemType<BizzareFruit>());
+            if (!modPlayer.CanCastSpells && !hasFruit)
+                button2 = Spellwright.GetTranslation("SpellwrightNpc", "LearnSpellcraft").Value;
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
         {
             if (firstButton)
             {
-
-
                 shop = true;
             }
             else
@@ -163,21 +165,17 @@ namespace Spellwright.Content.NPCs
                 Player player = Main.LocalPlayer;
                 var modPlayer = player.GetModPlayer<SpellwrightPlayer>();
 
-                if (modPlayer.PlayerLevel == 0)
+                if (!modPlayer.CanCastSpells)
                 {
-                    SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
+                    SoundEngine.PlaySound(SoundID.Item25);
 
-                    Main.npcChatText = $"You seems to be interested in my art. Take this {Lang.GetItemNameValue(ItemID.HiveBackpack)} and make use of it if you want to learn it.";
-
-                    //int hiveBackpackItemIndex = Main.LocalPlayer.FindItem(ItemID.HiveBackpack);
-                    //Main.LocalPlayer.inventory[hiveBackpackItemIndex].TurnToAir();
-
-                    player.QuickSpawnItem(new EntitySource_Gift(NPC), ModContent.ItemType<SilverMirror>());
+                    int fruitId = ModContent.ItemType<BizzareFruit>();
+                    Main.npcChatText = Spellwright.GetTranslation("SpellwrightNpc", "FruitOffer").Format(Lang.GetItemNameValue(fruitId));
+                    player.QuickSpawnItem(new EntitySource_Gift(NPC), fruitId);
 
                     return;
                 }
             }
-
         }
 
         // Not completely finished, but below is what the NPC will sell
