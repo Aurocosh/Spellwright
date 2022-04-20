@@ -40,7 +40,7 @@ namespace Spellwright.Common.Players
 
             if (NoGravityTimer > 0)
             {
-                Player.gravity = 0;
+                Player.vortexDebuff = true;
                 NoGravityTimer--;
             }
         }

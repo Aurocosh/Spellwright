@@ -458,6 +458,10 @@ Mods: {
 				Name: Base Jump
 				Description: Teleports you to space. Works anywhere and can be used to quickly get out from underground to the surface
 			}
+			DungeonGateSpell: {
+				Name: Dungeon Gate
+				Description: Teleports player to the entrance of the dungeon
+			}
 			GraveGateSpell: {
 				Name: Grave Gate
 				Description: Teleports you to the place of your last death. Works only once per death

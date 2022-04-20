@@ -26,7 +26,7 @@ namespace Spellwright.Content.Spells.Movement
             velocity.Normalize();
             velocity *= 14;
 
-            var dashTime = UtilTime.SecondsToTicks(2);
+            var dashTime = UtilTime.SecondsToTicks(1);
             dashPlayer.Dash(velocity, dashTime);
             dashPlayer.DisableGraviry(dashTime);
 
