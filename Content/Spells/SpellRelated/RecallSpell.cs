@@ -126,7 +126,7 @@ namespace Spellwright.Content.Spells.SpellRelated
                 return false;
             }
 
-            bool isSpellDataValid = spell.ProcessExtraData(spellStructure, out object extraData);
+            bool isSpellDataValid = spell.ProcessExtraData(player, spellStructure, out object extraData);
             if (!isSpellDataValid)
             {
                 Main.NewText(Spellwright.GetTranslation("CastErrors", "DataInvalid"), Color.Red);
@@ -171,7 +171,7 @@ namespace Spellwright.Content.Spells.SpellRelated
             return values;
         }
 
-        public override bool ProcessExtraData(SpellStructure structure, out object extraData)
+        public override bool ProcessExtraData(Player player, SpellStructure structure, out object extraData)
         {
             extraData = structure.Argument;
             return true;

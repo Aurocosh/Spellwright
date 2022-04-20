@@ -494,6 +494,11 @@ Mods: {
 				Name: Shadow Step
 				Description: When used it will teleport the caster short distance towards the cursor. Cannot teleport through walls
 			}
+			VoidMarkSpell: {
+				Name: Void Mark
+				Description: Allows you to mark a position in space to which you can teleport later at will. When spell is casted without arguments if you have no marked point then the spell will mark the your position and consume no reagents, otherwise the spell will teleport you to the previously set point and remove the point. If you set a point in space and want to rewrite it without teleporting to the previous one you can append the argument “set” to spell
+				Set: Set
+			}
 
 			# WorldEvents
 			RainCallSpell: {

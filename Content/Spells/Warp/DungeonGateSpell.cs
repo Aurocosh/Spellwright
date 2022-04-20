@@ -12,7 +12,6 @@ namespace Spellwright.Content.Spells.Warp
         {
             SpellLevel = 4;
             UseType = SpellType.Invocation;
-            teleportStyle = 7;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

@@ -179,7 +179,7 @@ namespace Spellwright.Content.Spells.Base
             throw new NotImplementedException();
         }
 
-        public virtual bool ProcessExtraData(SpellStructure structure, out object extraData)
+        public virtual bool ProcessExtraData(Player player, SpellStructure structure, out object extraData)
         {
             extraData = null;
             return true;

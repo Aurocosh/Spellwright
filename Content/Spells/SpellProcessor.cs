@@ -36,14 +36,14 @@ namespace Spellwright.Content.Spells
             if (CountMultModifiers(spellStructure.SpellModifiers) > 1)
                 return SpellCastResult.ModifiersInvalid;
 
-            if (!spell.ProcessExtraData(spellStructure, out object extraData))
+            Player player = Main.LocalPlayer;
+            if (!spell.ProcessExtraData(player, spellStructure, out object extraData))
                 return SpellCastResult.ArgumentInvalid;
 
             var costModifier = spell.GetCostModifier(spellStructure.SpellModifiers);
             var spellData = new SpellData(spellStructure.SpellModifiers, spellStructure.Argument, costModifier, extraData);
             if (spell.UseType == SpellType.Invocation)
             {
-                Player player = Main.LocalPlayer;
                 int playerLevel = spellPlayer.PlayerLevel;
                 if (!spell.ConsumeReagents(player, playerLevel, spellData))
                     return SpellCastResult.NotEnoughReagents;
@@ -53,7 +53,6 @@ namespace Spellwright.Content.Spells
             {
                 var itemType = ModContent.ItemType<SpellweaverTome>();
 
-                Player player = Main.LocalPlayer;
                 var item = player.inventory[player.selectedItem];
                 if (item.type != itemType)
                 {

@@ -48,7 +48,7 @@ namespace Spellwright.Content.Spells.Warp
             return canTeleport;
         }
 
-        public override bool ProcessExtraData(SpellStructure structure, out object extraData)
+        public override bool ProcessExtraData(Player player, SpellStructure structure, out object extraData)
         {
             int teleportDestination = 0;
             if (structure.Argument.Length > 0)

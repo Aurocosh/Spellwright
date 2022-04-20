@@ -24,6 +24,7 @@ namespace Spellwright.Common.Players
         public SpellData CantripData = null;
 
         public Point LastDeathPoint = Point.Zero;
+        public Point VoidMarkPoint = Point.Zero;
 
         public readonly HashSet<int> UnlockedSpells = new();
 
