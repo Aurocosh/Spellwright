@@ -1,7 +1,9 @@
 ﻿using Spellwright.Content.Projectiles.Explosive;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
+using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Content.Spells.Base.Types;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Explosive
@@ -29,6 +31,8 @@ namespace Spellwright.Content.Spells.Explosive
             projectileSpeed = 10;
             canAutoReuse = false;
             useTimeMultiplier = 3f;
+
+            UnlockCost = new SingleItemSpellCost(ItemID.Bomb, 20);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Spellwright.Content.Spells.Enchant
             var itemSpellCost = new MultipleItemSpellCost();
             itemSpellCost.AddItemCost(ModContent.ItemType<SilverMirror>());
             itemSpellCost.AddItemCost(ModContent.ItemType<CommonSpellReagent>(), 2);
-            spellCost = itemSpellCost;
+            SpellCost = itemSpellCost;
         }
     }
 }

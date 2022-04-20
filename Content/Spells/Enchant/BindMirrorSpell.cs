@@ -21,7 +21,7 @@ namespace Spellwright.Content.Spells.Enchant
             var itemSpellCost = new MultipleItemSpellCost();
             itemSpellCost.AddItemCost(ModContent.ItemType<SilverMirror>());
             itemSpellCost.AddItemCost(ModContent.ItemType<RareSpellReagent>(), 3);
-            spellCost = itemSpellCost;
+            SpellCost = itemSpellCost;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

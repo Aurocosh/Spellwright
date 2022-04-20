@@ -21,7 +21,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
             int buff = ModContent.BuffType<ReactiveArmorBuff>();
             AddEffect(buff, (playerLevel) => UtilTime.MinutesToTicks(10 + 3 * playerLevel));
 
-            spellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

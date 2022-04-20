@@ -23,7 +23,7 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileType = ModContent.ProjectileType<HeartThrowerProjectile>();
             projectileSpeed = 30;
             useDelay = UtilTime.SecondsToTicks(3);
-            spellCost = new ManaSpellCost(75);
+            SpellCost = new ManaSpellCost(75);
 
             projectileSpray = 10;
             minSpeedChange = .2f;

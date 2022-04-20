@@ -44,7 +44,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts
                 return null;
 
             var itemName = Lang.GetItemNameValue(ItemType);
-            return $"{itemName}-{realCost}";
+            return $"{realCost} {itemName}";
         }
     }
 }

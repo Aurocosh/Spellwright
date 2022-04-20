@@ -20,7 +20,7 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileType = ModContent.ProjectileType<StoneBulletProjectile>();
             projectileSpeed = 450;
             canAutoReuse = true;
-            spellCost = new SingleItemSpellCost(ItemID.StoneBlock, 1);
+            SpellCost = new SingleItemSpellCost(ItemID.StoneBlock, 1);
         }
     }
 }

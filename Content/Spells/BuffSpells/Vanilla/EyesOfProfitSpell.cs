@@ -11,7 +11,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Vanilla
         public override void SetStaticDefaults()
         {
             SpellLevel = 1;
-            spellCost = new SingleItemSpellCost(ItemID.GoldCoin, 2);
+            SpellCost = new SingleItemSpellCost(ItemID.GoldCoin, 2);
             AddEffect(BuffID.Spelunker, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
             AddApplicableModifier(ModifierConstants.EternalModifiers);
         }

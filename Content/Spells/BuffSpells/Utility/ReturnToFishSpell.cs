@@ -19,12 +19,12 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             static int durationGetter(int playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel);
             AddEffect(ModContent.BuffType<ReturnToFishBuff>(), durationGetter);
 
-            spellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>());
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>());
             AddApplicableModifier(ModifierConstants.EternalModifiers);
         }
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {
-            if (!spellData.HasModifier(SpellModifier.IsAoe))
+            if (!spellData.HasModifier(SpellModifier.Area))
                 return true;
             return base.ConsumeReagents(player, playerLevel, spellData);
         }

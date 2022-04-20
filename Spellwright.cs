@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Spellwright.Content.Spells;
 using Spellwright.Core.Spells;
 using Spellwright.Network;
 using Spellwright.UI.Components;
@@ -54,7 +55,7 @@ namespace Spellwright
         public override void PostAddRecipes()
         {
             SpellLibrary.Refresh();
-            SpellUnlockCosts.Initialize();
+            SpellModifiersProcessor.Initialize();
         }
 
         public override void Unload()
@@ -70,7 +71,7 @@ namespace Spellwright
 
             SpellLoader.Unload();
             SpellLibrary.Unload();
-            SpellUnlockCosts.Unload();
+            SpellModifiersProcessor.Unload();
         }
 
         public void UpdateUI(GameTime gameTime)

@@ -90,8 +90,8 @@ namespace Spellwright.Content.Spells.Base.SpellCosts
         }
         public override string GetDescription(Player player, int playerLevel, SpellData spellData)
         {
-            var separatorWord = Spellwright.GetTranslation("General", "And").Value.ToLower();
-            var separator = $" {separatorWord} ";
+            //var separatorWord = Spellwright.GetTranslation("General", "And").Value.ToLower();
+            //var separator = $" {separatorWord} ";
 
             var descriptions = new List<string>();
             for (int i = 0; i < itemTypes.Count; i++)
@@ -104,14 +104,14 @@ namespace Spellwright.Content.Spells.Base.SpellCosts
                     continue;
 
                 var itemName = Lang.GetItemNameValue(itemType);
-                var description = $"{itemName}-{realCost}";
+                var description = $"{realCost} {itemName}";
                 descriptions.Add(description);
             }
 
             if (descriptions.Count == 0)
                 return null;
             else
-                return string.Join(separator, descriptions);
+                return string.Join(", ", descriptions);
         }
     }
 }

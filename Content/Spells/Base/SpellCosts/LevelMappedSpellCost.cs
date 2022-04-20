@@ -19,9 +19,21 @@ namespace Spellwright.Content.Spells.Base.SpellCosts
             spellCostMap = new();
         }
 
+        public SpellCost GetSpellCost(int level)
+        {
+            if (spellCostMap.TryGetValue(level, out SpellCost cost))
+                return cost;
+            return null;
+        }
+
         public void SetSpellCost(int level, SpellCost spellCost)
         {
             spellCostMap[level] = spellCost;
+        }
+
+        public void ClearCosts()
+        {
+            spellCostMap.Clear();
         }
 
         public override bool Consume(Player player, int playerLevel, SpellData spellData)

@@ -13,12 +13,12 @@ namespace Spellwright.Content.Spells.WorldEvents
             SpellLevel = 4;
             UseType = SpellType.Invocation;
 
-            AddApplicableModifier(SpellModifier.IsDispel);
+            AddApplicableModifier(SpellModifier.Dispel);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
-            if (!spellData.HasModifier(SpellModifier.IsDispel))
+            if (!spellData.HasModifier(SpellModifier.Dispel))
             {
                 Main.StartRain();
                 if (Main.netMode == NetmodeID.MultiplayerClient)

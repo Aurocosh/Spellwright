@@ -27,11 +27,11 @@ namespace Spellwright.Content.Spells.Base.Types
         protected override void ApplyEffect(IEnumerable<Player> affectedPlayers, int playerLevel, SpellData spellData)
         {
             var buffIds = effects.Select(x => x.effectId).ToArray();
-            if (spellData.HasModifier(SpellModifier.IsDispel))
+            if (spellData.HasModifier(SpellModifier.Dispel))
             {
                 UtilBuff.RemovePermamentEffect(affectedPlayers, buffIds);
             }
-            else if (spellData.HasModifier(SpellModifier.IsEternal))
+            else if (spellData.HasModifier(SpellModifier.Eternal))
             {
                 UtilBuff.SetBuffLevel(affectedPlayers, playerLevel, buffIds);
                 UtilBuff.AddPermamentEffect(affectedPlayers, buffIds);
@@ -62,7 +62,7 @@ namespace Spellwright.Content.Spells.Base.Types
                 var buffName = Lang.GetBuffName(effect.effectId);
                 var duration = UtilTime.TicksToString(effect.durationGetter.Invoke(playerLevel));
 
-                effectDescriptions.Add($"{buffName}({duration})");
+                effectDescriptions.Add($"{buffName} ({duration})");
             }
             var effectList = string.Join(", ", effectDescriptions);
             values.Add(new SpellParameter("AddedBuffs", effectList));

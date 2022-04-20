@@ -28,6 +28,19 @@ Mods: {
 			UseCost: Use cost
 			Examples: Examples
 			SpellUses: Spell uses
+			ApplicableModifiers: Applicable modifiers
+		}
+
+		SpellModifiers: {
+			Unlock: Unlock
+			Area: Area
+			Eternal: Eternal
+			Dispel: Dispel
+			Selfless: Selfless
+			Twofold: Twofold
+			Fivefold: Fivefold
+			Tenfold: Tenfold
+			Fiftyfold: Fiftyfold
 		}
 
 		General: {
@@ -390,6 +403,10 @@ Mods: {
 					'''\n\tRecall - show list of all spells
 					\tRecall: bind mirror - show information about spell Bind mirror
 					'''
+				KnownSpells: Known spells
+				Level: Level
+				LevelUpCost: Level up cost: {0}
+				SpellUnlockCost: Spell unlock cost: {0}
 			}
 
 			# Storage

@@ -1,9 +1,11 @@
 ﻿using Spellwright.Content.Projectiles.Sparks;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Projectiles
@@ -42,6 +44,14 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileSpray = 12;
             minSpeedChange = 0f;
             maxSpeedChange = .35f;
+
+            var unlockCost = new MultipleItemSpellCost();
+            unlockCost.AddItemCost(ItemID.WandofSparking, 1);
+            unlockCost.AddItemCost(ItemID.Ruby);
+            unlockCost.AddItemCost(ItemID.Sapphire);
+            unlockCost.AddItemCost(ItemID.Emerald);
+            unlockCost.AddItemCost(ItemID.Topaz);
+            UnlockCost = unlockCost;
         }
         protected override int GetProjectileType(int playerLevel)
         {

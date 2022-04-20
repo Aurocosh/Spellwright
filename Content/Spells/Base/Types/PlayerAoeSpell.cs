@@ -21,8 +21,8 @@ namespace Spellwright.Content.Spells.Base.Types
         public PlayerAoeSpell()
         {
             UseType = SpellType.Invocation;
-            AddApplicableModifier(SpellModifier.IsSelfless);
-            AddApplicableModifier(SpellModifier.IsAoe);
+            AddApplicableModifier(SpellModifier.Selfless);
+            AddApplicableModifier(SpellModifier.Area);
         }
 
         protected virtual void DoExtraActions(IEnumerable<Player> affectedPlayers, int playerLevel)
@@ -46,7 +46,7 @@ namespace Spellwright.Content.Spells.Base.Types
 
         public sealed override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
-            if (spellData.HasModifier(SpellModifier.IsAoe))
+            if (spellData.HasModifier(SpellModifier.Area))
                 return AoeCast(player, playerLevel, spellData);
             else
                 return PersonalCast(player, playerLevel, spellData);
@@ -54,7 +54,7 @@ namespace Spellwright.Content.Spells.Base.Types
 
         public sealed override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)
         {
-            if (spellData.HasModifier(SpellModifier.IsAoe))
+            if (spellData.HasModifier(SpellModifier.Area))
                 return AoeCast(player, playerLevel, spellData);
             else
                 return PersonalCast(player, playerLevel, spellData);
@@ -70,7 +70,7 @@ namespace Spellwright.Content.Spells.Base.Types
 
         private bool AoeCast(Player player, int playerLevel, SpellData spellData)
         {
-            bool isSelfless = spellData.HasModifier(SpellModifier.IsSelfless);
+            bool isSelfless = spellData.HasModifier(SpellModifier.Selfless);
 
             int aoeRange = GetRange(playerLevel) * 16;
             Vector2 castPosition = player.Center;
@@ -99,7 +99,7 @@ namespace Spellwright.Content.Spells.Base.Types
         public override List<SpellParameter> GetDescriptionValues(Player player, int playerLevel, SpellData spellData, bool fullVersion)
         {
             var values = base.GetDescriptionValues(player, playerLevel, spellData, fullVersion);
-            int aoeRange = GetRange(playerLevel) * 16;
+            int aoeRange = GetRange(playerLevel);
             values.Add(new SpellParameter("AoeRange", aoeRange.ToString()));
             return values;
         }

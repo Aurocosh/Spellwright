@@ -36,12 +36,21 @@ namespace Spellwright.Util
 
             var timeParts = new List<string>();
             if (hours > 0)
-                timeParts.Add(hours.ToString());
+            {
+                timeParts.Add(hours.ToString() + "h");
+            }
 
-            timeParts.Add(minutes.ToString());
-            timeParts.Add(seconds.ToString());
+            if (minutes > 0)
+            {
+                timeParts.Add(minutes.ToString() + "m");
+            }
 
-            return string.Join(":", timeParts);
+            if (seconds > 0 || timeParts.Count == 0)
+            {
+                timeParts.Add(seconds.ToString() + "s");
+            }
+
+            return string.Join(" ", timeParts);
         }
     }
 }

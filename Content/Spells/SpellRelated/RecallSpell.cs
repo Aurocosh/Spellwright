@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Description;
 using Spellwright.Core.Spells;
@@ -6,6 +7,7 @@ using Spellwright.UI.States;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace Spellwright.Content.Spells.SpellRelated
@@ -22,15 +24,25 @@ namespace Spellwright.Content.Spells.SpellRelated
             if (spellData == null)
                 return false;
             if (spellData.ExtraData is not string recallData || recallData is null || recallData.Trim().Length == 0)
-                return PringSpellList(player, playerLevel);
+                return PrintSpellList(player, playerLevel);
             else
                 return PrintSpellInfo(player, playerLevel, recallData);
         }
 
-        private static bool PringSpellList(Player player, int playerLevel)
+        private bool PrintSpellList(Player player, int playerLevel)
         {
+            var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
+            AscendSpell ascendSpell = ModContent.GetInstance<AscendSpell>();
+
             var modSpells = SpellLibrary.GetRegisteredSpells();
             var spellsByLevel = new Dictionary<int, List<ModSpell>>();
+
+
+            //KnownSpells: Known spells
+
+            //        LevelUpCost: Level up cost: { 0}
+            //SpellUnlockCost: Spell unlock cost { 0}
+
 
             foreach (var spell in modSpells)
             {
@@ -44,7 +56,7 @@ namespace Spellwright.Content.Spells.SpellRelated
             }
 
             var spellLevelLists = new List<string>();
-            spellLevelLists.Add(Spellwright.GetTranslation("General", "KnownSpells").Value);
+            spellLevelLists.Add(GetTranslation("KnownSpells").Value);
 
             for (int i = 0; i < 11; i++)
             {
@@ -53,15 +65,36 @@ namespace Spellwright.Content.Spells.SpellRelated
                 if (spells.Count == 0)
                     continue;
 
-                var levelWord = Spellwright.GetTranslation("General", "Level").Value;
+                var levelWord = GetTranslation("Level").Value;
                 var levelHeader = $"{levelWord} {i}";
+
+                if (spellPlayer.PlayerLevel < i)
+                {
+                    var cost = ascendSpell.GetLevelUpCost(i);
+                    if (cost != null)
+                    {
+                        var costDescritpion = cost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
+                        var LevelUpCost = GetTranslation("LevelUpCost").Format(costDescritpion);
+                        levelHeader += $" [{LevelUpCost}]";
+                    }
+                }
 
                 var lines = new List<string>();
                 lines.Add(levelHeader);
                 foreach (var spell in spells)
                 {
-                    var name = spell.DisplayName.GetTranslation(Language.ActiveCulture);
-                    lines.Add(name);
+                    var line = spell.DisplayName.GetTranslation(Language.ActiveCulture);
+                    if (!spellPlayer.UnlockedSpells.Contains(spell.Type))
+                    {
+                        if (spell.UnlockCost != null)
+                        {
+                            var costDescritpion = spell.UnlockCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
+                            var unlockCostDescription = GetTranslation("SpellUnlockCost").Format(costDescritpion);
+                            line += $" [{unlockCostDescription}]";
+                        }
+                    }
+
+                    lines.Add(line);
                 }
 
                 spellLevelLists.Add(string.Join("\n", lines));

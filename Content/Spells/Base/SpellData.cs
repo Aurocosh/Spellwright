@@ -5,6 +5,8 @@ namespace Spellwright.Content.Spells.Base
 {
     public class SpellData
     {
+        public static readonly SpellData EmptyData = new(SpellModifier.None, "", 1f, null);
+
         private readonly HashSet<SpellModifier> spellModifiers;
         public string Argument { get; }
         public object ExtraData { get; }

@@ -22,7 +22,7 @@ namespace Spellwright.Content.Spells.BuffSpells
 
             costModifier = 0f;
 
-            spellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

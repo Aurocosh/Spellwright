@@ -48,7 +48,7 @@ namespace Spellwright.Extensions
             foreach (T enumValue in Enum.GetValues(typeof(T)))
             {
                 int valueB = (int)(object)enumValue;
-                if ((valueB & valueA) == valueA)
+                if (valueB != 0 && (valueA & valueB) == valueB)
                     yield return enumValue;
             }
         }

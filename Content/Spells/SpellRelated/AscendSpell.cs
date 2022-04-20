@@ -10,11 +10,20 @@ namespace Spellwright.Content.Spells.SpellRelated
 {
     internal class AscendSpell : ModSpell
     {
+        private readonly LevelMappedSpellCost mappedSpellCost;
+
+        public AscendSpell()
+        {
+            mappedSpellCost = new LevelMappedSpellCost(Spellwright.GetTranslation("Messages", "PlayerLevelIsAlreadyMaxed").Value);
+        }
+
+        public SpellCost GetLevelUpCost(int level) => mappedSpellCost.GetSpellCost(level);
+
         public override void SetStaticDefaults()
         {
             UseType = SpellType.Invocation;
 
-            var mappedSpellCost = new LevelMappedSpellCost(Spellwright.GetTranslation("Messages", "PlayerLevelIsAlreadyMaxed").Value);
+            mappedSpellCost.ClearCosts();
             mappedSpellCost.SetSpellCost(0, new SingleItemSpellCost(ItemID.FallenStar, 30));
             mappedSpellCost.SetSpellCost(1, new SingleItemSpellCost(ItemID.MeteoriteBar, 40));
             mappedSpellCost.SetSpellCost(2, new SingleItemSpellCost(ItemID.DemoniteBar, 50));
@@ -26,7 +35,7 @@ namespace Spellwright.Content.Spells.SpellRelated
             mappedSpellCost.SetSpellCost(8, new SingleItemSpellCost(ItemID.SpookyWood, 600));
             mappedSpellCost.SetSpellCost(9, new OptionalSpellCost(new SingleItemSpellCost(ItemID.FragmentNebula, 30), new SingleItemSpellCost(ItemID.FragmentSolar, 30), new SingleItemSpellCost(ItemID.FragmentStardust, 30), new SingleItemSpellCost(ItemID.FragmentVortex, 30)));
 
-            spellCost = mappedSpellCost;
+            SpellCost = mappedSpellCost;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

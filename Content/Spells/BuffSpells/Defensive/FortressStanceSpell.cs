@@ -39,8 +39,8 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
             UseType = SpellType.Cantrip;
             AddEffect(ModContent.BuffType<FortressStanceBuff>(), (playerLevel) => UtilTime.SecondsToTicks(2.5f));
 
-            RemoveApplicableModifier(SpellModifier.IsAoe);
-            RemoveApplicableModifier(SpellModifier.IsSelfless);
+            RemoveApplicableModifier(SpellModifier.Area);
+            RemoveApplicableModifier(SpellModifier.Selfless);
         }
     }
 }

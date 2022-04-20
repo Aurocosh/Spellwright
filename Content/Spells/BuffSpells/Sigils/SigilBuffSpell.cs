@@ -13,8 +13,8 @@ namespace Spellwright.Content.Spells.BuffSpells.Sigils
     {
         protected SigilBuffSpell()
         {
-            RemoveApplicableModifier(SpellModifier.IsAoe);
-            RemoveApplicableModifier(SpellModifier.IsSelfless);
+            RemoveApplicableModifier(SpellModifier.Area);
+            RemoveApplicableModifier(SpellModifier.Selfless);
             AddApplicableModifier(ModifierConstants.EternalModifiers);
         }
 

@@ -8,6 +8,7 @@ using Spellwright.Extensions;
 using Spellwright.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -31,12 +32,13 @@ namespace Spellwright.Content.Spells.Base
         protected DamageClass damageType;
         protected bool canAutoReuse;
         protected int useDelay;
-        protected SpellCost spellCost;
         protected float useTimeMultiplier;
         protected LegacySoundStyle useSound;
         protected float costModifier;
         public virtual int SpellLevel { get; protected set; }
         public SpellType UseType { get; protected set; }
+        public SpellCost SpellCost { get; protected set; }
+        public SpellCost UnlockCost { get; protected set; }
 
         private SpellModifier appplicableModifiers;
         private readonly Dictionary<SpellModifier, ICostModifier> spellCostModifiers;
@@ -66,10 +68,18 @@ namespace Spellwright.Content.Spells.Base
                 string useTypeLocal = Spellwright.GetTranslation("SpellTypes", UseType.ToString()).Value;
                 values.Add(new SpellParameter("SpellType", useTypeLocal));
 
-                if (spellCost != null)
+                if (SpellCost != null)
                 {
-                    string costDescription = spellCost.GetDescription(player, playerLevel, spellData);
+                    string costDescription = SpellCost.GetDescription(player, playerLevel, spellData);
                     values.Add(new SpellParameter("UseCost", costDescription));
+                }
+
+                if (appplicableModifiers != SpellModifier.None)
+                {
+                    var modifierList = appplicableModifiers.SplitValues<SpellModifier>().Select(x => Spellwright.GetTranslation("SpellModifiers", x.ToString()).Value).ToList();
+                    var test = modifierList.ToList();
+                    var midifierPart = string.Join(", ", modifierList);
+                    values.Add(new SpellParameter("ApplicableModifiers", midifierPart));
                 }
             }
 
@@ -101,20 +111,20 @@ namespace Spellwright.Content.Spells.Base
             useDelay = 120;
             damage = 0;
             knockback = 0;
-            spellCost = null;
+            SpellCost = null;
             damageType = DamageClass.Generic;
             costModifier = 1f;
             appplicableModifiers = SpellModifier.None;
             spellCostModifiers = new Dictionary<SpellModifier, ICostModifier>();
 
-            SetSpellCostModifier(SpellModifier.IsDispel, new MultCostModifier(0));
-            SetSpellCostModifier(SpellModifier.IsAoe, new MultCostModifier(4));
-            SetSpellCostModifier(SpellModifier.IsSelfless, new MultCostModifier(.75f));
-            SetSpellCostModifier(SpellModifier.IsEternal, new MultCostModifier(4));
-            SetSpellCostModifier(SpellModifier.IsTwofold, new MultCostModifier(2));
-            SetSpellCostModifier(SpellModifier.IsFivefold, new MultCostModifier(5));
-            SetSpellCostModifier(SpellModifier.IsTenfold, new MultCostModifier(10));
-            SetSpellCostModifier(SpellModifier.IsFiftyfold, new MultCostModifier(50));
+            SetSpellCostModifier(SpellModifier.Dispel, new MultCostModifier(0));
+            SetSpellCostModifier(SpellModifier.Area, new MultCostModifier(4));
+            SetSpellCostModifier(SpellModifier.Selfless, new MultCostModifier(.75f));
+            SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(4));
+            SetSpellCostModifier(SpellModifier.Twofold, new MultCostModifier(2));
+            SetSpellCostModifier(SpellModifier.Fivefold, new MultCostModifier(5));
+            SetSpellCostModifier(SpellModifier.Tenfold, new MultCostModifier(10));
+            SetSpellCostModifier(SpellModifier.Fiftyfold, new MultCostModifier(50));
         }
         protected sealed override void Register()
         {
@@ -148,13 +158,13 @@ namespace Spellwright.Content.Spells.Base
 
         public virtual bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {
-            if (spellCost == null)
+            if (SpellCost == null)
                 return true;
 
-            bool success = spellCost.Consume(player, playerLevel, spellData);
+            bool success = SpellCost.Consume(player, playerLevel, spellData);
             if (!success)
             {
-                Main.NewText(spellCost.LastError, spellCost.ErrorColor);
+                Main.NewText(SpellCost.LastError, SpellCost.ErrorColor);
                 return false;
             }
             return true;

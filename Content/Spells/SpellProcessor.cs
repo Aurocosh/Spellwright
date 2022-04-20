@@ -3,7 +3,6 @@ using Spellwright.Common.Players;
 using Spellwright.Content.Items;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
-using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Core.Spells;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
@@ -64,13 +63,13 @@ namespace Spellwright.Content.Spells
                 }
 
                 int spellUses = spell.GetGuaranteedUses(spellPlayer.PlayerLevel);
-                if (spellData.HasModifier(SpellModifier.IsTwofold))
+                if (spellData.HasModifier(SpellModifier.Twofold))
                     spellUses *= 2;
-                if (spellData.HasModifier(SpellModifier.IsFivefold))
+                if (spellData.HasModifier(SpellModifier.Fivefold))
                     spellUses *= 5;
-                if (spellData.HasModifier(SpellModifier.IsTenfold))
+                if (spellData.HasModifier(SpellModifier.Tenfold))
                     spellUses *= 10;
-                if (spellData.HasModifier(SpellModifier.IsFiftyfold))
+                if (spellData.HasModifier(SpellModifier.Fiftyfold))
                     spellUses *= 50;
 
                 var bookItem = item.ModItem as SpellweaverTome;
@@ -88,19 +87,17 @@ namespace Spellwright.Content.Spells
 
         private static SpellCastResult CheckUnlock(SpellStructure spellStructure, ModSpell spell, SpellwrightPlayer spellPlayer)
         {
-            if (spellStructure.HasModifier(SpellModifier.IsUnlock) && spellPlayer.UnlockedSpells.Contains(spell.Type))
+            if (spellStructure.HasModifier(SpellModifier.Unlock) && spellPlayer.UnlockedSpells.Contains(spell.Type))
                 return SpellCastResult.AlreadyUnlocked;
-            SpellCost spellCost = SpellUnlockCosts.GetUnlockCost(spell.Type);
-            if (spellCost == null)
+            if (spell.UnlockCost == null)
                 return SpellCastResult.Success;
             if (spell.SpellLevel > spellPlayer.PlayerLevel)
                 return SpellCastResult.LevelTooLow;
 
-            if (spellStructure.HasModifier(SpellModifier.IsUnlock))
+            if (spellStructure.HasModifier(SpellModifier.Unlock))
             {
                 Player player = Main.LocalPlayer;
-                var spellData = new SpellData(SpellModifier.IsUnlock, "", 1, null);
-                if (spellCost.Consume(player, spellPlayer.PlayerLevel, spellData))
+                if (spell.UnlockCost.Consume(player, spellPlayer.PlayerLevel, SpellData.EmptyData))
                 {
                     spellPlayer.UnlockedSpells.Add(spell.Type);
 
@@ -113,7 +110,7 @@ namespace Spellwright.Content.Spells
                 else
                 {
                     var message = Spellwright.GetTranslation("CastResult", "NotEnoughReagents");
-                    string costDescription = spellCost.GetDescription(player, spellPlayer.PlayerLevel, spellData);
+                    string costDescription = spell.UnlockCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
                     Main.NewText(message.Format(costDescription), Color.Orange);
                     return SpellCastResult.CustomError;
                 }
@@ -131,16 +128,16 @@ namespace Spellwright.Content.Spells
             if (spellLevel > playerLevel)
                 return false;
 
-            if (playerLevel < 5 && spellModifiers.HasFlag(SpellModifier.IsEternal))
+            if (playerLevel < 5 && spellModifiers.HasFlag(SpellModifier.Eternal))
                 return false;
 
-            if (playerLevel < 2 && spellModifiers.HasFlag(SpellModifier.IsTwofold))
+            if (playerLevel < 2 && spellModifiers.HasFlag(SpellModifier.Twofold))
                 return false;
-            if (playerLevel < 4 && spellModifiers.HasFlag(SpellModifier.IsFivefold))
+            if (playerLevel < 4 && spellModifiers.HasFlag(SpellModifier.Fivefold))
                 return false;
-            if (playerLevel < 6 && spellModifiers.HasFlag(SpellModifier.IsTenfold))
+            if (playerLevel < 6 && spellModifiers.HasFlag(SpellModifier.Tenfold))
                 return false;
-            if (playerLevel < 8 && spellModifiers.HasFlag(SpellModifier.IsFiftyfold))
+            if (playerLevel < 8 && spellModifiers.HasFlag(SpellModifier.Fiftyfold))
                 return false;
 
             return true;
@@ -149,13 +146,13 @@ namespace Spellwright.Content.Spells
         private static int CountMultModifiers(SpellModifier spellModifier)
         {
             int count = 0;
-            if (spellModifier.HasFlag(SpellModifier.IsTwofold))
+            if (spellModifier.HasFlag(SpellModifier.Twofold))
                 count += 1;
-            if (spellModifier.HasFlag(SpellModifier.IsFivefold))
+            if (spellModifier.HasFlag(SpellModifier.Fivefold))
                 count += 1;
-            if (spellModifier.HasFlag(SpellModifier.IsTenfold))
+            if (spellModifier.HasFlag(SpellModifier.Tenfold))
                 count += 1;
-            if (spellModifier.HasFlag(SpellModifier.IsFiftyfold))
+            if (spellModifier.HasFlag(SpellModifier.Fiftyfold))
                 count += 1;
             return count;
         }
