@@ -183,7 +183,7 @@ namespace Spellwright.Content.NPCs
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SpellbindStaff>());
+            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SpellResonator>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SilverMirror>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<CommonSpellReagent>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<RareSpellReagent>());

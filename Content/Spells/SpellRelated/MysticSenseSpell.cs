@@ -10,6 +10,7 @@ namespace Spellwright.Content.Spells.SpellRelated
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 0;
             UseType = SpellType.Invocation;
         }
 

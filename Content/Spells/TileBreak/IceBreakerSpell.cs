@@ -12,7 +12,7 @@ namespace Spellwright.Content.Spells.TileBreak
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 0;
+            SpellLevel = 2;
             UseType = SpellType.Invocation;
             tileType = TileID.BreakableIce;
         }

@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.Explosive
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 1;
+            SpellLevel = 2;
             UseType = SpellType.Spell;
 
             stability = .5f;

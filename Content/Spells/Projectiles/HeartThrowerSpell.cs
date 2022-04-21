@@ -14,7 +14,7 @@ namespace Spellwright.Content.Spells.Projectiles
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 5;
+            SpellLevel = 3;
             UseType = SpellType.Cantrip;
 
             damage = 4;

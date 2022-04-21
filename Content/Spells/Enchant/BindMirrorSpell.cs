@@ -15,7 +15,7 @@ namespace Spellwright.Content.Spells.Enchant
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 8;
+            SpellLevel = 9;
             UseType = SpellType.Invocation;
             itemType = ModContent.ItemType<BoundMagicMirror>();
             var itemSpellCost = new MultipleItemSpellCost();

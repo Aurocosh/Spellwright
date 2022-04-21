@@ -10,7 +10,7 @@ namespace Spellwright.Content.Spells.LiquidSpawn
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 2;
+            SpellLevel = 8;
             UseType = SpellType.Spell;
 
             liquidType = LiquidID.Lava;

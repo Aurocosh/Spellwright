@@ -8,7 +8,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Sigils
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 6;
+            SpellLevel = 7;
             AddEffect(ModContent.BuffType<SigilOfLegionBuff>(), (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
         }
     }

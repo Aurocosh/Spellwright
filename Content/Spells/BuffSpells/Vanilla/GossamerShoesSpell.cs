@@ -9,7 +9,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Vanilla
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 0;
+            SpellLevel = 4;
             AddEffect(BuffID.WaterWalking, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
             AddApplicableModifier(ModifierConstants.EternalModifiers);
         }

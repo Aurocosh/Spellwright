@@ -17,7 +17,7 @@ namespace Spellwright.Content.Spells.Explosive
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 5;
+            SpellLevel = 6;
             UseType = SpellType.Spell;
 
             damage = 1;

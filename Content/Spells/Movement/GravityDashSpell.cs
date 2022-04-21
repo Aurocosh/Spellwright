@@ -11,9 +11,8 @@ namespace Spellwright.Content.Spells.Movement
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 3;
+            SpellLevel = 8;
             UseType = SpellType.Cantrip;
-
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

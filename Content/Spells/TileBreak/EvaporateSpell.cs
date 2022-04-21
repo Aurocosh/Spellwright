@@ -9,7 +9,7 @@ namespace Spellwright.Content.Spells.TileBreak
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 0;
+            SpellLevel = 3;
             UseType = SpellType.Invocation;
             liquidType = LiquidID.Water;
         }

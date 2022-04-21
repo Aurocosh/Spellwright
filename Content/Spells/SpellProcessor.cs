@@ -54,7 +54,7 @@ namespace Spellwright.Content.Spells
             }
             else if (spell.UseType == SpellType.Spell)
             {
-                var itemType = ModContent.ItemType<SpellbindStaff>();
+                var itemType = ModContent.ItemType<SpellResonator>();
 
                 var item = player.inventory[player.selectedItem];
                 if (item.type != itemType)
@@ -74,7 +74,7 @@ namespace Spellwright.Content.Spells
                 if (spellData.HasModifier(SpellModifier.Fiftyfold))
                     spellUses *= 50;
 
-                var bookItem = item.ModItem as SpellbindStaff;
+                var bookItem = item.ModItem as SpellResonator;
                 bookItem.SpellUsesLeft = spellUses;
                 bookItem.CurrentSpell = spell;
                 bookItem.SpellData = spellData;

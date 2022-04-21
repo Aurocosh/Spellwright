@@ -9,7 +9,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 1;
+            SpellLevel = 7;
             AddEffect(ModContent.BuffType<ManaShieldBuff>(), (playerLevel) => UtilTime.MinutesToTicks(2 * playerLevel));
         }
     }

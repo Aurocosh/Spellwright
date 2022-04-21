@@ -9,7 +9,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 4;
+            SpellLevel = 9;
             AddEffect(ModContent.BuffType<GreedyVortexBuff>(), (playerLevel) => UtilTime.MinutesToTicks(3 + (int)(1.5f * playerLevel)));
         }
     }

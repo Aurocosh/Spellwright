@@ -14,7 +14,7 @@ namespace Spellwright.Content.Spells.BuffSpells
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 4;
+            SpellLevel = 10;
 
             int buff = ModContent.BuffType<MetabolicBoostBuff>();
             AddEffect(buff, (playerLevel) => UtilTime.MinutesToTicks(2 + playerLevel));

@@ -75,7 +75,7 @@ namespace Spellwright.ExecutablePackets.Broadcast.DustSpawners
             int maxRadius = worldRadius + 1;
 
             var perimeter = 2 * Math.PI * worldRadius;
-            int dustCount = (int)(perimeter / 4);
+            int dustCount = (int)(perimeter / 32);
             for (int i = 0; i < dustCount; i++)
             {
                 Vector2 dustPosition = position + Main.rand.NextVector2Unit().ScaleRandom(minRadius, maxRadius);

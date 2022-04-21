@@ -13,20 +13,19 @@ using Terraria.ModLoader.IO;
 
 namespace Spellwright.Content.Items
 {
-    public class SpellbindStaff : ModItem
+    public class SpellResonator : ModItem
     {
         public ModSpell CurrentSpell = null;
         public SpellData SpellData = null;
         public int SpellUsesLeft = 0;
 
-
-        public SpellbindStaff()
+        public SpellResonator()
         {
         }
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spellbind Staff");
+            DisplayName.SetDefault("Spell Resonator");
             Tooltip.SetDefault("Magical artefact resonating with your voice and capable of binding your words to itself.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller
@@ -54,10 +53,9 @@ namespace Spellwright.Content.Items
 
         public override ModItem Clone(Item item)
         {
-            var clone = (SpellbindStaff)base.Clone(item);
+            var clone = (SpellResonator)base.Clone(item);
             //clone.SpellIds = new List<int>(SpellIds);
             return clone;
-
         }
 
         public override float UseSpeedMultiplier(Player player)

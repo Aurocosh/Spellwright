@@ -15,7 +15,7 @@ namespace Spellwright.Content.Spells.TileSpawn
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 3;
+            SpellLevel = 4;
             UseType = SpellType.Spell;
 
             stability = .2f;

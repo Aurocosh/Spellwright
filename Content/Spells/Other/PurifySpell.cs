@@ -9,7 +9,7 @@ namespace Spellwright.Content.Spells.Other
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 4;
+            SpellLevel = 7;
             UseType = SpellType.Invocation;
         }
 

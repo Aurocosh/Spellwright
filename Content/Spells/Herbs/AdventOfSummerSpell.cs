@@ -13,7 +13,7 @@ namespace Spellwright.Content.Spells.Herbs
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 6;
+            SpellLevel = 9;
             UseType = SpellType.Invocation;
         }
 

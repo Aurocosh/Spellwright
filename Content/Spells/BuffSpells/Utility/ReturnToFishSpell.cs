@@ -14,7 +14,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 3;
+            SpellLevel = 1;
 
             static int durationGetter(int playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel);
             AddEffect(ModContent.BuffType<ReturnToFishBuff>(), durationGetter);

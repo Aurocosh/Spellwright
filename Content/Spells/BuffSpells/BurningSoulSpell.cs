@@ -9,7 +9,7 @@ namespace Spellwright.Content.Spells.BuffSpells
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 4;
+            SpellLevel = 5;
             AddEffect(ModContent.BuffType<BurningSoulBuff>(), (playerLevel) => UtilTime.MinutesToTicks(3 + (int)(1.4f * playerLevel)));
         }
     }

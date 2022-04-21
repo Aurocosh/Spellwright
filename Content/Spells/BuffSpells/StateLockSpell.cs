@@ -8,7 +8,7 @@ namespace Spellwright.Content.Spells.BuffSpells
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 4;
+            SpellLevel = 8;
 
             int buff = ModContent.BuffType<StateLockBuff>();
             AddEffect(buff, (playerLevel) => 10000);

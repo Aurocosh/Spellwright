@@ -16,6 +16,7 @@ namespace Spellwright.Content.Spells.SpellRelated
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 0;
             UseType = SpellType.Invocation;
         }
 
@@ -34,16 +35,7 @@ namespace Spellwright.Content.Spells.SpellRelated
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
             AscendSpell ascendSpell = ModContent.GetInstance<AscendSpell>();
 
-            var modSpells = SpellLibrary.GetRegisteredSpells();
             var spellsByLevel = new Dictionary<int, List<ModSpell>>();
-
-
-            //KnownSpells: Known spells
-
-            //        LevelUpCost: Level up cost: { 0}
-            //SpellUnlockCost: Spell unlock cost { 0}
-
-
             foreach (var spellId in spellPlayer.KnownSpells)
             {
                 var spell = SpellLibrary.GetSpellById(spellId);
@@ -58,6 +50,9 @@ namespace Spellwright.Content.Spells.SpellRelated
                     spells.Add(spell);
                 }
             }
+
+            foreach (var item in spellsByLevel.Values)
+                item.Sort(new SpellComparer());
 
             var spellLevelLists = new List<string>();
             spellLevelLists.Add(GetTranslation("KnownSpells").Value);
@@ -191,6 +186,16 @@ namespace Spellwright.Content.Spells.SpellRelated
         {
             string recallData = tag.GetString("RecallData");
             return recallData;
+        }
+
+        private class SpellComparer : IComparer<ModSpell>
+        {
+            public int Compare(ModSpell a, ModSpell b)
+            {
+                var aName = a.DisplayName.GetTranslation(Language.ActiveCulture);
+                var bName = b.DisplayName.GetTranslation(Language.ActiveCulture);
+                return aName.CompareTo(bName);
+            }
         }
     }
 }

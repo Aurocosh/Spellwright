@@ -10,7 +10,7 @@ namespace Spellwright.Content.Spells.Minions
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 4;
+            SpellLevel = 3;
             UseType = SpellType.Invocation;
             damage = 2;
             maxSummonCount = 1;

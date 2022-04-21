@@ -8,6 +8,7 @@ namespace Spellwright.Content.Spells.Projectiles
     {
         public override void SetStaticDefaults()
         {
+            SpellLevel = 4;
             UseType = SpellType.Invocation;
             projectileType = ProjectileID.FlyingPiggyBank;
             useSound = SoundID.Item59;

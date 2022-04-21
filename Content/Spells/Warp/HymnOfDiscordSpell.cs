@@ -13,8 +13,7 @@ namespace Spellwright.Content.Spells.Warp
     {
         public override void SetStaticDefaults()
         {
-            //SpellLevel = 10;
-            SpellLevel = 7;
+            SpellLevel = 10;
             UseType = SpellType.Cantrip;
             teleportStyle = 1;
             resetVelocity = false;

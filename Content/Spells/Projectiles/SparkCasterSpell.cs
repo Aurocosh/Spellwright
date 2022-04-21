@@ -29,7 +29,7 @@ namespace Spellwright.Content.Spells.Projectiles
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 0;
+            SpellLevel = 1;
             UseType = SpellType.Cantrip;
 
             useDelay = UtilTime.SecondsToTicks(2);

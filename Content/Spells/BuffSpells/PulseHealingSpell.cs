@@ -11,7 +11,7 @@ namespace Spellwright.Content.Spells.BuffSpells
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 5;
+            SpellLevel = 6;
             int buffId = ModContent.BuffType<PulseHealingBuff>();
             AddEffect(buffId, (playerLevel) => UtilTime.MinutesToTicks(4 + 2 * playerLevel));
         }
