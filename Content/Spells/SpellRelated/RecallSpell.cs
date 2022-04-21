@@ -44,15 +44,19 @@ namespace Spellwright.Content.Spells.SpellRelated
             //SpellUnlockCost: Spell unlock cost { 0}
 
 
-            foreach (var spell in modSpells)
+            foreach (var spellId in spellPlayer.KnownSpells)
             {
-                int spellLevel = spell.SpellLevel;
-                if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))
+                var spell = SpellLibrary.GetSpellById(spellId);
+                if (spell != null)
                 {
-                    spells = new List<ModSpell>();
-                    spellsByLevel[spellLevel] = spells;
+                    int spellLevel = spell.SpellLevel;
+                    if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))
+                    {
+                        spells = new List<ModSpell>();
+                        spellsByLevel[spellLevel] = spells;
+                    }
+                    spells.Add(spell);
                 }
-                spells.Add(spell);
             }
 
             var spellLevelLists = new List<string>();

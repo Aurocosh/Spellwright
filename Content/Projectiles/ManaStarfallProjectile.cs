@@ -69,9 +69,12 @@ namespace Spellwright.Content.Projectiles
             var mainSreenSize = new Vector2(Main.screenWidth, Main.screenHeight);
             if (Projectile.Hitbox.Intersects(Utils.CenteredRectangle(Main.screenPosition + mainSreenSize / 2f, mainSreenSize + new Vector2(400f))))
             {
+                var source = new EntitySource_Parent(Projectile);
                 for (int i = 0; i < 7; i++)
                 {
-                    Gore.NewGore(Projectile.position, Main.rand.NextVector2CircularEdge(0.5f, 0.5f) * Projectile.velocity.Length(), Utils.SelectRandom<int>(Main.rand, 16, 17, 17, 17, 17, 17, 17, 17));
+                    Vector2 velocity = Main.rand.NextVector2CircularEdge(0.5f, 0.5f) * Projectile.velocity.Length();
+                    int type = Utils.SelectRandom(Main.rand, 16, 17, 17, 17, 17, 17, 17, 17);
+                    Gore.NewGore(source, Projectile.position, velocity, type);
                 }
             }
         }

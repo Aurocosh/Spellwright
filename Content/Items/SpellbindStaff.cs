@@ -13,21 +13,21 @@ using Terraria.ModLoader.IO;
 
 namespace Spellwright.Content.Items
 {
-    public class SpellweaverTome : ModItem
+    public class SpellbindStaff : ModItem
     {
         public ModSpell CurrentSpell = null;
         public SpellData SpellData = null;
         public int SpellUsesLeft = 0;
 
 
-        public SpellweaverTome()
+        public SpellbindStaff()
         {
         }
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spellweaver Tome");
-            Tooltip.SetDefault("Magical artefact capable of binding your words to its pages.");
+            DisplayName.SetDefault("Spellbind Staff");
+            Tooltip.SetDefault("Magical artefact resonating with your voice and capable of binding your words to itself.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
@@ -54,7 +54,7 @@ namespace Spellwright.Content.Items
 
         public override ModItem Clone(Item item)
         {
-            var clone = (SpellweaverTome)base.Clone(item);
+            var clone = (SpellbindStaff)base.Clone(item);
             //clone.SpellIds = new List<int>(SpellIds);
             return clone;
 

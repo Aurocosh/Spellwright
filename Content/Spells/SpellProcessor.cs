@@ -24,6 +24,9 @@ namespace Spellwright.Content.Spells
                 return SpellCastResult.IncantationInvalid;
 
             var spellPlayer = SpellwrightPlayer.Instance;
+            if (!spellPlayer.KnownSpells.Contains(spell.Type))
+                return SpellCastResult.IncantationInvalid;
+
             var unlockResult = CheckUnlock(spellStructure, spell, spellPlayer);
             if (unlockResult != SpellCastResult.Success)
                 return unlockResult;
@@ -51,7 +54,7 @@ namespace Spellwright.Content.Spells
             }
             else if (spell.UseType == SpellType.Spell)
             {
-                var itemType = ModContent.ItemType<SpellweaverTome>();
+                var itemType = ModContent.ItemType<SpellbindStaff>();
 
                 var item = player.inventory[player.selectedItem];
                 if (item.type != itemType)
@@ -71,7 +74,7 @@ namespace Spellwright.Content.Spells
                 if (spellData.HasModifier(SpellModifier.Fiftyfold))
                     spellUses *= 50;
 
-                var bookItem = item.ModItem as SpellweaverTome;
+                var bookItem = item.ModItem as SpellbindStaff;
                 bookItem.SpellUsesLeft = spellUses;
                 bookItem.CurrentSpell = spell;
                 bookItem.SpellData = spellData;
@@ -100,7 +103,7 @@ namespace Spellwright.Content.Spells
                 {
                     spellPlayer.UnlockedSpells.Add(spell.Type);
 
-                    var spawner = new LevelUpDustSpawner(player, spell.SpellLevel);
+                    var spawner = new LevelUpDustSpawner(player, new int[] { spell.SpellLevel });
                     spawner.Execute();
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                         ModNetHandler.levelUpDustHandler.Send(spawner);

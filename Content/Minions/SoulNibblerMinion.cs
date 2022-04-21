@@ -3,6 +3,7 @@ using Spellwright.Content.Buffs.Minions;
 using Spellwright.Extensions;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -84,7 +85,7 @@ namespace Spellwright.Content.Minions
 
             if (currentPlayerId != -1 && missingHealth > 0)
             {
-                var source = Projectile.GetItemSource_OnHit(target, ProjectileSourceID.SetBonus_GhostHeal);
+                var source = new EntitySource_OnHit(Projectile, target);
                 int projectileID = Projectile.NewProjectile(source, Projectile.position, Vector2.Zero, ProjectileID.SpiritHeal, 1, 1, Projectile.owner, currentPlayerId, Projectile.damage);
             }
         }

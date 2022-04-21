@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
 using Spellwright.Network.Base.Executable;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 
@@ -9,36 +12,59 @@ namespace Spellwright.ExecutablePackets.Broadcast.DustSpawners
     internal class LevelUpDustSpawner : IExecutablePacket
     {
         public Player Caster { get; set; }
-        public int Level { get; set; } = 0;
+        public int[] Levels { get; set; }
 
-        public LevelUpDustSpawner(Player caster, int level)
+        public LevelUpDustSpawner()
+        {
+        }
+
+        public LevelUpDustSpawner(Player caster, IEnumerable<int> levels)
         {
             Caster = caster;
-            Level = level;
+            Levels = levels.ToArray();
         }
 
         public void Execute()
         {
-            if (Level >= 1)
-                SpawnRing(DustID.CopperCoin, 3);
-            if (Level >= 2)
-                SpawnRing(DustID.CopperCoin, 5);
-            if (Level >= 3)
-                SpawnRing(DustID.CopperCoin, 7);
-            if (Level >= 4)
-                SpawnRing(DustID.CopperCoin, 9);
-            if (Level >= 5)
-                SpawnRing(DustID.SilverCoin, 11);
-            if (Level >= 6)
-                SpawnRing(DustID.SilverCoin, 13);
-            if (Level >= 7)
-                SpawnRing(DustID.SilverCoin, 15);
-            if (Level >= 8)
-                SpawnRing(DustID.GoldCoin, 17);
-            if (Level >= 9)
-                SpawnRing(DustID.GoldCoin, 19);
-            if (Level >= 10)
-                SpawnRing(DustID.GoldCoin, 21);
+            foreach (var level in Levels)
+                SpawnRing(level);
+        }
+
+        private void SpawnRing(int level)
+        {
+            switch (level)
+            {
+                case 1:
+                    SpawnRing(DustID.CopperCoin, 3);
+                    break;
+                case 2:
+                    SpawnRing(DustID.CopperCoin, 5);
+                    break;
+                case 3:
+                    SpawnRing(DustID.CopperCoin, 7);
+                    break;
+                case 4:
+                    SpawnRing(DustID.CopperCoin, 9);
+                    break;
+                case 5:
+                    SpawnRing(DustID.SilverCoin, 11);
+                    break;
+                case 6:
+                    SpawnRing(DustID.SilverCoin, 13);
+                    break;
+                case 7:
+                    SpawnRing(DustID.SilverCoin, 15);
+                    break;
+                case 8:
+                    SpawnRing(DustID.GoldCoin, 17);
+                    break;
+                case 9:
+                    SpawnRing(DustID.GoldCoin, 19);
+                    break;
+                case 10:
+                    SpawnRing(DustID.GoldCoin, 21);
+                    break;
+            }
         }
 
         private void SpawnRing(int dustType, int radius)
@@ -47,8 +73,9 @@ namespace Spellwright.ExecutablePackets.Broadcast.DustSpawners
             int worldRadius = radius * 16;
             int minRadius = worldRadius - 1;
             int maxRadius = worldRadius + 1;
-            int dustCount = radius * radius;
 
+            var perimeter = 2 * Math.PI * worldRadius;
+            int dustCount = (int)(perimeter / 4);
             for (int i = 0; i < dustCount; i++)
             {
                 Vector2 dustPosition = position + Main.rand.NextVector2Unit().ScaleRandom(minRadius, maxRadius);

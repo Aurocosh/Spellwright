@@ -5,6 +5,7 @@ using Spellwright.Extensions;
 using Spellwright.Network;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -28,6 +29,7 @@ namespace Spellwright.Common.Players
         public Point LastDeathPoint = Point.Zero;
         public Point VoidMarkPoint = Point.Zero;
 
+        public readonly HashSet<int> KnownSpells = new();
         public readonly HashSet<int> UnlockedSpells = new();
 
         public static SpellwrightPlayer Instance => Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
@@ -81,22 +83,8 @@ namespace Spellwright.Common.Players
                 tag.Add("CurrentCantripData", CurrentCantrip.SerializeData(CantripData));
             }
 
-            var unlockedSpellNames = new List<TagCompound>();
-            foreach (var id in UnlockedSpells)
-            {
-                ModSpell modSpell = SpellLibrary.GetSpellById(id);
-                if (modSpell != null)
-                {
-                    var spellTag = new TagCompound
-                    {
-                        ["mod"] = modSpell.Mod.Name,
-                        ["name"] = modSpell.Name
-                    };
-                    unlockedSpellNames.Add(spellTag);
-                }
-            }
-
-            tag.Add("UnlockedSpells", unlockedSpellNames);
+            tag.Add("KnownSpells", SerializeSpellIds(KnownSpells).ToList());
+            tag.Add("UnlockedSpells", SerializeSpellIds(UnlockedSpells).ToList());
         }
 
         public override void LoadData(TagCompound tag)
@@ -115,13 +103,40 @@ namespace Spellwright.Common.Players
                 CantripData = CurrentCantrip.DeserializeData(spellDataTag);
             }
 
+            var knownSpellsNames = tag.GetList<TagCompound>("KnownSpells");
+            KnownSpells.Clear();
+            KnownSpells.UnionWith(DeserializeSpellIds(knownSpellsNames));
+
+
             var unlockedSpellNames = tag.GetList<TagCompound>("UnlockedSpells");
-            foreach (var spellTag in unlockedSpellNames)
+            UnlockedSpells.Clear();
+            UnlockedSpells.UnionWith(DeserializeSpellIds(unlockedSpellNames));
+        }
+
+        private static IEnumerable<TagCompound> SerializeSpellIds(IEnumerable<int> spellIds)
+        {
+            foreach (var spellId in spellIds)
+            {
+                ModSpell modSpell = SpellLibrary.GetSpellById(spellId);
+                if (modSpell != null)
+                {
+                    yield return new TagCompound
+                    {
+                        ["mod"] = modSpell.Mod.Name,
+                        ["name"] = modSpell.Name
+                    };
+                }
+            }
+        }
+
+        private static IEnumerable<int> DeserializeSpellIds(IEnumerable<TagCompound> spellTags)
+        {
+            foreach (var spellTag in spellTags)
             {
                 var modName = spellTag.GetString("mod");
                 string spellName = spellTag.GetString("name");
                 if (ModContent.TryFind(modName, spellName, out ModSpell spell))
-                    UnlockedSpells.Add(spell.Type);
+                    yield return spell.Type;
             }
         }
 
