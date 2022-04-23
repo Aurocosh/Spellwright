@@ -106,6 +106,7 @@ namespace Spellwright.Common.Players
             //    KissOfCloverBuff.DoAction(Player);
         }
 
+
         public override void clientClone(ModPlayer clientClone)
         {
             var clone = clientClone as SpellwrightBuffPlayer;
@@ -185,6 +186,8 @@ namespace Spellwright.Common.Players
                 BuffLevels.Add(buffId, level);
             }
         }
+
+
         internal class BuffLevelData
         {
             public int BuffId { get; set; }

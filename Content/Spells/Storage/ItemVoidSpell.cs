@@ -10,46 +10,39 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Storage
 {
-    internal sealed class ReagentSubspaceSpell : StorageSpell
+    internal class ItemVoidSpell : StorageSpell
     {
-        private readonly HashSet<int> acceptableItems = new();
-
         public override void SetStaticDefaults()
         {
             SpellLevel = 6;
             UseType = SpellType.Invocation;
 
             UnlockCost = new MultipleItemSpellCost()
-                .WithCost(ItemID.SoulofNight, 5)
+                .WithCost(ItemID.Chest, 5)
                 .WithCost(ItemID.TeleportationPotion, 5);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
-
-            acceptableItems.Clear();
-            acceptableItems.Add(ModContent.ItemType<CommonSpellReagent>());
-            acceptableItems.Add(ModContent.ItemType<RareSpellReagent>());
-            acceptableItems.Add(ModContent.ItemType<MythicalSpellReagent>());
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 2);
         }
 
         protected override bool CanAccept(Item item)
         {
-            return acceptableItems.Contains(item.type);
+            return true;
         }
 
         protected override List<Item> GetStorage(Player player)
         {
             var statPlayer = player.GetModPlayer<SpellwrightStatPlayer>();
-            return statPlayer.ReagentItems;
+            return statPlayer.StoredItems;
         }
 
         protected override int StorageSize(int playerLevel)
         {
-            return playerLevel;
+            return 50 * playerLevel;
         }
 
         protected override InventoryArea IncludedArea()
         {
-            return InventoryArea.All;
+            return InventoryArea.Inventory;
         }
     }
 }

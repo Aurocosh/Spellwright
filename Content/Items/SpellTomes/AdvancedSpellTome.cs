@@ -33,7 +33,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<HellGateSpell>();
             content.AddSpell<MoneyTroughSpell>();
             content.AddSpell<RainCallSpell>();
-            content.AddSpell<ReagentSubspaceSpell>();
+            content.AddSpell<ReagentVoidSpell>();
             content.AddSpell<WallCrumblerSpell>();
             content.AddSpell<WallSpitterSpell>();
 
@@ -54,7 +54,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<RitualOfHarvestSpell>();
             content.AddSpell<SelfDefenseHexSpell>();
             content.AddSpell<ShapedChargeSpell>();
-            content.AddSpell<SubspaceSpell>();
+            content.AddSpell<ItemVoidSpell>();
 
             Add(Type, content);
         }

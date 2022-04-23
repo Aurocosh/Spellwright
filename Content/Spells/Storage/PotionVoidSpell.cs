@@ -10,34 +10,34 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Storage
 {
-    internal class SubspaceSpell : StorageSpell
+    internal sealed class PotionVoidSpell : StorageSpell
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 6;
+            SpellLevel = 4;
             UseType = SpellType.Invocation;
 
             UnlockCost = new MultipleItemSpellCost()
-                .WithCost(ItemID.SoulofSight, 5)
+                .WithCost(ItemID.Bottle, 5)
                 .WithCost(ItemID.TeleportationPotion, 5);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 2);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 4);
         }
 
         protected override bool CanAccept(Item item)
         {
-            return true;
+            return item.stack > 0 && item.type > ItemID.None && item.buffType > 0 && item.DamageType != DamageClass.Summon;
         }
 
         protected override List<Item> GetStorage(Player player)
         {
             var statPlayer = player.GetModPlayer<SpellwrightStatPlayer>();
-            return statPlayer.StoredItems;
+            return statPlayer.PotionItems;
         }
 
         protected override int StorageSize(int playerLevel)
         {
-            return 50 * playerLevel;
+            return playerLevel;
         }
 
         protected override InventoryArea IncludedArea()

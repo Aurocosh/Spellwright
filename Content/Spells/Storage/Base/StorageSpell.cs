@@ -20,8 +20,8 @@ namespace Spellwright.Content.Spells.Storage
 
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {
-            var action = (SubspaceAction)spellData.ExtraData;
-            if (action == SubspaceAction.Info)
+            var action = (StorageAction)spellData.ExtraData;
+            if (action == StorageAction.Info)
                 return true;
             return base.ConsumeReagents(player, playerLevel, spellData);
         }
@@ -30,17 +30,17 @@ namespace Spellwright.Content.Spells.Storage
         {
             List<Item> storage = GetStorage(player);
 
-            var action = (SubspaceAction)spellData.ExtraData;
-            if (action == SubspaceAction.Info)
+            var action = (StorageAction)spellData.ExtraData;
+            if (action == StorageAction.Info)
             {
                 PrintInfo(storage);
             }
-            else if (action == SubspaceAction.Push)
+            else if (action == StorageAction.Push)
             {
                 int maxStorageSize = StorageSize(playerLevel);
                 return PushItems(player, maxStorageSize, storage);
             }
-            else if (action == SubspaceAction.Pop)
+            else if (action == StorageAction.Pop)
             {
                 return PopItems(player, storage);
             }
@@ -130,17 +130,17 @@ namespace Spellwright.Content.Spells.Storage
 
         public override bool ProcessExtraData(Player player, SpellStructure structure, out object extraData)
         {
-            SubspaceAction action = SubspaceAction.Invalid;
+            StorageAction action = StorageAction.Invalid;
             string argument = structure.Argument.ToLower();
             if (argument.Length == 0 || argument == "info")
-                action = SubspaceAction.Info;
+                action = StorageAction.Info;
             else if (argument == "push")
-                action = SubspaceAction.Push;
+                action = StorageAction.Push;
             else if (argument == "pop")
-                action = SubspaceAction.Pop;
+                action = StorageAction.Pop;
 
             extraData = action;
-            return action != SubspaceAction.Invalid;
+            return action != StorageAction.Invalid;
         }
 
         public override void SerializeExtraData(TagCompound tag, object extraData)

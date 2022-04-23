@@ -1,6 +1,6 @@
 ﻿namespace Spellwright.Content.Spells.Storage
 {
-    internal enum SubspaceAction : byte
+    internal enum StorageAction : byte
     {
         Invalid,
         Info,

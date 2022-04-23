@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.ID;
 
 namespace Spellwright.Extensions
 {
@@ -140,6 +141,42 @@ namespace Spellwright.Extensions
 
                 packedIdx++;
             }
+        }
+
+        public static bool QuickBuff_ShouldBotherUsingThisBuff(this Player player, int attemptedType)
+        {
+            for (int i = 0; i < Player.MaxBuffs; i++)
+            {
+                int buffId = player.buffType[i];
+                if (attemptedType == BuffID.FairyBlue && (buffId == BuffID.FairyBlue || buffId == BuffID.FairyRed || buffId == BuffID.FairyGreen))
+                    return false;
+
+                if (BuffID.Sets.IsWellFed[attemptedType] && BuffID.Sets.IsWellFed[buffId])
+                    return false;
+
+                if (buffId == attemptedType)
+                    return false;
+
+                if (Main.meleeBuff[attemptedType] && Main.meleeBuff[buffId])
+                    return false;
+            }
+
+            bool isVanityPet = Main.vanityPet[attemptedType];
+            bool isLightPet = Main.lightPet[attemptedType];
+            if (isLightPet || isVanityPet)
+            {
+                for (int j = 0; j < Player.MaxBuffs; j++)
+                {
+                    int anotherBuffId = player.buffType[j];
+                    if (Main.lightPet[anotherBuffId] && isLightPet)
+                        return false;
+
+                    if (Main.vanityPet[anotherBuffId] && isVanityPet)
+                        return false;
+                }
+            }
+
+            return true;
         }
     }
 }
