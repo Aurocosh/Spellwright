@@ -11,7 +11,7 @@ using static Terraria.Player;
 
 namespace Spellwright.Content.Spells.Warp
 {
-    internal class BaseJumpSpell : TeleportationSpell
+    internal class SkyGateSpell : TeleportationSpell
     {
         public override void SetStaticDefaults()
         {

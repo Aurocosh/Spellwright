@@ -26,14 +26,14 @@ namespace Spellwright.Content.Items.SpellTomes
             var content = new SpellTomeContent();
 
             // Level 4
-            content.AddSpell<BaseJumpSpell>();
             content.AddSpell<BlockSpitterSpell>();
             content.AddSpell<BloodArrowSpell>();
             content.AddSpell<GossamerShoesSpell>();
             content.AddSpell<HellGateSpell>();
             content.AddSpell<MoneyTroughSpell>();
+            content.AddSpell<PotionVoidSpell>();
             content.AddSpell<RainCallSpell>();
-            content.AddSpell<ReagentVoidSpell>();
+            content.AddSpell<SkyGateSpell>();
             content.AddSpell<WallCrumblerSpell>();
             content.AddSpell<WallSpitterSpell>();
 
@@ -50,11 +50,11 @@ namespace Spellwright.Content.Items.SpellTomes
             // Level 6
             content.AddSpell<DungeonGateSpell>();
             content.AddSpell<FortressStanceSpell>();
+            content.AddSpell<ItemVoidSpell>();
             content.AddSpell<PulseHealingSpell>();
             content.AddSpell<RitualOfHarvestSpell>();
             content.AddSpell<SelfDefenseHexSpell>();
             content.AddSpell<ShapedChargeSpell>();
-            content.AddSpell<ItemVoidSpell>();
 
             Add(Type, content);
         }

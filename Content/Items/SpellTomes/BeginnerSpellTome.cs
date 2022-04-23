@@ -10,6 +10,7 @@ using Spellwright.Content.Spells.Minions;
 using Spellwright.Content.Spells.Movement;
 using Spellwright.Content.Spells.Projectiles;
 using Spellwright.Content.Spells.SpellRelated;
+using Spellwright.Content.Spells.Storage;
 using Spellwright.Content.Spells.TileBreak;
 using Spellwright.Content.Spells.TileSpawn;
 using Spellwright.Content.Spells.Warp;
@@ -36,6 +37,7 @@ namespace Spellwright.Content.Items.SpellTomes
             // Level 1
             content.AddSpell<ConjureWaterSpell>();
             content.AddSpell<FireballSpell>();
+            content.AddSpell<FishermanBlessingSpell>();
             content.AddSpell<KissOfCloverSpell>();
             content.AddSpell<MineralFeverSpell>();
             content.AddSpell<PremonitionSpell>();
@@ -50,6 +52,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<FlashStepSpell>();
             content.AddSpell<IceBreakerSpell>();
             content.AddSpell<InnerSunshineSpell>();
+            content.AddSpell<ReagentVoidSpell>();
             content.AddSpell<ShellOfIceSpell>();
             content.AddSpell<StitchWoundsSpell>();
             content.AddSpell<StoneBulletSpell>();

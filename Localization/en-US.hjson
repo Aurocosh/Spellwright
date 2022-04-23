@@ -137,6 +137,19 @@ Mods: {
 				Name: Call of the Depths
 				Description: Increases player mining speed proportional to current depth. The deeper is player the faster he will dig blocks. Minimum bonus is 25% just below surface level. Maximum bonus is 50% at maximum depth 
 			}
+			FishermanBlessingSpell: {
+				Name: Fisherman Blessing
+				Description:
+					'''Grants various fishing related bonuses. Effect depends on the player level.
+					Level 1 gives extra 15 fishing power.
+					Level 2 makes your fishing line unbreakable.
+					Level 3 reduces chances of bait consumption.
+					Level 4 grants you the ability to see fish on your hook.
+					Level 5 gives extra 15 fishing power.
+					Level 6 increases the chance to find crates.
+					Level 7 makes your fishing line immune to lava.
+					'''
+			}
 			GaleForceSpell: {
 				Name: Gale Force
 				Description:
@@ -487,10 +500,6 @@ Mods: {
 			}
 
 			# Warp
-			BaseJumpSpell: {
-				Name: Base Jump
-				Description: Teleports you to space. Works anywhere and can be used to quickly get out from underground to the surface
-			}
 			DungeonGateSpell: {
 				Name: Dungeon Gate
 				Description: Teleports player to the entrance of the dungeon
@@ -526,6 +535,10 @@ Mods: {
 			ShadowStepSpell: {
 				Name: Shadow Step
 				Description: When used it will teleport the caster short distance towards the cursor. Cannot teleport through walls
+			}
+			SkyGateSpell: {
+				Name: Sky Gate
+				Description: Teleports you to space. Works anywhere and can be used to quickly get out from underground to the surface
 			}
 			VoidMarkSpell: {
 				Name: Void Mark
