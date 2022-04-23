@@ -533,6 +533,15 @@ Mods: {
 		SpellwrightNpc:{
 			FruitOffer: You seems to be interested in my spellcraft. Take this {0} and eat it if you want to learn secrets of my art
 			LearnSpellcraft: Learn spellcraft
+			BestiaryDescription: Mysterious practiotioner of a an unusual brand of magic. His magic does not rely on mana, but instead on reagens and incantations. Looks remarkably similar to wizard, but both claim that they are not related.
+			Chatting: {
+				WizardTwin: No, me and {0} are not twins, we are not even related.
+				WizardEvilTwin: For the last time i am not an evil twin of {0}.
+				ArtSecrets: Let me teach you the secrets of my art.
+				WordPower: Words have power, a lot of power!
+				NoSpeakName: Don't speak my name lightly!
+				MuchToLearn: There is yet much to be learned!
+			}
 		}
 		
 		NPCName: {

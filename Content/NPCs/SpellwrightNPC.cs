@@ -54,7 +54,7 @@ namespace Spellwright.Content.NPCs
                 .SetNPCAffection(NPCID.Stylist, AffectionLevel.Hate)
                 .SetNPCAffection(NPCID.Golfer, AffectionLevel.Dislike)
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like)
-                .SetNPCAffection(NPCID.Wizard, AffectionLevel.Love);
+                .SetNPCAffection(NPCID.Wizard, AffectionLevel.Like);
         }
 
         public override void SetDefaults()
@@ -78,7 +78,7 @@ namespace Spellwright.Content.NPCs
         {
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
-                new FlavorTextBestiaryInfoElement("Mysterious practiotioner of a an unusual brand of magic, one that does not rely on mana, but on reagens and incantations. Looks remarkably similar to wizard, but both claim that they are not related."),
+                new FlavorTextBestiaryInfoElement(Spellwright.GetTranslation("SpellwrightNpc","BestiaryDescription").Value),
             });
         }
 
@@ -132,12 +132,15 @@ namespace Spellwright.Content.NPCs
 
             int wizardId = NPC.FindFirstNPC(NPCID.Wizard);
             if (wizardId >= 0 && Main.rand.NextBool(4))
-                chat.Add("No, me and " + Main.npc[wizardId].GivenName + " are not twins, we are not even related.");
+                chat.Add(Spellwright.GetTranslation("SpellwrightNpc", "Chatting", "WizardTwin").Format(Main.npc[wizardId].GivenName));
 
-            chat.Add("Let me teach you the secrets of my art.");
-            chat.Add("Words have power, a lot of power.");
-            chat.Add("Don't speak my name lightly!");
-            chat.Add("There is yet much to be learned.");
+            if (wizardId >= 0 && Main.rand.NextBool(4))
+                chat.Add(Spellwright.GetTranslation("SpellwrightNpc", "Chatting", "WizardEvilTwin").Format(Main.npc[wizardId].GivenName));
+
+            chat.Add(Spellwright.GetTranslation("SpellwrightNpc", "Chatting", "ArtSecrets").Value);
+            chat.Add(Spellwright.GetTranslation("SpellwrightNpc", "Chatting", "WordPower").Value);
+            chat.Add(Spellwright.GetTranslation("SpellwrightNpc", "Chatting", "NoSpeakName").Value);
+            chat.Add(Spellwright.GetTranslation("SpellwrightNpc", "Chatting", "MuchToLearn").Value);
 
             // TODO localization
             return chat;
@@ -187,11 +190,11 @@ namespace Spellwright.Content.NPCs
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SilverMirror>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<CommonSpellReagent>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<RareSpellReagent>());
+            if (Main.moonPhase == (int)MoonPhase.Full)
+                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<MythicalSpellReagent>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<BeginnerSpellTome>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<AdvancedSpellTome>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SupremeSpellTome>());
-            if (Main.moonPhase == (int)MoonPhase.Full)
-                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<MythicalSpellReagent>());
         }
 
         public override bool CanGoToStatue(bool toKingStatue) => true;
