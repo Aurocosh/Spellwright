@@ -40,6 +40,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<FishermanBlessingSpell>();
             content.AddSpell<KissOfCloverSpell>();
             content.AddSpell<MineralFeverSpell>();
+            content.AddSpell<NightVisionSpell>();
             content.AddSpell<PremonitionSpell>();
             content.AddSpell<ReturnToFishSpell>();
             content.AddSpell<SparkCasterSpell>();

@@ -42,6 +42,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<CallOfTheDepthsSpell>();
             content.AddSpell<DesertRiteSpell>();
             content.AddSpell<EyesOfProfitSpell>();
+            content.AddSpell<ForceOfCreationSpell>();
             content.AddSpell<GlassCannonSpell>();
             content.AddSpell<ObsidianSkinSpell>();
             content.AddSpell<ShadowStepSpell>();
