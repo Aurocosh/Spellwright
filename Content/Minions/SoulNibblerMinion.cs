@@ -85,7 +85,8 @@ namespace Spellwright.Content.Minions
 
             if (currentPlayerId != -1 && missingHealth > 0)
             {
-                var source = new EntitySource_OnHit(Projectile, target);
+                //var source = new EntitySource_OnHit(Projectile, target); // Preview
+                var source = new EntitySource_Parent(Projectile);
                 int projectileID = Projectile.NewProjectile(source, Projectile.position, Vector2.Zero, ProjectileID.SpiritHeal, 1, 1, Projectile.owner, currentPlayerId, Projectile.damage);
             }
         }

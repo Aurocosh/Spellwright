@@ -31,8 +31,9 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
             float largestVelocity = Math.Max(velocityX, velocityY);
             if (largestVelocity < 0.1f)
             {
-                float maxBonus = 1 * (buffPlayerLevel / 10f);
-                player.GetCritChance(DamageClass.Ranged) += maxBonus;
+                //float maxBonus = 1 * (buffPlayerLevel / 10f); // Preview
+                float maxBonus = 100 * (buffPlayerLevel / 10f);
+                player.GetCritChance(DamageClass.Ranged) += (int)maxBonus;
                 player.GetDamage(DamageClass.Ranged) += maxBonus;
             }
         }
