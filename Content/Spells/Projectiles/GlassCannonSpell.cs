@@ -1,5 +1,8 @@
-﻿using Spellwright.Content.Projectiles;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Projectiles;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Projectiles
@@ -21,6 +24,12 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileSpeed = 16;
             canAutoReuse = false;
             useTimeMultiplier = 3f;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.Glass, 1)
+                .WithCost(ItemID.Handgun, 1);
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 15);
         }
     }
 }

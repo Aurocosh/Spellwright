@@ -1,11 +1,14 @@
 ﻿using Spellwright.Common.Players;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.ExecutablePackets.ToServer;
 using Spellwright.Extensions;
 using Spellwright.Network;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Herbs
 {
@@ -15,6 +18,11 @@ namespace Spellwright.Content.Spells.Herbs
         {
             SpellLevel = 9;
             UseType = SpellType.Invocation;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.Sunflower, 1)
+                .WithCost(ItemID.ChlorophyteBar, 30);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

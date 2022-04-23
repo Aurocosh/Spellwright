@@ -1,4 +1,6 @@
-﻿using Spellwright.Content.Spells.Base.Modifiers;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base.Modifiers;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,6 +29,8 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileSpeed = 40;
             canAutoReuse = false;
             useTimeMultiplier = 3f;
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>());
         }
     }
 }

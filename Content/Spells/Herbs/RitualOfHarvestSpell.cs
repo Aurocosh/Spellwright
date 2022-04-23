@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
@@ -10,6 +12,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Herbs
 {
@@ -20,6 +23,12 @@ namespace Spellwright.Content.Spells.Herbs
         {
             SpellLevel = 6;
             UseType = SpellType.Invocation;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.DirtRod, 1)
+                .WithCost(ItemID.WaterCandle, 2);
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 2);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

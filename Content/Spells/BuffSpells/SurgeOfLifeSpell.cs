@@ -1,6 +1,6 @@
 ﻿using Spellwright.Content.Buffs.Spells;
 using Spellwright.Content.Items.Reagents;
-using Spellwright.Content.Spells.Base.SpellCosts;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Network;
 using Spellwright.Util;
@@ -22,7 +22,8 @@ namespace Spellwright.Content.Spells.BuffSpells
 
             costModifier = 0f;
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            UnlockCost = new SingleItemSpellCost(ItemID.LifeCrystal);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

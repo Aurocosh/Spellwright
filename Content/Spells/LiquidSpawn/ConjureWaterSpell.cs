@@ -1,4 +1,5 @@
 ﻿using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
 
@@ -13,6 +14,8 @@ namespace Spellwright.Content.Spells.LiquidSpawn
             stability = 1f;
             liquidType = LiquidID.Water;
             useTimeMultiplier = 7f;
+
+            UnlockCost = new SingleItemSpellCost(ItemID.WaterBucket);
         }
     }
 }

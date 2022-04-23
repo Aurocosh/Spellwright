@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 
-namespace Spellwright.Content.Spells.Base.SpellCosts
+namespace Spellwright.Content.Spells.Base.SpellCosts.Items
 {
     internal class MultipleItemSpellCost : SpellCost
     {
@@ -112,6 +112,12 @@ namespace Spellwright.Content.Spells.Base.SpellCosts
                 return null;
             else
                 return string.Join(", ", descriptions);
+        }
+
+        public MultipleItemSpellCost WithCost(int itemType, int cost = 1)
+        {
+            AddItemCost(itemType, cost);
+            return this;
         }
     }
 }

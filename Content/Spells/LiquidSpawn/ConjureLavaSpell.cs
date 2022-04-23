@@ -1,6 +1,9 @@
-﻿using Spellwright.Content.Spells.Base;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.LiquidSpawn
 {
@@ -15,6 +18,9 @@ namespace Spellwright.Content.Spells.LiquidSpawn
 
             liquidType = LiquidID.Lava;
             useTimeMultiplier = 7f;
+
+            UnlockCost = new SingleItemSpellCost(ItemID.LavaBucket, 10);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 20);
         }
     }
 }

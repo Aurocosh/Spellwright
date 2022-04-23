@@ -26,33 +26,35 @@ namespace Spellwright.Content.Items.SpellTomes
             var content = new SpellTomeContent();
 
             // Level 4
-            content.AddSpell<RainCallSpell>();
+            content.AddSpell<BaseJumpSpell>();
+            content.AddSpell<BlockSpitterSpell>();
+            content.AddSpell<BloodArrowSpell>();
             content.AddSpell<GossamerShoesSpell>();
             content.AddSpell<HellGateSpell>();
-            content.AddSpell<BlockSpitterSpell>();
-            content.AddSpell<WallSpitterSpell>();
-            content.AddSpell<WallCrumblerSpell>();
-            content.AddSpell<BloodArrowSpell>();
-            content.AddSpell<BaseJumpSpell>();
             content.AddSpell<MoneyTroughSpell>();
+            content.AddSpell<RainCallSpell>();
+            content.AddSpell<WallCrumblerSpell>();
+            content.AddSpell<WallSpitterSpell>();
+
             // Level 5
-            content.AddSpell<ShadowStepSpell>();
-            content.AddSpell<GlassCannonSpell>();
-            content.AddSpell<ObsidianSkinSpell>();
+            content.AddSpell<BurningSoulSpell>();
             content.AddSpell<CallOfTheDepthsSpell>();
             content.AddSpell<DesertRiteSpell>();
             content.AddSpell<EyesOfProfitSpell>();
-            content.AddSpell<BurningSoulSpell>();
+            content.AddSpell<GlassCannonSpell>();
+            content.AddSpell<ObsidianSkinSpell>();
+            content.AddSpell<ShadowStepSpell>();
             content.AddSpell<VoidMarkSpell>();
+
             // Level 6
-            content.AddSpell<SubspacePushSpell>();
-            content.AddSpell<SubspacePopSpell>();
-            content.AddSpell<SelfDefenseHexSpell>();
-            content.AddSpell<RitualOfHarvestSpell>();
-            content.AddSpell<FortressStanceSpell>();
-            content.AddSpell<ShapedChargeSpell>();
             content.AddSpell<DungeonGateSpell>();
+            content.AddSpell<FortressStanceSpell>();
             content.AddSpell<PulseHealingSpell>();
+            content.AddSpell<RitualOfHarvestSpell>();
+            content.AddSpell<SelfDefenseHexSpell>();
+            content.AddSpell<ShapedChargeSpell>();
+            content.AddSpell<SubspacePopSpell>();
+            content.AddSpell<SubspacePushSpell>();
 
             Add(Type, content);
         }

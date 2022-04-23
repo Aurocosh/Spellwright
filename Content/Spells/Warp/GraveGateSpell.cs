@@ -1,8 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.Player;
 
 namespace Spellwright.Content.Spells.Warp
@@ -14,6 +18,12 @@ namespace Spellwright.Content.Spells.Warp
             SpellLevel = 4;
             UseType = SpellType.Invocation;
             teleportStyle = 7;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.Gravestone, 10)
+                .WithCost(ItemID.TeleportationPotion, 10);
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

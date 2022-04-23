@@ -27,29 +27,29 @@ namespace Spellwright.Content.Items.SpellTomes
 
             // Level 7
             content.AddSpell<ManaShieldSpell>();
-            content.AddSpell<SoulNibblerSpell>();
-            content.AddSpell<SigilOfLegionSpell>();
+            content.AddSpell<PurifySpell>();
             content.AddSpell<SigilOfBerserkerSpell>();
+            content.AddSpell<SigilOfLegionSpell>();
             content.AddSpell<SigilOfSageSpell>();
             content.AddSpell<SigilOfSniperSpell>();
-            content.AddSpell<PurifySpell>();
+            content.AddSpell<SoulNibblerSpell>();
 
             // Level 8
+            content.AddSpell<ConjureLavaSpell>();
             content.AddSpell<GravityDashSpell>();
+            content.AddSpell<ReactiveArmorSpell>();
             content.AddSpell<StateLockSpell>();
             content.AddSpell<VortexHandsSpell>();
-            content.AddSpell<ReactiveArmorSpell>();
-            content.AddSpell<ConjureLavaSpell>();
 
             // Level 9
-            content.AddSpell<BindMirrorSpell>();
             content.AddSpell<AdventOfSummerSpell>();
+            content.AddSpell<BindMirrorSpell>();
             content.AddSpell<GreedyVortexSpell>();
 
             // Level 10
             content.AddSpell<HymnOfDiscordSpell>();
-            content.AddSpell<MetabolicBoostSpell>();
             content.AddSpell<MagickaFairySpell>();
+            content.AddSpell<MetabolicBoostSpell>();
 
             Add(Type, content);
         }

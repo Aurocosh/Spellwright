@@ -1,8 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Movement
 {
@@ -12,6 +16,10 @@ namespace Spellwright.Content.Spells.Movement
         {
             SpellLevel = 3;
             UseType = SpellType.Cantrip;
+
+            UnlockCost = new SingleItemSpellCost(ItemID.Feather, 30);
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 5);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

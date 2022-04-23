@@ -1,8 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace Spellwright.Content.Spells.Warp
@@ -13,6 +17,12 @@ namespace Spellwright.Content.Spells.Warp
         {
             SpellLevel = 3;
             UseType = SpellType.Invocation;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.Coral, 10)
+                .WithCost(ItemID.TeleportationPotion, 10);
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

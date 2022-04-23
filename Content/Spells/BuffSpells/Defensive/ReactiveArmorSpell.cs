@@ -1,6 +1,7 @@
 ﻿using Spellwright.Content.Buffs.Spells.Defensive;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base.SpellCosts;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Network;
 using Spellwright.Util;
@@ -21,7 +22,11 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
             int buff = ModContent.BuffType<ReactiveArmorBuff>();
             AddEffect(buff, (playerLevel) => UtilTime.MinutesToTicks(10 + 3 * playerLevel));
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            UnlockCost = new OptionalSpellCost()
+                .WithCost(ItemID.AdamantiteBar, 20)
+                .WithCost(ItemID.TitaniumBar, 20);
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Movement
 {
@@ -12,6 +15,8 @@ namespace Spellwright.Content.Spells.Movement
         {
             SpellLevel = 2;
             UseType = SpellType.Cantrip;
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

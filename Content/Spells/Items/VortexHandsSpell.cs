@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
 using Spellwright.Network;
@@ -16,6 +18,9 @@ namespace Spellwright.Content.Spells.Items
         {
             SpellLevel = 8;
             UseType = SpellType.Invocation;
+
+            UnlockCost = new SingleItemSpellCost(ItemID.SoulofFlight, 25);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

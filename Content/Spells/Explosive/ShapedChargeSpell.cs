@@ -1,7 +1,10 @@
-﻿using Spellwright.Content.Projectiles.Explosive;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Projectiles.Explosive;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Explosive
@@ -27,6 +30,12 @@ namespace Spellwright.Content.Spells.Explosive
             projectileSpeed = 10;
             canAutoReuse = false;
             useTimeMultiplier = 3f;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.Dynamite, 20)
+                .WithCost(ItemID.WoodenArrow, 20);
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
         }
     }
 }

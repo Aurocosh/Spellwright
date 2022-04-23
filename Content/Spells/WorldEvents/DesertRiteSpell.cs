@@ -1,9 +1,12 @@
-﻿using Spellwright.Content.Spells.Base;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Network;
 using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.WorldEvents
 {
@@ -15,6 +18,9 @@ namespace Spellwright.Content.Spells.WorldEvents
             UseType = SpellType.Invocation;
 
             AddApplicableModifier(SpellModifier.Dispel);
+
+            UnlockCost = new SingleItemSpellCost(ItemID.SandBlock, 200);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 30);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

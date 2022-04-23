@@ -60,6 +60,12 @@ Mods: {
 			NotEnoughReagents: Not enough reagents. Reagents required: {0}
 			NotEnoughMana: Not enough mana. Mana required: {0}
 			ManaCost: Mana {0}
+			NotEnoughMaxHealth: Not enough max health. Max health required: {0}
+			MaxHealth: Max health {0}
+			NotEnoughMaxMana: Not enough max mana. Max mana required: {0}
+			MaxMana: Max mana {0}
+			NotEnoughHealth: Not enough health. Health required: {0}
+			HealthCost: Health required {0}
 		}
 		
 		BoundMirror: {
@@ -134,9 +140,9 @@ Mods: {
 				Name: Gale Force
 				Description:
 					'''Increases player movement speed.
-					Level 3 Increases player movement speed 20%.
+					Level 3 Increases player movement speed 30%.
 					Level 5 Boosts player jump height by 15 blocks.
-					Level 7 Increases acceleration and deceleration by 50%.
+					Level 7 Increases acceleration and deceleration by 200%.
 					Level 9 Increases player movement speed 20% and boosts player jump height by 15 blocks.
 					'''
 			}
@@ -158,7 +164,7 @@ Mods: {
 					Level 8 additionally grants bonus .2 always and bonus .5 luck during a full moon
 					'''
 			}
-			ReturnToFishBuff: {
+			ReturnToFishSpell: {
 				Name: Return To Fish
 				Description: 
 					'''Grants various aquatic abilities based on player level.

@@ -1,6 +1,9 @@
-﻿using Spellwright.Content.Spells.Base;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Projectiles
 {
@@ -14,6 +17,9 @@ namespace Spellwright.Content.Spells.Projectiles
             useSound = SoundID.Item59;
             canAutoReuse = false;
             useTimeMultiplier = 1f;
+
+            UnlockCost = new SingleItemSpellCost(ItemID.PiggyBank);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
     }
 }

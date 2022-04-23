@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Extensions;
 using Spellwright.Lib.Primitives;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Warp
 {
@@ -19,6 +22,12 @@ namespace Spellwright.Content.Spells.Warp
             resetVelocity = false;
             useDelay = 0;
             canAutoReuse = false;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.ChaosElementalBanner, 1)
+                .WithCost(ItemID.TeleportationPotion, 10);
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 2);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

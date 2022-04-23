@@ -1,5 +1,8 @@
 ﻿using Spellwright.Content.Buffs.Spells;
+using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.BuffSpells
@@ -12,6 +15,12 @@ namespace Spellwright.Content.Spells.BuffSpells
 
             int buff = ModContent.BuffType<StateLockBuff>();
             AddEffect(buff, (playerLevel) => 10000);
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.LightShard, 5)
+                .WithCost(ItemID.DarkShard, 5);
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 10);
         }
     }
 }

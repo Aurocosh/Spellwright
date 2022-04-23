@@ -1,10 +1,13 @@
-﻿using Spellwright.Content.Spells.Base;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Network;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Healing
 {
@@ -17,6 +20,9 @@ namespace Spellwright.Content.Spells.Healing
             SpellLevel = 2;
             UseType = SpellType.Invocation;
             damage = 50;
+
+            UnlockCost = new SingleItemSpellCost(ItemID.LesserHealingPotion, 20);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
 
         protected override void ApplyEffect(IEnumerable<Player> affectedPlayers, int playerLevel, SpellData spellData)

@@ -1,7 +1,11 @@
-﻿using Spellwright.Content.Spells.Base;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Extensions;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Other
 {
@@ -11,6 +15,9 @@ namespace Spellwright.Content.Spells.Other
         {
             SpellLevel = 7;
             UseType = SpellType.Invocation;
+
+            UnlockCost = new SingleItemSpellCost(ItemID.PurificationPowder, 30);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

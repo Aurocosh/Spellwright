@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using System.Collections.Generic;
 using Terraria;
 
 namespace Spellwright.Content.Spells.Base.SpellCosts
@@ -60,6 +61,18 @@ namespace Spellwright.Content.Spells.Base.SpellCosts
                 return null;
             else
                 return string.Join(separator, descriptions);
+        }
+
+        public OptionalSpellCost WithCost(SpellCost cost)
+        {
+            spellCosts.Add(cost);
+            return this;
+        }
+
+        public OptionalSpellCost WithCost(int itemType, int cost = 1)
+        {
+            spellCosts.Add(new SingleItemSpellCost(itemType, cost));
+            return this;
         }
     }
 }

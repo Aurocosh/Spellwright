@@ -1,8 +1,11 @@
-﻿using Spellwright.Content.Projectiles;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Projectiles;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.SpellCosts;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Stats;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Projectiles
@@ -28,6 +31,9 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileSpray = 10;
             minSpeedChange = .2f;
             maxSpeedChange = .35f;
+
+            UnlockCost = new SingleItemSpellCost(ItemID.HeartLantern);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
         }
     }
 }

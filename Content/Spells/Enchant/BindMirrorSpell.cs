@@ -1,7 +1,7 @@
 ﻿using Spellwright.Content.Items.Mirrors;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.SpellCosts;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -18,10 +18,14 @@ namespace Spellwright.Content.Spells.Enchant
             SpellLevel = 9;
             UseType = SpellType.Invocation;
             itemType = ModContent.ItemType<BoundMagicMirror>();
-            var itemSpellCost = new MultipleItemSpellCost();
-            itemSpellCost.AddItemCost(ModContent.ItemType<SilverMirror>());
-            itemSpellCost.AddItemCost(ModContent.ItemType<RareSpellReagent>(), 3);
-            SpellCost = itemSpellCost;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ModContent.ItemType<SilverMirror>(), 1)
+                .WithCost(ItemID.TeleportationPotion, 40);
+
+            SpellCost = new MultipleItemSpellCost()
+                .WithCost(ModContent.ItemType<SilverMirror>(), 1)
+                .WithCost(ModContent.ItemType<MythicalSpellReagent>(), 3);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

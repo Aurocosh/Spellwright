@@ -29,42 +29,42 @@ namespace Spellwright.Content.Items.SpellTomes
 
             // Level 0
             content.AddSpell<AscendSpell>();
+            content.AddSpell<HomeReflectionSpell>();
             content.AddSpell<MysticSenseSpell>();
             content.AddSpell<RecallSpell>();
-            content.AddSpell<HomeReflectionSpell>();
 
             // Level 1
-            content.AddSpell<WillOfTorchGodSpell>();
             content.AddSpell<ConjureWaterSpell>();
-            content.AddSpell<ReturnToFishSpell>();
             content.AddSpell<FireballSpell>();
             content.AddSpell<KissOfCloverSpell>();
-            content.AddSpell<TorchMufflerSpell>();
-            content.AddSpell<SparkCasterSpell>();
             content.AddSpell<PremonitionSpell>();
+            content.AddSpell<ReturnToFishSpell>();
+            content.AddSpell<SparkCasterSpell>();
+            content.AddSpell<TorchMufflerSpell>();
+            content.AddSpell<WillOfTorchGodSpell>();
 
             // Level 2
-            content.AddSpell<WarpMirrorSpell>();
             content.AddSpell<BattlecrySpell>();
-            content.AddSpell<StitchWoundsSpell>();
-            content.AddSpell<StoneBulletSpell>();
+            content.AddSpell<DragonSpitSpell>();
             content.AddSpell<FlashStepSpell>();
+            content.AddSpell<IceBreakerSpell>();
             content.AddSpell<InnerSunshineSpell>();
             content.AddSpell<ShellOfIceSpell>();
-            content.AddSpell<IceBreakerSpell>();
+            content.AddSpell<StitchWoundsSpell>();
+            content.AddSpell<StoneBulletSpell>();
             content.AddSpell<TigerEyesSpell>();
-            content.AddSpell<DragonSpitSpell>();
+            content.AddSpell<WarpMirrorSpell>();
 
             // Level 3
-            content.AddSpell<OceanGateSpell>();
-            content.AddSpell<SurgeOfLifeSpell>();
             content.AddSpell<AirDashSpell>();
-            content.AddSpell<ManaStarfallSpell>();
-            content.AddSpell<GaleForceSpell>();
+            content.AddSpell<BirdOfMidasSpell>();
             content.AddSpell<EvaporateSpell>();
             content.AddSpell<FanOfFlamesSpell>();
-            content.AddSpell<BirdOfMidasSpell>();
+            content.AddSpell<GaleForceSpell>();
             content.AddSpell<HeartThrowerSpell>();
+            content.AddSpell<ManaStarfallSpell>();
+            content.AddSpell<OceanGateSpell>();
+            content.AddSpell<SurgeOfLifeSpell>();
 
             Add(Type, content);
         }

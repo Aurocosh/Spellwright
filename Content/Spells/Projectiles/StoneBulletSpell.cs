@@ -1,5 +1,5 @@
 ﻿using Spellwright.Content.Projectiles;
-using Spellwright.Content.Spells.Base.SpellCosts;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
 using Terraria.ModLoader;

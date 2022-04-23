@@ -1,6 +1,6 @@
 ﻿using Spellwright.Content.Projectiles.Sparks;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.SpellCosts;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using System;
@@ -45,13 +45,9 @@ namespace Spellwright.Content.Spells.Projectiles
             minSpeedChange = 0f;
             maxSpeedChange = .35f;
 
-            var unlockCost = new MultipleItemSpellCost();
-            unlockCost.AddItemCost(ItemID.WandofSparking, 1);
-            unlockCost.AddItemCost(ItemID.Ruby);
-            unlockCost.AddItemCost(ItemID.Sapphire);
-            unlockCost.AddItemCost(ItemID.Emerald);
-            unlockCost.AddItemCost(ItemID.Topaz);
-            UnlockCost = unlockCost;
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.WandofSparking, 1)
+                .WithCost(ItemID.Ruby, 3);
         }
         protected override int GetProjectileType(int playerLevel)
         {

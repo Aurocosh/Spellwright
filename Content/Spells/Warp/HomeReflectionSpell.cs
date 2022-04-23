@@ -1,4 +1,5 @@
 ﻿using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Terraria;
 using Terraria.ID;
 
@@ -10,6 +11,10 @@ namespace Spellwright.Content.Spells.Warp
         {
             SpellLevel = 0;
             UseType = SpellType.Invocation;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.Bed, 1)
+                .WithCost(ItemID.TeleportationPotion, 10);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

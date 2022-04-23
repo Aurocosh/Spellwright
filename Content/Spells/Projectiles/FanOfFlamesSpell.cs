@@ -1,4 +1,6 @@
-﻿using Spellwright.Content.Spells.Base.Modifiers;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base.Modifiers;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,6 +35,9 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileSpray = 15;
             minSpeedChange = .2f;
             maxSpeedChange = .35f;
+
+            UnlockCost = new SingleItemSpellCost(ItemID.LivingFireBlock, 35);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 5);
         }
     }
 }

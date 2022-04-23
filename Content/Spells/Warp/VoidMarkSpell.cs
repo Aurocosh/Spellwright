@@ -1,9 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Extensions;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace Spellwright.Content.Spells.Warp
@@ -14,6 +18,12 @@ namespace Spellwright.Content.Spells.Warp
         {
             SpellLevel = 5;
             UseType = SpellType.Invocation;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.Book, 1)
+                .WithCost(ItemID.TeleportationPotion, 10);
+
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
 
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)

@@ -1,8 +1,11 @@
 ﻿using Spellwright.Content.Buffs.Spells;
+using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.BuffSpells
@@ -14,6 +17,9 @@ namespace Spellwright.Content.Spells.BuffSpells
             SpellLevel = 6;
             int buffId = ModContent.BuffType<PulseHealingBuff>();
             AddEffect(buffId, (playerLevel) => UtilTime.MinutesToTicks(4 + 2 * playerLevel));
+
+            UnlockCost = new SingleItemSpellCost(ItemID.PixieDust, 60);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 15);
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

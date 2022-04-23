@@ -2,10 +2,11 @@
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
-using Spellwright.Content.Spells.Base.SpellCosts;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.BuffSpells.Utility
@@ -21,6 +22,9 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
 
             SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>());
             AddApplicableModifier(ModifierConstants.EternalModifiers);
+
+            UnlockCost = new SingleItemSpellCost(ItemID.SharkFin, 5);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {

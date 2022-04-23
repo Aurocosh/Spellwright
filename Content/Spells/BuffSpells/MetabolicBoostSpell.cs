@@ -1,5 +1,8 @@
 ﻿using Spellwright.Common.Players;
 using Spellwright.Content.Buffs.Spells;
+using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Stats;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Network;
 using Spellwright.Util;
@@ -18,6 +21,9 @@ namespace Spellwright.Content.Spells.BuffSpells
 
             int buff = ModContent.BuffType<MetabolicBoostBuff>();
             AddEffect(buff, (playerLevel) => UtilTime.MinutesToTicks(2 + playerLevel));
+
+            UnlockCost = new MaxHealthSpellCost(400);
+            SpellCost = new SingleItemSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 2);
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

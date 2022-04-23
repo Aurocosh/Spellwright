@@ -2,9 +2,11 @@
 using Spellwright.Content.Projectiles;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Projectiles
@@ -54,6 +56,10 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileSpeed = 30;
             canAutoReuse = false;
             useTimeMultiplier = 3f;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.VileMushroom, 10)
+                .WithCost(ItemID.WoodenArrow, 50);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 velocity)

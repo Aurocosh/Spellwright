@@ -1,7 +1,7 @@
 ﻿using System;
 using Terraria;
 
-namespace Spellwright.Content.Spells.Base.SpellCosts
+namespace Spellwright.Content.Spells.Base.SpellCosts.Stats
 {
     internal class ManaSpellCost : SpellCost
     {

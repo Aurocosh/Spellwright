@@ -22,7 +22,7 @@ namespace Spellwright.Content.Buffs.Spells.Utility
             float maxSpeedMult = 1;
 
             if (buffPlayerLevel >= 3)
-                maxSpeedMult = 1.2f;
+                maxSpeedMult = 1.3f;
             if (buffPlayerLevel >= 5)
             {
                 Player.jumpHeight += 15;
@@ -30,7 +30,7 @@ namespace Spellwright.Content.Buffs.Spells.Utility
                 player.extraFall += 10;
             }
             if (buffPlayerLevel >= 7)
-                player.runAcceleration *= 1.5f;
+                player.runAcceleration *= 2.0f;
             if (buffPlayerLevel >= 9)
             {
                 maxSpeedMult *= 1.4f;

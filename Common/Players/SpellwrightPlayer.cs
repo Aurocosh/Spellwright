@@ -32,6 +32,8 @@ namespace Spellwright.Common.Players
         public readonly HashSet<int> KnownSpells = new();
         public readonly HashSet<int> UnlockedSpells = new();
 
+        public override bool CloneNewInstances => false;
+
         public static SpellwrightPlayer Instance => Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
 
         public int PlayerLevel
@@ -83,8 +85,10 @@ namespace Spellwright.Common.Players
                 tag.Add("CurrentCantripData", CurrentCantrip.SerializeData(CantripData));
             }
 
-            tag.Add("KnownSpells", SerializeSpellIds(KnownSpells).ToList());
-            tag.Add("UnlockedSpells", SerializeSpellIds(UnlockedSpells).ToList());
+            var ksTags = SerializeSpellIds(KnownSpells).ToList();
+            tag.Add("KnownSpells", ksTags);
+            var usTags = SerializeSpellIds(UnlockedSpells).ToList();
+            tag.Add("UnlockedSpells", usTags);
         }
 
         public override void LoadData(TagCompound tag)

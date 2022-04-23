@@ -1,7 +1,8 @@
 ﻿using Spellwright.Content.Items.Mirrors;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.SpellCosts;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Enchant
@@ -14,10 +15,13 @@ namespace Spellwright.Content.Spells.Enchant
             UseType = SpellType.Invocation;
             itemType = ModContent.ItemType<WarpedMagicMirror>();
 
-            var itemSpellCost = new MultipleItemSpellCost();
-            itemSpellCost.AddItemCost(ModContent.ItemType<SilverMirror>());
-            itemSpellCost.AddItemCost(ModContent.ItemType<CommonSpellReagent>(), 2);
-            SpellCost = itemSpellCost;
+            SpellCost = new MultipleItemSpellCost()
+                .WithCost(ModContent.ItemType<SilverMirror>(), 1)
+                .WithCost(ModContent.ItemType<CommonSpellReagent>(), 2);
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ModContent.ItemType<SilverMirror>(), 1)
+                .WithCost(ItemID.TeleportationPotion, 10);
         }
     }
 }
