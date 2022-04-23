@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
                 .WithCost(ItemID.ManaFlower, 1)
                 .WithCost(ItemID.SuperManaPotion, 30);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 6);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 6);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Spellwright.Content.Spells.Minions
                 .WithCost(ItemID.GoldCoin, 50)
                 .WithCost(ItemID.Feather, 10);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
         }
     }
 }

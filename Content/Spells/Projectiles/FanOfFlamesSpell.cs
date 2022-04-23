@@ -37,7 +37,7 @@ namespace Spellwright.Content.Spells.Projectiles
             maxSpeedChange = .35f;
 
             UnlockCost = new SingleItemSpellCost(ItemID.LivingFireBlock, 35);
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 5);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 5);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Spellwright.Content.Spells.Warp
                 .WithCost(ItemID.Cloud, 10)
                 .WithCost(ItemID.TeleportationPotion, 10);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

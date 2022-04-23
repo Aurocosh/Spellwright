@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             AddEffect(buffId, (playerLevel) => UtilTime.MinutesToTicks(4 + 2 * playerLevel));
 
             UnlockCost = new SingleItemSpellCost(ItemID.PixieDust, 60);
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 15);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 15);
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

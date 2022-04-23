@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Extensions;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -12,6 +13,40 @@ namespace Spellwright.Util
         // 10-49 inventory
         // 50-53 coins 
         // 54-57 ammo 
+
+        public static IEnumerable<int> GetInventoryIndexes(InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
+        {
+            if (!reverseOrder)
+            {
+                if (includedParts.HasFlag(InventoryArea.Hotbar))
+                    for (int i = 0; i < 10; i++)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Inventory))
+                    for (var i = 10; i < 50; i++)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Coins))
+                    for (var i = 50; i < 54; i++)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Ammo))
+                    for (var i = 54; i < 58; i++)
+                        yield return i;
+            }
+            else
+            {
+                if (includedParts.HasFlag(InventoryArea.Ammo))
+                    for (var i = 57; i >= 54; i--)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Coins))
+                    for (var i = 53; i >= 50; i--)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Inventory))
+                    for (var i = 49; i >= 10; i--)
+                        yield return i;
+                if (includedParts.HasFlag(InventoryArea.Hotbar))
+                    for (var i = 9; i >= 0; i--)
+                        yield return i;
+            }
+        }
 
         public static IEnumerable<Player> GetPlayersInRadius(Vector2 position, int radius)
         {

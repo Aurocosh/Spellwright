@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.Movement
 
             UnlockCost = new SingleItemSpellCost(ItemID.Feather, 30);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 5);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 5);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

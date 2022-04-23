@@ -16,7 +16,7 @@ namespace Spellwright.Content.Spells.TileBreak
             UseType = SpellType.Invocation;
             liquidType = LiquidID.Water;
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

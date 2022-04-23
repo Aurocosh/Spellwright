@@ -38,7 +38,7 @@ namespace Spellwright.Content.Spells.Explosive
             useTimeMultiplier = 3f;
 
             UnlockCost = new SingleItemSpellCost(ItemID.Bomb, 20);
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
     }
 }

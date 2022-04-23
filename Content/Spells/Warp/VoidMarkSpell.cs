@@ -23,7 +23,7 @@ namespace Spellwright.Content.Spells.Warp
                 .WithCost(ItemID.Book, 1)
                 .WithCost(ItemID.TeleportationPotion, 10);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
 
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)

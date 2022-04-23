@@ -20,7 +20,7 @@ namespace Spellwright.Content.Spells.BuffSpells
                 .WithCost(ItemID.LightShard, 5)
                 .WithCost(ItemID.DarkShard, 5);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 10);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 10);
         }
     }
 }

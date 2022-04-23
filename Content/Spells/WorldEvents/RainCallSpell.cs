@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.WorldEvents
             AddApplicableModifier(SpellModifier.Dispel);
 
             UnlockCost = new SingleItemSpellCost(ItemID.Umbrella);
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 30);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 30);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

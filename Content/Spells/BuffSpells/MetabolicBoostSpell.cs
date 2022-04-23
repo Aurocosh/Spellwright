@@ -23,7 +23,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             AddEffect(buff, (playerLevel) => UtilTime.MinutesToTicks(2 + playerLevel));
 
             UnlockCost = new MaxHealthSpellCost(400);
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 2);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 2);
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

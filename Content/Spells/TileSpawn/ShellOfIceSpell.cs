@@ -20,7 +20,7 @@ namespace Spellwright.Content.Spells.TileSpawn
             tileType = TileID.BreakableIce;
 
             UnlockCost = new SingleItemSpellCost(ItemID.IceBlock, 30);
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 2);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 2);
         }
 
         protected override IEnumerable<Point> GetTilePositions(Point center, Player player, int playerLevel, SpellData spellData)

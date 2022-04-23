@@ -16,7 +16,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             AddEffect(ModContent.BuffType<GreedyVortexBuff>(), (playerLevel) => UtilTime.MinutesToTicks(3 + (int)(1.5f * playerLevel)));
 
             UnlockCost = new SingleItemSpellCost(ItemID.SoulofFlight, 20);
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 3);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 3);
         }
     }
 }

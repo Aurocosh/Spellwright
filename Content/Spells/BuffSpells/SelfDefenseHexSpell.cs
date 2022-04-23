@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.BuffSpells
                 .WithCost(ItemID.SoulofNight, 20)
                 .WithCost(ItemID.GuideVoodooDoll, 5);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
         }
     }
 }

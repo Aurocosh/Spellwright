@@ -35,7 +35,7 @@ namespace Spellwright.Content.Spells.Explosive
                 .WithCost(ItemID.Dynamite, 20)
                 .WithCost(ItemID.WoodenArrow, 20);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Sigils
                 .WithCost(ItemID.SummonerEmblem, 1)
                 .WithCost(ItemID.SoulofMight, 15);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 1);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 1);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 
 namespace Spellwright.Extensions
@@ -52,109 +54,57 @@ namespace Spellwright.Extensions
             }
         }
 
+        public static IEnumerable<Item> GetInventoryItems(this Player player, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
+        {
+            return GetInventoryIndexes(player, includedParts, reverseOrder).Select(i => player.inventory[i]);
+        }
+
         public static Item InventoryFindItem(this Player player, int itemTypeId, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
         {
-            bool IsValid(Item item) => item.type == itemTypeId;
-            return InventoryFindItem(player, IsValid, includedParts, reverseOrder);
+            var items = GetInventoryItems(player, includedParts, reverseOrder);
+            return UtilInventory.InventoryFindItem(items, itemTypeId);
         }
 
         public static Item InventoryFindItem(this Player player, Func<Item, bool> filter, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
         {
-            foreach (int i in player.GetInventoryIndexes(includedParts, reverseOrder))
-            {
-                Item item = player.inventory[i];
-                if (filter.Invoke(item) && item.stack > 0)
-                    return item;
-            }
-
-            return null;
+            var items = GetInventoryItems(player, includedParts, reverseOrder);
+            return UtilInventory.InventoryFindItem(items, filter);
         }
 
         public static bool ConsumeItems(this Player player, int itemTypeId, int amount = 1, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
         {
-            bool IsValid(Item item) => item.type == itemTypeId;
-            return ConsumeItems(player, IsValid, amount, includedParts, reverseOrder);
+            var items = GetInventoryItems(player, includedParts, reverseOrder);
+            return UtilInventory.ConsumeItems(items, itemTypeId, amount);
         }
 
         public static bool ConsumeItems(this Player player, Func<Item, bool> filter, int amount = 1, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
         {
-            if (amount <= 0)
-                return false;
-
-            int amountInInventory = 0;
-            List<Item> fittingItems = new();
-            foreach (int i in player.GetInventoryIndexes(includedParts, reverseOrder))
-            {
-                Item item = player.inventory[i];
-                if (filter.Invoke(item) && item.stack > 0)
-                {
-                    fittingItems.Add(item);
-                    amountInInventory += item.stack;
-                    if (amountInInventory > amount)
-                        break;
-                }
-            }
-
-            if (amountInInventory < amount)
-                return false;
-
-            foreach (Item item in fittingItems)
-            {
-                int amountToSub = Math.Min(amount, item.stack);
-                item.stack -= amountToSub;
-                if (item.stack == 0)
-                    item.TurnToAir();
-                amount -= amountToSub;
-                if (amount == 0)
-                    break;
-            }
-
-            return true;
+            var items = GetInventoryItems(player, includedParts, reverseOrder);
+            return UtilInventory.ConsumeItems(items, filter, amount);
         }
 
         public static bool HasItems(this Player player, int itemTypeId, int amount = 1, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
         {
-            bool IsValid(Item item) => item.type == itemTypeId;
-            return HasItems(player, IsValid, amount, includedParts, reverseOrder);
+            var items = GetInventoryItems(player, includedParts, reverseOrder);
+            return UtilInventory.HasItems(items, itemTypeId, amount);
         }
 
         public static bool HasItems(this Player player, Func<Item, bool> filter, int amount = 1, InventoryArea includedParts = InventoryArea.All, bool reverseOrder = false)
         {
-            if (amount <= 0)
-                return false;
-
-            int amountInInventory = 0;
-            foreach (int i in player.GetInventoryIndexes(includedParts, reverseOrder))
-            {
-                Item item = player.inventory[i];
-                if (filter.Invoke(item) && item.stack > 0)
-                {
-                    amountInInventory += item.stack;
-                    if (amountInInventory > amount)
-                        return true;
-                }
-            }
-
-            return false;
+            var items = GetInventoryItems(player, includedParts, reverseOrder);
+            return UtilInventory.HasItems(items, filter, amount);
         }
 
         public static int CountItems(this Player player, int itemTypeId, InventoryArea includedParts = InventoryArea.All)
         {
-            bool IsValid(Item item) => item.type == itemTypeId;
-            return CountItems(player, IsValid, includedParts);
+            var items = GetInventoryItems(player, includedParts);
+            return UtilInventory.CountItems(items, itemTypeId);
         }
 
         public static int CountItems(this Player player, Func<Item, bool> filter, InventoryArea includedParts = InventoryArea.All)
         {
-            int amountInInventory = 0;
-            foreach (int i in player.GetInventoryIndexes(includedParts, false))
-            {
-                Item item = player.inventory[i];
-                if (filter.Invoke(item) && item.stack > 0)
-                    amountInInventory += item.stack;
-            }
-
-            return amountInInventory;
+            var items = GetInventoryItems(player, includedParts);
+            return UtilInventory.CountItems(items, filter);
         }
 
         public static void ClearBuffs(this Player player, IEnumerable<int> buffTypes)

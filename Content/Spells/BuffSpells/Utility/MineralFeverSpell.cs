@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             static int durationGetter(int playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel);
             AddEffect(ModContent.BuffType<MineralFeverBuff>(), durationGetter);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {

@@ -33,7 +33,7 @@ namespace Spellwright.Content.Spells.Projectiles
             maxSpeedChange = .35f;
 
             UnlockCost = new SingleItemSpellCost(ItemID.HeartLantern);
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
         }
     }
 }

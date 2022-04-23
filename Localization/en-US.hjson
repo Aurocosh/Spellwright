@@ -47,7 +47,8 @@ Mods: {
 			Or: Or
 			And: And
 			Level: Level
-			KnownSpells: Known spells
+			KnownSpells: Known 
+			StoredItems: Stored items
 		}
 
 		CastErrors: {
@@ -424,13 +425,25 @@ Mods: {
 			}
 
 			# Storage
-			SubspacePushSpell: {
-				Name: Subspace Push
-				Description: Moves all not favorited items in inventory into large and inaccessible personal inventory. Inventory size depends on caster level and is equal to 50 items per level
+			ReagentSubspaceSpell: {
+				Name: Reagent Subspace
+				Description: This spell allows you to store items in large directly inaccessible personal inventory. Only store spell reagents can be stored in this storage. All reagents in this storage are accessible for spell casting. When you cast spell reagents will be taken from this storage first and then from player inventory. Action performed by this spell depends on argument: info - displays list of all items in storage, push - moves all valid items from player inventory into storage inventory, pop - extracts all items from storage and drops them near player. If no argument is provided then default action is to display storage info. Inventory size depends on caster level and is equal to 1 item per level.
+				Examples: 
+					'''\n\tReagent subspace - shows storage info
+					\tReagent subspace: info - shows storage info
+					\tReagent subspace: push - moves all valid items into storage
+					\tReagent subspace: pop - extracts all items from storage
+					'''
 			}
-			SubspacePopSpell: {
-				Name: Subspace Pop
-				Description: Extracts all items stored in your void inventory at once and drops them on the ground near you
+			SubspaceSpell: {
+				Name: Subspace
+				Description: This spell allows you to store items in large directly inaccessible personal inventory. Action performed by this spell depends on argument: info - displays list of all items in storage, push - moves all valid items from player inventory into storage inventory, pop - extracts all items from storage and drops them near player. If no argument is provided then default action is to display storage info. Inventory size depends on caster level and is equal to 50 items per level.
+				Examples: 
+					'''\n\tSubspace - shows storage info
+					\tSubspace: info - shows storage info
+					\tSubspace: push - moves all valid items into storage
+					\tSubspace: pop - extracts all items from storage
+					'''
 			}
 
 			# TileBreak

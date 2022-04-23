@@ -15,13 +15,13 @@ namespace Spellwright.Content.Spells.Enchant
             UseType = SpellType.Invocation;
             itemType = ModContent.ItemType<WarpedMagicMirror>();
 
-            SpellCost = new MultipleItemSpellCost()
-                .WithCost(ModContent.ItemType<SilverMirror>(), 1)
-                .WithCost(ModContent.ItemType<CommonSpellReagent>(), 2);
-
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ModContent.ItemType<SilverMirror>(), 1)
                 .WithCost(ItemID.TeleportationPotion, 10);
+
+            SpellCost = new MultipleReagentSpellCost()
+                .WithCost(ModContent.ItemType<SilverMirror>(), 1)
+                .WithCost(ModContent.ItemType<CommonSpellReagent>(), 2);
         }
     }
 }

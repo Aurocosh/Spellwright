@@ -20,7 +20,7 @@ namespace Spellwright.Content.Spells.LiquidSpawn
             useTimeMultiplier = 7f;
 
             UnlockCost = new SingleItemSpellCost(ItemID.LavaBucket, 10);
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 20);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 20);
         }
     }
 }

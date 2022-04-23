@@ -22,7 +22,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
             UnlockCost = new SingleItemSpellCost(ItemID.SharkFin, 5);
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
         {

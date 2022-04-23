@@ -30,7 +30,7 @@ namespace Spellwright.Content.Spells.Projectiles
             canAutoReuse = false;
             useTimeMultiplier = 3f;
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>());
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>());
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             AddEffect(buffId, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
-            SpellCost = new SingleItemSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
     }
 }
