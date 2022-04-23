@@ -37,6 +37,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<ConjureWaterSpell>();
             content.AddSpell<FireballSpell>();
             content.AddSpell<KissOfCloverSpell>();
+            content.AddSpell<MineralFeverSpell>();
             content.AddSpell<PremonitionSpell>();
             content.AddSpell<ReturnToFishSpell>();
             content.AddSpell<SparkCasterSpell>();

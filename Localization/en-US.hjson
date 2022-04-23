@@ -150,7 +150,7 @@ Mods: {
 				Name: Greedy Vortex
 				Description: Buffs player with greedy vortex for 10 minutes. While active it will significantly increase pick up range of all normal items. Does not affect stars and hearts
 			}
-			ForceOfCreationBuff: {
+			ForceOfCreationSpell: {
 				Name: Force of Creation
 				Description: Doubles your block and wall placing speed and extends block placing range by 2
 			}
@@ -163,6 +163,10 @@ Mods: {
 					Level 6 also boosts critical chance by 10%.
 					Level 8 additionally grants bonus .2 always and bonus .5 luck during a full moon
 					'''
+			}
+			MineralFeverSpell: {
+				Name: Mineral Fever
+				Description: Increases mining speed by 30% but in exchange decreases all damage by 30%
 			}
 			ReturnToFishSpell: {
 				Name: Return To Fish

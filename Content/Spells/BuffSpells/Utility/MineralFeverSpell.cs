@@ -6,22 +6,19 @@ using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.BuffSpells.Utility
 {
-    internal class ReturnToFishSpell : BuffSpell
+    internal class MineralFeverSpell : BuffSpell
     {
         public override void SetStaticDefaults()
         {
             SpellLevel = 1;
 
             static int durationGetter(int playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel);
-            AddEffect(ModContent.BuffType<ReturnToFishBuff>(), durationGetter);
-            AddApplicableModifier(ModifierConstants.EternalModifiers);
+            AddEffect(ModContent.BuffType<MineralFeverBuff>(), durationGetter);
 
-            UnlockCost = new SingleItemSpellCost(ItemID.SharkFin, 5);
             SpellCost = new SingleItemSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
         public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
