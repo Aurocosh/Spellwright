@@ -182,6 +182,10 @@ namespace Spellwright.Content.Spells.Base
             if (UseCost == null)
                 return true;
 
+            float spellStability = GetStability(playerLevel);
+            if (spellStability > 0 && Main.rand.NextFloat() < spellStability)
+                return true;
+
             bool success = UseCost.Consume(player, playerLevel, spellData);
             if (!success)
             {

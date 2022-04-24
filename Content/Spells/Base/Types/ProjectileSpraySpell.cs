@@ -32,7 +32,8 @@ namespace Spellwright.Content.Spells.Base.Types
             int projectileCount = GetProjectileCount(playerLevel);
             for (int i = 0; i < projectileCount; i++)
             {
-                int realDamage = GetDamage(playerLevel);
+                float damageModifier = player.GetDamage(DamageType);
+                int realDamage = (int)(GetDamage(playerLevel) * damageModifier);
                 float realKnockback = GetKnockback(playerLevel);
                 int realProjectileType = GetProjectileType(playerLevel);
                 int projectileSpray = GetProjectileSpray(playerLevel);

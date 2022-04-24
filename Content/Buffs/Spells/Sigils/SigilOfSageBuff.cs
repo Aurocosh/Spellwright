@@ -24,11 +24,11 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
             int buffPlayerLevel = buffPlayer.GetBuffLevel(ModContent.BuffType<SigilOfSageBuff>());
 
             //float maxBonus = 1.5f * (buffPlayerLevel / 10f); // Preview
-            float maxBonus = 150 * (buffPlayerLevel / 10f);
+            float maxBonus = 1.5f * (buffPlayerLevel / 10f);
             float bonusCoeff = player.statMana / (float)player.statManaMax;
 
             //player.GetCritChance(DamageClass.Magic) += maxBonus * bonusCoeff; // Preview
-            player.GetCritChance(DamageClass.Magic) += (int)(maxBonus * bonusCoeff);
+            player.GetCritChance(DamageClass.Magic) += (int)(100 * bonusCoeff);
             player.GetDamage(DamageClass.Magic) += maxBonus * bonusCoeff;
         }
     }

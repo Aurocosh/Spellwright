@@ -28,7 +28,7 @@ namespace Spellwright.Content.Buffs.Spells
             //player.GetCritChance(DamageClass.Magic) += .2f; // Preview
             //player.GetDamage(DamageClass.Magic) += 2f; // Preview
             player.GetCritChance(DamageClass.Magic) += 20;
-            player.GetDamage(DamageClass.Magic) += 20;
+            player.GetDamage(DamageClass.Magic) += .3f;
 
             var soulPlayer = player.GetModPlayer<BurningSoulPlayer>();
             soulPlayer.noLifeRegen = true;

@@ -21,7 +21,6 @@ namespace Spellwright.Content.Spells.Projectiles
         public override void SetStaticDefaults()
         {
             SpellLevel = 3;
-            stability = .2f;
 
             damage = 30;
             knockback = 10;

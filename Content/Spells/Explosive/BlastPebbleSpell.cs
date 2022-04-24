@@ -20,8 +20,6 @@ namespace Spellwright.Content.Spells.Explosive
             SpellLevel = 4;
             UseType = SpellType.Spell;
 
-            stability = .2f;
-
             damage = 1;
             knockback = 8f;
             damageType = DamageClass.Magic;

@@ -27,13 +27,13 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
             player.statDefense += 2 * buffPlayerLevel;
 
             //float maxBonus = 3 * (buffPlayerLevel / 10f); // Preview
-            int maxBonus = (int)(300 * (buffPlayerLevel / 10f));
+            int maxBonus = (int)(3 * (buffPlayerLevel / 10f));
             float bonusCoeff = 1 - player.statLife / (float)player.statLifeMax2;
 
             //player.GetAttackSpeed(DamageClass.Melee) += 12; // Preview
             player.meleeSpeed += 12;
             //player.GetCritChance(DamageClass.Melee) += maxBonus * bonusCoeff; // Preview
-            player.GetCritChance(DamageClass.Melee) += (int)(maxBonus * bonusCoeff);
+            player.GetCritChance(DamageClass.Melee) += (int)(100 * bonusCoeff);
             player.GetDamage(DamageClass.Melee) += maxBonus * bonusCoeff;
         }
     }

@@ -110,13 +110,13 @@ namespace Spellwright.Content.Items
                 }
                 else
                 {
-                    float stability = CurrentSpell.GetStability(playerLevel);
-                    if (stability > 0)
-                    {
-                        var randomRoll = Main.rand.NextDouble();
-                        if (randomRoll < stability)
-                            canCast = true;
-                    }
+                    //float stability = CurrentSpell.GetStability(playerLevel);
+                    //if (stability > 0)
+                    //{
+                    //    var randomRoll = Main.rand.NextDouble();
+                    //    if (randomRoll < stability)
+                    //        canCast = true;
+                    //}
                 }
 
                 if (canCast)

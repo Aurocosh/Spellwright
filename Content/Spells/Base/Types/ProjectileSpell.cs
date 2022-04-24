@@ -49,8 +49,8 @@ namespace Spellwright.Content.Spells.Base.Types
 
             direction.Normalize();
             Vector2 velocity = direction * projectileSpeed;
-
-            int realDamage = GetDamage(playerLevel);
+            float damageModifier = player.GetDamage(DamageType);
+            int realDamage = (int)(GetDamage(playerLevel) * damageModifier);
             float realKnockback = GetKnockback(playerLevel);
             int realProjectileType = GetProjectileType(playerLevel);
             int projectileID = Projectile.NewProjectile(source, position, velocity, realProjectileType, realDamage, realKnockback, player.whoAmI);
