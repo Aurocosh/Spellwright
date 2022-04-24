@@ -17,7 +17,7 @@ namespace Spellwright.Content.Spells.Other
             UseType = SpellType.Invocation;
 
             UnlockCost = new SingleItemSpellCost(ItemID.PurificationPowder, 30);
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

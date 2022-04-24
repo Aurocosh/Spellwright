@@ -26,7 +26,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
                 .WithCost(ItemID.AdamantiteBar, 20)
                 .WithCost(ItemID.TitaniumBar, 20);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

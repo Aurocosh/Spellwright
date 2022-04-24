@@ -22,7 +22,7 @@ namespace Spellwright.Content.Spells.Herbs
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.Sunflower, 1)
                 .WithCost(ItemID.ChlorophyteBar, 30);
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 1);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

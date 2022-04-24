@@ -17,7 +17,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Vanilla
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
             UnlockCost = new SingleItemSpellCost(ItemID.FeatherfallPotion, 10);
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 3);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 3);
         }
     }
 }

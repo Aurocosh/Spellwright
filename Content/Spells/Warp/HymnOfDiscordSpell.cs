@@ -27,7 +27,7 @@ namespace Spellwright.Content.Spells.Warp
                 .WithCost(ItemID.ChaosElementalBanner, 1)
                 .WithCost(ItemID.TeleportationPotion, 10);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 2);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 2);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

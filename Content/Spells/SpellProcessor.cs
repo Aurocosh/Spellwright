@@ -45,11 +45,13 @@ namespace Spellwright.Content.Spells
 
             var costModifier = spell.GetCostModifier(spellStructure.SpellModifiers);
             var spellData = new SpellData(spellStructure.SpellModifiers, spellStructure.Argument, costModifier, extraData);
+
+            int playerLevel = spellPlayer.PlayerLevel;
+            if (!spell.ConsumeReagentsCast(player, playerLevel, spellData))
+                return SpellCastResult.NotEnoughReagents;
+
             if (spell.UseType == SpellType.Invocation)
             {
-                int playerLevel = spellPlayer.PlayerLevel;
-                if (!spell.ConsumeReagents(player, playerLevel, spellData))
-                    return SpellCastResult.NotEnoughReagents;
                 spell.Cast(player, playerLevel, spellData);
             }
             else if (spell.UseType == SpellType.Spell)
@@ -78,6 +80,7 @@ namespace Spellwright.Content.Spells
                 bookItem.SpellUsesLeft = spellUses;
                 bookItem.CurrentSpell = spell;
                 bookItem.SpellData = spellData;
+                bookItem.UpdateName();
             }
             else
             {

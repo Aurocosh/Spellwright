@@ -38,7 +38,7 @@ namespace Spellwright.Content.Spells.SpellRelated
             mappedSpellCost.SetSpellCost(8, new SingleItemSpellCost(ItemID.SpookyWood, 600));
             mappedSpellCost.SetSpellCost(9, new OptionalSpellCost(new SingleItemSpellCost(ItemID.FragmentNebula, 30), new SingleItemSpellCost(ItemID.FragmentSolar, 30), new SingleItemSpellCost(ItemID.FragmentStardust, 30), new SingleItemSpellCost(ItemID.FragmentVortex, 30)));
 
-            SpellCost = mappedSpellCost;
+            CastCost = mappedSpellCost;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

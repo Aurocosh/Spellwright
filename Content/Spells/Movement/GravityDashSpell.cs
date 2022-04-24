@@ -23,7 +23,7 @@ namespace Spellwright.Content.Spells.Movement
                 .WithCost(ItemID.Feather, 30)
                 .WithCost(ItemID.GravitationPotion, 5);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

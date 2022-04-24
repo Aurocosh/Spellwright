@@ -18,7 +18,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.LivingCursedFireBlock, 30)
                 .WithCost(ItemID.ManaPotion, 10);
-            SpellCost = new MaxManaSpellCost(20);
+            CastCost = new MaxManaSpellCost(20);
         }
     }
 }

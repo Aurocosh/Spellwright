@@ -16,7 +16,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             AddEffect(ModContent.BuffType<ManaStarfallBuff>(), (playerLevel) => UtilTime.MinutesToTicks(10 + playerLevel));
 
             UnlockCost = new SingleItemSpellCost(ItemID.FallenStar, 50);
-            SpellCost = new ManaSpellCost(100);
+            CastCost = new ManaSpellCost(100);
         }
     }
 }

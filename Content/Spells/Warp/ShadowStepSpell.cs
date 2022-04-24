@@ -25,7 +25,7 @@ namespace Spellwright.Content.Spells.Warp
                 .WithCost(ItemID.EoCShield, 1)
                 .WithCost(ItemID.TeleportationPotion, 10);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

@@ -30,7 +30,7 @@ namespace Spellwright.Content.Spells.Base.Types
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
             Vector2 mousePosition = Main.MouseWorld;
-            Vector2 center = player.Center;
+            Vector2 center = player.Center + new Vector2(player.width * .2f * player.direction, -player.height * .4f);
             Vector2 velocity = center.DirectionTo(mousePosition);
             var source = new EntitySource_Parent(player);
             SpawnProjectile(player, playerLevel, spellData, source, center, velocity);

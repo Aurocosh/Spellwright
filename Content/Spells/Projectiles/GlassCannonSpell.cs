@@ -29,7 +29,7 @@ namespace Spellwright.Content.Spells.Projectiles
                 .WithCost(ItemID.Glass, 1)
                 .WithCost(ItemID.Handgun, 1);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 15);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 15);
         }
     }
 }

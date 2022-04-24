@@ -29,6 +29,7 @@ Mods: {
 			Examples: Examples
 			SpellUses: Spell uses
 			ApplicableModifiers: Applicable modifiers
+			CastCost: Cast cost
 		}
 
 		SpellModifiers: {
@@ -172,7 +173,7 @@ Mods: {
 				Name: Kiss Of Clover
 				Description: 
 					'''Grants player luck based buffs.
-					Level 2 prevents fall damage.
+					Always prevents fall damage.
 					Level 4 additionally grants bonus luck .1 always.
 					Level 6 also boosts critical chance by 10%.
 					Level 8 additionally grants bonus .2 always and bonus .5 luck during a full moon

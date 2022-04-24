@@ -16,7 +16,7 @@ namespace Spellwright.Content.Spells.Movement
             SpellLevel = 2;
             UseType = SpellType.Cantrip;
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

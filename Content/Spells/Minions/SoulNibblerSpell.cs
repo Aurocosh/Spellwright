@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.Minions
             projectileType = ModContent.ProjectileType<SoulNibblerMinion>();
 
             UnlockCost = new MaxHealthSpellCost(200);
-            SpellCost = new HealthSpellCost(200);
+            CastCost = new HealthSpellCost(200);
         }
     }
 }

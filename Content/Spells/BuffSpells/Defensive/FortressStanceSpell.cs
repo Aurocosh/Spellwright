@@ -45,7 +45,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
             RemoveApplicableModifier(SpellModifier.Selfless);
 
             UnlockCost = new SingleItemSpellCost(ItemID.IronskinPotion, 60);
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 2);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 2);
         }
     }
 }

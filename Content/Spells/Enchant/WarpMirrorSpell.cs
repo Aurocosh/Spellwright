@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.Enchant
                 .WithCost(ModContent.ItemType<SilverMirror>(), 1)
                 .WithCost(ItemID.TeleportationPotion, 10);
 
-            SpellCost = new MultipleReagentSpellCost()
+            CastCost = new MultipleReagentSpellCost()
                 .WithCost(ModContent.ItemType<SilverMirror>(), 1)
                 .WithCost(ModContent.ItemType<CommonSpellReagent>(), 2);
         }

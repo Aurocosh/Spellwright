@@ -20,7 +20,7 @@ namespace Spellwright.Content.Spells.Items
             UseType = SpellType.Invocation;
 
             UnlockCost = new SingleItemSpellCost(ItemID.SoulofFlight, 25);
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

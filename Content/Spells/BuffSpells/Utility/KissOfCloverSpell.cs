@@ -14,10 +14,10 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
         {
             SpellLevel = 1;
             int buffId = ModContent.BuffType<KissOfCloverBuff>();
-            AddEffect(buffId, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
+            AddEffect(buffId, (playerLevel) => UtilTime.MinutesToTicks(5 + 2.5f * playerLevel));
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 30);
         }
     }
 }

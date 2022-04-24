@@ -13,11 +13,11 @@ namespace Spellwright.Content.Spells.BuffSpells.Vanilla
         public override void SetStaticDefaults()
         {
             SpellLevel = 1;
-            AddEffect(BuffID.NightOwl, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
+            AddEffect(BuffID.NightOwl, (playerLevel) => UtilTime.MinutesToTicks(10 + 3 * playerLevel));
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
             UnlockCost = new SingleItemSpellCost(ItemID.NightOwlPotion, 10);
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 3);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 5);
         }
     }
 }

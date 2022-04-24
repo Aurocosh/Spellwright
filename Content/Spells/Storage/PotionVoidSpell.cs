@@ -21,7 +21,7 @@ namespace Spellwright.Content.Spells.Storage
                 .WithCost(ItemID.Bottle, 5)
                 .WithCost(ItemID.TeleportationPotion, 5);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 4);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 4);
         }
 
         protected override bool CanAccept(Item item)

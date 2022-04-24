@@ -23,7 +23,7 @@ namespace Spellwright.Content.Spells.Warp
                 .WithCost(ItemID.Gravestone, 10)
                 .WithCost(ItemID.TeleportationPotion, 10);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 1);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

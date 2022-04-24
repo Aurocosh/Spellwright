@@ -36,9 +36,9 @@ namespace Spellwright.Content.Items
         {
             Item.useTime = 100;
             Item.useAnimation = 100;
-            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.autoReuse = false;
-            Item.damage = 20;
+            Item.damage = 0;
             Item.DamageType = DamageClass.Magic;
             Item.width = 32;
             Item.height = 32;
@@ -47,8 +47,25 @@ namespace Spellwright.Content.Items
             Item.noMelee = true; // Makes the item not do damage with it's melee hitbox.
             Item.shootSpeed = 7; // How fast the item shoots the projectile.
 
-            Item.value = Item.buyPrice(0, 2);
+            Item.value = Item.buyPrice(0, 0, 50);
             Item.rare = ItemRarityID.Red;
+        }
+
+        public void UpdateName()
+        {
+            if (CurrentSpell == null)
+            {
+                Item.ClearNameOverride();
+            }
+            else
+            {
+                var itemName = Lang.GetItemNameValue(Type);
+                var spellName = CurrentSpell.DisplayName.GetTranslation(Language.ActiveCulture);
+                if (SpellUsesLeft > 0)
+                    Item.SetNameOverride($"{itemName} ({spellName} - {SpellUsesLeft})");
+                else
+                    Item.SetNameOverride($"{itemName} ({spellName})");
+            }
         }
 
         public override ModItem Clone(Item item)
@@ -81,7 +98,7 @@ namespace Spellwright.Content.Items
             int playerLevel = spellPlayer.PlayerLevel;
             if (CurrentSpell != null && SpellData != null)
             {
-                if (!CurrentSpell.ConsumeReagents(player, playerLevel, SpellData))
+                if (!CurrentSpell.ConsumeReagentsUse(player, playerLevel, SpellData))
                     return false;
 
                 bool canCast = false;
@@ -106,12 +123,16 @@ namespace Spellwright.Content.Items
                 {
                     bool success = CurrentSpell.Cast(player, playerLevel, SpellData, source, position, velocity);
                     if (success && consumeCharge)
+                    {
                         SpellUsesLeft--;
+                        UpdateName();
+                    }
                 }
                 else
                 {
                     CurrentSpell = null;
                     SpellData = null;
+                    UpdateName();
                     SoundEngine.PlaySound(SoundID.Item35, position);
                 }
             }
@@ -129,7 +150,18 @@ namespace Spellwright.Content.Items
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var itemName = tooltips[0];
+            TooltipLine itemName = tooltips[0];
+            TooltipLine description = null;
+            TooltipLine price = null;
+
+            foreach (var line in tooltips)
+            {
+                if (line.Name == "Tooltip0")
+                    description = line;
+                else if (line.Name == "Price")
+                    price = line;
+            }
+
             tooltips.Clear();
             tooltips.Add(itemName);
 
@@ -138,7 +170,11 @@ namespace Spellwright.Content.Items
             SpellwrightPlayer spellwrightPlayer = player.GetModPlayer<SpellwrightPlayer>();
             int playerLevel = spellwrightPlayer.PlayerLevel;
             if (CurrentSpell == null)
+            {
+                if (description != null)
+                    tooltips.Add(description);
                 tooltips.Add(new TooltipLine(spellwright, "", "You have no active spells"));
+            }
             else
             {
                 string name = CurrentSpell.DisplayName.GetTranslation(Language.ActiveCulture);
@@ -162,6 +198,9 @@ namespace Spellwright.Content.Items
                 //string description = CurrentSpell.Description.GetTranslation(Language.ActiveCulture);
                 //tooltips.Add(new TooltipLine(spellwright, "Description", $"Description: {description}"));
             }
+
+            if (price != null)
+                tooltips.Add(price);
         }
 
         public override bool AltFunctionUse(Player player)
@@ -197,6 +236,7 @@ namespace Spellwright.Content.Items
                 TagCompound spellDataTag = tag.GetCompound("CurrentSpellData");
                 SpellData = CurrentSpell.DeserializeData(spellDataTag);
             }
+            UpdateName();
         }
 
         //public override void NetSend(BinaryWriter writer)

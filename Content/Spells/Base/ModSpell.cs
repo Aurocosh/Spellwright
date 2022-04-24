@@ -37,7 +37,8 @@ namespace Spellwright.Content.Spells.Base
         protected float costModifier;
         public virtual int SpellLevel { get; protected set; }
         public SpellType UseType { get; protected set; }
-        public SpellCost SpellCost { get; protected set; }
+        public SpellCost CastCost { get; protected set; }
+        public SpellCost UseCost { get; protected set; }
         public SpellCost UnlockCost { get; protected set; }
 
         private SpellModifier appplicableModifiers;
@@ -68,10 +69,16 @@ namespace Spellwright.Content.Spells.Base
                 string useTypeLocal = Spellwright.GetTranslation("SpellTypes", UseType.ToString()).Value;
                 values.Add(new SpellParameter("SpellType", useTypeLocal));
 
-                if (SpellCost != null)
+                if (CastCost != null)
                 {
-                    string costDescription = SpellCost.GetDescription(player, playerLevel, spellData);
+                    string costDescription = CastCost.GetDescription(player, playerLevel, spellData);
                     values.Add(new SpellParameter("UseCost", costDescription));
+                }
+
+                if (UseCost != null)
+                {
+                    string costDescription = UseCost.GetDescription(player, playerLevel, spellData);
+                    values.Add(new SpellParameter("CastCost", costDescription));
                 }
 
                 if (appplicableModifiers != SpellModifier.None)
@@ -111,7 +118,7 @@ namespace Spellwright.Content.Spells.Base
             useDelay = 120;
             damage = 0;
             knockback = 0;
-            SpellCost = null;
+            CastCost = null;
             damageType = DamageClass.Generic;
             costModifier = 1f;
             appplicableModifiers = SpellModifier.None;
@@ -156,15 +163,29 @@ namespace Spellwright.Content.Spells.Base
             return actualCostModifier;
         }
 
-        public virtual bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
+        public virtual bool ConsumeReagentsCast(Player player, int playerLevel, SpellData spellData)
         {
-            if (SpellCost == null)
+            if (CastCost == null)
                 return true;
 
-            bool success = SpellCost.Consume(player, playerLevel, spellData);
+            bool success = CastCost.Consume(player, playerLevel, spellData);
             if (!success)
             {
-                Main.NewText(SpellCost.LastError, SpellCost.ErrorColor);
+                Main.NewText(CastCost.LastError, CastCost.ErrorColor);
+                return false;
+            }
+            return true;
+        }
+
+        public virtual bool ConsumeReagentsUse(Player player, int playerLevel, SpellData spellData)
+        {
+            if (UseCost == null)
+                return true;
+
+            bool success = UseCost.Consume(player, playerLevel, spellData);
+            if (!success)
+            {
+                Main.NewText(UseCost.LastError, UseCost.ErrorColor);
                 return false;
             }
             return true;

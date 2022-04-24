@@ -23,7 +23,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             costModifier = 0f;
 
             UnlockCost = new SingleItemSpellCost(ItemID.LifeCrystal);
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
         }
         protected override void DoExtraActions(IEnumerable<Player> players, int playerLevel)
         {

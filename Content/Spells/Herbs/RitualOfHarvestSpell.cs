@@ -28,7 +28,7 @@ namespace Spellwright.Content.Spells.Herbs
                 .WithCost(ItemID.DirtRod, 1)
                 .WithCost(ItemID.WaterCandle, 2);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 2);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 2);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

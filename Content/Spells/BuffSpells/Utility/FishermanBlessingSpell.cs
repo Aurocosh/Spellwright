@@ -18,7 +18,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             AddEffect(ModContent.BuffType<FishermanBlessingBuff>(), durationGetter);
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
         }
     }
 }

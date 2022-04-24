@@ -14,8 +14,8 @@ namespace Spellwright.Content.Spells.Projectiles
             AddApplicableModifier(ModifierConstants.UsebleModifiers);
         }
 
-        public override int GetGuaranteedUses(int playerLevel) => 25 + 5 * playerLevel;
-        protected override int GetDamage(int playerLevel) => 20 + 5 * playerLevel;
+        public override int GetGuaranteedUses(int playerLevel) => 20 + 5 * playerLevel;
+        protected override int GetDamage(int playerLevel) => 35 + 10 * playerLevel;
 
         public override void SetStaticDefaults()
         {
@@ -23,14 +23,14 @@ namespace Spellwright.Content.Spells.Projectiles
             stability = .85f;
 
             damage = 20;
-            knockback = 10;
+            knockback = 5;
             damageType = DamageClass.Magic;
             projectileType = ProjectileID.ImpFireball;
-            projectileSpeed = 40;
+            projectileSpeed = 35;
             canAutoReuse = false;
-            useTimeMultiplier = 3f;
+            useTimeMultiplier = 5f;
 
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>());
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 3);
         }
     }
 }

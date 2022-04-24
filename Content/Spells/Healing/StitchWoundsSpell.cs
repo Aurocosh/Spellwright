@@ -22,7 +22,7 @@ namespace Spellwright.Content.Spells.Healing
             damage = 50;
 
             UnlockCost = new SingleItemSpellCost(ItemID.LesserHealingPotion, 20);
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
 
         protected override void ApplyEffect(IEnumerable<Player> affectedPlayers, int playerLevel, SpellData spellData)

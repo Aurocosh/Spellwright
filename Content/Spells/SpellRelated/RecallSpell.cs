@@ -67,16 +67,17 @@ namespace Spellwright.Content.Spells.SpellRelated
                 var levelWord = GetTranslation("Level").Value;
                 var levelHeader = $"{levelWord} {i}";
 
-                if (spellPlayer.PlayerLevel < i)
+                //if (spellPlayer.PlayerLevel < i)
+                //{
+
+                var cost = ascendSpell.GetLevelUpCost(i - 1);
+                if (cost != null)
                 {
-                    var cost = ascendSpell.GetLevelUpCost(i);
-                    if (cost != null)
-                    {
-                        var costDescritpion = cost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
-                        var LevelUpCost = GetTranslation("LevelUpCost").Format(costDescritpion);
-                        levelHeader += $" [{LevelUpCost}]";
-                    }
+                    var costDescritpion = cost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
+                    var LevelUpCost = GetTranslation("LevelUpCost").Format(costDescritpion);
+                    levelHeader += $" [{LevelUpCost}]";
                 }
+                //}
 
                 var lines = new List<string>();
                 lines.Add(levelHeader);

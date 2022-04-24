@@ -18,12 +18,12 @@ namespace Spellwright.Content.Spells.Storage
         protected abstract int StorageSize(int playerLevel);
         protected abstract InventoryArea IncludedArea();
 
-        public override bool ConsumeReagents(Player player, int playerLevel, SpellData spellData)
+        public override bool ConsumeReagentsCast(Player player, int playerLevel, SpellData spellData)
         {
             var action = (StorageAction)spellData.ExtraData;
             if (action == StorageAction.Info)
                 return true;
-            return base.ConsumeReagents(player, playerLevel, spellData);
+            return base.ConsumeReagentsCast(player, playerLevel, spellData);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

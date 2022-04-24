@@ -26,14 +26,14 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileType = ModContent.ProjectileType<HeartThrowerProjectile>();
             projectileSpeed = 30;
             useDelay = UtilTime.SecondsToTicks(3);
-            SpellCost = new ManaSpellCost(75);
+            CastCost = new ManaSpellCost(75);
 
             projectileSpray = 10;
             minSpeedChange = .2f;
             maxSpeedChange = .35f;
 
             UnlockCost = new SingleItemSpellCost(ItemID.HeartLantern);
-            SpellCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
         }
     }
 }
