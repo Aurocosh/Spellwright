@@ -14,14 +14,13 @@ namespace Spellwright.Content.Spells.TileBreak
 {
     internal class WallCrumblerSpell : ProjectileSpell
     {
-        public override int GetGuaranteedUses(int playerLevel) => 30 + 5 * playerLevel;
+        //public override int GetGuaranteedUses(int playerLevel) => 30 + 5 * playerLevel;
+        public override int GetGuaranteedUses(int playerLevel) => 0;
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 4;
+            SpellLevel = 1;
             UseType = SpellType.Spell;
-
-            stability = .2f;
 
             damage = 1;
             knockback = 8f;
@@ -35,7 +34,7 @@ namespace Spellwright.Content.Spells.TileBreak
                 .WithCost(ItemID.GrayBrickWall, 100)
                 .WithCost(ItemID.Bomb, 10);
 
-            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

@@ -25,6 +25,13 @@ namespace Spellwright.Extensions
         {
             return point.X * point.X + point.Y * point.Y;
         }
+
+        public static int DistanceToSq(this Point point, Point otherPoint)
+        {
+            var pointVec = point - otherPoint;
+            return pointVec.X * pointVec.X + pointVec.Y * pointVec.Y;
+        }
+
         public static Vector2 ToWorldVector2(this Point point)
         {
             return point.ToVector2() * 16f;

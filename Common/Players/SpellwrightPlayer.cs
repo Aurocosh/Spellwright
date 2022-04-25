@@ -158,7 +158,7 @@ namespace Spellwright.Common.Players
 
                     if (nextCantripDelay == 1 && !canAutoReuseCantrip)
                     {
-                        var sound = SoundID.Item25.WithVolume(0.2f).WithPitchVariance(0.7f);
+                        var sound = SoundID.Item25.WithVolume(0.05f).WithPitchVariance(0.5f);
                         SoundEngine.PlaySound(sound, Player.Center);
                     }
 

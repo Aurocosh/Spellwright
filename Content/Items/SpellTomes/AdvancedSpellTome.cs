@@ -7,7 +7,6 @@ using Spellwright.Content.Spells.Explosive;
 using Spellwright.Content.Spells.Herbs;
 using Spellwright.Content.Spells.Projectiles;
 using Spellwright.Content.Spells.Storage;
-using Spellwright.Content.Spells.TileBreak;
 using Spellwright.Content.Spells.TileSpawn;
 using Spellwright.Content.Spells.Warp;
 using Spellwright.Content.Spells.WorldEvents;
@@ -34,15 +33,12 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<PotionVoidSpell>();
             content.AddSpell<RainCallSpell>();
             content.AddSpell<SkyGateSpell>();
-            content.AddSpell<WallCrumblerSpell>();
-            content.AddSpell<WallSpitterSpell>();
 
             // Level 5
             content.AddSpell<BurningSoulSpell>();
             content.AddSpell<CallOfTheDepthsSpell>();
             content.AddSpell<DesertRiteSpell>();
             content.AddSpell<EyesOfProfitSpell>();
-            content.AddSpell<ForceOfCreationSpell>();
             content.AddSpell<GlassCannonSpell>();
             content.AddSpell<ObsidianSkinSpell>();
             content.AddSpell<ShadowStepSpell>();

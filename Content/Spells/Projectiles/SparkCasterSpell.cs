@@ -29,10 +29,11 @@ namespace Spellwright.Content.Spells.Projectiles
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 1;
+            SpellLevel = 0;
             UseType = SpellType.Cantrip;
 
             useDelay = UtilTime.SecondsToTicks(2);
+            canAutoReuse = false;
 
             damage = 1;
             knockback = 0;
@@ -46,17 +47,18 @@ namespace Spellwright.Content.Spells.Projectiles
             maxSpeedChange = .35f;
 
             UnlockCost = new MultipleItemSpellCost()
-                .WithCost(ItemID.WandofSparking, 1)
-                .WithCost(ItemID.Ruby, 3);
+                .WithCost(ItemID.Ruby, 1)
+                .WithCost(ItemID.Emerald, 1)
+                .WithCost(ItemID.Sapphire, 1);
         }
         protected override int GetProjectileType(int playerLevel)
         {
             int maxProjAvailable = 1;
-            if (playerLevel >= 8)
+            if (playerLevel >= 5)
                 maxProjAvailable = 5;
-            else if (playerLevel >= 6)
-                maxProjAvailable = 4;
             else if (playerLevel >= 4)
+                maxProjAvailable = 4;
+            else if (playerLevel >= 3)
                 maxProjAvailable = 3;
             else if (playerLevel >= 2)
                 maxProjAvailable = 2;
@@ -65,6 +67,5 @@ namespace Spellwright.Content.Spells.Projectiles
 
             return projectileTypes[index];
         }
-
     }
 }

@@ -16,7 +16,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Vanilla
             AddEffect(BuffID.NightOwl, (playerLevel) => UtilTime.MinutesToTicks(10 + 3 * playerLevel));
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
-            UnlockCost = new SingleItemSpellCost(ItemID.NightOwlPotion, 10);
+            UnlockCost = new SingleItemSpellCost(ItemID.NightOwlPotion, 2);
             CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 5);
         }
     }

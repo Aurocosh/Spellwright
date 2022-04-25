@@ -98,42 +98,30 @@ namespace Spellwright.Content.Items
             int playerLevel = spellPlayer.PlayerLevel;
             if (CurrentSpell != null && SpellData != null)
             {
-                if (!CurrentSpell.ConsumeReagentsUse(player, playerLevel, SpellData))
-                    return false;
-
-                bool canCast = false;
-                bool consumeCharge = false;
-                if (SpellUsesLeft > 0)
+                bool canCast = true;
+                if (SpellUsesLeft <= 0)
                 {
-                    canCast = true;
-                    consumeCharge = true;
-                }
-                else
-                {
-                    //float stability = CurrentSpell.GetStability(playerLevel);
-                    //if (stability > 0)
-                    //{
-                    //    var randomRoll = Main.rand.NextDouble();
-                    //    if (randomRoll < stability)
-                    //        canCast = true;
-                    //}
+                    if (CurrentSpell.ConsumeReagentsUse(player, playerLevel, SpellData))
+                    {
+                        SpellUsesLeft = CurrentSpell.GetGuaranteedUses(playerLevel);
+                        if (SpellUsesLeft > 0)
+                            SoundEngine.PlaySound(SoundID.Item35.WithVolume(0.1f), position);
+                        UpdateName();
+                        canCast = true;
+                    }
+                    else
+                        canCast = false;
                 }
 
                 if (canCast)
                 {
                     bool success = CurrentSpell.Cast(player, playerLevel, SpellData, source, position, velocity);
-                    if (success && consumeCharge)
+                    if (success)
                     {
-                        SpellUsesLeft--;
+                        if (SpellUsesLeft > 0)
+                            SpellUsesLeft--;
                         UpdateName();
                     }
-                }
-                else
-                {
-                    CurrentSpell = null;
-                    SpellData = null;
-                    UpdateName();
-                    SoundEngine.PlaySound(SoundID.Item35, position);
                 }
             }
             return false;

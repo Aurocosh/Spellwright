@@ -9,6 +9,7 @@ using Spellwright.Extensions;
 using Spellwright.Network;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -105,6 +106,7 @@ namespace Spellwright.Content.Spells
                 if (spell.UnlockCost.Consume(player, spellPlayer.PlayerLevel, SpellData.EmptyData))
                 {
                     spellPlayer.UnlockedSpells.Add(spell.Type);
+                    SoundEngine.PlaySound(SoundID.Item4, player.Center);
 
                     var spawner = new LevelUpDustSpawner(player, new int[] { spell.SpellLevel });
                     spawner.Execute();

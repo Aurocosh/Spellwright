@@ -81,7 +81,7 @@ namespace Spellwright.Util
                 if (filter.Invoke(item) && item.stack > 0)
                 {
                     amountInInventory += item.stack;
-                    if (amountInInventory > amount)
+                    if (amountInInventory >= amount)
                         return true;
                 }
             }

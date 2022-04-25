@@ -16,8 +16,8 @@ namespace Spellwright.Content.Spells.BuffSpells.Vanilla
             AddEffect(BuffID.Dangersense, (playerLevel) => UtilTime.MinutesToTicks(10 + 3 * playerLevel));
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
-            UnlockCost = new SingleItemSpellCost(ItemID.TrapsightPotion, 10);
-            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 5);
+            UnlockCost = new SingleItemSpellCost(ItemID.TrapsightPotion, 5);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 15);
         }
     }
 }

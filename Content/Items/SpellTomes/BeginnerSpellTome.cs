@@ -33,19 +33,21 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<HomeReflectionSpell>();
             content.AddSpell<MysticSenseSpell>();
             content.AddSpell<RecallSpell>();
+            content.AddSpell<SparkCasterSpell>();
 
             // Level 1
             content.AddSpell<ConjureWaterSpell>();
             content.AddSpell<FireballSpell>();
-            content.AddSpell<FishermanBlessingSpell>();
             content.AddSpell<KissOfCloverSpell>();
             content.AddSpell<MineralFeverSpell>();
             content.AddSpell<NightVisionSpell>();
             content.AddSpell<PremonitionSpell>();
             content.AddSpell<ReturnToFishSpell>();
-            content.AddSpell<SparkCasterSpell>();
             content.AddSpell<TorchMufflerSpell>();
             content.AddSpell<WillOfTorchGodSpell>();
+            content.AddSpell<WallCrumblerSpell>();
+            content.AddSpell<ForceOfCreationSpell>();
+            content.AddSpell<StitchWoundsSpell>();
 
             // Level 2
             content.AddSpell<BattlecrySpell>();
@@ -55,10 +57,10 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<InnerSunshineSpell>();
             content.AddSpell<ReagentVoidSpell>();
             content.AddSpell<ShellOfIceSpell>();
-            content.AddSpell<StitchWoundsSpell>();
             content.AddSpell<StoneBulletSpell>();
             content.AddSpell<TigerEyesSpell>();
-            content.AddSpell<WarpMirrorSpell>();
+            content.AddSpell<WallSpitterSpell>();
+            content.AddSpell<FishermanBlessingSpell>();
 
             // Level 3
             content.AddSpell<AirDashSpell>();
@@ -70,6 +72,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<ManaStarfallSpell>();
             content.AddSpell<OceanGateSpell>();
             content.AddSpell<SurgeOfLifeSpell>();
+            content.AddSpell<WarpMirrorSpell>();
 
             Add(Type, content);
         }

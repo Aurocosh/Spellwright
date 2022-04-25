@@ -2,7 +2,9 @@
 using Spellwright.Extensions;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.Player;
 
 namespace Spellwright.Util
@@ -176,6 +178,68 @@ namespace Spellwright.Util
                 player.velocity = Vector2.Zero;
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, position.X, position.Y, teleportStyle, noTeleportSign);
+        }
+
+        public static void QuickBuffFromStorage(Player player, IEnumerable<Item> storage)
+        {
+            if (player.cursed || player.CCed || player.dead)
+                return;
+            LegacySoundStyle legacySoundStyle = null;
+            if (player.CountBuffs() == Player.MaxBuffs)
+                return;
+
+            if (player.CountBuffs() != Player.MaxBuffs)
+            {
+                foreach (var item in storage)
+                {
+                    if (item.stack <= 0 || item.type <= ItemID.None || item.buffType <= 0 || item.DamageType == DamageClass.Summon)
+                        continue;
+
+                    int buffId = item.buffType;
+                    bool canUseItem = CombinedHooks.CanUseItem(player, item) && player.QuickBuff_ShouldBotherUsingThisBuff(buffId);
+                    if (item.mana > 0 && canUseItem && player.CheckMana(item, -1, pay: true, blockQuickMana: true))
+                    {
+                        player.manaRegenDelay = (int)player.maxRegenDelay;
+                    }
+                    if (player.whoAmI == Main.myPlayer && item.type == ItemID.Carrot && !Main.runningCollectorsEdition)
+                    {
+                        canUseItem = false;
+                    }
+                    if (buffId == BuffID.FairyBlue)
+                    {
+                        var rand = Main.rand.Next(3);
+                        if (rand == 0)
+                            buffId = BuffID.FairyBlue;
+                        if (rand == 1)
+                            buffId = BuffID.FairyRed;
+                        if (rand == 2)
+                            buffId = BuffID.FairyGreen;
+                    }
+                    if (!canUseItem)
+                        continue;
+
+                    ItemLoader.UseItem(item, player);
+                    legacySoundStyle = item.UseSound;
+                    int buffTime = item.buffTime;
+                    if (buffTime == 0)
+                        buffTime = 3600;
+
+                    player.AddBuff(buffId, buffTime);
+                    if (item.consumable && ItemLoader.ConsumeItem(item, player))
+                    {
+                        item.stack--;
+                        if (item.stack <= 0)
+                            item.TurnToAir();
+                    }
+                    if (player.CountBuffs() == Player.MaxBuffs)
+                        break;
+                }
+            }
+            if (legacySoundStyle != null)
+            {
+                SoundEngine.PlaySound(legacySoundStyle, player.position);
+                Recipe.FindRecipes();
+            }
         }
     }
 }

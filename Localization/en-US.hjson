@@ -68,6 +68,7 @@ Mods: {
 			MaxMana: Max mana {0}
 			NotEnoughHealth: Not enough health. Health required: {0}
 			HealthCost: Health required {0}
+			TorchGod: Gain favor of torch god
 		}
 		
 		BoundMirror: {
@@ -263,12 +264,9 @@ Mods: {
 			}
 			WillOfTorchGodSpell: {
 				Name: Will Of Torch God
-				Description:
-					'''Automatically place torches if light level is too low. Torches are automatically
-					transformed into appropriate torches for the biome. Any picked up torch is transformed
-					into the first available torch in inventory. Buff has no duration.
-					Can be canceled by right clicking
-					'''
+				Description: When this spell casted ti enchances biome torch ablities granted to you by the torch god. While enchanced bime torches are enabled torches will be placed automatically around you if light is too low. All placed torches will be transformed into appropriate torches for the biome.
+				AutoTorchDisabled: Blessing of torch god subsides
+				AutoTorchEnabled: Torch god blesses you
 			}
 
 			# Enchant
@@ -407,9 +405,9 @@ Mods: {
 					'''Creates small and fast spark projectiles. Projectile deals a small amount of damage and 
 					has a chance to set a hit target on fire. Projectiles create light.
 					At level 2 frostburn sparks are added
-					At level 4 poison sparks are added
-					At level 6 cursed sparks are added
-					At level 8 ichor sparks are added
+					At level 3 poison sparks are added
+					At level 4 cursed sparks are added
+					At level 5 ichor sparks are added
 					'''
 			}
 			StoneBulletSpell: {

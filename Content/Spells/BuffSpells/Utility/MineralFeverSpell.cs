@@ -16,7 +16,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             static int durationGetter(int playerLevel) => UtilTime.MinutesToTicks(8 + 3.2f * playerLevel);
             AddEffect(ModContent.BuffType<MineralFeverBuff>(), durationGetter);
 
-            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 20);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 25);
         }
     }
 }

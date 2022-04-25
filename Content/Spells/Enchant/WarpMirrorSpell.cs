@@ -11,7 +11,7 @@ namespace Spellwright.Content.Spells.Enchant
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 2;
+            SpellLevel = 3;
             UseType = SpellType.Invocation;
             itemType = ModContent.ItemType<WarpedMagicMirror>();
 
