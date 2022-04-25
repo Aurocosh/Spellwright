@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.TileBreak
 {
-    internal class WallCrumblerSpell : ProjectileSpell
+    internal class DewallerSpell : ProjectileSpell
     {
         //public override int GetGuaranteedUses(int playerLevel) => 30 + 5 * playerLevel;
         public override int GetGuaranteedUses(int playerLevel) => 0;
@@ -25,7 +25,7 @@ namespace Spellwright.Content.Spells.TileBreak
             damage = 1;
             knockback = 8f;
             damageType = DamageClass.Magic;
-            projectileType = ModContent.ProjectileType<WallCrumblerProjectile>();
+            projectileType = ModContent.ProjectileType<DewallerProjectile>();
             projectileSpeed = 10;
             canAutoReuse = false;
             useTimeMultiplier = 9f;

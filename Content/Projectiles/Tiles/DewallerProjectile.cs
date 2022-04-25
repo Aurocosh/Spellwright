@@ -10,13 +10,13 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Projectiles.Tiles
 {
-    public class WallCrumblerProjectile : ModProjectile
+    public class DewallerProjectile : ModProjectile
     {
         private static readonly HashSet<int> blacklistedItems = new();
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wall Crumbler");
+            DisplayName.SetDefault("Dewaller");
             blacklistedItems.Clear();
         }
 
@@ -71,6 +71,10 @@ namespace Spellwright.Content.Projectiles.Tiles
                     return false;
                 if (WorldGen.SolidTile(point.X, point.Y))
                     return false;
+                Tile tile = Framing.GetTileSafely(point.X, point.Y);
+                if (tile.TileType == TileID.Platforms || tile.TileType == TileID.ClosedDoor || tile.TileType == TileID.TrapdoorClosed)
+                    return false;
+
                 int distanceToCenterSq = (point - centerPoint).DistanceSq();
                 if (distanceToCenterSq > radiusSq)
                     return false;

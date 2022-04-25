@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace Spellwright.Content.Spells.Warp
 {
-    internal class HomeReflectionSpell : ModSpell
+    internal class HomewardSpell : ModSpell
     {
         public override void SetStaticDefaults()
         {

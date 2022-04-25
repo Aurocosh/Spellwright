@@ -1,11 +1,15 @@
-﻿using Spellwright.Content.Spells.Base.SpellCosts.Items;
+﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.LiquidSpawn
 {
     internal class ConjureWaterSpell : LiquidSpawnSpell
     {
+        //public override int GetGuaranteedUses(int playerLevel) => 20 * playerLevel;
+
         public override void SetStaticDefaults()
         {
             SpellLevel = 1;
@@ -13,7 +17,8 @@ namespace Spellwright.Content.Spells.LiquidSpawn
             liquidType = LiquidID.Water;
             useTimeMultiplier = 7f;
 
-            UnlockCost = new SingleItemSpellCost(ItemID.WaterBucket);
+            UnlockCost = new SingleItemSpellCost(ItemID.WaterBucket, 10);
+            UseCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
     }
 }

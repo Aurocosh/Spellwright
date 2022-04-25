@@ -481,8 +481,8 @@ Mods: {
 				Name: Torch Muffler
 				Description: Destroys all nearby torches in large area
 			}
-			WallCrumblerSpell: {
-				Name: Wall Crumbler
+			DewallerSpell: {
+				Name: Dewaller
 				Description: Creates a projectile that upon explosion breaks walls in a small area around itself. Projectile will explode upon collision with blocks. Only one projectile can be fired at a time. If you try to fire a second projectile while the previous one is still in the air then instead of creating a new projectile the first one will explode mid air
 			}
 			
@@ -520,8 +520,8 @@ Mods: {
 				Name: Hymn of Discord
 				Description: Functions just like Rod of Discord. Allows teleportation to the cursor
 			}
-			HomeReflectionSpell: {
-				Name: Home Reflection
+			HomewardSpell: {
+				Name: Homeward
 				Description: Teleports player to his spawn point
 			}
 			OceanGateSpell: {
