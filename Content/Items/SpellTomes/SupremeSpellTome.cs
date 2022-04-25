@@ -35,7 +35,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<SoulNibblerSpell>();
 
             // Level 8
-            content.AddSpell<ConjureLavaSpell>();
+            content.AddSpell<LavaSplashSpell>();
             content.AddSpell<GravityDashSpell>();
             content.AddSpell<ReactiveArmorSpell>();
             content.AddSpell<StateLockSpell>();

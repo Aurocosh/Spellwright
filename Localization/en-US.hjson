@@ -328,12 +328,12 @@ Mods: {
 			}
 			
 			# LiquidSpawn
-			ConjureLavaSpell: {
-				Name: Conjure Lava
+			LavaSplashSpell: {
+				Name: Lava Splash
 				Description: Creates lava where the player clicks with his cursor
 			}
-			ConjureWaterSpell: {
-				Name: Conjure Water
+			SpringDropletSpell: {
+				Name: Spring Droplet
 				Description: Creates water where the player clicks with his cursor
 			}
 			

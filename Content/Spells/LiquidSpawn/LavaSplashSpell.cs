@@ -7,10 +7,8 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.LiquidSpawn
 {
-    internal class ConjureLavaSpell : LiquidSpawnSpell
+    internal class LavaSplashSpell : LiquidSpawnSpell
     {
-        public override int GetGuaranteedUses(int playerLevel) => 20 + 2 * playerLevel;
-
         public override void SetStaticDefaults()
         {
             SpellLevel = 8;
@@ -20,7 +18,7 @@ namespace Spellwright.Content.Spells.LiquidSpawn
             useTimeMultiplier = 7f;
 
             UnlockCost = new SingleItemSpellCost(ItemID.LavaBucket, 10);
-            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 20);
+            UseCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
     }
 }

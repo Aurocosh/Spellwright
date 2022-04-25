@@ -36,7 +36,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<SparkCasterSpell>();
 
             // Level 1
-            content.AddSpell<ConjureWaterSpell>();
+            content.AddSpell<SpringDropletSpell>();
             content.AddSpell<FireballSpell>();
             content.AddSpell<KissOfCloverSpell>();
             content.AddSpell<MineralFeverSpell>();
