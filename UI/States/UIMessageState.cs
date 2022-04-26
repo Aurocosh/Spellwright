@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Spellwright.UI.Components;
+using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.GameInput;
 using Terraria.ModLoader.UI;
 using Terraria.UI;
 
@@ -12,6 +14,8 @@ namespace Spellwright.UI.States
     {
         private readonly UIMessageBox messageBox = new("");
         private UIElement mainPanel;
+        private UIScrollbar uIScrollbar;
+        private UITextPanel<string> closeButton;
 
         public override void OnInitialize()
         {
@@ -34,7 +38,7 @@ namespace Spellwright.UI.States
             messageBox.HAlign = 0.5f;
             mainPanel.Append(messageBox);
 
-            var uIScrollbar = new UIScrollbar
+            uIScrollbar = new UIScrollbar
             {
                 Height = { Pixels = -20, Percent = 1f },
                 VAlign = 0.5f,
@@ -48,7 +52,7 @@ namespace Spellwright.UI.States
 
             messageBox.SetScrollbar(uIScrollbar);
 
-            var closeButton = new UITextPanel<string>("Close", 0.7f, true)
+            closeButton = new UITextPanel<string>("Close", 0.7f, true)
             {
                 Width = { Pixels = -10, Percent = 1f / 3f },
                 Height = { Pixels = 50 },
@@ -59,9 +63,18 @@ namespace Spellwright.UI.States
             };
             closeButton.WithFadedMouseOver(new Color(120, 120, 120, 255) * 0.685f, new Color(60, 60, 60, 255) * 0.685f);
             closeButton.OnClick += Close;
+
             mainPanel.Append(closeButton);
 
             Append(mainPanel);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            PlayerInput.LockVanillaMouseScroll("ModLoader/UIScrollbar");
+            if (uIScrollbar.ContainsPoint(Main.MouseScreen) || closeButton.ContainsPoint(Main.MouseScreen))
+                Main.LocalPlayer.mouseInterface = true;
         }
 
         public override void OnActivate()

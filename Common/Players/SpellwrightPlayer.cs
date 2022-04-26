@@ -149,7 +149,7 @@ namespace Spellwright.Common.Players
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            //if (Player.active && !Player.dead)
+            if (Player.active && !Player.dead)
             {
                 var spellPlayer = Player.GetModPlayer<SpellwrightPlayer>();
                 if (spellPlayer.CanCastSpells)
@@ -169,12 +169,13 @@ namespace Spellwright.Common.Players
 
                     UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
                     UserInterface spellInterface = Spellwright.Instance.userInterface;
+                    //if (spellInterface.CurrentState == uiMessageState)
+                    //    PlayerInput.LockVanillaMouseScroll("ModLoader/UIScrollbar");
+
+
                     if (PlayerInput.Triggers.JustReleased.Inventory && spellInterface.CurrentState == uiMessageState)
                     {
                         spellInterface.SetState(null);
-                        PlayerInput.Triggers.JustPressed.Inventory = false;
-                        PlayerInput.Triggers.JustReleased.Inventory = false;
-                        PlayerInput.Triggers.Current.Inventory = false;
                     }
                     else if (Spellwright.OpenIncantationUIHotKey.JustPressed)
                     {
