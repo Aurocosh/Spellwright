@@ -31,7 +31,17 @@ namespace Spellwright.UI.Components
             heightNeedsRecalculating = true;
         }
 
-        internal void SetText(string text)
+        public bool HasText()
+        {
+            return text.Length > 0;
+        }
+
+        public string GetText()
+        {
+            return text;
+        }
+
+        public void SetText(string text)
         {
             this.text = text;
             ResetScrollbar();

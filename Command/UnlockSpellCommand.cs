@@ -1,6 +1,5 @@
 ﻿using Spellwright.Common.Players;
 using Spellwright.Core.Spells;
-using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -27,9 +26,9 @@ namespace Spellwright.Command
             if (args.Length < 1)
                 return;
 
-            var incantation = string.Join(" ", args.Skip(1));
+            var incantation = string.Join(" ", args);
             var spellId = SpellLibrary.GetSpellByIncantation(incantation);
-            if (spellId == null)
+            if (spellId != null)
             {
                 var spellwrightPlayer = caller.Player.GetModPlayer<SpellwrightPlayer>();
                 spellwrightPlayer.KnownSpells.Add(spellId.Type);

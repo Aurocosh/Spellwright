@@ -68,8 +68,17 @@ namespace Spellwright.UI.States
         {
             base.OnActivate();
         }
+        public bool HasMessage()
+        {
+            return messageBox.HasText();
+        }
 
-        internal void SetMessage(string text)
+        public string GetMessage()
+        {
+            return messageBox.GetText();
+        }
+
+        public void SetMessage(string text)
         {
             messageBox.SetText(text);
         }

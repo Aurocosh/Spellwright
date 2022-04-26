@@ -30,7 +30,7 @@ namespace Spellwright.Content.Items.SpellTomes
 
             // Level 0
             content.AddSpell<AscendSpell>();
-            content.AddSpell<HomewardSpell>();
+            content.AddSpell<HomePathSpell>();
             content.AddSpell<MysticSenseSpell>();
             content.AddSpell<RecallSpell>();
             content.AddSpell<SparkCasterSpell>();
@@ -45,7 +45,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<ReturnToFishSpell>();
             content.AddSpell<TorchMufflerSpell>();
             content.AddSpell<WillOfTorchGodSpell>();
-            content.AddSpell<DewallerSpell>();
+            content.AddSpell<WallShredderSpell>();
             content.AddSpell<ForceOfCreationSpell>();
             content.AddSpell<StitchWoundsSpell>();
 

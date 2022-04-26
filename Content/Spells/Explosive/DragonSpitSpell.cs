@@ -20,7 +20,7 @@ namespace Spellwright.Content.Spells.Explosive
                 .WithCost(ItemID.Bomb, 30);
         }
 
-        public override int GetGuaranteedUses(int playerLevel) => 12 + 3 * playerLevel;
+        public override int GetGuaranteedUses(int playerLevel) => 0;
 
         public override void SetStaticDefaults()
         {
@@ -36,7 +36,7 @@ namespace Spellwright.Content.Spells.Explosive
             useTimeMultiplier = 3f;
 
             UnlockCost = new SingleItemSpellCost(ItemID.Bomb, 20);
-            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 3);
         }
     }
 }

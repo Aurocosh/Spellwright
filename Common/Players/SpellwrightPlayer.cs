@@ -3,6 +3,7 @@ using Spellwright.Content.Spells.Base;
 using Spellwright.Core.Spells;
 using Spellwright.Extensions;
 using Spellwright.Network;
+using Spellwright.UI.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.UI;
 
 namespace Spellwright.Common.Players
 {
@@ -164,8 +166,42 @@ namespace Spellwright.Common.Players
 
                     if (nextCantripDelay > 0)
                         nextCantripDelay--;
-                    if (Spellwright.OpenIncantationUIHotKey.JustPressed)
-                        Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
+
+                    UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
+                    UserInterface spellInterface = Spellwright.Instance.userInterface;
+                    if (PlayerInput.Triggers.JustReleased.Inventory && spellInterface.CurrentState == uiMessageState)
+                    {
+                        spellInterface.SetState(null);
+                        PlayerInput.Triggers.JustPressed.Inventory = false;
+                        PlayerInput.Triggers.JustReleased.Inventory = false;
+                        PlayerInput.Triggers.Current.Inventory = false;
+                    }
+                    else if (Spellwright.OpenIncantationUIHotKey.JustPressed)
+                    {
+
+                        if (spellInterface.CurrentState == uiMessageState)
+                            spellInterface.SetState(null);
+                        else if (PlayerInput.Triggers.Current.SmartSelect)
+                        {
+                            if (uiMessageState.HasMessage())
+                            {
+                                if (spellInterface.CurrentState == uiMessageState)
+                                    spellInterface.SetState(null);
+                                else
+                                {
+                                    spellInterface.SetState(uiMessageState);
+                                    if (Main.playerInventory)
+                                    {
+                                        Player.ToggleInv();
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
+                        }
+                    }
                     else if (Spellwright.CastCantripHotKey.JustPressed || Spellwright.CastCantripHotKey.Current)
                     {
                         bool singleCasted = Spellwright.CastCantripHotKey.JustPressed && !canAutoReuseCantrip;

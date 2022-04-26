@@ -35,7 +35,7 @@ namespace Spellwright.Content.Spells.TileSpawn
                 .WithCost(ItemID.GrayBrickWall, 100)
                 .WithCost(ItemID.Bomb, 10);
 
-            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
+            UseCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

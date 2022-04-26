@@ -26,7 +26,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             unlockCost.AddOptionalCost(new SingleItemSpellCost(ItemID.RottenChunk, 25));
             UnlockCost = unlockCost;
 
-            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 3);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 50);
         }
     }
 }

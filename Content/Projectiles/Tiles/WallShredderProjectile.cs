@@ -10,13 +10,13 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Projectiles.Tiles
 {
-    public class DewallerProjectile : ModProjectile
+    public class WallShredderProjectile : ModProjectile
     {
         private static readonly HashSet<int> blacklistedItems = new();
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dewaller");
+            DisplayName.SetDefault("Wall Shredder");
             blacklistedItems.Clear();
         }
 

@@ -23,7 +23,7 @@ namespace Spellwright.Content.Spells.Storage
                 .WithCost(ModContent.ItemType<RareSpellReagent>(), 5)
                 .WithCost(ItemID.TeleportationPotion, 5);
 
-            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 4);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
 
             acceptableItems.Clear();
             acceptableItems.Add(ModContent.ItemType<CommonSpellReagent>());
