@@ -1,5 +1,6 @@
 ﻿using Spellwright.Content.Buffs.Minions;
 using Spellwright.Extensions;
+using Spellwright.Util;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +12,7 @@ namespace Spellwright.Content.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Raven of Midas");
-            Main.projFrames[Projectile.type] = 6;
+            Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
             Main.projPet[Projectile.type] = true;
@@ -29,14 +30,14 @@ namespace Spellwright.Content.Minions
             Projectile.friendly = true;
             Projectile.minion = true;
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.minionSlots = 1f;
+            Projectile.minionSlots = 0f;
             Projectile.penetrate = -1;
 
             Projectile.aiStyle = 54;
             Projectile.netImportant = true;
 
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
+            Projectile.localNPCHitCooldown = UtilTime.SecondsToTicks(1);
         }
 
         public override bool? CanCutTiles() => false;
@@ -50,7 +51,7 @@ namespace Spellwright.Content.Minions
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(BuffID.Midas, 20);
+            target.AddBuff(BuffID.Midas, UtilTime.SecondsToTicks(5), true);
         }
     }
 }

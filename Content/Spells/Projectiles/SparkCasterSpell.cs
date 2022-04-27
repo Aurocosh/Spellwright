@@ -32,7 +32,7 @@ namespace Spellwright.Content.Spells.Projectiles
             SpellLevel = 0;
             UseType = SpellType.Cantrip;
 
-            useDelay = UtilTime.SecondsToTicks(2);
+            useDelay = UtilTime.SecondsToTicks(.6f);
             canAutoReuse = false;
 
             damage = 1;

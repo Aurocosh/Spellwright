@@ -65,24 +65,24 @@ namespace Spellwright.Content.Projectiles.Tiles
             var centerPoint = position.ToGridPoint();
 
             int radiusSq = radius * radius;
-            bool IsValid(Point point)
+            (bool, bool) IsValid(Point nextPoint, bool previousPassable)
             {
-                if (!WorldGen.InWorld(point.X, point.Y))
-                    return false;
-                if (WorldGen.SolidTile(point.X, point.Y))
-                    return false;
-                Tile tile = Framing.GetTileSafely(point.X, point.Y);
-                if (tile.TileType == TileID.Platforms || tile.TileType == TileID.ClosedDoor || tile.TileType == TileID.TrapdoorClosed)
-                    return false;
+                if (WorldGen.InWorld(nextPoint.X, nextPoint.Y))
+                {
+                    Tile nextTile = Framing.GetTileSafely(nextPoint.X, nextPoint.Y);
+                    bool currentPassable = !WorldGen.SolidTile(nextPoint.X, nextPoint.Y) && nextTile.TileType != TileID.Platforms && nextTile.TileType != TileID.ClosedDoor && nextTile.TileType != TileID.TrapdoorClosed;
 
-                int distanceToCenterSq = (point - centerPoint).DistanceSq();
-                if (distanceToCenterSq > radiusSq)
-                    return false;
+                    if (previousPassable && (previousPassable || currentPassable))
+                    {
+                        if (nextPoint.DistanceToSq(centerPoint) <= radiusSq)
+                            return (true, currentPassable);
+                    }
+                }
 
-                return true;
+                return (false, false);
             }
 
-            var circlePoints = UtilCoordinates.FloodFill(new[] { centerPoint }, PointConstants.DirectNeighbours, IsValid, 10000);
+            var circlePoints = UtilCoordinates.LookBackFloodFill(new[] { centerPoint }, true, PointConstants.DirectNeighbours, IsValid, 10000);
             foreach (var point in circlePoints)
             {
                 Tile tile = Framing.GetTileSafely(point.X, point.Y);

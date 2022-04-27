@@ -16,7 +16,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             AddEffect(ModContent.BuffType<GaleForceBuff>(), (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
-            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
         }
     }
 }

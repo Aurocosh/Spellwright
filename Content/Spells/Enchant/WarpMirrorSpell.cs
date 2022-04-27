@@ -21,7 +21,7 @@ namespace Spellwright.Content.Spells.Enchant
 
             CastCost = new MultipleReagentSpellCost()
                 .WithCost(ModContent.ItemType<SilverMirror>(), 1)
-                .WithCost(ModContent.ItemType<CommonSpellReagent>(), 2);
+                .WithCost(ModContent.ItemType<CommonSpellReagent>(), 20);
         }
     }
 }

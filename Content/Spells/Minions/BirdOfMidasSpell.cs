@@ -15,16 +15,16 @@ namespace Spellwright.Content.Spells.Minions
         {
             SpellLevel = 3;
             UseType = SpellType.Invocation;
-            damage = 2;
+            damage = 20;
             maxSummonCount = 1;
             buffType = ModContent.BuffType<BirdOfMidasBuff>();
             projectileType = ModContent.ProjectileType<BirdOfMidasMinion>();
 
             UnlockCost = new MultipleItemSpellCost()
-                .WithCost(ItemID.GoldCoin, 50)
-                .WithCost(ItemID.Feather, 10);
+                .WithCost(ItemID.GoldCoin, 10)
+                .WithCost(ItemID.Feather, 1);
 
-            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
         }
     }
 }

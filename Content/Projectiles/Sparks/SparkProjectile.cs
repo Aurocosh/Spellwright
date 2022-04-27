@@ -33,6 +33,9 @@ namespace Spellwright.Content.Projectiles.Sparks
             Projectile.penetrate = 2;
             //Projectile.aiStyle = 2;
             Projectile.noEnchantmentVisuals = true;
+
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 0;
         }
 
         public override void AI()
