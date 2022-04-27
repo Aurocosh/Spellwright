@@ -1,4 +1,5 @@
 ﻿using Spellwright.Common.Players;
+using Spellwright.Content.Items.Mirrors;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
@@ -21,7 +22,7 @@ namespace Spellwright.Content.Spells.Storage
 
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ModContent.ItemType<RareSpellReagent>(), 5)
-                .WithCost(ItemID.TeleportationPotion, 5);
+                .WithCost(ItemID.RecallPotion, 5);
 
             CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
 
@@ -29,6 +30,7 @@ namespace Spellwright.Content.Spells.Storage
             acceptableItems.Add(ModContent.ItemType<CommonSpellReagent>());
             acceptableItems.Add(ModContent.ItemType<RareSpellReagent>());
             acceptableItems.Add(ModContent.ItemType<MythicalSpellReagent>());
+            acceptableItems.Add(ModContent.ItemType<SilverMirror>());
         }
 
         protected override bool CanAccept(Item item)

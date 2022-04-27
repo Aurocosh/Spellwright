@@ -21,7 +21,7 @@ namespace Spellwright.Content.Spells.Enchant
 
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ModContent.ItemType<SilverMirror>(), 1)
-                .WithCost(ItemID.TeleportationPotion, 40);
+                .WithCost(ItemID.TeleportationPotion, 10);
 
             CastCost = new MultipleReagentSpellCost()
                 .WithCost(ModContent.ItemType<SilverMirror>(), 1)

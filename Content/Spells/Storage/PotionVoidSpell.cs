@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.Storage
 
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.Bottle, 5)
-                .WithCost(ItemID.TeleportationPotion, 5);
+                .WithCost(ItemID.RecallPotion, 5);
 
             CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 4);
         }

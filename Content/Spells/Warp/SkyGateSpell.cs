@@ -20,7 +20,7 @@ namespace Spellwright.Content.Spells.Warp
 
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.Cloud, 10)
-                .WithCost(ItemID.TeleportationPotion, 10);
+                .WithCost(ItemID.TeleportationPotion, 1);
 
             CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }
