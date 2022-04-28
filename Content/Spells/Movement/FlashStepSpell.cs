@@ -25,12 +25,7 @@ namespace Spellwright.Content.Spells.Movement
             if (!dashPlayer.CanUseDash())
                 return false;
 
-            float playerX = player.Center.X;
-            float mouseX = Main.MouseWorld.X;
-
-            int dashDirection = mouseX > playerX ? 1 : -1;
-            var newVelocity = new Vector2(dashDirection * 20, 0);
-
+            var newVelocity = new Vector2(player.direction * 20, 1);
             dashPlayer.Dash(newVelocity, 60);
 
             return true;

@@ -17,7 +17,6 @@ namespace Spellwright.Content.Spells.BuffSpells
     {
         private static readonly int radius = 14;
         private static readonly int radiusSq = radius * radius;
-        private static int skipValue = 0;
         private static Point lastPlayerPoint = Point.Zero;
         private static HashSet<int> lightTilesTypes = new();
 

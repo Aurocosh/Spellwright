@@ -3,7 +3,6 @@ using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Network;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -11,13 +10,13 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Healing
 {
-    internal class StitchWoundsSpell : PlayerAoeSpell
+    internal class MendSpell : PlayerAoeSpell
     {
         protected override int GetDamage(int playerLevel) => damage + 10 * playerLevel;
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 2;
+            SpellLevel = 0;
             UseType = SpellType.Invocation;
             damage = 50;
 
@@ -32,22 +31,20 @@ namespace Spellwright.Content.Spells.Healing
             {
                 int playerHealth = player.statLife;
                 int maxPlayerHealth = player.statLifeMax2;
-                int maxAllowedHealth = (int)(maxPlayerHealth * 0.35f);
+                int maxAllowedHealth = (int)(maxPlayerHealth * 0.5f);
                 if (playerHealth > maxAllowedHealth)
                     continue;
 
-                int healValue = GetDamage(playerLevel);
-                int maxAllowedHeal = maxAllowedHealth - playerHealth;
-                int actualHeal = Math.Min(healValue, maxAllowedHeal);
+                int healValue = maxAllowedHealth - playerHealth;
 
-                player.statLife += actualHeal;
-                player.HealEffect(actualHeal);
+                player.statLife += healValue;
+                player.HealEffect(healValue);
                 player.ClearBuff(BuffID.Bleeding);
 
                 int playerId = player.whoAmI;
                 if (Main.netMode == NetmodeID.MultiplayerClient && playerId != localPlayerId)
                 {
-                    ModNetHandler.otherPlayerHealHandler.Send(playerId, localPlayerId, actualHeal);
+                    ModNetHandler.otherPlayerHealHandler.Send(playerId, localPlayerId, healValue);
                     ModNetHandler.otherPlayerClearBuffsHandler.Send(playerId, localPlayerId, new int[] { BuffID.Bleeding });
                 }
             }

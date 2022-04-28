@@ -44,7 +44,7 @@ namespace Spellwright.Lib.Primitives
 
         public bool IsInBounds(Point point)
         {
-            return point.DistanceSq() < radiusSquared;
+            return point.DistanceToSq(Center) < radiusSquared;
         }
     }
 }

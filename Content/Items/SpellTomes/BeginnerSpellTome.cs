@@ -34,6 +34,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<MysticSenseSpell>();
             content.AddSpell<RecallSpell>();
             content.AddSpell<SparkCasterSpell>();
+            content.AddSpell<MendSpell>();
 
             // Level 1
             content.AddSpell<SpringDropletSpell>();
@@ -43,17 +44,16 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<NightVisionSpell>();
             content.AddSpell<PremonitionSpell>();
             content.AddSpell<ReturnToFishSpell>();
-            content.AddSpell<TorchMufflerSpell>();
+            content.AddSpell<TorchEaterSpell>();
             content.AddSpell<WillOfTorchGodSpell>();
             content.AddSpell<WallShredderSpell>();
             content.AddSpell<ForceOfCreationSpell>();
-            content.AddSpell<StitchWoundsSpell>();
 
             // Level 2
             content.AddSpell<BattlecrySpell>();
             content.AddSpell<DragonSpitSpell>();
             content.AddSpell<FlashStepSpell>();
-            content.AddSpell<IceBreakerSpell>();
+            content.AddSpell<ShockwaveSpell>();
             content.AddSpell<InnerSunshineSpell>();
             content.AddSpell<ReagentVoidSpell>();
             content.AddSpell<ShellOfIceSpell>();

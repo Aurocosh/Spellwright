@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Network;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Common.Players
@@ -17,8 +16,8 @@ namespace Spellwright.Common.Players
                 return;
 
             Player.velocity = velocity;
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, Player.whoAmI);
+            //if (Main.netMode == NetmodeID.MultiplayerClient)
+            //    NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, Player.whoAmI);
 
             DashTimer = dashDuration;
         }
@@ -32,9 +31,9 @@ namespace Spellwright.Common.Players
         {
             if (DashTimer > 0)
             {
-                Player.eocDash = DashTimer;
+                //Player.eocDash = DashTimer;
+                Player.dashType = 10;
                 Player.armorEffectDrawShadowEOCShield = true;
-
                 DashTimer--;
             }
 

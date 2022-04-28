@@ -1,5 +1,6 @@
 ﻿using Spellwright.Common.Players;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Buffs.Spells.Utility
@@ -19,24 +20,25 @@ namespace Spellwright.Content.Buffs.Spells.Utility
             var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
             int buffPlayerLevel = buffPlayer.GetBuffLevel(ModContent.BuffType<GaleForceBuff>());
 
-            float maxSpeedMult = 1;
+            player.buffImmune[BuffID.WindPushed] = true;
+            float maxSpeedMult = 1.3f;
 
-            if (buffPlayerLevel >= 3)
-                maxSpeedMult = 1.3f;
             if (buffPlayerLevel >= 5)
             {
                 Player.jumpHeight += 15;
                 player.jumpSpeedBoost += 2.4f;
-                player.extraFall += 10;
+                player.extraFall += 15;
             }
             if (buffPlayerLevel >= 7)
+            {
                 player.runAcceleration *= 2.0f;
+            }
             if (buffPlayerLevel >= 9)
             {
                 maxSpeedMult *= 1.4f;
                 Player.jumpHeight += 15;
                 player.jumpSpeedBoost += 2.4f;
-                player.extraFall += 10;
+                player.extraFall += 15;
             }
 
             player.maxRunSpeed *= maxSpeedMult;

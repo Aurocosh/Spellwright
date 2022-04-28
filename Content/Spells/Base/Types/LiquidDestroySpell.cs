@@ -14,26 +14,25 @@ namespace Spellwright.Content.Spells.Base.Types
         protected int liquidType;
 
         protected virtual int GetLiquidType(int playerLevel) => liquidType;
+        protected virtual void DoAreaEffect(Point point, Player player) { }
+
 
         protected virtual IEnumerable<Point> GetTilePositions(Point center, Player player, int playerLevel, SpellData spellData)
         {
-            static bool IsValid(Point point)
-            {
-                if (!WorldGen.InWorld(point.X, point.Y))
-                    return false;
+            var circle = new SolidCircle(center, 20);
 
+            bool IsValid(Point point)
+            {
+                if (!circle.IsInBounds(point) || !WorldGen.InWorld(point.X, point.Y))
+                    return false;
                 Tile tile = Framing.GetTileSafely(point.X, point.Y);
                 if (WorldGen.SolidTile(tile))
                     return false;
-
-                //if (tile.LiquidAmount == 0)
-                //    return false;
-
                 return true;
             }
 
             var coords = new SolidCircle(center, 3);
-            return UtilCoordinates.FloodFill(coords, PointConstants.DirectNeighbours, IsValid, 350);
+            return UtilCoordinates.FloodFill(coords, PointConstants.DirectNeighbours, IsValid, 1000);
         }
 
         public LiquidDestroySpell()
@@ -52,6 +51,8 @@ namespace Spellwright.Content.Spells.Base.Types
             var tilePositions = GetTilePositions(center, player, playerLevel, spellData);
             foreach (var point in tilePositions)
             {
+                DoAreaEffect(point, player);
+
                 Tile tile = Framing.GetTileSafely(point.X, point.Y);
                 int tileLiquidType = tile.LiquidType;
                 if (tile.LiquidAmount > 0 && (liquidType == -1 || tileLiquidType == currentLiquidType))

@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             AddEffect(ModContent.BuffType<ReturnToFishBuff>(), durationGetter);
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
-            UnlockCost = new SingleItemSpellCost(ItemID.SharkFin, 5);
+            UnlockCost = new MultipleItemSpellCost().WithCost(ItemID.Bass, 15).WithCost(ItemID.Coral, 5);
             CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 2);
         }
     }

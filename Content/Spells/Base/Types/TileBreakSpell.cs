@@ -9,13 +9,10 @@ namespace Spellwright.Content.Spells.Base.Types
 {
     internal abstract class TileBreakSpell : ModSpell
     {
-        protected int tileType;
         protected bool noItem;
 
-        protected virtual bool CanBreakTile(Tile tile, int x, int y, int playerLevel)
-        {
-            return tile != null && tile.TileType == tileType;
-        }
+        protected abstract bool CanBreakTile(Tile tile, int x, int y, int playerLevel);
+        protected virtual void DoAreaEffect(Point point, Player player) { }
 
         protected virtual IEnumerable<Point> GetTilePositions(Point center, Player player, int playerLevel, SpellData spellData)
         {
@@ -26,7 +23,6 @@ namespace Spellwright.Content.Spells.Base.Types
         {
             UseType = SpellType.Spell;
 
-            tileType = TileID.Dirt;
             noItem = true;
             useTimeMultiplier = 1f;
         }
@@ -48,10 +44,12 @@ namespace Spellwright.Content.Spells.Base.Types
             var tilePositions = GetTilePositions(center, player, playerLevel, spellData);
             foreach (var point in tilePositions)
             {
+                DoAreaEffect(point, player);
+
                 if (!WorldGen.InWorld(point.X, point.Y))
                     continue;
                 Tile tile = Framing.GetTileSafely(point.X, point.Y);
-                if (!CanBreakTile(tile, point.X, point.Y, playerLevel))
+                if (tile == null || !CanBreakTile(tile, point.X, point.Y, playerLevel))
                     continue;
 
                 WorldGen.KillTile(point.X, point.Y, false, false, noItem);

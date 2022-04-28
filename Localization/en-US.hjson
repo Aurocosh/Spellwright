@@ -155,7 +155,7 @@ Mods: {
 			GaleForceSpell: {
 				Name: Gale Force
 				Description:
-					'''Increases player movement speed.
+					'''Increases player movement speed. And grants immunity t
 					Level 3 Increases player movement speed 30%.
 					Level 5 Boosts player jump height by 15 blocks.
 					Level 7 Increases acceleration and deceleration by 200%.
@@ -306,9 +306,9 @@ Mods: {
 			}
 
 			# Healing
-			StitchWoundsSpell: {
-				Name: Stitch Wounds
-				Description: Heals caster for a small amount instantly. Cannot heal more than 35% of players health. Also stops bleeding
+			MendSpell: {
+				Name: Mend
+				Description: Heals caster instantly. Cannot heal player beyound 50% of their max health. Also stops bleeding
 			}
 
 			# Herbs
@@ -358,7 +358,7 @@ Mods: {
 			}
 			FlashStepSpell: {
 				Name: Flash Step
-				Description: On activation player performs long dash in horizontal direction while also accelerating to the max speed
+				Description: When activated this spell will instantly accelerate palyer forward
 			}
 			GravityDashSpell: {
 				Name: Gravity Dash
@@ -473,12 +473,16 @@ Mods: {
 			}
 
 			# TileBreak
-			IceBreakerSpell: {
-				Name: Ice Breaker
-				Description: Destroys frail ice around player
+			EvaporateSpell: {
+				Name: Evaporate
+				Description: Instantly evaporates water around you.
 			}
-			TorchMufflerSpell: {
-				Name: Torch Muffler
+			ShockwaveSpell: {
+				Name: Shockwave
+				Description: Destroys frail tiles around you. Examples of frail tiles are a cobweb, thin ice, grass, vines, thorns, plants and mushrooms.
+			}
+			TorchEaterSpell: {
+				Name: Torch Eater
 				Description: Destroys all nearby torches in large area
 			}
 			WallShredderSpell: {
