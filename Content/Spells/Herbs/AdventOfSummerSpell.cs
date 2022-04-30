@@ -2,6 +2,7 @@
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.ExecutablePackets.ToServer;
 using Spellwright.Extensions;

@@ -48,7 +48,7 @@ namespace Spellwright.Content.Spells.Projectiles
         {
             SpellLevel = 4;
 
-            damage = 100;
+            damage = 200;
             knockback = 5;
             damageType = DamageClass.Ranged;
             projectileType = ModContent.ProjectileType<BloodArrowProjectile>();
@@ -57,15 +57,16 @@ namespace Spellwright.Content.Spells.Projectiles
             useTimeMultiplier = 3f;
 
             UnlockCost = new MultipleItemSpellCost()
-                .WithCost(ItemID.VileMushroom, 10)
+                .WithCost(ItemID.LifeCrystal, 1)
                 .WithCost(ItemID.WoodenArrow, 50);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 velocity)
         {
+            this.damage = 200;
             base.Cast(player, playerLevel, spellData, source, position, velocity);
             int damage = (int)(player.statLifeMax2 * .08f);
-            damage = (int)(player.statLifeMax2 * .36f);
+            damage = (int)(player.statLifeMax2 * .1f);
             player.Hurt(PlayerDeathReason.ByCustomReason("Bleed out"), damage, 0, false, true);
             return true;
         }

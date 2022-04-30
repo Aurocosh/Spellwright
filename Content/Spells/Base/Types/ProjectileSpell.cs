@@ -45,8 +45,6 @@ namespace Spellwright.Content.Spells.Base.Types
 
         private void SpawnProjectile(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)
         {
-            PlayUseSound(player.Center);
-
             direction.Normalize();
             Vector2 velocity = direction * projectileSpeed;
             float damageModifier = player.GetDamage(DamageType);

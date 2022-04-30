@@ -1,7 +1,7 @@
 ﻿using Spellwright.Common.Players;
 using Spellwright.Content.Buffs.Spells;
 using Spellwright.Content.Items.Reagents;
-using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.SpellCosts.Stats;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Network;

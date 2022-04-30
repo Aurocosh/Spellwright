@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Spellwright.Lib.Primitives
+namespace Spellwright.Lib.PointShapes
 {
     public class ThinLine : IEnumerable<Point>
     {

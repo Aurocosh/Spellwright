@@ -2,6 +2,7 @@
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Network;
 using Terraria;
 using Terraria.ID;

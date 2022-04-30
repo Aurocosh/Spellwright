@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
+using Spellwright.Lib.PointShapes;
 using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;
@@ -87,15 +88,14 @@ namespace Spellwright.Content.Projectiles.Tiles
             Vector2 position = Projectile.Center;
             var centerPoint = position.ToGridPoint();
 
-            int radiusSq = radius * radius;
+            var explosionArea = new SolidCircle(centerPoint, radius);
             bool IsValid(Point point)
             {
+                if (!explosionArea.IsInBounds(point))
+                    return false;
                 if (!WorldGen.InWorld(point.X, point.Y))
                     return false;
                 if (WorldGen.SolidTile(point.X, point.Y))
-                    return false;
-                int distanceToCenterSq = (point - centerPoint).DistanceSq();
-                if (distanceToCenterSq > radiusSq)
                     return false;
 
                 return true;

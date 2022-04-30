@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using Terraria;
 
-namespace Spellwright.Content.Spells.Base.SpellCosts.Items
+namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
 {
     internal class ReagentSpellCost : SpellCost
     {
@@ -30,7 +30,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
             var statPlayer = player.GetModPlayer<SpellwrightStatPlayer>();
             var storage = statPlayer.ReagentItems;
 
-            var allItems = Enumerable.Concat(player.GetInventoryItems(), storage);
+            var allItems = player.GetInventoryItems().Concat(storage);
             if (!UtilInventory.ConsumeItems(allItems, ItemType, Cost))
             {
                 var itemName = Lang.GetItemNameValue(ItemType);

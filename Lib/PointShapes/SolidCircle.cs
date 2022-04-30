@@ -3,11 +3,11 @@ using Spellwright.Extensions;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Spellwright.Lib.Primitives
+namespace Spellwright.Lib.PointShapes
 {
     public class SolidCircle : ICoordinateShape
     {
-        private readonly int radiusSquared;
+        private readonly long radiusSquared;
 
         public int Radius { get; }
         public Point Center { get; }

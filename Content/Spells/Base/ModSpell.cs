@@ -12,6 +12,7 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -53,7 +54,7 @@ namespace Spellwright.Content.Spells.Base
         protected virtual int GetDamage(int playerLevel) => damage;
         protected virtual float GetKnockback(int playerLevel) => knockback;
         protected virtual DamageClass DamageType => damageType;
-        protected virtual void PlayUseSound(Vector2 position)
+        public virtual void PlayUseSound(Vector2 position)
         {
             if (useSound != null)
                 SoundEngine.PlaySound(useSound, position);
@@ -123,6 +124,7 @@ namespace Spellwright.Content.Spells.Base
             costModifier = 1f;
             appplicableModifiers = SpellModifier.None;
             spellCostModifiers = new Dictionary<SpellModifier, ICostModifier>();
+            useSound = SoundID.Item4;
 
             SetSpellCostModifier(SpellModifier.Dispel, new MultCostModifier(0));
             SetSpellCostModifier(SpellModifier.Area, new MultCostModifier(4));

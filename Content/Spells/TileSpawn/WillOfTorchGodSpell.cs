@@ -2,16 +2,16 @@
 using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
-using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
-using Spellwright.Lib.Primitives;
+using Spellwright.Lib.PointShapes;
 using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 
-namespace Spellwright.Content.Spells.BuffSpells
+namespace Spellwright.Content.Spells.TileSpawn
 {
     internal class WillOfTorchGodSpell : ModSpell
     {
@@ -128,10 +128,8 @@ namespace Spellwright.Content.Spells.BuffSpells
 
             var circlePoints = UtilCoordinates.FloodFill(new[] { centerPoint }, PointConstants.DirectNeighbours, IsValid, 400);
             foreach (var point in circlePoints)
-            {
                 if (point.DistanceToSq(oldCentralPoint) >= radiusSq)
                     TryPlaceTorch(player, point);
-            }
         }
 
         private static void TryPlaceTorch(Player player, Point point)
@@ -146,7 +144,6 @@ namespace Spellwright.Content.Spells.BuffSpells
             if (tile.HasTile && !TileID.Sets.BreakableWhenPlacing[tile.TileType] && (!Main.tileCut[tile.TileType] || tile.TileType == TileID.ImmatureHerbs || tile.TileType == TileID.MatureHerbs))
                 return;
 
-            bool hasTorchesNearby = false;
             var nearbyPoints = new SolidRectangle(point, 8);
             foreach (var nearbyPoint in nearbyPoints)
             {
@@ -172,7 +169,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             Tile tile2 = Main.tile[x, y];
             if (!tile2.HasTile)
                 return false;
-            if ((tile2.Slope != 0 && (int)tile2.Slope % 2 == slopeNum))
+            if (tile2.Slope != 0 && (int)tile2.Slope % 2 == slopeNum)
                 return false;
 
             if (Main.tileSolid[tile2.TileType] && !Main.tileNoAttach[tile2.TileType] && !Main.tileSolidTop[tile2.TileType] && !TileID.Sets.NotReallySolid[tile2.TileType])
@@ -207,7 +204,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             if (tile.Slope != 0)
                 return false;
 
-            return !Main.tileSolidTop[tileType] || (TileID.Sets.Platforms[tileType] && tile.Slope == 0);
+            return !Main.tileSolidTop[tileType] || TileID.Sets.Platforms[tileType] && tile.Slope == 0;
         }
         private static int BiomeTorchPlaceStyle(Player player)
         {
@@ -225,7 +222,7 @@ namespace Spellwright.Content.Spells.BuffSpells
                 return 9;
             else if (player.ZoneJungle)
                 return 21;
-            else if ((player.ZoneDesert && player.position.Y < Main.worldSurface * 16.0) || player.ZoneUndergroundDesert)
+            else if (player.ZoneDesert && player.position.Y < Main.worldSurface * 16.0 || player.ZoneUndergroundDesert)
                 return 16;
             return 0;
         }

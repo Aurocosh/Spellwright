@@ -2,11 +2,10 @@
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Lib.Constants;
-using Spellwright.Lib.Primitives;
+using Spellwright.Lib.PointShapes;
 using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 
 namespace Spellwright.Content.Spells.TileBreak
@@ -18,17 +17,12 @@ namespace Spellwright.Content.Spells.TileBreak
             SpellLevel = 1;
             UseType = SpellType.Invocation;
             noItem = false;
+            useSound = SoundID.Item14.WithPitchVariance(.4f).WithVolume(.2f);
         }
 
         protected override bool CanBreakTile(Tile tile, int x, int y, int playerLevel)
         {
             return tile.TileType == TileID.Torches;
-        }
-
-        public override bool Cast(Player player, int playerLevel, SpellData spellData)
-        {
-            SoundEngine.PlaySound(SoundID.Item14.WithPitchVariance(.4f).WithVolume(.2f), player.Center);
-            return base.Cast(player, playerLevel, spellData);
         }
 
         protected override void DoAreaEffect(Point point, Player player)

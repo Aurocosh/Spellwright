@@ -2,9 +2,10 @@
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Extensions;
-using Spellwright.Lib.Primitives;
+using Spellwright.Lib.PointShapes;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

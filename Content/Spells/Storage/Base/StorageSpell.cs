@@ -9,7 +9,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
 
-namespace Spellwright.Content.Spells.Storage
+namespace Spellwright.Content.Spells.Storage.Base
 {
     internal abstract class StorageSpell : ModSpell
     {
@@ -32,18 +32,14 @@ namespace Spellwright.Content.Spells.Storage
 
             var action = (StorageAction)spellData.ExtraData;
             if (action == StorageAction.Info)
-            {
                 PrintInfo(storage);
-            }
             else if (action == StorageAction.Push)
             {
                 int maxStorageSize = StorageSize(playerLevel);
                 return PushItems(player, maxStorageSize, storage);
             }
             else if (action == StorageAction.Pop)
-            {
                 return PopItems(player, storage);
-            }
 
             return true;
         }
@@ -55,14 +51,12 @@ namespace Spellwright.Content.Spells.Storage
 
             var sortedStorage = storage.OrderBy(x => x.Name).ThenByDescending(x => x.stack);
             foreach (var item in sortedStorage)
-            {
                 if (item.type != ItemID.None && item.stack > 0)
                 {
                     string name = Lang.GetItemNameValue(item.type);
                     string line = $"{item.stack} {name}";
                     lines.Add(line);
                 }
-            }
 
             var result = string.Join("\n", lines.ToArray());
 
@@ -112,10 +106,8 @@ namespace Spellwright.Content.Spells.Storage
                 if (item.type != ItemID.None && item.stack > 0 && !item.favorited && CanAccept(item))
                 {
                     foreach (var storedItem in storage)
-                    {
                         if (UtilItem.MergeItem(item, storedItem) && item.stack == 0)
                             break;
-                    }
 
                     if (item.stack > 0)
                         storage.Add(item);

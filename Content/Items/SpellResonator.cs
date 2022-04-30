@@ -115,8 +115,8 @@ namespace Spellwright.Content.Items
 
                 if (canCast)
                 {
-                    bool success = CurrentSpell.Cast(player, playerLevel, SpellData, source, position, velocity);
-                    if (success)
+                    CurrentSpell.PlayUseSound(player.Center);
+                    if (CurrentSpell.Cast(player, playerLevel, SpellData, source, position, velocity))
                     {
                         if (SpellUsesLeft > 0)
                             SpellUsesLeft--;

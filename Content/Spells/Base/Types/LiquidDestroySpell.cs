@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
-using Spellwright.Lib.Primitives;
+using Spellwright.Lib.PointShapes;
 using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;

@@ -3,6 +3,7 @@ using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Projectiles.Tiles;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria;

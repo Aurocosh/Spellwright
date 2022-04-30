@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Spellwright.Lib.Primitives;
+using Spellwright.Lib.PointShapes;
 using System;
 using System.Collections.Generic;
 using Terraria;

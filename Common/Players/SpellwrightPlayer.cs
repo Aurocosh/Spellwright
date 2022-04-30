@@ -211,11 +211,14 @@ namespace Spellwright.Common.Players
                         if ((singleCasted || continuosCast) && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
                         {
                             Vector2 mousePosition = Main.MouseWorld;
-                            Vector2 center = Player.Center;
+                            Vector2 center = Player.Center + new Vector2(Player.width * .2f * Player.direction, -Player.height * .4f);
                             Vector2 velocity = center.DirectionTo(mousePosition);
                             var projectileSource = new EntitySource_Parent(Player);
                             if (CurrentCantrip.ConsumeReagentsUse(Player, playerLevel, CantripData))
+                            {
+                                CurrentCantrip.PlayUseSound(Player.Center);
                                 CurrentCantrip.Cast(Player, PlayerLevel, CantripData, projectileSource, center, velocity);
+                            }
 
                             nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
                         }

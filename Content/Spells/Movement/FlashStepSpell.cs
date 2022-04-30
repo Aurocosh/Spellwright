@@ -2,7 +2,7 @@
 using Spellwright.Common.Players;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;

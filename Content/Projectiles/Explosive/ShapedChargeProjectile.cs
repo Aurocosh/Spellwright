@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
-using Spellwright.Lib.Primitives;
+using Spellwright.Lib.PointShapes;
+using Spellwright.Lib.Vector2Shapes;
 using Spellwright.Util;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -75,13 +77,12 @@ namespace Spellwright.Content.Projectiles.Explosive
             UtilExplosion.ExplodeTiles(affectedPoints, false);
 
             float radiusWorld = radius * 16;
-            float radiusWorldSq = radiusWorld * radiusWorld;
+            var explosionAreas = explosionCenters.Select(x => new CircleArea(x, radiusWorld)).ToList();
             bool CanHitEntity(Entity entity)
             {
-                foreach (Vector2 explosionCenter in explosionCenters)
+                foreach (var area in explosionAreas)
                 {
-                    float distanceSq = Vector2.DistanceSquared(entity.Center, explosionCenter);
-                    if (distanceSq < radiusWorldSq)
+                    if (area.IsInBounds(entity.Center))
                         return true;
                 }
                 return false;

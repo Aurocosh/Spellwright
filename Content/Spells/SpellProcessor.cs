@@ -53,6 +53,7 @@ namespace Spellwright.Content.Spells
 
             if (spell.UseType == SpellType.Invocation)
             {
+                spell.PlayUseSound(player.Center);
                 spell.Cast(player, playerLevel, spellData);
             }
             else if (spell.UseType == SpellType.Spell)

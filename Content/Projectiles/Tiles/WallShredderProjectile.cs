@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
+using Spellwright.Lib.PointShapes;
 using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;
@@ -64,19 +65,15 @@ namespace Spellwright.Content.Projectiles.Tiles
             Vector2 position = Projectile.Center;
             var centerPoint = position.ToGridPoint();
 
-            int radiusSq = radius * radius;
+            var explosionArea = new SolidCircle(centerPoint, radius);
             (bool, bool) IsValid(Point nextPoint, bool previousPassable)
             {
-                if (WorldGen.InWorld(nextPoint.X, nextPoint.Y))
+                if (explosionArea.IsInBounds(nextPoint) && WorldGen.InWorld(nextPoint.X, nextPoint.Y))
                 {
                     Tile nextTile = Framing.GetTileSafely(nextPoint.X, nextPoint.Y);
                     bool currentPassable = !WorldGen.SolidTile(nextPoint.X, nextPoint.Y) && nextTile.TileType != TileID.Platforms && nextTile.TileType != TileID.ClosedDoor && nextTile.TileType != TileID.TrapdoorClosed;
-
                     if (previousPassable && (previousPassable || currentPassable))
-                    {
-                        if (nextPoint.DistanceToSq(centerPoint) <= radiusSq)
-                            return (true, currentPassable);
-                    }
+                        return (true, currentPassable);
                 }
 
                 return (false, false);

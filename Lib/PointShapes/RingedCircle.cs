@@ -4,12 +4,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Spellwright.Lib.Primitives
+namespace Spellwright.Lib.PointShapes
 {
     public class RingedCircle : ICoordinateShape
     {
-        private readonly int innerRadiusSquared;
-        private readonly int outerRadiusSquared;
+        private readonly long innerRadiusSquared;
+        private readonly long outerRadiusSquared;
         public int InnerRadius { get; }
         public int OuterRadius { get; }
         public Point Center { get; }

@@ -1,6 +1,6 @@
 ﻿using Terraria;
 
-namespace Spellwright.Content.Spells.Base.SpellCosts.Items
+namespace Spellwright.Content.Spells.Base.SpellCosts
 {
     internal class TorchGodSpellCost : SpellCost
     {

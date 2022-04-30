@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
+using Spellwright.Lib.PointShapes;
 using Spellwright.Network.Base.Executable;
 using Spellwright.Util;
 using Terraria;
@@ -24,16 +24,13 @@ namespace Spellwright.ExecutablePackets.ToServer
 
         public void Execute()
         {
-            int radiusSq = Radius * Radius;
+            var area = new SolidCircle(CenterPoint, Radius);
             bool IsValid(Point point)
             {
+                if (!area.IsInBounds(point))
+                    return false;
                 if (!WorldGen.InWorld(point.X, point.Y))
                     return false;
-
-                int distanceToCenterSq = (point - CenterPoint).DistanceSq();
-                if (distanceToCenterSq > radiusSq)
-                    return false;
-
                 return true;
             }
 

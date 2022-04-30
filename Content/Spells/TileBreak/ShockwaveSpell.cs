@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Lib.Constants;
-using Spellwright.Lib.Primitives;
+using Spellwright.Lib.PointShapes;
 using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,6 +22,8 @@ namespace Spellwright.Content.Spells.TileBreak
             SpellLevel = 2;
             UseType = SpellType.Invocation;
             noItem = false;
+            useSound = SoundID.Item14.WithPitchVariance(.3f).WithVolume(.5f);
+
             CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
 
             breakableTileTypes.Clear();
@@ -51,12 +52,6 @@ namespace Spellwright.Content.Spells.TileBreak
         protected override bool CanBreakTile(Tile tile, int x, int y, int playerLevel)
         {
             return breakableTileTypes.Contains(tile.TileType);
-        }
-
-        public override bool Cast(Player player, int playerLevel, SpellData spellData)
-        {
-            SoundEngine.PlaySound(SoundID.Item14.WithPitchVariance(.3f).WithVolume(.5f), player.Center);
-            return base.Cast(player, playerLevel, spellData);
         }
 
         protected override void DoAreaEffect(Point point, Player player)

@@ -2,9 +2,10 @@
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Extensions;
-using Spellwright.Lib.Primitives;
+using Spellwright.Lib.PointShapes;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -61,7 +62,7 @@ namespace Spellwright.Content.Spells.Warp
             {
                 player.statLife -= player.statLifeMax2 / 7;
                 var damageSource = PlayerDeathReason.ByOther(13);
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                     damageSource = PlayerDeathReason.ByOther(player.Male ? 14 : 15);
 
                 if (player.statLife <= 0)

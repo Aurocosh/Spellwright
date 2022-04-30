@@ -1,6 +1,6 @@
 ﻿using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base.Modifiers;
-using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
 using Terraria.ModLoader;

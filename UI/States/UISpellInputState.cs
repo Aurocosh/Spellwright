@@ -26,7 +26,8 @@ namespace Spellwright.UI.States
                 Height = new StyleDimension(60, 0),
                 HAlign = .5f,
                 VAlign = .5f,
-                BackgroundColor = new Color(60, 60, 60, 255) * 0.685f
+                //BackgroundColor = new Color(60, 60, 60, 255) * 0.685f
+                BackgroundColor = Color.DarkGoldenrod * 0.685f
             };
 
             textbox = new UITextBox
@@ -116,20 +117,11 @@ namespace Spellwright.UI.States
             SpellCastResult castResult = SpellProcessor.ProcessCast(spellText);
             Main.ClosePlayerChat();
 
-            Vector2 position = Main.LocalPlayer.position;
-
-            if (castResult == SpellCastResult.Success)
+            if (castResult != SpellCastResult.Success && castResult != SpellCastResult.SpellUnlocked)
             {
-                //SpawnCircle(DustID.GoldCoin, position, 75, 20, 80, 1);
-                //SpawnCircle(DustID.GoldCoin, position, 15, 20, 80, -1);
-                //SpawnCircle(DustID.GoldCoin, position, 15, 90, 130);
-                SoundEngine.PlaySound(SoundID.Item4, position);
-            }
-            else if (castResult != SpellCastResult.SpellUnlocked)
-            {
+                Vector2 position = Main.LocalPlayer.position;
                 SpawnCircle(DustID.DemonTorch, position, 40, 20, 80);
                 SpawnCircle(DustID.DemonTorch, position, 15, 90, 130);
-                //SoundEngine.PlaySound(SoundID.Item20, position);
                 SoundEngine.PlaySound(SoundID.Item45, position);
 
                 if (castResult != SpellCastResult.CustomError)

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
-using Spellwright.Lib.Primitives;
+using Spellwright.Lib.PointShapes;
 using Spellwright.Util;
 using Terraria;
 using Terraria.Audio;

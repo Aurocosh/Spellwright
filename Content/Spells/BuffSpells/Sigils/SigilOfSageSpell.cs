@@ -1,6 +1,7 @@
 ﻿using Spellwright.Content.Buffs.Spells.Sigils;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Util;
 using Terraria.ID;
 using Terraria.ModLoader;

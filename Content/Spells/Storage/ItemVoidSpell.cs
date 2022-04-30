@@ -2,6 +2,8 @@
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
+using Spellwright.Content.Spells.Storage.Base;
 using Spellwright.Extensions;
 using System.Collections.Generic;
 using Terraria;

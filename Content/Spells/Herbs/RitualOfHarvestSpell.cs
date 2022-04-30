@@ -3,9 +3,11 @@ using Spellwright.Common.Players;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
+using Spellwright.Lib.PointShapes;
 using Spellwright.Network;
 using Spellwright.Util;
 using System.Collections.Generic;
@@ -36,17 +38,14 @@ namespace Spellwright.Content.Spells.Herbs
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
 
             int radius = 3 * spellPlayer.PlayerLevel;
-            int radiusSq = radius * radius;
             var centerPoint = player.Center.ToGridPoint();
+            var area = new SolidCircle(centerPoint, radius);
             bool IsValid(Point point)
             {
+                if (!area.IsInBounds(point))
+                    return false;
                 if (!WorldGen.InWorld(point.X, point.Y))
                     return false;
-
-                int distanceToCenterSq = (point - centerPoint).DistanceSq();
-                if (distanceToCenterSq > radiusSq)
-                    return false;
-
                 return true;
             }
 
