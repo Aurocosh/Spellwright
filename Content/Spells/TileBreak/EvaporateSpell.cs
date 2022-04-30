@@ -16,7 +16,7 @@ namespace Spellwright.Content.Spells.TileBreak
             SpellLevel = 3;
             UseType = SpellType.Invocation;
             liquidType = LiquidID.Water;
-            useSound = SoundID.Item21.WithPitchVariance(.3f).WithVolume(.5f);
+            castSound = SoundID.Item21.WithPitchVariance(.3f).WithVolume(.5f);
 
             CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
         }

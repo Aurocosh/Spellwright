@@ -43,7 +43,7 @@ namespace Spellwright.Content.Spells.Base.Types
             return true;
         }
 
-        private void SpawnProjectile(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)
+        protected void SpawnProjectile(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)
         {
             direction.Normalize();
             Vector2 velocity = direction * projectileSpeed;

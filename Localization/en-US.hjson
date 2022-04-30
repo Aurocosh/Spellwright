@@ -395,8 +395,8 @@ Mods: {
 				Name: Heart Thrower
 				Description: Consumes a large amount of mana and spawns several projectiles that drop healing hearts
 			}
-			MoneyTroughSpell: {
-				Name: Money Trough
+			PiggySpell: {
+				Name: Piggy
 				Description: Summons flying piggy bank
 			}
 			SparkCasterSpell: {

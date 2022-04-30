@@ -22,7 +22,7 @@ namespace Spellwright.Content.Spells.TileBreak
             SpellLevel = 2;
             UseType = SpellType.Invocation;
             noItem = false;
-            useSound = SoundID.Item14.WithPitchVariance(.3f).WithVolume(.5f);
+            castSound = SoundID.Item14.WithPitchVariance(.3f).WithVolume(.5f);
 
             CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
 

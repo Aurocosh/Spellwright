@@ -29,7 +29,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<BloodArrowSpell>();
             content.AddSpell<GossamerShoesSpell>();
             content.AddSpell<HellGateSpell>();
-            content.AddSpell<MoneyTroughSpell>();
+            content.AddSpell<PiggySpell>();
             content.AddSpell<PotionVoidSpell>();
             content.AddSpell<RainCallSpell>();
             content.AddSpell<SkyGateSpell>();

@@ -21,6 +21,7 @@ namespace Spellwright.Content.Spells.Warp
             UseType = SpellType.Cantrip;
             teleportStyle = 1;
             resetVelocity = false;
+            castSound = SoundID.Item8;
 
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.EoCShield, 1)

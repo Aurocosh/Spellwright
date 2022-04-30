@@ -23,6 +23,7 @@ namespace Spellwright.Content.Spells.Warp
             resetVelocity = false;
             useDelay = 0;
             canAutoReuse = false;
+            castSound = SoundID.Item8;
 
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.ChaosElementalBanner, 1)

@@ -19,6 +19,24 @@ namespace Spellwright.Content.Spells.Projectiles
         }
 
         public override int GetGuaranteedUses(int playerLevel) => 25 + 5 * playerLevel;
+
+        public override void SetStaticDefaults()
+        {
+            SpellLevel = 4;
+
+            damage = 200;
+            knockback = 5;
+            damageType = DamageClass.Ranged;
+            projectileType = ModContent.ProjectileType<BloodArrowProjectile>();
+            projectileSpeed = 30;
+            canAutoReuse = false;
+            useTimeMultiplier = 3f;
+
+            UnlockCost = new MultipleItemSpellCost()
+                .WithCost(ItemID.LifeCrystal, 1)
+                .WithCost(ItemID.WoodenArrow, 50);
+        }
+
         protected override int GetDamage(int playerLevel)
         {
             Player player = Main.LocalPlayer;
@@ -42,23 +60,6 @@ namespace Spellwright.Content.Spells.Projectiles
 
             float maxDamage = damage + damage * (playerLevel / 4);
             return (int)(maxDamage * damagePercent);
-        }
-
-        public override void SetStaticDefaults()
-        {
-            SpellLevel = 4;
-
-            damage = 200;
-            knockback = 5;
-            damageType = DamageClass.Ranged;
-            projectileType = ModContent.ProjectileType<BloodArrowProjectile>();
-            projectileSpeed = 30;
-            canAutoReuse = false;
-            useTimeMultiplier = 3f;
-
-            UnlockCost = new MultipleItemSpellCost()
-                .WithCost(ItemID.LifeCrystal, 1)
-                .WithCost(ItemID.WoodenArrow, 50);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 velocity)

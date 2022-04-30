@@ -10,6 +10,7 @@ namespace Spellwright.Content.Spells.Warp
         {
             SpellLevel = 0;
             UseType = SpellType.Invocation;
+            castSound = SoundID.Item6;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

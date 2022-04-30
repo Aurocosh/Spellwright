@@ -34,6 +34,7 @@ namespace Spellwright.Content.Spells.Projectiles
 
             useDelay = UtilTime.SecondsToTicks(.6f);
             canAutoReuse = false;
+            useSound = SoundID.Item8;
 
             damage = 1;
             knockback = 0;

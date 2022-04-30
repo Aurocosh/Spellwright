@@ -4,7 +4,9 @@ using Spellwright.Content.Spells.Base.Description;
 using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Core.Spells;
+using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
+using Spellwright.Network;
 using Spellwright.Util;
 using System;
 using System.Collections.Generic;
@@ -34,6 +36,7 @@ namespace Spellwright.Content.Spells.Base
         protected bool canAutoReuse;
         protected int useDelay;
         protected float useTimeMultiplier;
+        protected LegacySoundStyle castSound;
         protected LegacySoundStyle useSound;
         protected float costModifier;
         public virtual int SpellLevel { get; protected set; }
@@ -54,10 +57,77 @@ namespace Spellwright.Content.Spells.Base
         protected virtual int GetDamage(int playerLevel) => damage;
         protected virtual float GetKnockback(int playerLevel) => knockback;
         protected virtual DamageClass DamageType => damageType;
+        protected void AddApplicableModifier(SpellModifier spellModifier) => appplicableModifiers = appplicableModifiers.Add(spellModifier);
+        protected void RemoveApplicableModifier(SpellModifier spellModifier) => appplicableModifiers = appplicableModifiers.Remove(spellModifier);
+        protected void SetSpellCostModifier(SpellModifier spellModifier, ICostModifier costModifier) => spellCostModifiers[spellModifier] = costModifier;
+
+        protected LocalizedText GetTranslation(string key) => Spellwright.GetTranslation("Spells", Name, key);
+
+        protected ModSpell()
+        {
+            UseType = SpellType.Invocation;
+
+            guaranteedUses = 0;
+            stability = 0;
+            canAutoReuse = false;
+            useDelay = 120;
+            damage = 0;
+            knockback = 0;
+            CastCost = null;
+            damageType = DamageClass.Generic;
+            costModifier = 1f;
+            appplicableModifiers = SpellModifier.None;
+            spellCostModifiers = new Dictionary<SpellModifier, ICostModifier>();
+            castSound = SoundID.Item4;
+
+            SetSpellCostModifier(SpellModifier.Dispel, new MultCostModifier(0));
+            SetSpellCostModifier(SpellModifier.Area, new MultCostModifier(4));
+            SetSpellCostModifier(SpellModifier.Selfless, new MultCostModifier(.75f));
+            SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(4));
+            SetSpellCostModifier(SpellModifier.Twofold, new MultCostModifier(2));
+            SetSpellCostModifier(SpellModifier.Fivefold, new MultCostModifier(5));
+            SetSpellCostModifier(SpellModifier.Tenfold, new MultCostModifier(10));
+            SetSpellCostModifier(SpellModifier.Fiftyfold, new MultCostModifier(50));
+        }
+        protected sealed override void Register()
+        {
+            ModTypeLookup<ModSpell>.Register(this);
+
+            Type = SpellLoader.RegisterSpell(this);
+
+            var nameKey = Spellwright.GetTranslationKey("Spells", Name, "Name");
+            var descriptionKey = Spellwright.GetTranslationKey("Spells", Name, "Description");
+
+            DisplayName = UtilLang.GetOrCreateTranslation(nameKey);
+            Description = UtilLang.GetOrCreateTranslation(descriptionKey);
+
+            SpellLibrary.RegisterSpell(this);
+        }
+        public sealed override void SetupContent()
+        {
+            SetStaticDefaults();
+        }
+
+        public override void SetStaticDefaults() { }
+
+        public virtual void PlayCastSound(Vector2 position)
+        {
+            if (castSound != null)
+                SoundEngine.PlaySound(castSound, position);
+        }
+
         public virtual void PlayUseSound(Vector2 position)
         {
             if (useSound != null)
                 SoundEngine.PlaySound(useSound, position);
+        }
+
+        public virtual void DoCastEffect(Player player, int playerLevel)
+        {
+            var spawner = new LevelUpDustSpawner(player, new int[] { SpellLevel });
+            spawner.Execute();
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+                ModNetHandler.levelUpDustHandler.Send(spawner);
         }
 
         public virtual List<SpellParameter> GetDescriptionValues(Player player, int playerLevel, SpellData spellData, bool fullVersion)
@@ -102,59 +172,6 @@ namespace Spellwright.Content.Spells.Base
             return values;
         }
 
-        protected void AddApplicableModifier(SpellModifier spellModifier) => appplicableModifiers = appplicableModifiers.Add(spellModifier);
-
-        protected void RemoveApplicableModifier(SpellModifier spellModifier) => appplicableModifiers = appplicableModifiers.Remove(spellModifier);
-        protected void SetSpellCostModifier(SpellModifier spellModifier, ICostModifier costModifier) => spellCostModifiers[spellModifier] = costModifier;
-
-        protected LocalizedText GetTranslation(string key) => Spellwright.GetTranslation("Spells", Name, key);
-
-        protected ModSpell()
-        {
-            UseType = SpellType.Invocation;
-
-            guaranteedUses = 0;
-            stability = 0;
-            canAutoReuse = false;
-            useDelay = 120;
-            damage = 0;
-            knockback = 0;
-            CastCost = null;
-            damageType = DamageClass.Generic;
-            costModifier = 1f;
-            appplicableModifiers = SpellModifier.None;
-            spellCostModifiers = new Dictionary<SpellModifier, ICostModifier>();
-            useSound = SoundID.Item4;
-
-            SetSpellCostModifier(SpellModifier.Dispel, new MultCostModifier(0));
-            SetSpellCostModifier(SpellModifier.Area, new MultCostModifier(4));
-            SetSpellCostModifier(SpellModifier.Selfless, new MultCostModifier(.75f));
-            SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(4));
-            SetSpellCostModifier(SpellModifier.Twofold, new MultCostModifier(2));
-            SetSpellCostModifier(SpellModifier.Fivefold, new MultCostModifier(5));
-            SetSpellCostModifier(SpellModifier.Tenfold, new MultCostModifier(10));
-            SetSpellCostModifier(SpellModifier.Fiftyfold, new MultCostModifier(50));
-        }
-        protected sealed override void Register()
-        {
-            ModTypeLookup<ModSpell>.Register(this);
-
-            Type = SpellLoader.RegisterSpell(this);
-
-            var nameKey = Spellwright.GetTranslationKey("Spells", Name, "Name");
-            var descriptionKey = Spellwright.GetTranslationKey("Spells", Name, "Description");
-
-            DisplayName = UtilLang.GetOrCreateTranslation(nameKey);
-            Description = UtilLang.GetOrCreateTranslation(descriptionKey);
-
-            SpellLibrary.RegisterSpell(this);
-        }
-        public sealed override void SetupContent()
-        {
-            SetStaticDefaults();
-        }
-
-        public override void SetStaticDefaults() { }
 
         public float GetCostModifier(SpellModifier spellModifiers)
         {

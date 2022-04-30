@@ -17,7 +17,7 @@ namespace Spellwright.Content.Spells.TileBreak
             SpellLevel = 1;
             UseType = SpellType.Invocation;
             noItem = false;
-            useSound = SoundID.Item14.WithPitchVariance(.4f).WithVolume(.2f);
+            castSound = SoundID.Item14.WithPitchVariance(.4f).WithVolume(.2f);
         }
 
         protected override bool CanBreakTile(Tile tile, int x, int y, int playerLevel)

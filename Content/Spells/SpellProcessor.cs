@@ -53,8 +53,9 @@ namespace Spellwright.Content.Spells
 
             if (spell.UseType == SpellType.Invocation)
             {
-                spell.PlayUseSound(player.Center);
                 spell.Cast(player, playerLevel, spellData);
+                spell.PlayCastSound(player.Center);
+                spell.DoCastEffect(player, playerLevel);
             }
             else if (spell.UseType == SpellType.Spell)
             {
@@ -83,11 +84,15 @@ namespace Spellwright.Content.Spells
                 bookItem.CurrentSpell = spell;
                 bookItem.SpellData = spellData;
                 bookItem.UpdateName();
+                spell.PlayCastSound(player.Center);
+                spell.DoCastEffect(player, playerLevel);
             }
             else
             {
                 spellPlayer.CurrentCantrip = spell;
                 spellPlayer.CantripData = spellData;
+                spell.PlayCastSound(player.Center);
+                spell.DoCastEffect(player, playerLevel);
             }
             return SpellCastResult.Success;
         }

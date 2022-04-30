@@ -24,7 +24,7 @@ namespace Spellwright.Content.Spells.Base.Types
             knockback = 0;
             canAutoReuse = false;
             useTimeMultiplier = 1f;
-            useSound = SoundID.Item44;
+            castSound = SoundID.Item44;
             damageType = DamageClass.Summon;
             buffType = -1;
             projectileType = -1;

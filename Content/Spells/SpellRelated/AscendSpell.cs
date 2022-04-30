@@ -43,9 +43,6 @@ namespace Spellwright.Content.Spells.SpellRelated
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
-            if (spellData == null)
-                return false;
-
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
             spellPlayer.PlayerLevel += 1;
 
@@ -53,12 +50,14 @@ namespace Spellwright.Content.Spells.SpellRelated
             foreach (var buffId in buffPlayer.BuffLevels.Keys)
                 buffPlayer.BuffLevels[buffId] = spellPlayer.PlayerLevel;
 
-            var spawner = new LevelUpDustSpawner(player, Enumerable.Range(1, spellPlayer.PlayerLevel));
+            return true;
+        }
+        public override void DoCastEffect(Player player, int playerLevel)
+        {
+            var spawner = new LevelUpDustSpawner(player, Enumerable.Range(1, playerLevel + 1));
             spawner.Execute();
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 ModNetHandler.levelUpDustHandler.Send(spawner);
-
-            return true;
         }
     }
 }

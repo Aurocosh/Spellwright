@@ -19,6 +19,7 @@ namespace Spellwright.Content.Spells.Warp
             SpellLevel = 4;
             UseType = SpellType.Invocation;
             teleportStyle = 7;
+            castSound = SoundID.Item6;
 
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.Gravestone, 10)

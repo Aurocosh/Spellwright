@@ -19,6 +19,7 @@ namespace Spellwright.Content.Spells.Warp
         {
             SpellLevel = 5;
             UseType = SpellType.Invocation;
+            castSound = SoundID.Item6;
 
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.Book, 1)
