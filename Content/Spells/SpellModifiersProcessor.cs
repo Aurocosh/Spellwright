@@ -13,11 +13,7 @@ namespace Spellwright.Content.Spells
             { "mass", SpellModifier.Area },
             { "eternal", SpellModifier.Eternal },
             { "dispel", SpellModifier.Dispel },
-            { "selfless", SpellModifier.Selfless },
-            { "twofold", SpellModifier.Twofold },
-            { "fivefold", SpellModifier.Fivefold },
-            { "tenfold", SpellModifier.Tenfold },
-            { "fiftyfold", SpellModifier.Fiftyfold }
+            { "selfless", SpellModifier.Selfless }
         };
 
         private static readonly Dictionary<string, SpellModifier> localModifierMap = new();

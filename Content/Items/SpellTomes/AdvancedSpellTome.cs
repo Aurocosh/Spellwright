@@ -27,7 +27,7 @@ namespace Spellwright.Content.Items.SpellTomes
             // Level 4
             content.AddSpell<BlockSpitterSpell>();
             content.AddSpell<BloodArrowSpell>();
-            content.AddSpell<GossamerShoesSpell>();
+            content.AddSpell<HolyShoesSpell>();
             content.AddSpell<HellGateSpell>();
             content.AddSpell<PiggySpell>();
             content.AddSpell<PotionVoidSpell>();

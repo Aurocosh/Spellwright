@@ -84,10 +84,6 @@ namespace Spellwright.Content.Spells.Base
             SetSpellCostModifier(SpellModifier.Area, new MultCostModifier(4));
             SetSpellCostModifier(SpellModifier.Selfless, new MultCostModifier(.75f));
             SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(4));
-            SetSpellCostModifier(SpellModifier.Twofold, new MultCostModifier(2));
-            SetSpellCostModifier(SpellModifier.Fivefold, new MultCostModifier(5));
-            SetSpellCostModifier(SpellModifier.Tenfold, new MultCostModifier(10));
-            SetSpellCostModifier(SpellModifier.Fiftyfold, new MultCostModifier(50));
         }
         protected sealed override void Register()
         {

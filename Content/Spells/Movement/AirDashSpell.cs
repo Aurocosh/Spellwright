@@ -17,9 +17,9 @@ namespace Spellwright.Content.Spells.Movement
         {
             SpellLevel = 3;
             UseType = SpellType.Cantrip;
+            useDelay = 80;
 
             UnlockCost = new SingleItemSpellCost(ItemID.Feather, 30);
-
             CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
         }
 

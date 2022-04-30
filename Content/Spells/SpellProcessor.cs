@@ -37,8 +37,6 @@ namespace Spellwright.Content.Spells
 
             if (!spell.IsModifiersApplicable(spellStructure.SpellModifiers))
                 return SpellCastResult.ModifiersInvalid;
-            if (CountMultModifiers(spellStructure.SpellModifiers) > 1)
-                return SpellCastResult.ModifiersInvalid;
 
             Player player = Main.LocalPlayer;
             if (!spell.ProcessExtraData(player, spellStructure, out object extraData))
@@ -69,18 +67,8 @@ namespace Spellwright.Content.Spells
                         return SpellCastResult.NoTomeToBind;
                 }
 
-                int spellUses = spell.GetGuaranteedUses(spellPlayer.PlayerLevel);
-                if (spellData.HasModifier(SpellModifier.Twofold))
-                    spellUses *= 2;
-                if (spellData.HasModifier(SpellModifier.Fivefold))
-                    spellUses *= 5;
-                if (spellData.HasModifier(SpellModifier.Tenfold))
-                    spellUses *= 10;
-                if (spellData.HasModifier(SpellModifier.Fiftyfold))
-                    spellUses *= 50;
-
                 var bookItem = item.ModItem as SpellResonator;
-                bookItem.SpellUsesLeft = spellUses;
+                bookItem.SpellUsesLeft = spell.GetGuaranteedUses(spellPlayer.PlayerLevel);
                 bookItem.CurrentSpell = spell;
                 bookItem.SpellData = spellData;
                 bookItem.UpdateName();
@@ -140,34 +128,9 @@ namespace Spellwright.Content.Spells
         {
             if (spellLevel > playerLevel)
                 return false;
-
-            if (playerLevel < 5 && spellModifiers.HasFlag(SpellModifier.Eternal))
+            if (playerLevel <= 4 && spellModifiers.HasFlag(SpellModifier.Eternal))
                 return false;
-
-            if (playerLevel < 2 && spellModifiers.HasFlag(SpellModifier.Twofold))
-                return false;
-            if (playerLevel < 4 && spellModifiers.HasFlag(SpellModifier.Fivefold))
-                return false;
-            if (playerLevel < 6 && spellModifiers.HasFlag(SpellModifier.Tenfold))
-                return false;
-            if (playerLevel < 8 && spellModifiers.HasFlag(SpellModifier.Fiftyfold))
-                return false;
-
             return true;
-        }
-
-        private static int CountMultModifiers(SpellModifier spellModifier)
-        {
-            int count = 0;
-            if (spellModifier.HasFlag(SpellModifier.Twofold))
-                count += 1;
-            if (spellModifier.HasFlag(SpellModifier.Fivefold))
-                count += 1;
-            if (spellModifier.HasFlag(SpellModifier.Tenfold))
-                count += 1;
-            if (spellModifier.HasFlag(SpellModifier.Fiftyfold))
-                count += 1;
-            return count;
         }
 
         public static SpellStructure ProcessIncantation(string incantationText)

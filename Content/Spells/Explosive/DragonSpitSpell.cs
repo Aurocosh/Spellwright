@@ -1,7 +1,6 @@
 ﻿using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Projectiles.Explosive;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
@@ -14,8 +13,6 @@ namespace Spellwright.Content.Spells.Explosive
     {
         public DragonSpitSpell()
         {
-            AddApplicableModifier(ModifierConstants.UsebleModifiers);
-
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.Fireblossom, 10)
                 .WithCost(ItemID.Bomb, 30);

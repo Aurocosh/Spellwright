@@ -1,7 +1,6 @@
 ﻿using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Projectiles.Explosive;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
@@ -12,11 +11,6 @@ namespace Spellwright.Content.Spells.Explosive
 {
     internal class ShapedChargeSpell : ProjectileSpell
     {
-        public ShapedChargeSpell()
-        {
-            AddApplicableModifier(ModifierConstants.UsebleModifiers);
-        }
-
         public override int GetGuaranteedUses(int playerLevel) => 12 + 3 * playerLevel;
 
         public override void SetStaticDefaults()

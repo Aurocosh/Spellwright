@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.BuffSpells.Vanilla
 {
-    internal class GossamerShoesSpell : BuffSpell
+    internal class HolyShoesSpell : BuffSpell
     {
         public override void SetStaticDefaults()
         {

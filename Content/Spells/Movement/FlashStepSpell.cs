@@ -15,6 +15,7 @@ namespace Spellwright.Content.Spells.Movement
         {
             SpellLevel = 2;
             UseType = SpellType.Cantrip;
+            useDelay = 80;
 
             CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
         }

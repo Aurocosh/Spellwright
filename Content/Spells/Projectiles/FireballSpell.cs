@@ -1,5 +1,4 @@
 ﻿using Spellwright.Content.Items.Reagents;
-using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
@@ -9,11 +8,6 @@ namespace Spellwright.Content.Spells.Projectiles
 {
     internal class FireballSpell : ProjectileSpell
     {
-        public FireballSpell()
-        {
-            AddApplicableModifier(ModifierConstants.UsebleModifiers);
-        }
-
         //public override int GetGuaranteedUses(int playerLevel) => 0;
         public override int GetGuaranteedUses(int playerLevel) => 0 + 5 * playerLevel;
         protected override int GetDamage(int playerLevel) => 50 + 10 * playerLevel;

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Content.Projectiles;
 using Spellwright.Content.Spells.Base;
-using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria;
@@ -13,11 +12,6 @@ namespace Spellwright.Content.Spells.Projectiles
 {
     internal class BloodArrowSpell : ProjectileSpell
     {
-        public BloodArrowSpell()
-        {
-            AddApplicableModifier(ModifierConstants.UsebleModifiers);
-        }
-
         public override int GetGuaranteedUses(int playerLevel) => 25 + 5 * playerLevel;
 
         public override void SetStaticDefaults()

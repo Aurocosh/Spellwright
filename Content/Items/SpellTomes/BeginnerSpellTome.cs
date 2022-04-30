@@ -30,7 +30,7 @@ namespace Spellwright.Content.Items.SpellTomes
 
             // Level 0
             content.AddSpell<AscendSpell>();
-            content.AddSpell<PathHomeSpell>();
+            content.AddSpell<ReturnSpell>();
             content.AddSpell<MysticSenseSpell>();
             content.AddSpell<RecallSpell>();
             content.AddSpell<SparkCasterSpell>();

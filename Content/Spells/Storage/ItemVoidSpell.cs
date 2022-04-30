@@ -28,7 +28,7 @@ namespace Spellwright.Content.Spells.Storage
 
         protected override bool CanAccept(Item item)
         {
-            return true;
+            return item.stack > 0 && item.type > ItemID.None && !item.favorited;
         }
 
         protected override List<Item> GetStorage(Player player)

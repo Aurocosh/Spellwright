@@ -10,10 +10,6 @@ namespace Spellwright.Content.Spells.Base.Modifiers
         Area = 2,
         Eternal = 4,
         Dispel = 8,
-        Selfless = 16,
-        Twofold = 32,
-        Fivefold = 64,
-        Tenfold = 128,
-        Fiftyfold = 256,
+        Selfless = 16
     }
 }

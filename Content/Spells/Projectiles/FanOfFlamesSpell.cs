@@ -1,5 +1,4 @@
 ﻿using Spellwright.Content.Items.Reagents;
-using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
@@ -10,11 +9,6 @@ namespace Spellwright.Content.Spells.Projectiles
 {
     internal class FanOfFlamesSpell : ProjectileSpraySpell
     {
-        public FanOfFlamesSpell()
-        {
-            AddApplicableModifier(ModifierConstants.UsebleModifiers);
-        }
-
         public override int GetGuaranteedUses(int playerLevel) => 10 + 2 * playerLevel;
         protected override int GetDamage(int playerLevel) => 20 + 5 * playerLevel;
         protected override int GetProjectileCount(int playerLevel) => 5 + 1 * playerLevel;

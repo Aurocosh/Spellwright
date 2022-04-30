@@ -32,7 +32,7 @@ namespace Spellwright.Content.Spells.Storage.Base
 
             var action = (StorageAction)spellData.ExtraData;
             if (action == StorageAction.Info)
-                PrintInfo(storage);
+                PrintInfo(player, storage);
             else if (action == StorageAction.Push)
             {
                 int maxStorageSize = StorageSize(playerLevel);
@@ -44,7 +44,7 @@ namespace Spellwright.Content.Spells.Storage.Base
             return true;
         }
 
-        private static void PrintInfo(List<Item> storage)
+        private static void PrintInfo(Player player, List<Item> storage)
         {
             var lines = new List<string>();
             lines.Add(Spellwright.GetTranslation("General", "StoredItems").Value);
@@ -63,6 +63,8 @@ namespace Spellwright.Content.Spells.Storage.Base
             UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
             uiMessageState.SetMessage(result);
             Spellwright.Instance.userInterface.SetState(uiMessageState);
+            if (Main.playerInventory)
+                player.ToggleInv();
         }
 
         private static bool PopItems(Player player, List<Item> storage)

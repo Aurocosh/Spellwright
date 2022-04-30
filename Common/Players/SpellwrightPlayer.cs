@@ -192,9 +192,7 @@ namespace Spellwright.Common.Players
                                 {
                                     spellInterface.SetState(uiMessageState);
                                     if (Main.playerInventory)
-                                    {
                                         Player.ToggleInv();
-                                    }
                                 }
                             }
                         }

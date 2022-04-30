@@ -38,10 +38,6 @@ Mods: {
 			Eternal: Eternal
 			Dispel: Dispel
 			Selfless: Selfless
-			Twofold: Twofold
-			Fivefold: Fivefold
-			Tenfold: Tenfold
-			Fiftyfold: Fiftyfold
 		}
 
 		General: {
@@ -203,8 +199,8 @@ Mods: {
 				Name: Featherfall
 				Description: Buffs player with featherfall
 			}
-			GossamerShoesSpell: {
-				Name: Gossamer Shoes
+			HolyShoesSpell: {
+				Name: Holy Shoes
 				Description: Allows walking on water
 			}
 			InnerSunshineSpell: {
@@ -524,8 +520,8 @@ Mods: {
 				Name: Hymn of Discord
 				Description: Functions just like Rod of Discord. Allows teleportation to the cursor
 			}
-			PathHomeSpell: {
-				Name: Path Home
+			ReturnSpell: {
+				Name: Return
 				Description: Teleports player to his spawn point
 			}
 			OceanGateSpell: {

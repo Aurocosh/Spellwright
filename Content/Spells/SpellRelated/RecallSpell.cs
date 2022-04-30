@@ -104,6 +104,8 @@ namespace Spellwright.Content.Spells.SpellRelated
             UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
             uiMessageState.SetMessage(result);
             Spellwright.Instance.userInterface.SetState(uiMessageState);
+            if (Main.playerInventory)
+                player.ToggleInv();
 
             return true;
         }
@@ -156,6 +158,8 @@ namespace Spellwright.Content.Spells.SpellRelated
             UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
             uiMessageState.SetMessage(fulllMessage);
             Spellwright.Instance.userInterface.SetState(uiMessageState);
+            if (Main.playerInventory)
+                player.ToggleInv();
 
             return true;
         }
