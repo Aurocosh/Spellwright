@@ -128,7 +128,7 @@ namespace Spellwright.Content.Spells
         {
             if (spellLevel > playerLevel)
                 return false;
-            if (playerLevel <= 4 && spellModifiers.HasFlag(SpellModifier.Eternal))
+            if (playerLevel <= 3 && spellModifiers.HasFlag(SpellModifier.Eternal))
                 return false;
             return true;
         }

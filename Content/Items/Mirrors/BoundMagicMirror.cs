@@ -16,7 +16,7 @@ namespace Spellwright.Content.Items.Mirrors
 
         public BoundMagicMirror()
         {
-            LocationName = "Not set";
+            LocationName = "";
             BoundLocation = new Vector2(0, 0);
         }
 
@@ -45,7 +45,7 @@ namespace Spellwright.Content.Items.Mirrors
 
         public override void OnCreate(ItemCreationContext context)
         {
-            LocationName = "Not set";
+            LocationName = "";
             BoundLocation = new Vector2(0, 0);
         }
 

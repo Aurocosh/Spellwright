@@ -191,6 +191,14 @@ Mods: {
 			}
 
 			# Vanilla
+			BewitchSpell: {
+				Name: Bewitch
+				Description: Gives player bewitched effect.
+			}
+			ClearMindSpell: {
+				Name: ClearMind
+				Description: Gives player clairvoyance effect.
+			}
 			EyesOfProfitSpell: {
 				Name: Eyes Of Profit
 				Description: Gives player effect of spelunking. Consumes 2 golden coins. If the player has no gold in inventory this spell will not work.
@@ -218,6 +226,14 @@ Mods: {
 			PremonitionSpell: {
 				Name: Premonition
 				Description: Grants user dangersense
+			}
+			RestockSpell: {
+				Name: Restock
+				Description: Gives player the effect of ammo box
+			}
+			SharpenSpell: {
+				Name: Sharpen
+				Description: Buffs player with sharpened buff
 			}
 			TigerEyesSpell: {
 				Name: Tiger Eyes

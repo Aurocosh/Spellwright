@@ -1,7 +1,7 @@
 ﻿using Spellwright.Content.Buffs.Spells.Utility;
 using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base.Modifiers;
-using Spellwright.Content.Spells.Base.SpellCosts;
+using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
@@ -18,7 +18,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
             AddEffect(ModContent.BuffType<CallOfTheDepthsBuff>(), (playerLevel) => UtilTime.MinutesToTicks((int)(2f * playerLevel)));
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
-            UnlockCost = new OptionalSpellCost()
+            UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.StoneBlock, 200)
                 .WithCost(ItemID.Diamond, 5);
 

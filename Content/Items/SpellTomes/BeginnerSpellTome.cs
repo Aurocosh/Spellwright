@@ -61,6 +61,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<TigerEyesSpell>();
             content.AddSpell<WallSpitterSpell>();
             content.AddSpell<FishermanBlessingSpell>();
+            content.AddSpell<SharpenSpell>();
 
             // Level 3
             content.AddSpell<AirDashSpell>();
@@ -73,6 +74,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<OceanGateSpell>();
             content.AddSpell<SurgeOfLifeSpell>();
             content.AddSpell<WarpMirrorSpell>();
+            content.AddSpell<RestockSpell>();
 
             Add(Type, content);
         }

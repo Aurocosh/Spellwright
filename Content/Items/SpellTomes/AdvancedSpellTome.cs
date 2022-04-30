@@ -33,6 +33,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<PotionVoidSpell>();
             content.AddSpell<RainCallSpell>();
             content.AddSpell<SkyGateSpell>();
+            content.AddSpell<BewitchSpell>();
 
             // Level 5
             content.AddSpell<BurningSoulSpell>();
@@ -43,6 +44,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<ObsidianSkinSpell>();
             content.AddSpell<ShadowStepSpell>();
             content.AddSpell<VoidMarkSpell>();
+            content.AddSpell<ClearMindSpell>();
 
             // Level 6
             content.AddSpell<DungeonGateSpell>();
