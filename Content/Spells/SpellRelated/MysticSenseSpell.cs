@@ -46,8 +46,8 @@ namespace Spellwright.Content.Spells.SpellRelated
             var result = string.Join("\n\n", parts);
 
             UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
-            uiMessageState.SetMessage(result);
             Spellwright.Instance.userInterface.SetState(uiMessageState);
+            uiMessageState.SetMessage(result);
             if (Main.playerInventory)
                 player.ToggleInv();
 

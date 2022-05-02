@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Description;
 using Spellwright.Core.Spells;
 using Spellwright.UI.States;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace Spellwright.Content.Spells.SpellRelated
@@ -32,78 +29,13 @@ namespace Spellwright.Content.Spells.SpellRelated
 
         private bool PrintSpellList(Player player, int playerLevel)
         {
-            var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            AscendSpell ascendSpell = ModContent.GetInstance<AscendSpell>();
+            string result = SpellInfoProvider.GetSpellList(player);
+            //result = "My favorite search engine is [Duck Duck Go](link=Spell:Bird Of Midas,color=blue). Got stuck between two objects, waited 5 minutes for the narrator to [speak](link=spell:Return), realised it was a bug; I've personally never had the need for a RectangleF structure, as I always cast floats to int when using Rectangles or simply avoid float altogether when positioning sprites. Not sure why SpriteBatch works with both float and int depending on the overload, but that's how Microsoft implemented it.";
 
-            var spellsByLevel = new Dictionary<int, List<ModSpell>>();
-            foreach (var spellId in spellPlayer.KnownSpells)
-            {
-                var spell = SpellLibrary.GetSpellById(spellId);
-                if (spell != null)
-                {
-                    int spellLevel = spell.SpellLevel;
-                    if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))
-                    {
-                        spells = new List<ModSpell>();
-                        spellsByLevel[spellLevel] = spells;
-                    }
-                    spells.Add(spell);
-                }
-            }
-
-            foreach (var item in spellsByLevel.Values)
-                item.Sort(new SpellComparer());
-
-            var spellLevelLists = new List<string>();
-            spellLevelLists.Add(GetTranslation("KnownSpells").Value);
-
-            for (int i = 0; i < 11; i++)
-            {
-                if (!spellsByLevel.TryGetValue(i, out List<ModSpell> spells))
-                    continue;
-                if (spells.Count == 0)
-                    continue;
-
-                var levelWord = GetTranslation("Level").Value;
-                var levelHeader = $"{levelWord} {i}";
-
-                if (spellPlayer.PlayerLevel < i)
-                {
-                    var cost = ascendSpell.GetLevelUpCost(i - 1);
-                    if (cost != null)
-                    {
-                        var costDescritpion = cost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
-                        var LevelUpCost = GetTranslation("LevelUpCost").Format(costDescritpion);
-                        levelHeader += $" [{LevelUpCost}]";
-                    }
-                }
-
-                var lines = new List<string>();
-                lines.Add(levelHeader);
-                foreach (var spell in spells)
-                {
-                    var line = spell.DisplayName.GetTranslation(Language.ActiveCulture);
-                    if (!spellPlayer.UnlockedSpells.Contains(spell.Type))
-                    {
-                        if (spell.UnlockCost != null)
-                        {
-                            var costDescritpion = spell.UnlockCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
-                            var unlockCostDescription = GetTranslation("SpellUnlockCost").Format(costDescritpion);
-                            line += $" [{unlockCostDescription}]";
-                        }
-                    }
-
-                    lines.Add(line);
-                }
-
-                spellLevelLists.Add(string.Join("\n", lines));
-            }
-
-            var result = string.Join("\n\n", spellLevelLists.ToArray());
 
             UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
-            uiMessageState.SetMessage(result);
             Spellwright.Instance.userInterface.SetState(uiMessageState);
+            uiMessageState.SetMessage(result);
             if (Main.playerInventory)
                 player.ToggleInv();
 
@@ -136,28 +68,11 @@ namespace Spellwright.Content.Spells.SpellRelated
 
             var costModifier = spell.GetCostModifier(spellStructure.SpellModifiers);
             var subSpellData = new SpellData(spellStructure.SpellModifiers, spellStructure.Argument, costModifier, extraData);
-
-            string name = spell.DisplayName.GetTranslation(Language.ActiveCulture);
-
-            var descriptionParts = new List<string>();
-            descriptionParts.Add(name);
-
-            var descriptionValues = spell.GetDescriptionValues(player, playerLevel, subSpellData, true);
-            string description = spell.Description.GetTranslation(Language.ActiveCulture);
-            descriptionValues.Add(new SpellParameter("Description", description));
-
-            foreach (var value in descriptionValues)
-            {
-                var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name);
-                var descriptionPart = $"{parameterName}: {value.Value}";
-                descriptionParts.Add(descriptionPart);
-            }
-
-            var fulllMessage = string.Join("\n", descriptionParts);
+            string fulllMessage = SpellInfoProvider.GetSpellData(player, playerLevel, spell, subSpellData, true);
 
             UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
-            uiMessageState.SetMessage(fulllMessage);
             Spellwright.Instance.userInterface.SetState(uiMessageState);
+            uiMessageState.SetMessage(fulllMessage);
             if (Main.playerInventory)
                 player.ToggleInv();
 
@@ -190,16 +105,6 @@ namespace Spellwright.Content.Spells.SpellRelated
         {
             string recallData = tag.GetString("RecallData");
             return recallData;
-        }
-
-        private class SpellComparer : IComparer<ModSpell>
-        {
-            public int Compare(ModSpell a, ModSpell b)
-            {
-                var aName = a.DisplayName.GetTranslation(Language.ActiveCulture);
-                var bName = b.DisplayName.GetTranslation(Language.ActiveCulture);
-                return aName.CompareTo(bName);
-            }
         }
     }
 }

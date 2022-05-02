@@ -18,7 +18,7 @@ using Terraria.UI;
 
 namespace Spellwright.Common.Players
 {
-    internal class SpellwrightPlayer : ModPlayer, ILoader
+    public class SpellwrightPlayer : ModPlayer, ILoader
     {
         private int playerLevel = 0;
         private int nextCantripDelay = 0;

@@ -61,8 +61,8 @@ namespace Spellwright.Content.Spells.Storage.Base
             var result = string.Join("\n", lines.ToArray());
 
             UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
-            uiMessageState.SetMessage(result);
             Spellwright.Instance.userInterface.SetState(uiMessageState);
+            uiMessageState.SetMessage(result);
             if (Main.playerInventory)
                 player.ToggleInv();
         }

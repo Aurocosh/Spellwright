@@ -67,6 +67,13 @@ Mods: {
 			TorchGod: Gain favor of torch god
 		}
 		
+		SpellInfo: {
+			KnownSpells: Known spells
+			Level: Level
+			LevelUpCost: Level up cost: {0}
+			SpellUnlockCost: Spell unlock cost: {0}
+		}
+		
 		BoundMirror: {
 			LocationName: Location: {0}
 			LocationCoordinates: X:{0} Y:{1}
