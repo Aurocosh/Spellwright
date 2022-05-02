@@ -2,13 +2,13 @@
 
 namespace Spellwright.UI.Components.TextBox.TextParts
 {
-    internal interface TextPart
+    internal interface ITextPart
     {
         public float Width { get; }
         public float Height { get; }
         public string Text { get; }
 
         public Color GetColor(Color color);
-        public TextPart Alter(string text);
+        public ITextPart Alter(string text);
     }
 }

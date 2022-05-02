@@ -3,7 +3,7 @@ using ReLogic.Graphics;
 
 namespace Spellwright.UI.Components.TextBox.TextParts
 {
-    internal class PlainTextPart : TextPart
+    internal class PlainTextPart : ITextPart
     {
         public float Width { get; }
         public float Height { get; }
@@ -23,7 +23,7 @@ namespace Spellwright.UI.Components.TextBox.TextParts
         {
             return color;
         }
-        public virtual TextPart Alter(string text)
+        public virtual ITextPart Alter(string text)
         {
             return new PlainTextPart(text, Font);
         }

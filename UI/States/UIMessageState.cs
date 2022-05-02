@@ -4,9 +4,8 @@ using ReLogic.Content;
 using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Core.Spells;
-using Spellwright.UI.Components;
 using Spellwright.UI.Components.Args;
-using System.Collections.Generic;
+using Spellwright.UI.Components.TextBox;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
@@ -17,7 +16,7 @@ namespace Spellwright.UI.States
 {
     internal class UIMessageState : UIState
     {
-        private readonly UIMessageBox messageBox = new("");
+        private readonly UINavigableTextBox messageBox = new();
         private UIElement mainPanel;
         private UIScrollbar uIScrollbar;
         private UIElement buttonPanel;
@@ -25,15 +24,6 @@ namespace Spellwright.UI.States
         private UITextPanel<string> homeButton;
         private UITextPanel<string> closeButton;
         private UITextPanel<string> forwardButton;
-
-        private readonly LinkedList<string> pageHistory;
-        private LinkedListNode<string> currentPage;
-
-        public UIMessageState()
-        {
-            pageHistory = new();
-            currentPage = null;
-        }
 
         public override void OnInitialize()
         {
@@ -43,7 +33,8 @@ namespace Spellwright.UI.States
             messageBox.PaddingRight = 10f;
             //messageBox.PaddingBottom = 10f;
             messageBox.PaddingBottom = 10f;
-            messageBox.OnLineClicked += OnLineClicked;
+            messageBox.OnLinkClicked += OnLineClicked;
+            messageBox.OnPageChanged += OnPageChanged;
 
             mainPanel = new UIElement
             {
@@ -74,10 +65,12 @@ namespace Spellwright.UI.States
 
             buttonPanel = new UIElement
             {
-                Width = { Pixels = 600 },
+                Width = { Pixels = 500 },
                 Height = { Pixels = 60 },
                 VAlign = 1f,
-                HAlign = 0.5f,
+                //HAlign = 0.5f,
+                HAlign = 1f,
+
             };
             mainPanel.Append(buttonPanel);
 
@@ -138,6 +131,7 @@ namespace Spellwright.UI.States
             buttonPanel.Append(forwardButton);
 
             Append(mainPanel);
+            RefreshButtons();
         }
 
         public override void Update(GameTime gameTime)
@@ -146,8 +140,6 @@ namespace Spellwright.UI.States
 
             base.Update(gameTime);
             PlayerInput.LockVanillaMouseScroll("ModLoader/UIScrollbar");
-            //if (uIScrollbar.ContainsPoint(Main.MouseScreen) || closeButton.ContainsPoint(Main.MouseScreen))
-            //Main.LocalPlayer.mouseInterface = true;
             if (ContainsPoint(Main.MouseScreen))
                 Main.LocalPlayer.mouseInterface = true;
         }
@@ -168,49 +160,20 @@ namespace Spellwright.UI.States
 
         public void SetMessage(string text, bool resetHitory = true)
         {
-            messageBox.SetText(text);
-
-            if (resetHitory)
-            {
-                pageHistory.Clear();
-            }
-            else
-            {
-                while (pageHistory.Count > 0 && currentPage != pageHistory.Last)
-                    pageHistory.RemoveLast();
-            }
-
-            pageHistory.AddLast(text);
-            currentPage = pageHistory.Last;
-            RefreshButtons();
-        }
-
-        private void SetMessage(LinkedListNode<string> setPage)
-        {
-            currentPage = setPage;
-            messageBox.SetText(setPage.Value);
-            RefreshButtons();
+            messageBox.SetText(text, resetHitory);
         }
 
         private void RefreshButtons()
         {
-            if (currentPage == null || currentPage == pageHistory.First)
-            {
-                backButton.Left = new StyleDimension { Pixels = -500 };
-            }
-            else if (currentPage != null && currentPage != pageHistory.First)
-            {
+            if (messageBox.CanGoBack())
                 backButton.Left = new StyleDimension { Pixels = 29 };
-            }
+            else
+                backButton.Left = new StyleDimension { Pixels = -3000 };
 
-            if (currentPage == null || currentPage == pageHistory.Last)
-            {
-                forwardButton.Left = new StyleDimension { Pixels = -500 };
-            }
-            else if (currentPage != null && currentPage != pageHistory.Last)
-            {
+            if (messageBox.CanGoForward())
                 forwardButton.Left = new StyleDimension { Pixels = 320 };
-            }
+            else
+                forwardButton.Left = new StyleDimension { Pixels = -3000 };
         }
 
         private void Close(UIMouseEvent evt, UIElement listeningElement)
@@ -224,20 +187,20 @@ namespace Spellwright.UI.States
             string result = SpellInfoProvider.GetSpellList(player);
             SetMessage(result, true);
         }
+
         private void OnBackClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            if (currentPage?.Previous != null)
-                SetMessage(currentPage.Previous);
-        }
-        private void OnForwardClicked(UIMouseEvent evt, UIElement listeningElement)
-        {
-            if (currentPage?.Next != null)
-                SetMessage(currentPage.Next);
+            messageBox.GoBack();
         }
 
-        private void OnLineClicked(object sender, LineClickEventArgs eventHandler)
+        private void OnForwardClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            string linkText = eventHandler.LinkText;
+            messageBox.GoForward();
+        }
+
+        private void OnLineClicked(object sender, LinkClickedEventArgs eventHandler)
+        {
+            string linkText = eventHandler.Link;
             if (linkText.Length == 0)
                 return;
 
@@ -258,6 +221,11 @@ namespace Spellwright.UI.States
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
             string fullMessage = SpellInfoProvider.GetSpellData(player, spellPlayer.PlayerLevel, spell, SpellData.EmptyData, true);
             SetMessage(fullMessage, false);
+        }
+
+        private void OnPageChanged(object sender, PageChangedEventArgs eventArgs)
+        {
+            RefreshButtons();
         }
     }
 }

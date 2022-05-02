@@ -7,9 +7,9 @@ namespace Spellwright.UI.Components.TextBox
     {
         public float Width { get; }
         public float Height { get; }
-        public List<TextPart> Parts { get; }
+        public List<ITextPart> Parts { get; }
 
-        public TextLine(float width, float height, List<TextPart> parts)
+        public TextLine(float width, float height, List<ITextPart> parts)
         {
             Width = width;
             Height = height;
