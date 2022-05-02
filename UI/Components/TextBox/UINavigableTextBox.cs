@@ -2,10 +2,11 @@
 using Spellwright.UI.Components.TextBox.TextData;
 using System;
 using System.Collections.Generic;
+using Terraria.UI;
 
 namespace Spellwright.UI.Components.TextBox
 {
-    internal class UINavigableTextBox : UIFancyTextBox
+    internal class UINavigableTextBox : UIFormattedTextBox
     {
         private readonly LinkedList<PageStatus> pageHistory;
         private LinkedListNode<PageStatus> currentPage;
@@ -83,6 +84,12 @@ namespace Spellwright.UI.Components.TextBox
         public bool CanGoForward()
         {
             return currentPage != null && currentPage != pageHistory.Last;
+        }
+
+        public override void RightClick(UIMouseEvent evt)
+        {
+            base.RightClick(evt);
+            GoBack();
         }
     }
 }

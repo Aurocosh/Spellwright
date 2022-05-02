@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using ReLogic.Graphics;
-using CColor = System.Drawing.Color;
+using DColor = System.Drawing.Color;
+using DColorTranslator = System.Drawing.ColorTranslator;
 
 namespace Spellwright.UI.Components.TextBox.TextParts
 {
-    internal class FancyTextPart : PlainTextPart
+    internal class FormattedTextPart : PlainTextPart
     {
         public string Link { get; }
         public Color CustomColor { get; }
@@ -13,7 +14,7 @@ namespace Spellwright.UI.Components.TextBox.TextParts
 
         public bool HasLink => Link?.Length > 0;
 
-        public FancyTextPart(string text, string options, DynamicSpriteFont font) :
+        public FormattedTextPart(string text, string options, DynamicSpriteFont font) :
             base(text, font)
         {
             Link = "";
@@ -30,9 +31,11 @@ namespace Spellwright.UI.Components.TextBox.TextParts
                     {
                         Link = value;
                     }
-                    if (name == "color")
+                    else if (name == "color")
                     {
-                        var clrColor = CColor.FromName(value);
+                        var clrColor = DColor.FromName(value);
+                        if (!clrColor.IsKnownColor)
+                            clrColor = DColorTranslator.FromHtml(value);
                         CustomColor = new Color(clrColor.R, clrColor.G, clrColor.B, clrColor.A);
                         HasCustomColor = true;
                     }
@@ -46,7 +49,7 @@ namespace Spellwright.UI.Components.TextBox.TextParts
             }
         }
 
-        public FancyTextPart(string text, string link, Color customColor, bool hasCustomColor, DynamicSpriteFont font)
+        public FormattedTextPart(string text, string link, Color customColor, bool hasCustomColor, DynamicSpriteFont font)
             : base(text, font)
         {
             Link = link;
@@ -61,7 +64,7 @@ namespace Spellwright.UI.Components.TextBox.TextParts
 
         public override ITextPart Alter(string text)
         {
-            return new FancyTextPart(text, Link, CustomColor, HasCustomColor, Font);
+            return new FormattedTextPart(text, Link, CustomColor, HasCustomColor, Font);
         }
     }
 }

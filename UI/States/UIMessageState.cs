@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using Spellwright.Common.Players;
-using Spellwright.Content.Spells.Base;
-using Spellwright.Core.Spells;
+using Spellwright.Core.Links;
 using Spellwright.UI.Components.Args;
 using Spellwright.UI.Components.TextBox;
 using Terraria;
@@ -183,9 +181,10 @@ namespace Spellwright.UI.States
 
         private void OnHomeClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            var player = Main.LocalPlayer;
-            string result = SpellInfoProvider.GetSpellList(player);
-            SetMessage(result, true);
+            var linkHandler = new LinkHandler();
+            var result = linkHandler.HandleLink("home_page", Main.LocalPlayer);
+            if (result != null)
+                SetMessage(result, true);
         }
 
         private void OnBackClicked(UIMouseEvent evt, UIElement listeningElement)
@@ -201,26 +200,10 @@ namespace Spellwright.UI.States
         private void OnLineClicked(object sender, LinkClickedEventArgs eventHandler)
         {
             string linkText = eventHandler.Link;
-            if (linkText.Length == 0)
-                return;
-
-            var linkParts = linkText.Split(':', 2);
-            if (linkParts.Length < 2)
-                return;
-
-            var type = linkParts[0].ToLower();
-            if (type != "spell")
-                return;
-
-            var spellName = linkParts[1];
-            var spell = SpellLibrary.GetSpellByName(spellName);
-            if (spell == null)
-                return;
-
-            var player = Main.LocalPlayer;
-            var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            string fullMessage = SpellInfoProvider.GetSpellData(player, spellPlayer.PlayerLevel, spell, SpellData.EmptyData, true);
-            SetMessage(fullMessage, false);
+            var linkHandler = new LinkHandler();
+            var result = linkHandler.HandleLink(linkText, Main.LocalPlayer);
+            if (result != null)
+                SetMessage(result, false);
         }
 
         private void OnPageChanged(object sender, PageChangedEventArgs eventArgs)

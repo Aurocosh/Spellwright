@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Spellwright.UI.Components.Args;
 using Spellwright.UI.Components.TextBox;
+using Spellwright.UI.Components.TextBox.TextParts;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -13,7 +14,7 @@ using Terraria.UI;
 
 namespace Spellwright.UI.Components
 {
-    internal class UIFancyTextBox : UIPanel
+    internal class UIFormattedTextBox : UIPanel
     {
         protected UIScrollbar Scrollbar;
 
@@ -22,11 +23,13 @@ namespace Spellwright.UI.Components
         private bool heightNeedsRecalculating;
         private List<TextLine> textLines = new();
         private List<LinkInfo> links = new();
+        private LinkInfo hoveredLink = null;
         private float? newViewPosition = null;
+        private bool IsSmartCursorWanted = false;
 
         public event EventHandler<LinkClickedEventArgs> OnLinkClicked;
 
-        public UIFancyTextBox()
+        public UIFormattedTextBox()
         {
             text = "";
             ResetScrollbar();
@@ -36,6 +39,13 @@ namespace Spellwright.UI.Components
         {
             base.OnActivate();
             heightNeedsRecalculating = true;
+            IsSmartCursorWanted = Main.SmartCursorWanted;
+        }
+
+        public override void OnDeactivate()
+        {
+            base.OnDeactivate();
+            Main.SmartCursorWanted = IsSmartCursorWanted;
         }
 
         public bool HasText()
@@ -87,7 +97,12 @@ namespace Spellwright.UI.Components
                     float previousPartsWidth = 0;
                     foreach (var part in textLine.Parts)
                     {
-                        Utils.DrawBorderString(spriteBatch, part.Text, new Vector2(space.X + previousPartsWidth, space.Y + position), part.GetColor(ForegroundColor), 1f);
+                        var color = part.GetColor(ForegroundColor);
+                        if (hoveredLink != null && part is FormattedTextPart formattedPart && formattedPart.Link == hoveredLink.TextPart.Link)
+                            //color = Color.DarkBlue;
+                            color *= 1.5f;
+
+                        Utils.DrawBorderString(spriteBatch, part.Text, new Vector2(space.X + previousPartsWidth, space.Y + position), color, 1f);
                         previousPartsWidth += part.Width;
                     }
                 }
@@ -131,24 +146,37 @@ namespace Spellwright.UI.Components
         {
             base.Click(evt);
 
-            CalculatedStyle space = GetInnerDimensions();
-            float x = evt.MousePosition.X - space.X;
-            float y = evt.MousePosition.Y - space.Y + Scrollbar.GetValue();
-
-            foreach (var linkData in links)
-            {
-                if (linkData.IsInBounds(x, y))
-                {
-                    OnLinkClicked?.Invoke(this, new LinkClickedEventArgs(linkData.LineIndex, linkData.Text, linkData.Link));
-                    return;
-                }
-            }
+            LinkInfo linkInfo = GetLinkUnderCursor(evt.MousePosition);
+            if (linkInfo != null)
+                OnLinkClicked?.Invoke(this, new LinkClickedEventArgs(linkInfo.LineIndex, linkInfo.Text, linkInfo.Link));
         }
 
         public override void MouseOver(UIMouseEvent evt)
         {
             base.MouseOver(evt);
             PlayerInput.LockVanillaMouseScroll("Spellwright/UIMessageBox");
+        }
+
+        public override void Update()
+        {
+            var mouseVector = Main.MouseScreen;
+            hoveredLink = GetLinkUnderCursor(mouseVector);
+            Main.SmartCursorWanted = hoveredLink == null;
+        }
+
+        private LinkInfo GetLinkUnderCursor(Vector2 mousePosition)
+        {
+            CalculatedStyle space = GetInnerDimensions();
+            float x = mousePosition.X - space.X;
+            float y = mousePosition.Y - space.Y + Scrollbar.GetValue();
+
+            foreach (var linkInfo in links)
+            {
+                if (linkInfo.IsInBounds(x, y))
+                    return linkInfo;
+            }
+
+            return null;
         }
 
         public override void ScrollWheel(UIScrollWheelEvent evt)

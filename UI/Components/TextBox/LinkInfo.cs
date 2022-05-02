@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.UI.Components.TextBox.TextParts;
 
 namespace Spellwright.UI.Components.TextBox
 {
     internal class LinkInfo
     {
+        public FormattedTextPart TextPart { get; }
         public int LineIndex { get; }
         public string Text { get; }
         public string Link { get; }
@@ -11,8 +13,9 @@ namespace Spellwright.UI.Components.TextBox
         public Vector2 TopLeft { get; }
         public Vector2 BottomRight { get; }
 
-        public LinkInfo(int lineIndex, string text, string link, Vector2 topLeft, Vector2 bottomRight)
+        public LinkInfo(FormattedTextPart textPart, int lineIndex, string text, string link, Vector2 topLeft, Vector2 bottomRight)
         {
+            TextPart = textPart;
             LineIndex = lineIndex;
             Text = text;
             Link = link;

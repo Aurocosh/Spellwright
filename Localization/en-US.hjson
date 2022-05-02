@@ -73,6 +73,18 @@ Mods: {
 			LevelUpCost: Level up cost: {0}
 			SpellUnlockCost: Spell unlock cost: {0}
 		}
+
+		PlayerStatus: {
+			MyCurrentLevel: My current level is {0}
+			NoPermamentBuffs: I have no permament buffs
+			HavePermamentBuffs: I have following permament buffs
+		}
+
+		MenuText:{
+			MyStatus: My status
+			KnownSpells: Known spells
+			UsableSpells: Usable spells
+		}
 		
 		BoundMirror: {
 			LocationName: Location: {0}

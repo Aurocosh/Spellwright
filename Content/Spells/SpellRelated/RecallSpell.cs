@@ -29,7 +29,7 @@ namespace Spellwright.Content.Spells.SpellRelated
 
         private bool PrintSpellList(Player player, int playerLevel)
         {
-            string result = SpellInfoProvider.GetSpellList(player);
+            string result = SpellInfoProvider.GetSpellList(player, false);
             //result = "My favorite search engine is [Duck Duck Go](link=Spell:Bird Of Midas,color=blue). Got stuck between two objects, waited 5 minutes for the narrator to [speak](link=spell:Return), realised it was a bug; I've personally never had the need for a RectangleF structure, as I always cast floats to int when using Rectangles or simply avoid float altogether when positioning sprites. Not sure why SpriteBatch works with both float and int depending on the overload, but that's how Microsoft implemented it.";
 
 
@@ -68,7 +68,7 @@ namespace Spellwright.Content.Spells.SpellRelated
 
             var costModifier = spell.GetCostModifier(spellStructure.SpellModifiers);
             var subSpellData = new SpellData(spellStructure.SpellModifiers, spellStructure.Argument, costModifier, extraData);
-            string fulllMessage = SpellInfoProvider.GetSpellData(player, playerLevel, spell, subSpellData, true);
+            string fulllMessage = SpellInfoProvider.GetSpellDescription(player, playerLevel, spell, subSpellData, true);
 
             UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
             Spellwright.Instance.userInterface.SetState(uiMessageState);

@@ -1,7 +1,9 @@
-﻿using Spellwright.Common.Players;
+﻿using Microsoft.Xna.Framework;
+using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Description;
 using Spellwright.Content.Spells.SpellRelated;
+using Spellwright.UI.Components.TextBox.Text;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
@@ -11,7 +13,7 @@ namespace Spellwright.Core.Spells
 {
     public class SpellInfoProvider
     {
-        public static string GetSpellList(Player player)
+        public static string GetSpellList(Player player, bool ulockedOnly)
         {
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
             AscendSpell ascendSpell = ModContent.GetInstance<AscendSpell>();
@@ -22,6 +24,9 @@ namespace Spellwright.Core.Spells
                 var spell = SpellLibrary.GetSpellById(spellId);
                 if (spell != null)
                 {
+                    if (ulockedOnly && spell.UnlockCost != null && !spellPlayer.UnlockedSpells.Contains(spellId))
+                        continue;
+
                     int spellLevel = spell.SpellLevel;
                     if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))
                     {
@@ -38,7 +43,9 @@ namespace Spellwright.Core.Spells
             var spellLevelLists = new List<string>();
             spellLevelLists.Add(Spellwright.GetTranslation("SpellInfo", "KnownSpells").Value);
 
-            for (int i = 0; i < 11; i++)
+            int maxLevel = ulockedOnly ? spellPlayer.PlayerLevel : 10;
+            int limit = maxLevel + 1;
+            for (int i = 0; i < limit; i++)
             {
                 if (!spellsByLevel.TryGetValue(i, out List<ModSpell> spells))
                     continue;
@@ -64,8 +71,9 @@ namespace Spellwright.Core.Spells
                 foreach (var spell in spells)
                 {
                     var internalName = spell.Name;
-                    var displayNamee = spell.DisplayName.GetTranslation(Language.ActiveCulture);
-                    var line = $"[{displayNamee}](link=spell:{internalName})";
+                    var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture);
+
+                    var line = new FormattedText(displayName, Color.DarkGoldenrod).WithLink("spell", internalName).ToString();
                     if (!spellPlayer.UnlockedSpells.Contains(spell.Type))
                     {
                         if (spell.UnlockCost != null)
@@ -87,9 +95,11 @@ namespace Spellwright.Core.Spells
         }
 
 
-        public static string GetSpellData(Player player, int playerLevel, ModSpell spell, SpellData spellData, bool fullDescription = false)
+        public static string GetSpellDescription(Player player, int playerLevel, ModSpell spell, SpellData spellData, bool fullDescription = false, bool isFormatted = false)
         {
             string name = spell.DisplayName.GetTranslation(Language.ActiveCulture);
+            if (isFormatted)
+                name = new FormattedText(name, Color.DarkGoldenrod).ToString();
 
             var descriptionParts = new List<string>();
             descriptionParts.Add(name);
@@ -100,8 +110,11 @@ namespace Spellwright.Core.Spells
 
             foreach (var value in descriptionValues)
             {
-                var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name);
-                var descriptionPart = $"{parameterName}: {value.Value}";
+                var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name).Value + ":";
+                if (isFormatted)
+                    parameterName = new FormattedText(parameterName, Color.Gray).ToString();
+
+                var descriptionPart = $"{parameterName} {value.Value}";
                 descriptionParts.Add(descriptionPart);
             }
 

@@ -31,7 +31,7 @@ namespace Spellwright.UI.Components.TextBox
                     string linkText = match.Groups[1].Value;
                     string linkValue = match.Groups[2].Value;
 
-                    textParts.Add(new FancyTextPart(linkText, linkValue, font));
+                    textParts.Add(new FormattedTextPart(linkText, linkValue, font));
                     startIndex = match.Index + match.Length;
                 }
                 else
@@ -155,7 +155,7 @@ namespace Spellwright.UI.Components.TextBox
                 float baseX = 0;
                 foreach (var part in textLine.Parts)
                 {
-                    if (part is FancyTextPart linkPart && linkPart.HasLink)
+                    if (part is FormattedTextPart formattedPart && formattedPart.HasLink)
                     {
                         var minX = baseX;
                         var maxX = minX + part.Width;
@@ -164,7 +164,7 @@ namespace Spellwright.UI.Components.TextBox
 
                         var topLeft = new Vector2(minX, minY);
                         var bottomRight = new Vector2(maxX, maxY);
-                        links.Add(new LinkInfo(lineIndex, linkPart.Text, linkPart.Link, topLeft, bottomRight));
+                        links.Add(new LinkInfo(formattedPart, lineIndex, formattedPart.Text, formattedPart.Link, topLeft, bottomRight));
                     }
                     baseX += part.Width;
                 }
