@@ -33,6 +33,7 @@ namespace Spellwright.Content.Spells.Base.Types
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
             int realDamage = GetDamage(playerLevel);
+            int scaledDamage = (int)player.GetDamage(DamageType).ApplyTo(realDamage);
             float realKnockback = GetKnockback(playerLevel);
             int realBuffType = GetBuffType(playerLevel);
             int realProjectileType = GetProjectileType(playerLevel);
@@ -50,7 +51,7 @@ namespace Spellwright.Content.Spells.Base.Types
             var position = player.Center;
             position.Y -= 50;
             var projectileSource = new EntitySource_Parent(player);
-            var projectile = Projectile.NewProjectileDirect(projectileSource, position, Vector2.Zero, realProjectileType, realDamage, realKnockback, Main.myPlayer);
+            var projectile = Projectile.NewProjectileDirect(projectileSource, position, Vector2.Zero, realProjectileType, scaledDamage, realKnockback, Main.myPlayer);
             projectile.originalDamage = realDamage;
 
             return true;

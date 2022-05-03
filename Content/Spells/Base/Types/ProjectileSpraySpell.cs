@@ -32,8 +32,8 @@ namespace Spellwright.Content.Spells.Base.Types
             int projectileCount = GetProjectileCount(playerLevel);
             for (int i = 0; i < projectileCount; i++)
             {
-                float damageModifier = player.GetDamage(DamageType);
-                int realDamage = (int)(GetDamage(playerLevel) * damageModifier);
+                int realDamage = GetDamage(playerLevel);
+                int scaledDamage = (int)player.GetDamage(DamageType).ApplyTo(realDamage);
                 float realKnockback = GetKnockback(playerLevel);
                 int realProjectileType = GetProjectileType(playerLevel);
                 int projectileSpray = GetProjectileSpray(playerLevel);
@@ -43,7 +43,7 @@ namespace Spellwright.Content.Spells.Base.Types
                 // Decrease velocity randomly for nicer visuals.
                 newVelocity *= 1f - Main.rand.NextFloat(minSpeedChange, maxSpeedChange);
 
-                int projectileID = Projectile.NewProjectile(source, position, newVelocity, realProjectileType, realDamage, realKnockback, player.whoAmI);
+                int projectileID = Projectile.NewProjectile(source, position, newVelocity, realProjectileType, scaledDamage, realKnockback, player.whoAmI);
             }
 
             return true;

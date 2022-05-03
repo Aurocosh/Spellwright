@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using Spellwright.Core.Links;
 using Spellwright.UI.Components.Args;
 using Spellwright.UI.Components.TextBox;
+using Spellwright.UI.Components.TextBox.TextProcessors;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
@@ -14,7 +14,7 @@ namespace Spellwright.UI.States
 {
     internal class UIMessageState : UIState
     {
-        private readonly UINavigableTextBox messageBox = new();
+        private readonly UINavigableTextBox messageBox;
         private UIElement mainPanel;
         private UIScrollbar uIScrollbar;
         private UIElement buttonPanel;
@@ -22,6 +22,11 @@ namespace Spellwright.UI.States
         private UITextPanel<string> homeButton;
         private UITextPanel<string> closeButton;
         private UITextPanel<string> forwardButton;
+
+        public UIMessageState()
+        {
+            messageBox = new UINavigableTextBox(new SpellLinkProcessor());
+        }
 
         public override void OnInitialize()
         {
@@ -146,19 +151,21 @@ namespace Spellwright.UI.States
         {
             base.OnActivate();
         }
-        public bool HasMessage()
+        public bool HasText()
         {
             return messageBox.HasText();
         }
 
-        public string GetMessage()
+        public string GetText()
         {
             return messageBox.GetText();
         }
 
-        public void SetMessage(string text, bool resetHitory = true)
+        public void SetText(string text, bool resetHitory = false) => messageBox.SetText(text, resetHitory);
+        public void SetLink(string linkText, bool resetHitory = false) => messageBox.SetLink(linkText, resetHitory);
+        public void GoHome()
         {
-            messageBox.SetText(text, resetHitory);
+            messageBox.SetLink("link:Static=id:Home", true);
         }
 
         private void RefreshButtons()
@@ -179,36 +186,14 @@ namespace Spellwright.UI.States
             Spellwright.Instance.userInterface.SetState(null);
         }
 
-        private void OnHomeClicked(UIMouseEvent evt, UIElement listeningElement)
-        {
-            var linkHandler = new LinkHandler();
-            var result = linkHandler.HandleLink("home_page", Main.LocalPlayer);
-            if (result != null)
-                SetMessage(result, true);
-        }
+        private void OnHomeClicked(UIMouseEvent evt, UIElement listeningElement) => GoHome();
 
-        private void OnBackClicked(UIMouseEvent evt, UIElement listeningElement)
-        {
-            messageBox.GoBack();
-        }
+        private void OnBackClicked(UIMouseEvent evt, UIElement listeningElement) => messageBox.GoBack();
 
-        private void OnForwardClicked(UIMouseEvent evt, UIElement listeningElement)
-        {
-            messageBox.GoForward();
-        }
+        private void OnForwardClicked(UIMouseEvent evt, UIElement listeningElement) => messageBox.GoForward();
 
-        private void OnLineClicked(object sender, LinkClickedEventArgs eventHandler)
-        {
-            string linkText = eventHandler.Link;
-            var linkHandler = new LinkHandler();
-            var result = linkHandler.HandleLink(linkText, Main.LocalPlayer);
-            if (result != null)
-                SetMessage(result, false);
-        }
+        private void OnLineClicked(object sender, LinkClickedEventArgs eventHandler) => messageBox.SetLink(eventHandler.Link);
 
-        private void OnPageChanged(object sender, PageChangedEventArgs eventArgs)
-        {
-            RefreshButtons();
-        }
+        private void OnPageChanged(object sender, PageChangedEventArgs eventArgs) => RefreshButtons();
     }
 }

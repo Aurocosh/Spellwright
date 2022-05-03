@@ -7,6 +7,7 @@ using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Items.SpellTomes;
 using Spellwright.Content.Projectiles;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
@@ -120,40 +121,9 @@ namespace Spellwright.Content.NPCs
             return false;
         }
 
-        // Preview
-        //public override List<string> SetNPCNameList()
-        //{
-        //    return new List<string>() { "Atarum", "Adisorin", "Igoquam", "Ilubin", "Elliro", "Kolenor", "Ezith", "Gilleas" };
-        //}
-
-        public override string TownNPCName()
+        public override List<string> SetNPCNameList()
         {
-            switch (WorldGen.genRand.Next(8))
-            {
-                case 0:
-                    return "Atarum";
-
-                case 1:
-                    return "Adisorin";
-
-                case 2:
-                    return "Igoquam";
-
-                case 3:
-                    return "Ilubin";
-
-                case 4:
-                    return "Elliro";
-
-                case 5:
-                    return "Kolenor";
-
-                case 6:
-                    return "Ezith";
-
-                default:
-                    return "Gilleas";
-            }
+            return new List<string>() { "Atarum", "Adisorin", "Igoquam", "Ilubin", "Elliro", "Kolenor", "Ezith", "Gilleas" };
         }
 
         public override string GetChat()

@@ -21,23 +21,25 @@ namespace Spellwright.UI.Components.TextBox.TextParts
             HasCustomColor = false;
             foreach (var option in options.Split(','))
             {
-                var parts = option.Split('=', 2);
-                if (parts.Length == 2)
+                if (option.StartsWith("link:"))
                 {
-                    var name = parts[0].Trim();
-                    var value = parts[1].Trim();
-
-                    if (name == "link")
+                    Link = option;
+                }
+                else
+                {
+                    var parts = option.Split('=', 2);
+                    if (parts.Length == 2)
                     {
-                        Link = value;
-                    }
-                    else if (name == "color")
-                    {
-                        var clrColor = DColor.FromName(value);
-                        if (!clrColor.IsKnownColor)
-                            clrColor = DColorTranslator.FromHtml(value);
-                        CustomColor = new Color(clrColor.R, clrColor.G, clrColor.B, clrColor.A);
-                        HasCustomColor = true;
+                        var name = parts[0].Trim();
+                        var value = parts[1].Trim();
+                        if (name == "color")
+                        {
+                            var clrColor = DColor.FromName(value);
+                            if (!clrColor.IsKnownColor)
+                                clrColor = DColorTranslator.FromHtml(value);
+                            CustomColor = new Color(clrColor.R, clrColor.G, clrColor.B, clrColor.A);
+                            HasCustomColor = true;
+                        }
                     }
                 }
             }

@@ -9,7 +9,7 @@ namespace Spellwright.UI.Components.TextBox
 {
     internal class TextBoxParser
     {
-        private static readonly Regex formatRegex = new(@"\[([^\]]*)\]\(([^)]*)\)");
+        private static readonly Regex formatRegex = new(@"\*\[([^\]]*)\]\(([^)]*)\)");
 
         public List<ITextPart> ParseText(string text, DynamicSpriteFont font)
         {
@@ -144,9 +144,9 @@ namespace Spellwright.UI.Components.TextBox
             return textLines;
         }
 
-        public List<LinkInfo> GenerateLinkInformation(List<TextLine> textLines)
+        public List<UILinkData> GenerateLinkInformation(List<TextLine> textLines)
         {
-            var links = new List<LinkInfo>();
+            var links = new List<UILinkData>();
 
             int lineIndex = 0;
             float baseY = 0;
@@ -164,7 +164,7 @@ namespace Spellwright.UI.Components.TextBox
 
                         var topLeft = new Vector2(minX, minY);
                         var bottomRight = new Vector2(maxX, maxY);
-                        links.Add(new LinkInfo(formattedPart, lineIndex, formattedPart.Text, formattedPart.Link, topLeft, bottomRight));
+                        links.Add(new UILinkData(formattedPart, lineIndex, formattedPart.Text, formattedPart.Link, topLeft, bottomRight));
                     }
                     baseX += part.Width;
                 }

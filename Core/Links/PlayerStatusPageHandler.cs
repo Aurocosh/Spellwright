@@ -1,13 +1,17 @@
 ﻿using Spellwright.Common.Players;
+using Spellwright.UI.Components.TextBox.Text;
 using System.Collections.Generic;
 using Terraria;
 
 namespace Spellwright.Core.Links
 {
-    internal class PlayerStatusLinkHandler : ILinkHandler
+    internal class PlayerStatusPageHandler : PageHandler
     {
-        public string Type => "player_status";
-        public string ProcessLink(string link, Player player)
+        public PlayerStatusPageHandler()
+        {
+        }
+
+        public override string ProcessLink(ref LinkData linkData, Player player)
         {
             var parts = new List<string>();
 

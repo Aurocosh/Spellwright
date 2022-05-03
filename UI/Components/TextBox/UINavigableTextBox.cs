@@ -1,5 +1,6 @@
 ﻿using Spellwright.UI.Components.Args;
 using Spellwright.UI.Components.TextBox.TextData;
+using Spellwright.UI.Components.TextBox.TextProcessors;
 using System;
 using System.Collections.Generic;
 using Terraria.UI;
@@ -10,11 +11,13 @@ namespace Spellwright.UI.Components.TextBox
     {
         private readonly LinkedList<PageStatus> pageHistory;
         private LinkedListNode<PageStatus> currentPage;
+        private readonly ILinkProcessor linkProcessor;
 
         public event EventHandler<PageChangedEventArgs> OnPageChanged;
 
-        public UINavigableTextBox()
+        public UINavigableTextBox(ILinkProcessor linkProcessor)
         {
+            this.linkProcessor = linkProcessor;
             pageHistory = new LinkedList<PageStatus>();
             currentPage = null;
         }
@@ -29,11 +32,8 @@ namespace Spellwright.UI.Components.TextBox
             SetText(text, true);
         }
 
-        public void SetText(string text, bool resetHitory)
+        public void SetText(string text, bool resetHitory = false)
         {
-            if (currentPage != null)
-                currentPage.Value.ScrollPosition = ViewPosition;
-
             if (resetHitory)
             {
                 pageHistory.Clear();
@@ -44,11 +44,50 @@ namespace Spellwright.UI.Components.TextBox
                     pageHistory.RemoveLast();
             }
 
-            pageHistory.AddLast(new PageStatus(text, 0));
+            pageHistory.AddLast(new PageStatus(text));
             currentPage = pageHistory.Last;
             base.SetText(text);
-
             OnPageChanged?.Invoke(this, new PageChangedEventArgs(text));
+        }
+
+        public void SetLink(string linkText, bool resetHitory = false)
+        {
+            if (resetHitory)
+            {
+                pageHistory.Clear();
+                currentPage = null;
+            }
+            else
+            {
+                while (pageHistory.Count > 0 && currentPage != pageHistory.Last)
+                    pageHistory.RemoveLast();
+                if (pageHistory.Count == 0)
+                    currentPage = null;
+            }
+
+            var linkResult = linkProcessor.Process(linkText);
+
+            bool isPageRefresh = false;
+            if (currentPage != null)
+            {
+                currentPage.Value.ScrollPosition = ViewPosition;
+                var pageStatus = currentPage.Value;
+                isPageRefresh = pageStatus.LinkId == linkResult.LinkId;
+            }
+
+            if (isPageRefresh)
+            {
+                var pageStatus = currentPage.Value;
+                pageStatus.LinkText = linkResult.CorrectedLink;
+                base.SetText(linkResult.Content);
+            }
+            else
+            {
+                pageHistory.AddLast(new PageStatus(linkResult.LinkId, linkResult.CorrectedLink, 0));
+                currentPage = pageHistory.Last;
+                base.SetText(linkResult.Content);
+                OnPageChanged?.Invoke(this, new PageChangedEventArgs(linkResult.Content));
+            }
         }
 
         private void SetPage(LinkedListNode<PageStatus> setPage)
@@ -58,10 +97,22 @@ namespace Spellwright.UI.Components.TextBox
 
             currentPage = setPage;
             PageStatus pageStatus = setPage.Value;
-            base.SetText(pageStatus.Text);
+
+            string text;
+            if (pageStatus.IsLink)
+            {
+                var linkResult = linkProcessor.Process(pageStatus.LinkText);
+                text = linkResult.Content;
+            }
+            else
+            {
+                text = pageStatus.PageText;
+            }
+
+            base.SetText(text);
 
             ViewPosition = pageStatus.ScrollPosition;
-            OnPageChanged?.Invoke(this, new PageChangedEventArgs(pageStatus.Text));
+            OnPageChanged?.Invoke(this, new PageChangedEventArgs(text));
         }
 
         public void GoBack()

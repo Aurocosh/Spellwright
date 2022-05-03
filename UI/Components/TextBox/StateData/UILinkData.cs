@@ -3,7 +3,7 @@ using Spellwright.UI.Components.TextBox.TextParts;
 
 namespace Spellwright.UI.Components.TextBox
 {
-    internal class LinkInfo
+    internal class UILinkData
     {
         public FormattedTextPart TextPart { get; }
         public int LineIndex { get; }
@@ -13,7 +13,7 @@ namespace Spellwright.UI.Components.TextBox
         public Vector2 TopLeft { get; }
         public Vector2 BottomRight { get; }
 
-        public LinkInfo(FormattedTextPart textPart, int lineIndex, string text, string link, Vector2 topLeft, Vector2 bottomRight)
+        public UILinkData(FormattedTextPart textPart, int lineIndex, string text, string link, Vector2 topLeft, Vector2 bottomRight)
         {
             TextPart = textPart;
             LineIndex = lineIndex;

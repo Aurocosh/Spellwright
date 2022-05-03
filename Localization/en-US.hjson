@@ -72,6 +72,7 @@ Mods: {
 			Level: Level
 			LevelUpCost: Level up cost: {0}
 			SpellUnlockCost: Spell unlock cost: {0}
+			SpellUseCost: Spell use cost: {0}
 		}
 
 		PlayerStatus: {
@@ -80,11 +81,6 @@ Mods: {
 			HavePermamentBuffs: I have following permament buffs
 		}
 
-		MenuText:{
-			MyStatus: My status
-			KnownSpells: Known spells
-			UsableSpells: Usable spells
-		}
 		
 		BoundMirror: {
 			LocationName: Location: {0}
@@ -110,6 +106,75 @@ Mods: {
 				Tooltip: Enables or disables the ExampleWings item
 			}
 		}
+
+		Pages: {
+			HomePageHandler:{
+				Guide: Guide
+				SpellTypes: Spell types
+				SpellModifiers: Spell modifiers
+				SpellUnlock: Spell unlocking
+				SpellReagents: Spell reagents
+				SpellLevels: Spell Levels
+				Spells: Spells
+				FavoriteSpells: Favorite spells
+				UsableSpells: Usable spells
+				KnownSpells: Known spells
+				LockedSpells: Locked spells
+				SpellCosts: Spell costs
+				Other: Other
+				PlayerStatus: Player status
+			}
+
+			StaticPageHandler: {
+				Home: 
+					'''Menu
+					 Guide
+					  *[Spell types](link:Static=id:SpellTypes)
+					  *[Spell modifiers](link:Static=id:SpellModifiers)
+					  *[Spell unlock](link:Static=id:SpellUnlock)
+					  *[Spell reagents](link:Static=id:SpellReagents)
+					  *[Spell levels](link:Static=id:SpellLevels)
+					 Spells
+					  *[Favorite spells](link:SpellList=category:3)
+					  *[Usable spells](link:SpellList=category:2)
+					  *[All spells](link:SpellList=category:0)
+					 Spells
+					  *[PlayerStatus](link:PlayerStatus)
+					''',
+				SpellTypes: 
+					'''There are 3 spell subtypes:	Invocation, Cantrip, Spell
+					''',
+				SpellModifiers: 
+					'''SpellModifiers TODO
+					''',
+				SpellUnlock: 
+					'''SpellUnlock TODO
+					''',
+				SpellReagents: 
+					'''SpellReagents TODO
+					'''
+			
+			}
+			SpellListPageHandler:{
+				Favorite: Favorite
+				Locked: Locked
+				Unlocked: Unlocked
+				All: All
+				ShowCost: Show cost
+				HideCost: Hide cost
+				
+				Spells: Spells
+				Level: Level
+				LevelUpCost: Level up cost: {0}
+				SpellUnlockCost: Spell unlock cost: {0}
+				SpellUseCost: Spell use cost: {0}
+				SpellCastCost: Spell cast cost: {0}
+			}
+			SpellPageHandler:{
+				Locked: Locked
+			}
+		}
+
 		
 		Spells: {
 			# Defensive

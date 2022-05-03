@@ -31,6 +31,7 @@ namespace Spellwright.Common.Players
         public Point LastDeathPoint = Point.Zero;
         public Point VoidMarkPoint = Point.Zero;
 
+        public readonly HashSet<int> FavoriteSpells = new();
         public readonly HashSet<int> KnownSpells = new();
         public readonly HashSet<int> UnlockedSpells = new();
 
@@ -46,6 +47,11 @@ namespace Spellwright.Common.Players
 
         public override void Initialize()
         {
+        }
+
+        public bool IsSpellUnlocked(ModSpell spell)
+        {
+            return spell.UnlockCost == null || UnlockedSpells.Contains(spell.Type);
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -88,6 +94,8 @@ namespace Spellwright.Common.Players
                 tag.Add("CurrentCantripData", CurrentCantrip.SerializeData(CantripData));
             }
 
+            var fvTags = SerializeSpellIds(FavoriteSpells).ToList();
+            tag.Add("FavoriteSpells", fvTags);
             var ksTags = SerializeSpellIds(KnownSpells).ToList();
             tag.Add("KnownSpells", ksTags);
             var usTags = SerializeSpellIds(UnlockedSpells).ToList();
@@ -109,6 +117,10 @@ namespace Spellwright.Common.Players
                 TagCompound spellDataTag = tag.GetCompound("CurrentCantripData");
                 CantripData = CurrentCantrip.DeserializeData(spellDataTag);
             }
+
+            var favSpellsNames = tag.GetList<TagCompound>("FavoriteSpells");
+            FavoriteSpells.Clear();
+            FavoriteSpells.UnionWith(DeserializeSpellIds(favSpellsNames));
 
             var knownSpellsNames = tag.GetList<TagCompound>("KnownSpells");
             KnownSpells.Clear();
@@ -169,9 +181,6 @@ namespace Spellwright.Common.Players
 
                     UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
                     UserInterface spellInterface = Spellwright.Instance.userInterface;
-                    //if (spellInterface.CurrentState == uiMessageState)
-                    //    PlayerInput.LockVanillaMouseScroll("ModLoader/UIScrollbar");
-
 
                     if (PlayerInput.Triggers.JustReleased.Inventory && spellInterface.CurrentState == uiMessageState)
                     {
@@ -181,19 +190,23 @@ namespace Spellwright.Common.Players
                     {
 
                         if (spellInterface.CurrentState == uiMessageState)
+                        {
                             spellInterface.SetState(null);
+                        }
                         else if (PlayerInput.Triggers.Current.SmartSelect)
                         {
-                            if (uiMessageState.HasMessage())
+                            if (!uiMessageState.HasText())
+                                uiMessageState.GoHome();
+
+                            if (spellInterface.CurrentState == uiMessageState)
                             {
-                                if (spellInterface.CurrentState == uiMessageState)
-                                    spellInterface.SetState(null);
-                                else
-                                {
-                                    spellInterface.SetState(uiMessageState);
-                                    if (Main.playerInventory)
-                                        Player.ToggleInv();
-                                }
+                                spellInterface.SetState(null);
+                            }
+                            else
+                            {
+                                spellInterface.SetState(uiMessageState);
+                                if (Main.playerInventory)
+                                    Player.ToggleInv();
                             }
                         }
                         else

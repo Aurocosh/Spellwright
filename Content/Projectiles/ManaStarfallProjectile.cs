@@ -74,8 +74,7 @@ namespace Spellwright.Content.Projectiles
                 {
                     Vector2 velocity = Main.rand.NextVector2CircularEdge(0.5f, 0.5f) * Projectile.velocity.Length();
                     int type = Utils.SelectRandom(Main.rand, 16, 17, 17, 17, 17, 17, 17, 17);
-                    //Gore.NewGore(source, Projectile.position, velocity, type); // Preview
-                    Gore.NewGore(Projectile.position, velocity, type);
+                    Gore.NewGore(source, Projectile.position, velocity, type);
                 }
             }
         }

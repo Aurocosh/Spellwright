@@ -13,7 +13,7 @@ namespace Spellwright.Core.Spells
 {
     public class SpellInfoProvider
     {
-        public static string GetSpellList(Player player, bool ulockedOnly)
+        public static string GetSpellList(Player player, bool favoritedOnly = false, bool includeLocked = true, bool includeUnlocked = true, bool showCosts = false)
         {
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
             AscendSpell ascendSpell = ModContent.GetInstance<AscendSpell>();
@@ -24,16 +24,17 @@ namespace Spellwright.Core.Spells
                 var spell = SpellLibrary.GetSpellById(spellId);
                 if (spell != null)
                 {
-                    if (ulockedOnly && spell.UnlockCost != null && !spellPlayer.UnlockedSpells.Contains(spellId))
-                        continue;
-
-                    int spellLevel = spell.SpellLevel;
-                    if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))
+                    bool isLocked = spell.UnlockCost != null && !spellPlayer.UnlockedSpells.Contains(spellId);
+                    if ((includeUnlocked && !isLocked) || (includeLocked && isLocked))
                     {
-                        spells = new List<ModSpell>();
-                        spellsByLevel[spellLevel] = spells;
+                        int spellLevel = spell.SpellLevel;
+                        if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))
+                        {
+                            spells = new List<ModSpell>();
+                            spellsByLevel[spellLevel] = spells;
+                        }
+                        spells.Add(spell);
                     }
-                    spells.Add(spell);
                 }
             }
 
@@ -43,7 +44,7 @@ namespace Spellwright.Core.Spells
             var spellLevelLists = new List<string>();
             spellLevelLists.Add(Spellwright.GetTranslation("SpellInfo", "KnownSpells").Value);
 
-            int maxLevel = ulockedOnly ? spellPlayer.PlayerLevel : 10;
+            int maxLevel = includeLocked ? 10 : spellPlayer.PlayerLevel;
             int limit = maxLevel + 1;
             for (int i = 0; i < limit; i++)
             {
@@ -73,14 +74,20 @@ namespace Spellwright.Core.Spells
                     var internalName = spell.Name;
                     var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture);
 
-                    var line = new FormattedText(displayName, Color.DarkGoldenrod).WithLink("spell", internalName).ToString();
+                    var line = new FormattedText(displayName, Color.DarkGoldenrod).WithLink("Spell", internalName).ToString();
                     if (!spellPlayer.UnlockedSpells.Contains(spell.Type))
                     {
-                        if (spell.UnlockCost != null)
+                        if (showCosts && spell.UnlockCost != null)
                         {
                             var costDescritpion = spell.UnlockCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
                             var unlockCostDescription = Spellwright.GetTranslation("SpellInfo", "SpellUnlockCost").Format(costDescritpion);
                             line += $" [{unlockCostDescription}]";
+                        }
+                        else if (showCosts && spell.UseCost != null)
+                        {
+                            var costDescritpion = spell.UseCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
+                            var useCostDescription = Spellwright.GetTranslation("SpellInfo", "SpellUseCost").Format(costDescritpion);
+                            line += $" [{useCostDescription}]";
                         }
                     }
 

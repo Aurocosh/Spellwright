@@ -22,8 +22,8 @@ namespace Spellwright.UI.Components
         private float height;
         private bool heightNeedsRecalculating;
         private List<TextLine> textLines = new();
-        private List<LinkInfo> links = new();
-        private LinkInfo hoveredLink = null;
+        private List<UILinkData> links = new();
+        private UILinkData hoveredLink = null;
         private float? newViewPosition = null;
         private bool IsSmartCursorWanted = false;
 
@@ -146,7 +146,7 @@ namespace Spellwright.UI.Components
         {
             base.Click(evt);
 
-            LinkInfo linkInfo = GetLinkUnderCursor(evt.MousePosition);
+            UILinkData linkInfo = GetLinkUnderCursor(evt.MousePosition);
             if (linkInfo != null)
                 OnLinkClicked?.Invoke(this, new LinkClickedEventArgs(linkInfo.LineIndex, linkInfo.Text, linkInfo.Link));
         }
@@ -161,10 +161,10 @@ namespace Spellwright.UI.Components
         {
             var mouseVector = Main.MouseScreen;
             hoveredLink = GetLinkUnderCursor(mouseVector);
-            Main.SmartCursorWanted = hoveredLink == null;
+            Main.SmartCursorWanted = false;
         }
 
-        private LinkInfo GetLinkUnderCursor(Vector2 mousePosition)
+        private UILinkData GetLinkUnderCursor(Vector2 mousePosition)
         {
             CalculatedStyle space = GetInnerDimensions();
             float x = mousePosition.X - space.X;
