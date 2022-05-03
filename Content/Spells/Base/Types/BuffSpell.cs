@@ -1,10 +1,12 @@
 ﻿using Spellwright.Content.Spells.Base.Description;
 using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Data;
+using Spellwright.Extensions;
 using Spellwright.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Terraria;
 
 namespace Spellwright.Content.Spells.Base.Types
@@ -56,15 +58,15 @@ namespace Spellwright.Content.Spells.Base.Types
         {
             var values = base.GetDescriptionValues(player, playerLevel, spellData, fullVersion);
 
-            var effectDescriptions = new List<string>();
+            var effectDescriptions = new StringBuilder();
             foreach (var effect in effects)
             {
                 var buffName = Lang.GetBuffName(effect.effectId);
                 var duration = UtilTime.TicksToString(effect.durationGetter.Invoke(playerLevel));
 
-                effectDescriptions.Add($"{buffName} ({duration})");
+                effectDescriptions.AppendDelimited(", ", $"{buffName} ({duration})");
             }
-            var effectList = string.Join(", ", effectDescriptions);
+            var effectList = effectDescriptions.ToString();
             values.Add(new SpellParameter("AddedBuffs", effectList));
 
             return values;

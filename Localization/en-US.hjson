@@ -135,8 +135,8 @@ Mods: {
 					  *[Spell reagents](link:Static=id:SpellReagents)
 					  *[Spell levels](link:Static=id:SpellLevels)
 					 Spells
-					  *[Favorite spells](link:SpellList=category:3)
 					  *[Usable spells](link:SpellList=category:2)
+					  *[Favorite spells](link:SpellList=category:3)
 					  *[All spells](link:SpellList=category:0)
 					 Spells
 					  *[PlayerStatus](link:PlayerStatus)

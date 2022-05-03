@@ -14,7 +14,6 @@ namespace Spellwright.Core.Links
         {
             registerHandler(new SpellPageHandler());
             registerHandler(new PlayerStatusPageHandler());
-            registerHandler(new KnownSpellsPageHandler());
             //registerHandler(new HomePageHandler());
             registerHandler(new SpellListPageHandler());
             registerHandler(new StaticPageHandler());

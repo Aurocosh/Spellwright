@@ -4,6 +4,7 @@ using Spellwright.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Terraria;
 
 namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
@@ -59,7 +60,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
         {
             if (!CanConsume(player, spellData.CostModifier))
             {
-                var costParts = new List<string>();
+                var stringBuilder = new StringBuilder();
                 for (int i = 0; i < itemTypes.Count; i++)
                 {
                     int itemType = itemTypes[i];
@@ -71,10 +72,10 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
 
                     var itemName = Lang.GetItemNameValue(itemType);
                     var costPart = $"{realCost} {itemName}";
-                    costParts.Add(costPart);
+                    stringBuilder.AppendDelimited(",", costPart);
                 }
 
-                var costText = string.Join(", ", costParts);
+                var costText = stringBuilder.ToString();
                 LastError = Spellwright.GetTranslation("SpellCost", "NotEnoughReagents").Format(costText);
                 return false;
             }
@@ -100,7 +101,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
             //var separatorWord = Spellwright.GetTranslation("General", "And").Value.ToLower();
             //var separator = $" {separatorWord} ";
 
-            var descriptions = new List<string>();
+            var descriptions = new StringBuilder();
             for (int i = 0; i < itemTypes.Count; i++)
             {
                 int itemType = itemTypes[i];
@@ -112,13 +113,9 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
 
                 var itemName = Lang.GetItemNameValue(itemType);
                 var description = $"{realCost} {itemName}";
-                descriptions.Add(description);
+                descriptions.AppendDelimited(", ", description);
             }
-
-            if (descriptions.Count == 0)
-                return null;
-            else
-                return string.Join(", ", descriptions);
+            return descriptions.ToString();
         }
 
         public MultipleReagentSpellCost WithCost(int itemType, int cost = 1)

@@ -80,21 +80,18 @@ namespace Spellwright.Core.Links
             foreach (var level in spellsByLevel.Keys)
                 maxSpellLevel = Math.Max(maxSpellLevel, level);
 
-            var headerBuilder = new StringBuilder();
-            headerBuilder.AppendLine(GetTranslation("Spells").Value);
+            var stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(GetTranslation("Spells").Value);
 
             var allLink = GetSelfLink("All", category == PageCategory.All, showCost, PageCategory.All);
             var lockedLink = GetSelfLink("Locked", category == PageCategory.Locked, showCost, PageCategory.Locked);
             var unlockedLink = GetSelfLink("Unlocked", category == PageCategory.Unlocked, showCost, PageCategory.Unlocked);
             var favLink = GetSelfLink("Favorite", category == PageCategory.Favorite, showCost, PageCategory.Favorite);
-            headerBuilder.AppendLine($"{allLink} | {unlockedLink} | {lockedLink} | {favLink}");
+            stringBuilder.AppendLine($"{allLink} | {unlockedLink} | {lockedLink} | {favLink}");
 
             var hideCostLink = GetSelfLink("HideCost", !showCost, false, category);
             var showCostLink = GetSelfLink("ShowCost", showCost, true, category);
-            headerBuilder.AppendLine($"{hideCostLink} | {showCostLink}");
-
-            var spellLevelLists = new List<string>();
-            spellLevelLists.Add(headerBuilder.ToString());
+            stringBuilder.AppendLine($"{hideCostLink} | {showCostLink}");
 
             int maxLevel = showLocked ? 10 : Math.Min(maxSpellLevel, spellPlayer.PlayerLevel);
             int limit = maxLevel + 1;
@@ -119,45 +116,47 @@ namespace Spellwright.Core.Links
                     }
                 }
 
-                var lines = new List<string>();
-                lines.Add(levelHeader);
+                stringBuilder.AppendLine(levelHeader);
                 foreach (var spell in spells)
                 {
-                    var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture);
-                    var line = new FormattedText(displayName, Color.DarkGoldenrod).WithLink("Spell").WithParam("name", spell.Name).ToString();
-
-                    if (showCost)
-                    {
-                        bool isLocked = spell.UnlockCost != null && !spellPlayer.UnlockedSpells.Contains(spell.Type);
-                        if (isLocked)
-                        {
-                            var descritpion = spell.UnlockCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
-                            var message = GetTranslation("SpellUnlockCost").Format(descritpion);
-                            var lockedMessage = GetFormatted("Locked").WithColor(Color.IndianRed).ToString();
-                            line += $" [{lockedMessage}. {message}]";
-                        }
-                        else if (spell.UseCost != null)
-                        {
-                            var descritpion = spell.UseCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
-                            var message = GetTranslation("SpellUseCost").Format(descritpion);
-                            line += $" [{message}]";
-                        }
-                        else if (spell.CastCost != null)
-                        {
-                            var descritpion = spell.CastCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
-                            var message = GetTranslation("SpellCastCost").Format(descritpion);
-                            line += $" [{message}]";
-                        }
-                    }
-
-                    lines.Add(line);
+                    string line = GenerateSpellLine(player, showCost, spellPlayer, spell);
+                    stringBuilder.AppendLine(line);
                 }
-
-                spellLevelLists.Add(string.Join("\n", lines));
+                stringBuilder.AppendLine();
             }
 
-            var result = string.Join("\n\n", spellLevelLists.ToArray());
-            return result;
+            return stringBuilder.ToString();
+        }
+
+        private string GenerateSpellLine(Player player, bool showCost, SpellwrightPlayer spellPlayer, ModSpell spell)
+        {
+            var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture);
+            var line = new FormattedText(displayName, Color.DarkGoldenrod).WithLink("Spell").WithParam("name", spell.Name).ToString();
+
+            if (showCost)
+            {
+                bool isLocked = spell.UnlockCost != null && !spellPlayer.UnlockedSpells.Contains(spell.Type);
+                if (isLocked)
+                {
+                    var descritpion = spell.UnlockCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
+                    var message = GetTranslation("SpellUnlockCost").Format(descritpion);
+                    var lockedMessage = GetFormatted("Locked").WithColor(Color.IndianRed).ToString();
+                    line += $" [{lockedMessage}. {message}]";
+                }
+                else if (spell.UseCost != null)
+                {
+                    var descritpion = spell.UseCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
+                    var message = GetTranslation("SpellUseCost").Format(descritpion);
+                    line += $" [{message}]";
+                }
+                else if (spell.CastCost != null)
+                {
+                    var descritpion = spell.CastCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
+                    var message = GetTranslation("SpellCastCost").Format(descritpion);
+                    line += $" [{message}]";
+                }
+            }
+            return line;
         }
 
         private string GetSelfLink(string key, bool isSelected, bool showCost, PageCategory category)

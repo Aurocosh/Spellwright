@@ -7,7 +7,7 @@ using Spellwright.Core.Spells;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
 using Spellwright.Network;
-using System.Collections.Generic;
+using System.Text;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -149,7 +149,7 @@ namespace Spellwright.Content.Spells
                 return null;
 
             SpellModifier spellModifiers = SpellModifier.None;
-            var spellParts = new List<string>();
+            var spellParts = new StringBuilder();
 
             foreach (var word in words)
             {
@@ -158,10 +158,10 @@ namespace Spellwright.Content.Spells
                 if (modifier != null)
                     spellModifiers = spellModifiers.Add(modifier.Value);
                 else
-                    spellParts.Add(word);
+                    spellParts.AppendDelimited(" ", word);
             }
 
-            var spellName = string.Join(' ', spellParts);
+            var spellName = spellParts.ToString();
             return new SpellStructure(spellModifiers, spellName, spellArgument);
         }
     }

@@ -1,5 +1,7 @@
 ﻿using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Extensions;
 using System.Collections.Generic;
+using System.Text;
 using Terraria;
 
 namespace Spellwright.Content.Spells.Base.SpellCosts
@@ -34,13 +36,14 @@ namespace Spellwright.Content.Spells.Base.SpellCosts
                 if (cost.Consume(player, playerLevel, spellData))
                     return true;
 
-            var errors = new List<string>();
+            var errors = new StringBuilder();
             foreach (SpellCost cost in spellCosts)
             {
-                errors.Add(cost.LastError);
-                LastError = string.Join("\n", errors);
+                var lastError = cost.LastError;
+                if (lastError?.Length > 0)
+                    errors.AppendLine(lastError);
             }
-
+            LastError = errors.ToString();
             return false;
         }
 
@@ -49,18 +52,14 @@ namespace Spellwright.Content.Spells.Base.SpellCosts
             var separatorWord = Spellwright.GetTranslation("General", "Or").Value.ToLower();
             var separator = $" {separatorWord} ";
 
-            var descriptions = new List<string>();
+            var stringBuilder = new StringBuilder();
             foreach (SpellCost cost in spellCosts)
             {
                 var description = cost.GetDescription(player, playerLevel, spellData);
                 if (description != null)
-                    descriptions.Add(description);
+                    stringBuilder.AppendDelimited(separator, description);
             }
-
-            if (descriptions.Count == 0)
-                return null;
-            else
-                return string.Join(separator, descriptions);
+            return stringBuilder.ToString();
         }
 
         public OptionalSpellCost WithCost(SpellCost cost)

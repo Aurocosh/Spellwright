@@ -1,6 +1,7 @@
 ﻿using Spellwright.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Terraria;
 
 namespace Spellwright.Content.Spells.Base.SpellCosts.Items
@@ -54,22 +55,22 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
         {
             if (!CanConsume(player, spellData.CostModifier))
             {
-                var costParts = new List<string>();
+                var costParts = new StringBuilder();
                 for (int i = 0; i < itemTypes.Count; i++)
                 {
                     int itemType = itemTypes[i];
                     int cost = costs[i];
 
                     int realCost = (int)Math.Floor(cost * spellData.CostModifier);
-                    if (realCost <= 0)
-                        continue;
-
-                    var itemName = Lang.GetItemNameValue(itemType);
-                    var costPart = $"{realCost} {itemName}";
-                    costParts.Add(costPart);
+                    if (realCost > 0)
+                    {
+                        var itemName = Lang.GetItemNameValue(itemType);
+                        var costPart = $"{realCost} {itemName}";
+                        costParts.AppendDelimited(", ", costPart);
+                    }
                 }
 
-                var costText = string.Join(", ", costParts);
+                var costText = costParts.ToString();
                 LastError = Spellwright.GetTranslation("SpellCost", "NotEnoughReagents").Format(costText);
                 return false;
             }
@@ -93,7 +94,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
             //var separatorWord = Spellwright.GetTranslation("General", "And").Value.ToLower();
             //var separator = $" {separatorWord} ";
 
-            var descriptions = new List<string>();
+            var stringBuilder = new StringBuilder();
             for (int i = 0; i < itemTypes.Count; i++)
             {
                 int itemType = itemTypes[i];
@@ -105,13 +106,9 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
 
                 var itemName = Lang.GetItemNameValue(itemType);
                 var description = $"{realCost} {itemName}";
-                descriptions.Add(description);
+                stringBuilder.AppendDelimited(", ", description);
             }
-
-            if (descriptions.Count == 0)
-                return null;
-            else
-                return string.Join(", ", descriptions);
+            return stringBuilder.ToString();
         }
 
         public MultipleItemSpellCost WithCost(int itemType, int cost = 1)
