@@ -44,15 +44,22 @@ namespace Spellwright.UI.Components.TextBox.Text
         public T GetParameter<T>(string name, T fallbackValue)
              where T : Enum
         {
-            //if (parameters.TryGetValue(name, out var value) && int.TryParse(value, out int intValue))
             if (parameters.TryGetValue(name, out var value) && int.TryParse(value, out int intValue))
                 return (T)(object)intValue;
             return fallbackValue;
         }
+
         public bool GetParameter(string name, bool fallbackValue)
         {
             if (parameters.TryGetValue(name, out var value))
                 return value == "True";
+            return fallbackValue;
+        }
+
+        public int GetParameter(string name, int fallbackValue)
+        {
+            if (parameters.TryGetValue(name, out var value) && int.TryParse(value, out int intValue))
+                return intValue;
             return fallbackValue;
         }
 
@@ -64,11 +71,16 @@ namespace Spellwright.UI.Components.TextBox.Text
         public void SetParameter<T>(string name, T value)
              where T : Enum
         {
+            SetParameter(name, (int)(object)value);
+        }
+
+        public void SetParameter(string name, bool value)
+        {
             string stringValue = value.ToString();
             SetParameter(name, stringValue);
         }
 
-        public void SetParameter(string name, bool value)
+        public void SetParameter(string name, int value)
         {
             string stringValue = value.ToString();
             SetParameter(name, stringValue);

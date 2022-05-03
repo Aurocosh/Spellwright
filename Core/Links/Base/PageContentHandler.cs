@@ -12,11 +12,11 @@ namespace Spellwright.Core.Links
 
         static PageContentHandler()
         {
-            registerHandler(new SpellPageHandler());
             registerHandler(new PlayerStatusPageHandler());
-            //registerHandler(new HomePageHandler());
             registerHandler(new SpellListPageHandler());
+            registerHandler(new SpellPageHandler());
             registerHandler(new StaticPageHandler());
+            registerHandler(new VoidStoragePageHandler());
         }
 
         public string HandleLink(ref LinkData linkData, Player player)

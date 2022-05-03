@@ -140,7 +140,7 @@ namespace Spellwright.Core.Links
                 {
                     var descritpion = spell.UnlockCost.GetDescription(player, spellPlayer.PlayerLevel, SpellData.EmptyData);
                     var message = GetTranslation("SpellUnlockCost").Format(descritpion);
-                    var lockedMessage = GetFormatted("Locked").WithColor(Color.IndianRed).ToString();
+                    var lockedMessage = GetFormText("Locked").WithColor(Color.IndianRed).ToString();
                     line += $" [{lockedMessage}. {message}]";
                 }
                 else if (spell.UseCost != null)
@@ -161,7 +161,7 @@ namespace Spellwright.Core.Links
 
         private string GetSelfLink(string key, bool isSelected, bool showCost, PageCategory category)
         {
-            var textFormat = GetFormatted(key);
+            var textFormat = GetFormText(key);
             if (isSelected)
                 textFormat.WithColor(Color.Red);
             else

@@ -3,8 +3,9 @@
     internal enum StorageAction : byte
     {
         Invalid,
-        Info,
         Push,
-        Pop
+        Pop,
+        Lock,
+        Unlock
     }
 }

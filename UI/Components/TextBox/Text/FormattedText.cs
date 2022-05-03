@@ -64,6 +64,12 @@ namespace Spellwright.UI.Components.TextBox.Text
             return this;
         }
 
+        public FormattedText WithParam(string parameter, int value)
+        {
+            Link.SetParameter(parameter, value);
+            return this;
+        }
+
         public FormattedText WithLink(LinkData link)
         {
             Link = link;

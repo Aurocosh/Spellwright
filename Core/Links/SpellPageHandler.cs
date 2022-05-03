@@ -49,7 +49,7 @@ namespace Spellwright.Core.Links
 
             if (!spellPlayer.IsSpellUnlocked(spell))
             {
-                var lockedMessage = GetFormatted("Locked").WithColor(Color.IndianRed).ToString();
+                var lockedMessage = GetFormText("Locked").WithColor(Color.IndianRed).ToString();
                 builder.AppendLine(lockedMessage);
             }
 

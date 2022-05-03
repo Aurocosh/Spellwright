@@ -50,10 +50,15 @@ namespace Spellwright.Content.Spells.Storage
         {
             return playerLevel;
         }
-
         protected override InventoryArea IncludedArea()
         {
             return InventoryArea.All;
+        }
+
+        protected override void SetStorageLocked(Player player, bool locked)
+        {
+            var statPlayer = player.GetModPlayer<SpellwrightStatPlayer>();
+            statPlayer.ReagentsLocked = locked;
         }
     }
 }

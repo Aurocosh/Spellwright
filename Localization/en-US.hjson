@@ -107,8 +107,8 @@ Mods: {
 			}
 		}
 
-		Pages: {
-			HomePageHandler:{
+		PageHandler: {
+			Home:{
 				Guide: Guide
 				SpellTypes: Spell types
 				SpellModifiers: Spell modifiers
@@ -125,7 +125,7 @@ Mods: {
 				PlayerStatus: Player status
 			}
 
-			StaticPageHandler: {
+			Static: {
 				Home: 
 					'''Menu
 					 Guide
@@ -138,8 +138,11 @@ Mods: {
 					  *[Usable spells](link:SpellList=category:2)
 					  *[Favorite spells](link:SpellList=category:3)
 					  *[All spells](link:SpellList=category:0)
-					 Spells
+					 Status
 					  *[PlayerStatus](link:PlayerStatus)
+					  *[Item void storage](link:VoidStorage=type:0)
+					  *[Potion void storage](link:VoidStorage=type:1)
+					  *[Reagent void storage](link:VoidStorage=type:2)
 					''',
 				SpellTypes: 
 					'''There are 3 spell subtypes:	Invocation, Cantrip, Spell
@@ -155,7 +158,7 @@ Mods: {
 					'''
 			
 			}
-			SpellListPageHandler:{
+			SpellList:{
 				Favorite: Favorite
 				Locked: Locked
 				Unlocked: Unlocked
@@ -170,8 +173,17 @@ Mods: {
 				SpellUseCost: Spell use cost: {0}
 				SpellCastCost: Spell cast cost: {0}
 			}
-			SpellPageHandler:{
+			Spell:{
 				Locked: Locked
+			}
+			VoidStorage:{
+				ItemVoid: Item Void
+				PotionVoid: Potion Void
+				ReagentVoid: Reagent Void
+				Locked: Locked
+				Unlocked: Unlocked
+				StorageStatus: Storage status: {0}
+				ItemsInStorage: Items in storage: {0}
 			}
 		}
 

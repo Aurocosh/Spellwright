@@ -1,9 +1,8 @@
 ﻿using Spellwright.Content.Spells.Base;
 using Spellwright.Extensions;
-using Spellwright.UI.States;
 using Spellwright.Util;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -17,11 +16,15 @@ namespace Spellwright.Content.Spells.Storage.Base
         protected abstract bool CanAccept(Item item);
         protected abstract int StorageSize(int playerLevel);
         protected abstract InventoryArea IncludedArea();
+        protected virtual void SetStorageLocked(Player player, bool locked) => throw new NotImplementedException();
+        protected virtual bool CanDoAction(StorageAction action) => action != StorageAction.Invalid;
 
         public override bool ConsumeReagentsCast(Player player, int playerLevel, SpellData spellData)
         {
             var action = (StorageAction)spellData.ExtraData;
-            if (action == StorageAction.Info)
+            if (action == StorageAction.Lock)
+                return true;
+            if (action == StorageAction.Unlock)
                 return true;
             return base.ConsumeReagentsCast(player, playerLevel, spellData);
         }
@@ -31,8 +34,14 @@ namespace Spellwright.Content.Spells.Storage.Base
             List<Item> storage = GetStorage(player);
 
             var action = (StorageAction)spellData.ExtraData;
-            if (action == StorageAction.Info)
-                PrintInfo(player, storage);
+            if (action == StorageAction.Lock)
+            {
+                SetStorageLocked(player, true);
+            }
+            else if (action == StorageAction.Unlock)
+            {
+                SetStorageLocked(player, false);
+            }
             else if (action == StorageAction.Push)
             {
                 int maxStorageSize = StorageSize(playerLevel);
@@ -42,29 +51,6 @@ namespace Spellwright.Content.Spells.Storage.Base
                 return PopItems(player, storage);
 
             return true;
-        }
-
-        private static void PrintInfo(Player player, List<Item> storage)
-        {
-            var lines = new List<string>();
-            lines.Add(Spellwright.GetTranslation("General", "StoredItems").Value);
-
-            var sortedStorage = storage.OrderBy(x => x.Name).ThenByDescending(x => x.stack);
-            foreach (var item in sortedStorage)
-                if (item.type != ItemID.None && item.stack > 0)
-                {
-                    string name = Lang.GetItemNameValue(item.type);
-                    string line = $"{item.stack} {name}";
-                    lines.Add(line);
-                }
-
-            var result = string.Join("\n", lines.ToArray());
-
-            UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
-            Spellwright.Instance.userInterface.SetState(uiMessageState);
-            uiMessageState.SetText(result, true);
-            if (Main.playerInventory)
-                player.ToggleInv();
         }
 
         private static bool PopItems(Player player, List<Item> storage)
@@ -126,15 +112,17 @@ namespace Spellwright.Content.Spells.Storage.Base
         {
             StorageAction action = StorageAction.Invalid;
             string argument = structure.Argument.ToLower();
-            if (argument.Length == 0 || argument == "info")
-                action = StorageAction.Info;
-            else if (argument == "push")
+            if (argument.Length == 0 || argument == "push")
                 action = StorageAction.Push;
             else if (argument == "pop")
                 action = StorageAction.Pop;
+            else if (argument == "lock")
+                action = StorageAction.Lock;
+            else if (argument == "unlock")
+                action = StorageAction.Unlock;
 
             extraData = action;
-            return action != StorageAction.Invalid;
+            return CanDoAction(action);
         }
 
         public override void SerializeExtraData(TagCompound tag, object extraData)
