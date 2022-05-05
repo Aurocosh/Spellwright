@@ -16,7 +16,7 @@ namespace Spellwright.Content.Spells.Base.Types
 
         public ProjectileSpell()
         {
-            UseType = SpellType.Spell;
+            UseType = SpellType.Echo;
 
             damage = 0;
             knockback = 0;

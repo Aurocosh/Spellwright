@@ -2,8 +2,8 @@
 {
     public enum SpellType
     {
-        Spell,
-        Invocation,
-        Cantrip
+        Invocation = 0,
+        Cantrip = 1,
+        Echo = 2
     }
 }

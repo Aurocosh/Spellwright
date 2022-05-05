@@ -55,7 +55,7 @@ namespace Spellwright.Content.Spells
                 spell.PlayCastSound(player.Center);
                 spell.DoCastEffect(player, playerLevel);
             }
-            else if (spell.UseType == SpellType.Spell)
+            else if (spell.UseType == SpellType.Echo)
             {
                 var itemType = ModContent.ItemType<SpellResonator>();
 

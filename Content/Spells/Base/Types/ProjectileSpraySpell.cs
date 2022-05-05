@@ -17,7 +17,7 @@ namespace Spellwright.Content.Spells.Base.Types
 
         public ProjectileSpraySpell()
         {
-            UseType = SpellType.Spell;
+            UseType = SpellType.Echo;
 
             projectileCount = 3;
             projectileSpray = 10;

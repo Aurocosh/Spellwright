@@ -20,7 +20,7 @@ namespace Spellwright.Content.Spells.TileSpawn
         public override void SetStaticDefaults()
         {
             SpellLevel = 2;
-            UseType = SpellType.Spell;
+            UseType = SpellType.Echo;
 
             stability = .2f;
 

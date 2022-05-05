@@ -21,7 +21,7 @@ namespace Spellwright.Content.Spells.Base.Types
 
         public TileBreakSpell()
         {
-            UseType = SpellType.Spell;
+            UseType = SpellType.Echo;
 
             noItem = true;
             useTimeMultiplier = 1f;

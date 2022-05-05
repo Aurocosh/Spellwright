@@ -13,7 +13,7 @@ namespace Spellwright.Content.Spells.LiquidSpawn
         public override void SetStaticDefaults()
         {
             SpellLevel = 8;
-            UseType = SpellType.Spell;
+            UseType = SpellType.Echo;
 
             liquidType = LiquidID.Lava;
             useTimeMultiplier = 7f;

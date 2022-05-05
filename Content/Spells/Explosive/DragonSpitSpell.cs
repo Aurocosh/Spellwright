@@ -23,7 +23,7 @@ namespace Spellwright.Content.Spells.Explosive
         public override void SetStaticDefaults()
         {
             SpellLevel = 2;
-            UseType = SpellType.Spell;
+            UseType = SpellType.Echo;
 
             damage = 1;
             knockback = 8f;

@@ -25,7 +25,7 @@ namespace Spellwright.Content.Spells.Base.Types
 
         public LiquidSpawnSpell()
         {
-            UseType = SpellType.Spell;
+            UseType = SpellType.Echo;
             liquidType = LiquidID.Water;
             canAutoReuse = true;
             useTimeMultiplier = 9f;

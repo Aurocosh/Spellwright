@@ -65,9 +65,15 @@ namespace Spellwright.Core.Links
             foreach (var value in descriptionValues)
             {
                 var parameterName = Spellwright.GetTranslation("DescriptionParts", value.Name).Value + ":";
+                var parameterValue = value.Value;
                 parameterName = new FormattedText(parameterName, Color.Gray).ToString();
 
-                var descriptionPart = $"{parameterName} {value.Value}";
+                if (value.Name == "SpellType")
+                {
+                    parameterValue = new FormattedText(parameterValue).WithLink("SpellType").WithParam("type", spell.UseType).ToString();
+                }
+
+                var descriptionPart = $"{parameterName} {parameterValue}";
                 builder.AppendLine(descriptionPart);
             }
 

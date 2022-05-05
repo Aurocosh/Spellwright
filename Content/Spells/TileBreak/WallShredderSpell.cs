@@ -21,7 +21,7 @@ namespace Spellwright.Content.Spells.TileBreak
         public override void SetStaticDefaults()
         {
             SpellLevel = 1;
-            UseType = SpellType.Spell;
+            UseType = SpellType.Echo;
 
             damage = 1;
             knockback = 8f;

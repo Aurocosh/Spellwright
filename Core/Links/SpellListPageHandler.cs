@@ -6,6 +6,7 @@ using Spellwright.Core.Spells;
 using Spellwright.UI.Components.TextBox.Text;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Terraria;
 using Terraria.Localization;
@@ -15,8 +16,9 @@ namespace Spellwright.Core.Links
 {
     internal class SpellListPageHandler : PageHandler
     {
-        private static string CategoryParam = "category";
-        private static string CostParam = "cost";
+        private static readonly string CategoryParam = "category";
+        private static readonly string TypeParam = "type";
+        private static readonly string CostParam = "cost";
 
         private enum PageCategory
         {
@@ -26,6 +28,20 @@ namespace Spellwright.Core.Links
             Favorite = 3
         }
 
+        private class SpellPageData
+        {
+            public PageCategory Category { get; set; }
+            public SpellType? TypeCategory { get; set; }
+            public bool ShowCost { get; set; }
+
+            public SpellPageData(PageCategory category, SpellType? typeCategory, bool showCost)
+            {
+                Category = category;
+                TypeCategory = typeCategory;
+                ShowCost = showCost;
+            }
+        }
+
         public SpellListPageHandler()
         {
         }
@@ -33,67 +49,38 @@ namespace Spellwright.Core.Links
         public override string ProcessLink(ref LinkData linkData, Player player)
         {
             var category = linkData.GetParameter(CategoryParam, PageCategory.All);
-            bool showCost = linkData.GetParameter(CostParam, false);
-
-            bool showFavorite = category == PageCategory.Favorite;
-            bool showLocked = category == PageCategory.All || category == PageCategory.Locked;
-            bool showUnlocked = category == PageCategory.All || category == PageCategory.Unlocked;
+            int typeId = linkData.GetParameter(TypeParam, -1);
+            SpellType? typeCategory = typeId != -1 ? (SpellType)typeId : null;
+            var showCost = linkData.GetParameter(CostParam, false);
 
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            AscendSpell ascendSpell = ModContent.GetInstance<AscendSpell>();
-
-            var spellsByLevel = new Dictionary<int, List<ModSpell>>();
-            foreach (var spellId in spellPlayer.KnownSpells)
-            {
-                var spell = SpellLibrary.GetSpellById(spellId);
-                if (spell != null)
-                {
-                    bool addSpell = false;
-                    if (showFavorite && spellPlayer.FavoriteSpells.Contains(spellId))
-                    {
-                        addSpell = true;
-                    }
-                    else
-                    {
-                        bool isLocked = spell.UnlockCost != null && !spellPlayer.UnlockedSpells.Contains(spellId);
-                        if ((showUnlocked && !isLocked) || (showLocked && isLocked))
-                            addSpell = true;
-                    }
-
-                    if (addSpell)
-                    {
-                        int spellLevel = spell.SpellLevel;
-                        if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))
-                        {
-                            spells = new List<ModSpell>();
-                            spellsByLevel[spellLevel] = spells;
-                        }
-                        spells.Add(spell);
-                    }
-                }
-            }
-
-            foreach (var item in spellsByLevel.Values)
-                item.Sort(new SpellComparer());
-
-            int maxSpellLevel = 0;
-            foreach (var level in spellsByLevel.Keys)
-                maxSpellLevel = Math.Max(maxSpellLevel, level);
+            Dictionary<int, List<ModSpell>> spellsByLevel = PrepareSpellList(spellPlayer, category, typeCategory);
 
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine(GetTranslation("Spells").Value);
 
-            var allLink = GetSelfLink("All", category == PageCategory.All, showCost, PageCategory.All);
-            var lockedLink = GetSelfLink("Locked", category == PageCategory.Locked, showCost, PageCategory.Locked);
-            var unlockedLink = GetSelfLink("Unlocked", category == PageCategory.Unlocked, showCost, PageCategory.Unlocked);
-            var favLink = GetSelfLink("Favorite", category == PageCategory.Favorite, showCost, PageCategory.Favorite);
+            var pageData = new SpellPageData(category, typeCategory, showCost);
+
+            var allLink = GetCategoryLink("All", PageCategory.All, pageData);
+            var lockedLink = GetCategoryLink("Locked", PageCategory.Locked, pageData);
+            var unlockedLink = GetCategoryLink("Unlocked", PageCategory.Unlocked, pageData);
+            var favLink = GetCategoryLink("Favorite", PageCategory.Favorite, pageData);
             stringBuilder.AppendLine($"{allLink} | {unlockedLink} | {lockedLink} | {favLink}");
 
-            var hideCostLink = GetSelfLink("HideCost", !showCost, false, category);
-            var showCostLink = GetSelfLink("ShowCost", showCost, true, category);
+            var allTypesLink = GetTypeLink("AllTypes", null, pageData);
+            var invocationLink = GetTypeLink("Invocation", SpellType.Invocation, pageData);
+            var cantripLink = GetTypeLink("Cantrip", SpellType.Cantrip, pageData);
+            var echoLink = GetTypeLink("Echo", SpellType.Echo, pageData);
+            stringBuilder.AppendLine($"{allTypesLink} | {invocationLink} | {cantripLink} | {echoLink}");
+
+            var hideCostLink = GetCostLink("HideCost", false, pageData);
+            var showCostLink = GetCostLink("ShowCost", true, pageData);
             stringBuilder.AppendLine($"{hideCostLink} | {showCostLink}");
 
-            int maxLevel = showLocked ? 10 : Math.Min(maxSpellLevel, spellPlayer.PlayerLevel);
+            AscendSpell ascendSpell = ModContent.GetInstance<AscendSpell>();
+            int maxSpellLevel = spellsByLevel.Keys.DefaultIfEmpty(0).Max();
+            bool allLevels = category == PageCategory.All || category == PageCategory.Locked;
+            int maxLevel = allLevels ? 10 : Math.Min(maxSpellLevel, spellPlayer.PlayerLevel);
             int limit = maxLevel + 1;
             for (int i = 0; i < limit; i++)
             {
@@ -128,6 +115,42 @@ namespace Spellwright.Core.Links
             return stringBuilder.ToString();
         }
 
+        private static Dictionary<int, List<ModSpell>> PrepareSpellList(SpellwrightPlayer spellPlayer, PageCategory category, SpellType? typeCategory)
+        {
+            bool showFavorite = category == PageCategory.Favorite;
+            bool showLocked = category == PageCategory.All || category == PageCategory.Locked;
+            bool showUnlocked = category == PageCategory.All || category == PageCategory.Unlocked;
+
+            var spellsByLevel = new Dictionary<int, List<ModSpell>>();
+            foreach (var spellId in spellPlayer.KnownSpells)
+            {
+                var spell = SpellLibrary.GetSpellById(spellId);
+                if (spell != null)
+                {
+                    if (typeCategory != null && typeCategory != spell.UseType)
+                        continue;
+                    if (!showFavorite && spellPlayer.FavoriteSpells.Contains(spellId))
+                        continue;
+                    bool isLocked = spell.UnlockCost != null && !spellPlayer.UnlockedSpells.Contains(spellId);
+                    if ((!showUnlocked || isLocked) && (!showLocked || !isLocked))
+                        continue;
+
+                    int spellLevel = spell.SpellLevel;
+                    if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))
+                    {
+                        spells = new List<ModSpell>();
+                        spellsByLevel[spellLevel] = spells;
+                    }
+                    spells.Add(spell);
+                }
+            }
+
+            foreach (var item in spellsByLevel.Values)
+                item.Sort(new SpellComparer());
+
+            return spellsByLevel;
+        }
+
         private string GenerateSpellLine(Player player, bool showCost, SpellwrightPlayer spellPlayer, ModSpell spell)
         {
             var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture);
@@ -159,13 +182,26 @@ namespace Spellwright.Core.Links
             return line;
         }
 
-        private string GetSelfLink(string key, bool isSelected, bool showCost, PageCategory category)
+        private string GetCategoryLink(string key, PageCategory category, SpellPageData pageData) => GetSelfLink(key, pageData.Category == category, category, pageData.TypeCategory, pageData.ShowCost);
+        private string GetTypeLink(string key, SpellType? type, SpellPageData pageData) => GetSelfLink(key, pageData.TypeCategory == type, pageData.Category, type, pageData.ShowCost);
+        private string GetCostLink(string key, bool showCost, SpellPageData pageData) => GetSelfLink(key, pageData.ShowCost == showCost, pageData.Category, pageData.TypeCategory, showCost);
+
+        private string GetSelfLink(string key, bool isSelected, PageCategory category, SpellType? type, bool showCost)
         {
             var textFormat = GetFormText(key);
             if (isSelected)
+            {
                 textFormat.WithColor(Color.Red);
+            }
             else
-                textFormat.WithLink("SpellList").WithParam(CostParam, showCost).WithParam(CategoryParam, ((int)category).ToString());
+            {
+                textFormat.WithLink("SpellList");
+                textFormat.WithParam(CostParam, showCost);
+                textFormat.WithParam(CategoryParam, ((int)category).ToString());
+                if (type != null)
+                    textFormat.WithParam(TypeParam, (int)type.Value);
+            }
+
             return textFormat.ToString();
         }
 

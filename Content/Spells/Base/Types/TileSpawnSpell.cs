@@ -27,7 +27,7 @@ namespace Spellwright.Content.Spells.Base.Types
 
         public TileSpawnSpell()
         {
-            UseType = SpellType.Spell;
+            UseType = SpellType.Echo;
 
             tileType = TileID.Dirt;
             useTimeMultiplier = 1f;
