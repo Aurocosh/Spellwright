@@ -241,5 +241,58 @@ namespace Spellwright.Util
                 Recipe.FindRecipes();
             }
         }
+
+        public static bool DrinkPotion(Player player, Item item)
+        {
+            if (player.cursed || player.CCed || player.dead)
+                return false;
+            if (player.CountBuffs() == Player.MaxBuffs)
+                return false;
+            if (item.stack <= 0 || item.type <= ItemID.None || item.buffType <= 0 || item.DamageType == DamageClass.Summon)
+                return false;
+
+            int buffId = item.buffType;
+            bool canUseItem = CombinedHooks.CanUseItem(player, item);
+            if (item.mana > 0 && canUseItem && player.CheckMana(item, -1, pay: true, blockQuickMana: true))
+            {
+                player.manaRegenDelay = (int)player.maxRegenDelay;
+            }
+            if (player.whoAmI == Main.myPlayer && item.type == ItemID.Carrot && !Main.runningCollectorsEdition)
+            {
+                canUseItem = false;
+            }
+            if (buffId == BuffID.FairyBlue)
+            {
+                var rand = Main.rand.Next(3);
+                if (rand == 0)
+                    buffId = BuffID.FairyBlue;
+                if (rand == 1)
+                    buffId = BuffID.FairyRed;
+                if (rand == 2)
+                    buffId = BuffID.FairyGreen;
+            }
+            if (!canUseItem)
+                return false;
+
+            ItemLoader.UseItem(item, player);
+            int buffTime = item.buffTime;
+            if (buffTime == 0)
+                buffTime = 3600;
+
+            player.AddBuff(buffId, buffTime);
+            if (item.consumable && ItemLoader.ConsumeItem(item, player))
+            {
+                item.stack--;
+                if (item.stack <= 0)
+                    item.TurnToAir();
+            }
+            if (item.UseSound != null)
+            {
+                SoundEngine.PlaySound(item.UseSound, player.position);
+                Recipe.FindRecipes();
+            }
+
+            return true;
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace Spellwright.Content.Spells.Storage
 
         protected override int StorageSize(int playerLevel)
         {
-            return playerLevel * 4;
+            return playerLevel * 6;
         }
         protected override InventoryArea IncludedArea()
         {

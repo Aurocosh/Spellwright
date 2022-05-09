@@ -2,6 +2,7 @@
 using Spellwright.Common.Players;
 using Spellwright.Extensions;
 using Spellwright.UI.Components.TextBox.Text;
+using Spellwright.Util;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,6 +62,23 @@ namespace Spellwright.Core.Links
                 stringBuilder.AppendLine(storageStatus);
             }
 
+            if (storageType == VoidStorageType.Potion && linkData.HasParameter("drink"))
+            {
+                int potionType = linkData.GetParameter("drink", 0);
+                if (potionType > 0)
+                {
+                    foreach (var item in storage)
+                    {
+                        if (item.type == potionType)
+                        {
+                            UtilPlayer.DrinkPotion(player, item);
+                            break;
+                        }
+                    }
+                }
+                linkData.RemoveParameter("drink");
+            }
+
             var countTitle = GetTranslation("ItemsInStorage").Format(storage.Count).AsFormText().WithColor(Color.Gray);
             stringBuilder.AppendLine(countTitle.ToString());
             stringBuilder.AppendLine();
@@ -71,8 +89,13 @@ namespace Spellwright.Core.Links
                 if (item.type != ItemID.None && item.stack > 0)
                 {
                     string name = Lang.GetItemNameValue(item.type);
-                    string line = $"{name} ({item.stack})";
-                    stringBuilder.AppendLine(line);
+                    stringBuilder.Append($"{name} ({item.stack})");
+                    if (storageType == VoidStorageType.Potion)
+                    {
+                        string drinkLink = new FormattedText("Drink", Color.Gray).WithLink("VoidStorage").WithParam("type", storageType).WithParam("drink", item.type).ToString();
+                        stringBuilder.Append($" ({drinkLink})");
+                    }
+                    stringBuilder.AppendLine();
                 }
             }
 
