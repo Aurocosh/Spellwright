@@ -18,7 +18,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Vanilla
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
             UnlockCost = new SingleItemSpellCost(ItemID.ObsidianSkinPotion, 10);
-            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 4);
         }
     }
 }

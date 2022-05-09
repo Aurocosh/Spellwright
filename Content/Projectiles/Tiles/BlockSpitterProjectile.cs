@@ -135,7 +135,6 @@ namespace Spellwright.Content.Projectiles.Tiles
                     itemsLeft--;
             }
 
-
             int itemsConsumed = itemCount - itemsLeft;
             owner.ConsumeItems(selectedItem.type, itemsConsumed, InventoryArea.All, true);
 

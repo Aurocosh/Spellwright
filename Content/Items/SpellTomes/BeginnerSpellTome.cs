@@ -58,7 +58,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<StoneBulletSpell>();
             content.AddSpell<TigerEyesSpell>();
             content.AddSpell<WallSpitterSpell>();
-            content.AddSpell<FishermanBlessingSpell>();
+            content.AddSpell<SeaBlessingSpell>();
             content.AddSpell<SharpenSpell>();
 
             // Level 3
@@ -66,13 +66,14 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<BirdOfMidasSpell>();
             content.AddSpell<EvaporateSpell>();
             content.AddSpell<FanOfFlamesSpell>();
+            content.AddSpell<FeatherfallSpell>();
             content.AddSpell<GaleForceSpell>();
             content.AddSpell<HeartThrowerSpell>();
             content.AddSpell<ManaStarfallSpell>();
             content.AddSpell<OceanGateSpell>();
+            content.AddSpell<RestockSpell>();
             content.AddSpell<SurgeOfLifeSpell>();
             content.AddSpell<WarpMirrorSpell>();
-            content.AddSpell<RestockSpell>();
 
             Add(Type, content);
         }

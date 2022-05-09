@@ -8,14 +8,14 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.BuffSpells.Utility
 {
-    internal class FishermanBlessingSpell : BuffSpell
+    internal class SeaBlessingSpell : BuffSpell
     {
         public override void SetStaticDefaults()
         {
             SpellLevel = 2;
 
             static int durationGetter(int playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel);
-            AddEffect(ModContent.BuffType<FishermanBlessingBuff>(), durationGetter);
+            AddEffect(ModContent.BuffType<SeaBlessingBuff>(), durationGetter);
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
             CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);

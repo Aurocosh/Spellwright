@@ -35,7 +35,7 @@ namespace Spellwright.Content.Buffs.Spells.Utility
             }
             if (buffPlayerLevel >= 9)
             {
-                maxSpeedMult *= 1.4f;
+                maxSpeedMult *= 1.1f;
                 Player.jumpHeight += 15;
                 player.jumpSpeedBoost += 2.4f;
                 player.extraFall += 15;

@@ -25,7 +25,7 @@ namespace Spellwright.Content.Spells.Warp
                 .WithCost(ItemID.Book, 1)
                 .WithCost(ItemID.RecallPotion, 5);
 
-            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 1);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 20);
         }
 
         public override bool ConsumeReagentsCast(Player player, int playerLevel, SpellData spellData)

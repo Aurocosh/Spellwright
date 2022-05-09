@@ -22,7 +22,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Utility
                 .WithCost(ItemID.StoneBlock, 200)
                 .WithCost(ItemID.Diamond, 5);
 
-            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 20);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 40);
         }
     }
 }

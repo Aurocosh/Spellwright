@@ -17,6 +17,9 @@ namespace Spellwright.Core.Buffs
                     player.fireWalk = true;
                     player.buffImmune[BuffID.OnFire] = true;
                     break;
+                case BuffID.Featherfall:
+                    player.slowFall = true;
+                    break;
                 case BuffID.Spelunker:
                     player.findTreasure = true;
                     break;
@@ -28,6 +31,21 @@ namespace Spellwright.Core.Buffs
                     break;
                 case BuffID.Hunter:
                     player.detectCreature = true;
+                    break;
+                case BuffID.Clairvoyance:
+                    player.GetCritChance(DamageClass.Magic) += 2;
+                    player.GetDamage(DamageClass.Magic) += 0.05f;
+                    player.statManaMax2 += 20;
+                    player.manaCost -= 0.02f;
+                    break;
+                case BuffID.AmmoBox:
+                    player.ammoBox = true;
+                    break;
+                case BuffID.Bewitched:
+                    player.maxMinions++;
+                    break;
+                case BuffID.Sharpened:
+                    player.GetArmorPenetration(DamageClass.Melee) += 12;
                     break;
             }
 

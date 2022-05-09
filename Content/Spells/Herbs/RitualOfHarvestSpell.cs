@@ -28,7 +28,7 @@ namespace Spellwright.Content.Spells.Herbs
 
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.DirtRod, 1)
-                .WithCost(ItemID.WaterCandle, 2);
+                .WithCost(ItemID.WaterCandle, 1);
 
             CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 2);
         }
@@ -37,7 +37,7 @@ namespace Spellwright.Content.Spells.Herbs
         {
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
 
-            int radius = 3 * spellPlayer.PlayerLevel;
+            int radius = 5 * spellPlayer.PlayerLevel;
             var centerPoint = player.Center.ToGridPoint();
             var area = new SolidCircle(centerPoint, radius);
             bool IsValid(Point point)
@@ -59,6 +59,9 @@ namespace Spellwright.Content.Spells.Herbs
                 var location = point.ToWorldVector2();
 
                 WorldGen.KillTile_GetItemDrops(point.X, point.Y, tile, out int firstItemType, out int firstItemCount, out int secondItemType, out int secondItemCount, false);
+                firstItemCount = (int)(firstItemCount * Main.rand.NextFloat(2f, 4f));
+                secondItemCount = (int)(secondItemCount * Main.rand.NextFloat(2f, 6f));
+
                 bool canReplant = secondItemCount > 0;
                 secondItemCount--;
                 if (firstItemType > 0 && firstItemCount > 0)

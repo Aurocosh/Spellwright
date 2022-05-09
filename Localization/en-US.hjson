@@ -249,8 +249,8 @@ Mods: {
 				Name: Call of the Depths
 				Description: Increases player mining speed proportional to current depth. The deeper is player the faster he will dig blocks. Minimum bonus is 25% just below surface level. Maximum bonus is 50% at maximum depth 
 			}
-			FishermanBlessingSpell: {
-				Name: Fisherman Blessing
+			SeaBlessingSpell: {
+				Name: Sea Blessing
 				Description:
 					'''Grants various fishing related bonuses. Effect depends on the player level.
 					Level 1 gives extra 15 fishing power.
@@ -268,7 +268,7 @@ Mods: {
 					'''Increases player movement speed. And grants immunity t
 					Level 3 Increases player movement speed 30%.
 					Level 5 Boosts player jump height by 15 blocks.
-					Level 7 Increases acceleration and deceleration by 200%.
+					Level 7 Increases acceleration and deceleration by 10%.
 					Level 9 Increases player movement speed 20% and boosts player jump height by 15 blocks.
 					'''
 			}

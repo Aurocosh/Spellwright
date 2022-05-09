@@ -77,8 +77,7 @@ namespace Spellwright.Content.Spells
             }
             else
             {
-                spellPlayer.CurrentCantrip = spell;
-                spellPlayer.CantripData = spellData;
+                spellPlayer.SetCantrip(spell, spellData);
                 spell.PlayCastSound(player.Center);
                 spell.DoCastEffect(player, playerLevel);
             }

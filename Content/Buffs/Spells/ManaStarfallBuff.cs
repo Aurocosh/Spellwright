@@ -10,8 +10,8 @@ namespace Spellwright.Content.Buffs.Spells
     public class ManaStarfallBuff : ModBuff
     {
         private static int nextStarDelay = 0;
-        private static readonly int minStarfallDelay = UtilTime.SecondsToTicks(5);
-        private static readonly int maxStarfallDelay = UtilTime.SecondsToTicks(12);
+        private static readonly int minStarfallDelay = UtilTime.SecondsToTicks(1);
+        private static readonly int maxStarfallDelay = UtilTime.SecondsToTicks(6);
         private static readonly int spawnMinHeight = 30 * 16;
         private static readonly int spawnMaxHeight = 60 * 16;
         private static readonly int spawnRadius = 60 * 16;

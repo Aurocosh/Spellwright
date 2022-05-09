@@ -19,7 +19,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Vanilla
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 
             UnlockCost = new SingleItemSpellCost(ItemID.SpelunkerPotion, 10);
-            CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 20);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 6);
         }
     }
 }

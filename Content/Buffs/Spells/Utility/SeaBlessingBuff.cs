@@ -4,11 +4,11 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Buffs.Spells.Utility
 {
-    public class FishermanBlessingBuff : ModBuff
+    public class SeaBlessingBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fisherman Blessing");
+            DisplayName.SetDefault("Sea Blessing");
             Description.SetDefault("See and fishies smile upon you.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
@@ -17,7 +17,7 @@ namespace Spellwright.Content.Buffs.Spells.Utility
         public override void Update(Player player, ref int buffIndex)
         {
             var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
-            int buffPlayerLevel = buffPlayer.GetBuffLevel(ModContent.BuffType<FishermanBlessingBuff>());
+            int buffPlayerLevel = buffPlayer.GetBuffLevel(ModContent.BuffType<SeaBlessingBuff>());
 
             player.fishingSkill += 15;
 

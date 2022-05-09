@@ -40,7 +40,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
         {
             SpellLevel = 6;
             UseType = SpellType.Cantrip;
-            AddEffect(ModContent.BuffType<FortressStanceBuff>(), (playerLevel) => UtilTime.SecondsToTicks(2.5f));
+            AddEffect(ModContent.BuffType<FortressStanceBuff>(), (playerLevel) => UtilTime.SecondsToTicks(3f));
 
             RemoveApplicableModifier(SpellModifier.Area);
             RemoveApplicableModifier(SpellModifier.Selfless);

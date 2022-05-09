@@ -17,8 +17,8 @@ namespace Spellwright.Content.Spells.BuffSpells
             AddEffect(ModContent.BuffType<SelfDefenseHexBuff>(), (playerLevel) => UtilTime.MinutesToTicks(4 + playerLevel));
 
             UnlockCost = new MultipleItemSpellCost()
-                .WithCost(ItemID.SoulofNight, 20)
-                .WithCost(ItemID.GuideVoodooDoll, 5);
+                .WithCost(ItemID.SoulofNight, 25)
+                .WithCost(ItemID.GuideVoodooDoll, 1);
 
             CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 3);
         }

@@ -129,11 +129,18 @@ namespace Spellwright.Core.Links
                 {
                     if (typeCategory != null && typeCategory != spell.UseType)
                         continue;
-                    if (!showFavorite && spellPlayer.FavoriteSpells.Contains(spellId))
-                        continue;
-                    bool isLocked = spell.UnlockCost != null && !spellPlayer.UnlockedSpells.Contains(spellId);
-                    if ((!showUnlocked || isLocked) && (!showLocked || !isLocked))
-                        continue;
+                    if (showFavorite)
+                    {
+                        if (!spellPlayer.FavoriteSpells.Contains(spellId))
+                            continue;
+                    }
+                    else
+                    {
+                        bool isLocked = spell.UnlockCost != null && !spellPlayer.UnlockedSpells.Contains(spellId);
+                        if ((!showUnlocked || isLocked) && (!showLocked || !isLocked))
+                            continue;
+                    }
+
 
                     int spellLevel = spell.SpellLevel;
                     if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))

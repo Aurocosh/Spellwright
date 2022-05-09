@@ -13,7 +13,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Vanilla
     {
         public override void SetStaticDefaults()
         {
-            SpellLevel = 0;
+            SpellLevel = 3;
             AddEffect(BuffID.Featherfall, (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
             AddApplicableModifier(ModifierConstants.EternalModifiers);
 

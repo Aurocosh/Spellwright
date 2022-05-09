@@ -1,4 +1,7 @@
 ﻿using Spellwright.Content.Buffs.Spells;
+using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Core.Buffs;
 using Spellwright.Data;
 using Spellwright.Network;
@@ -75,7 +78,10 @@ namespace Spellwright.Common.Players
             }
             else
             {
-                PermamentBuffs.Clear();
+                int cost = 3 * PermamentBuffs.Count;
+                var buffSaveCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), cost);
+                if (!buffSaveCost.Consume(Player, 0, SpellData.EmptyData))
+                    PermamentBuffs.Clear();
             }
             return true;
         }
@@ -174,7 +180,8 @@ namespace Spellwright.Common.Players
             foreach (var elementTag in permamentEffectTags)
             {
                 int buffId = UtilBuff.DeserializeBuff(elementTag);
-                PermamentBuffs.Add(buffId);
+                if (buffId > 0)
+                    PermamentBuffs.Add(buffId);
             }
 
             BuffLevels.Clear();
@@ -182,8 +189,11 @@ namespace Spellwright.Common.Players
             foreach (var elementTag in effectLevelTags)
             {
                 int buffId = UtilBuff.DeserializeBuff(elementTag);
-                int level = elementTag.GetInt("Level");
-                BuffLevels.Add(buffId, level);
+                if (buffId > 0)
+                {
+                    int level = elementTag.GetInt("Level");
+                    BuffLevels.Add(buffId, level);
+                }
             }
         }
 

@@ -49,6 +49,13 @@ namespace Spellwright.Common.Players
         {
         }
 
+        public void SetCantrip(ModSpell cantrip, SpellData spellData)
+        {
+            CurrentCantrip = cantrip;
+            CantripData = spellData;
+            nextCantripDelay = 0;
+        }
+
         public bool IsSpellUnlocked(ModSpell spell)
         {
             return spell.UnlockCost == null || UnlockedSpells.Contains(spell.Type);

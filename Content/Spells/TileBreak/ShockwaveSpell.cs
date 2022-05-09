@@ -22,7 +22,7 @@ namespace Spellwright.Content.Spells.TileBreak
             SpellLevel = 2;
             UseType = SpellType.Invocation;
             noItem = false;
-            castSound = SoundID.Item14.WithPitchVariance(.3f).WithVolume(.5f);
+            castSound = SoundID.Item14.WithPitchVariance(.3f).WithVolume(.8f);
 
             CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
 
@@ -41,12 +41,15 @@ namespace Spellwright.Content.Spells.TileBreak
             breakableTileTypes.Add(TileID.Vines);
             breakableTileTypes.Add(TileID.CrimsonVines);
             breakableTileTypes.Add(TileID.HallowedVines);
+            breakableTileTypes.Add(TileID.Crystals);
             breakableTileTypes.Add(TileID.JungleVines);
             breakableTileTypes.Add(TileID.MushroomVines);
             breakableTileTypes.Add(TileID.JungleThorns);
             breakableTileTypes.Add(TileID.CorruptThorns);
             breakableTileTypes.Add(TileID.CrimsonThorns);
             breakableTileTypes.Add(TileID.Cobweb);
+            breakableTileTypes.Add(TileID.Coral);
+            breakableTileTypes.Add(TileID.BeachPiles);
         }
 
         protected override bool CanBreakTile(Tile tile, int x, int y, int playerLevel)
