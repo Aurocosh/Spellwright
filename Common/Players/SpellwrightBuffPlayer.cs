@@ -1,5 +1,4 @@
-﻿using Spellwright.Content.Buffs.Spells;
-using Spellwright.Content.Items.Reagents;
+﻿using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Core.Buffs;
@@ -17,6 +16,8 @@ namespace Spellwright.Common.Players
 {
     internal class SpellwrightBuffPlayer : ModPlayer
     {
+        public int StateLockCount = 0;
+
         private readonly List<BuffData> respawnBuffs = new();
         public readonly HashSet<int> PermamentBuffs = new();
         public readonly Dictionary<int, int> BuffLevels = new();
@@ -58,8 +59,15 @@ namespace Spellwright.Common.Players
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (Player.HasBuff(ModContent.BuffType<StateLockBuff>()))
+            if (StateLockCount > 0)
             {
+                StateLockCount--;
+                if (StateLockCount == 0)
+                {
+                    var message = Spellwright.GetTranslation("Spells", "StateLockSpell", "Unstable");
+                    Main.NewText(message);
+                }
+
                 respawnBuffs.Clear();
 
                 for (int i = 0; i < Player.MaxBuffs; i++)
@@ -97,19 +105,6 @@ namespace Spellwright.Common.Players
                 Player.buffImmune[buffId] = true;
                 BuffHandler.UpdateBuff(buffId, Player);
             }
-
-            //if (IsPermament(BuffID.Shine))
-            //    Lighting.AddLight((int)(Player.position.X + (float)(Player.width / 2)) / 16, (int)(Player.position.Y + (float)(Player.height / 2)) / 16, 0.8f, 0.95f, 1f);
-            //if (IsPermament(BuffID.Spelunker))
-            //    Player.findTreasure = true;
-            //if (IsPermament(BuffID.Hunter))
-            //    Player.detectCreature = true;
-            //if (IsPermament(ModContent.BuffType<GaleForceBuff>()))
-            //    GaleForceBuff.DoAction(Player);
-            //if (IsPermament(ModContent.BuffType<ReturnToFishBuff>()))
-            //    ReturnToFishBuff.DoAction(Player);
-            //if (IsPermament(ModContent.BuffType<KissOfCloverBuff>()))
-            //    KissOfCloverBuff.DoAction(Player);
         }
 
 
@@ -155,6 +150,8 @@ namespace Spellwright.Common.Players
 
         public override void SaveData(TagCompound tag)
         {
+            tag.Add("StateLockCount", StateLockCount);
+
             var permamentEffectTags = new List<TagCompound>();
             foreach (var buffId in PermamentBuffs)
                 permamentEffectTags.Add(UtilBuff.SerializeBuff(buffId));
@@ -175,6 +172,8 @@ namespace Spellwright.Common.Players
 
         public override void LoadData(TagCompound tag)
         {
+            StateLockCount = tag.GetInt("StateLockCount");
+
             PermamentBuffs.Clear();
             var permamentEffectTags = tag.GetList<TagCompound>("PermamentEffects");
             foreach (var elementTag in permamentEffectTags)

@@ -383,6 +383,8 @@ Mods: {
 			StateLockSpell: {
 				Name: State Lock
 				Description: Prevents loss of buffs and permanent buffs on death
+				Stable: Your being stabilizes
+				Unstable: Your being destabilizes
 			}
 			SurgeOfLifeSpell: {
 				Name: Surge Of Life
