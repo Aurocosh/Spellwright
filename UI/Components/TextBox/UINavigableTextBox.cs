@@ -127,6 +127,12 @@ namespace Spellwright.UI.Components.TextBox
                 SetPage(currentPage.Next);
         }
 
+        public void Refresh()
+        {
+            if (currentPage != null)
+                SetPage(currentPage);
+        }
+
         public bool CanGoBack()
         {
             return currentPage != null && currentPage != pageHistory.First;

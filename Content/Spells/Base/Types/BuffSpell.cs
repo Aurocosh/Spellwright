@@ -13,17 +13,27 @@ namespace Spellwright.Content.Spells.Base.Types
 {
     internal abstract class BuffSpell : PlayerAoeSpell
     {
+        protected readonly HashSet<int> buffIds;
         protected readonly List<BuffSpellEffect> effects;
 
         public BuffSpell()
         {
             UseType = SpellType.Invocation;
+            buffIds = new HashSet<int>();
             effects = new List<BuffSpellEffect>();
         }
 
-        protected void AddEffect(int effectId, Func<int, int> durationGetter)
+        public bool HasBuff(int buffId)
         {
-            effects.Add(new BuffSpellEffect(effectId, durationGetter));
+            return buffIds.Contains(buffId);
+        }
+
+        public IReadOnlyCollection<int> BuffIds => buffIds;
+
+        protected void AddEffect(int buffId, Func<int, int> durationGetter)
+        {
+            buffIds.Add(buffId);
+            effects.Add(new BuffSpellEffect(buffId, durationGetter));
         }
 
         protected override void ApplyEffect(IEnumerable<Player> affectedPlayers, int playerLevel, SpellData spellData)

@@ -16,7 +16,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             AddEffect(ModContent.BuffType<BurningSoulBuff>(), (playerLevel) => UtilTime.MinutesToTicks(3 + (int)(1.4f * playerLevel)));
 
             UnlockCost = new MultipleItemSpellCost()
-                .WithCost(ItemID.LivingCursedFireBlock, 30)
+                .WithCost(ItemID.LivingDemonFireBlock, 30)
                 .WithCost(ItemID.ManaPotion, 10);
             CastCost = new MaxManaSpellCost(20);
         }

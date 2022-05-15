@@ -12,7 +12,6 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
@@ -190,8 +189,7 @@ namespace Spellwright.Content.NPCs
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SilverMirror>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<CommonSpellReagent>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<RareSpellReagent>());
-            if (Main.moonPhase == (int)MoonPhase.Full)
-                shop.item[nextSlot++].SetDefaults(ModContent.ItemType<MythicalSpellReagent>());
+            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<MythicalSpellReagent>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<BeginnerSpellTome>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<AdvancedSpellTome>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SupremeSpellTome>());

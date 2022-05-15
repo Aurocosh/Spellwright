@@ -25,7 +25,7 @@ namespace Spellwright.Content.Spells.Minions
                 .WithCost(ItemID.FairyBell, 1)
                 .WithCost(ItemID.PixieDust, 50);
 
-            CastCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 3);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 5);
         }
     }
 }

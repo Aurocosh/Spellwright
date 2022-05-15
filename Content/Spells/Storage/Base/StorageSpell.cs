@@ -1,7 +1,6 @@
 ﻿using Spellwright.Content.Spells.Base;
 using Spellwright.Extensions;
 using Spellwright.Util;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -16,41 +15,21 @@ namespace Spellwright.Content.Spells.Storage.Base
         protected abstract bool CanAccept(Item item);
         protected abstract int StorageSize(int playerLevel);
         protected abstract InventoryArea IncludedArea();
-        protected virtual void SetStorageLocked(Player player, bool locked) => throw new NotImplementedException();
-        protected virtual bool CanDoAction(StorageAction action) => action != StorageAction.Invalid;
-
-        public override bool ConsumeReagentsCast(Player player, int playerLevel, SpellData spellData)
-        {
-            var action = (StorageAction)spellData.ExtraData;
-            if (action == StorageAction.Lock)
-                return true;
-            if (action == StorageAction.Unlock)
-                return true;
-            return base.ConsumeReagentsCast(player, playerLevel, spellData);
-        }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
             List<Item> storage = GetStorage(player);
 
             var action = (StorageAction)spellData.ExtraData;
-            if (action == StorageAction.Lock)
-            {
-                SetStorageLocked(player, true);
-            }
-            else if (action == StorageAction.Unlock)
-            {
-                SetStorageLocked(player, false);
-            }
-            else if (action == StorageAction.Push)
+            if (action == StorageAction.Push)
             {
                 int maxStorageSize = StorageSize(playerLevel);
                 return PushItems(player, maxStorageSize, storage);
             }
-            else if (action == StorageAction.Pop)
+            else
+            {
                 return PopItems(player, storage);
-
-            return true;
+            }
         }
 
         private static bool PopItems(Player player, List<Item> storage)
@@ -65,8 +44,10 @@ namespace Spellwright.Content.Spells.Storage.Base
                 {
                     var source = new EntitySource_Parent(player);
                     int itemIndex = Item.NewItem(source, player.Center, player.width, player.height, item.type, item.stack, noBroadcast: false, item.prefix, noGrabDelay: true);
-                    Main.item[itemIndex] = item.Clone();
-                    Main.item[itemIndex].newAndShiny = false;
+                    var groundItem = item.Clone();
+                    groundItem.newAndShiny = false;
+                    groundItem.favorited = false;
+                    Main.item[itemIndex] = groundItem;
                     if (Main.netMode == NetmodeID.MultiplayerClient)
                         NetMessage.SendData(MessageID.SyncItem, -1, -1, null, itemIndex, 1f);
                 }
@@ -116,13 +97,9 @@ namespace Spellwright.Content.Spells.Storage.Base
                 action = StorageAction.Push;
             else if (argument == "pop")
                 action = StorageAction.Pop;
-            else if (argument == "lock")
-                action = StorageAction.Lock;
-            else if (argument == "unlock")
-                action = StorageAction.Unlock;
 
             extraData = action;
-            return CanDoAction(action);
+            return action != StorageAction.Invalid;
         }
 
         public override void SerializeExtraData(TagCompound tag, object extraData)

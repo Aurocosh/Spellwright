@@ -29,9 +29,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
 
             var statPlayer = player.GetModPlayer<SpellwrightStatPlayer>();
 
-            var allItems = player.GetInventoryItems();
-            if (!statPlayer.ReagentsLocked)
-                allItems = allItems.Concat(statPlayer.ReagentItems);
+            var allItems = player.GetInventoryItems().Concat(statPlayer.ReagentItems);
             if (!UtilInventory.ConsumeItems(allItems, ItemType, Cost))
             {
                 var itemName = Lang.GetItemNameValue(ItemType);

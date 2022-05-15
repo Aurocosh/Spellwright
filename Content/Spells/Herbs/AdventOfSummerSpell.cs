@@ -30,7 +30,7 @@ namespace Spellwright.Content.Spells.Herbs
         {
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
 
-            int radius = 3 * spellPlayer.PlayerLevel;
+            int radius = 4 * spellPlayer.PlayerLevel;
             var centerPoint = player.Center.ToGridPoint();
 
             var herbGrower = new AreaHerbAndTreeGrower(centerPoint, radius);

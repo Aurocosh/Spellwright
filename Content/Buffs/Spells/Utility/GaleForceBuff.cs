@@ -21,7 +21,7 @@ namespace Spellwright.Content.Buffs.Spells.Utility
             int buffPlayerLevel = buffPlayer.GetBuffLevel(ModContent.BuffType<GaleForceBuff>());
 
             player.buffImmune[BuffID.WindPushed] = true;
-            float maxSpeedMult = 1.3f;
+            float maxSpeedMult = 1.1f;
 
             if (buffPlayerLevel >= 5)
             {
@@ -35,7 +35,7 @@ namespace Spellwright.Content.Buffs.Spells.Utility
             }
             if (buffPlayerLevel >= 9)
             {
-                maxSpeedMult *= 1.1f;
+                maxSpeedMult = 1.2f;
                 Player.jumpHeight += 15;
                 player.jumpSpeedBoost += 2.4f;
                 player.extraFall += 15;

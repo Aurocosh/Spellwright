@@ -1,6 +1,8 @@
 ﻿using Spellwright.Content.Spells.Base;
+using Spellwright.Lib;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Spellwright.Core.Spells
@@ -11,6 +13,7 @@ namespace Spellwright.Core.Spells
         private static readonly Dictionary<int, ModSpell> spellIdMap = new();
         private static readonly Dictionary<string, ModSpell> spellNameMap = new();
         private static readonly Dictionary<string, ModSpell> spellIncantationMap = new();
+        private static readonly MultiValueDictionary<int, string> incantationListMap = new();
 
         public static void RegisterSpell(ModSpell modSpell)
         {
@@ -22,16 +25,32 @@ namespace Spellwright.Core.Spells
             spellIdMap.Clear();
             spellNameMap.Clear();
             spellIncantationMap.Clear();
+            incantationListMap.Clear();
+
+            var incantations = new HashSet<string>();
             foreach (ModSpell modSpell in registeredSpells)
             {
                 spellIdMap.Add(modSpell.Type, modSpell);
                 spellNameMap.Add(modSpell.Name, modSpell);
-                var localIncantation = Spellwright.GetTranslation("Spells", modSpell.Name, "Incantation").Value;
-                if (!localIncantation.StartsWith("Mods.Spellwright"))
-                    SetSpellIncantation(localIncantation, modSpell);
+
                 var defaultIncantation = GetDefaultIncantation(modSpell);
-                if (defaultIncantation.ToLower() != localIncantation.ToLower())
-                    SetSpellIncantation(defaultIncantation, modSpell);
+                incantations.Add(defaultIncantation.ToLower());
+
+                var localName = Spellwright.GetTranslation("Spells", modSpell.Name, "Name").Value;
+                if (!localName.StartsWith("Mods.Spellwright"))
+                    incantations.Add(localName.ToLower());
+
+                for (int i = 0; i < 3; i++)
+                {
+                    var localIncantation = Spellwright.GetTranslation("Spells", modSpell.Name, $"Incantation{i + 1}").Value;
+                    if (!localIncantation.StartsWith("Mods.Spellwright"))
+                        incantations.Add(localIncantation.ToLower());
+                }
+
+                foreach (var incantation in incantations)
+                    SetSpellIncantation(incantation, modSpell);
+                incantationListMap[modSpell.Type] = incantations.ToList();
+                incantations.Clear();
             }
         }
 
@@ -41,6 +60,7 @@ namespace Spellwright.Core.Spells
             spellNameMap.Clear();
             registeredSpells.Clear();
             spellIncantationMap.Clear();
+            incantationListMap.Clear();
         }
 
         public static IReadOnlyList<ModSpell> GetRegisteredSpells()
@@ -67,6 +87,12 @@ namespace Spellwright.Core.Spells
             if (!spellIncantationMap.TryGetValue(incantation.ToLower(), out ModSpell spell))
                 return null;
             return spell;
+        }
+        public static IReadOnlyList<string> GetSpellIncantationList(int id)
+        {
+            if (incantationListMap.TryGetValue(id, out var list))
+                return list;
+            return Array.Empty<string>();
         }
 
         private static void SetSpellIncantation(string newIncantation, ModSpell modSpell)

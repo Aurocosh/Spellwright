@@ -50,6 +50,7 @@ namespace Spellwright.Content.Spells.TileBreak
             breakableTileTypes.Add(TileID.Cobweb);
             breakableTileTypes.Add(TileID.Coral);
             breakableTileTypes.Add(TileID.BeachPiles);
+            breakableTileTypes.Add(TileID.Pots);
         }
 
         protected override bool CanBreakTile(Tile tile, int x, int y, int playerLevel)

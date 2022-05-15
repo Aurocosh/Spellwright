@@ -168,6 +168,7 @@ namespace Spellwright.Common.Players
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
+
             if (Player.active && !Player.dead)
             {
                 var spellPlayer = Player.GetModPlayer<SpellwrightPlayer>();
@@ -195,7 +196,6 @@ namespace Spellwright.Common.Players
                     }
                     else if (Spellwright.OpenIncantationUIHotKey.JustPressed)
                     {
-
                         if (spellInterface.CurrentState == uiMessageState)
                         {
                             spellInterface.SetState(null);
@@ -214,11 +214,15 @@ namespace Spellwright.Common.Players
                                 spellInterface.SetState(uiMessageState);
                                 if (Main.playerInventory)
                                     Player.ToggleInv();
+                                if (Main.mapFullscreen)
+                                    Main.mapFullscreen = false;
                             }
                         }
                         else
                         {
                             Spellwright.Instance.userInterface.SetState(Spellwright.Instance.spellInputState);
+                            if (Main.mapFullscreen)
+                                Main.mapFullscreen = false;
                         }
                     }
                     else if (Spellwright.CastCantripHotKey.JustPressed || Spellwright.CastCantripHotKey.Current)

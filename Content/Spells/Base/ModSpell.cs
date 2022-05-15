@@ -83,7 +83,7 @@ namespace Spellwright.Content.Spells.Base
             SetSpellCostModifier(SpellModifier.Dispel, new MultCostModifier(0));
             SetSpellCostModifier(SpellModifier.Area, new MultCostModifier(4));
             SetSpellCostModifier(SpellModifier.Selfless, new MultCostModifier(.75f));
-            SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(4));
+            SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(25));
         }
         protected sealed override void Register()
         {
@@ -135,6 +135,10 @@ namespace Spellwright.Content.Spells.Base
             {
                 string useTypeLocal = Spellwright.GetTranslation("SpellTypes", UseType.ToString()).Value;
                 values.Add(new SpellParameter("SpellType", useTypeLocal));
+
+                var incantations = SpellLibrary.GetSpellIncantationList(Type);
+                var incantationPart = string.Join(", ", incantations);
+                values.Add(new SpellParameter("Incantation", incantationPart));
 
                 if (CastCost != null)
                 {

@@ -31,7 +31,7 @@ namespace Spellwright.Content.Buffs.Spells.Defensive
                 //base.Hurt(pvp, quiet, damage, hitDirection, crit);
                 if (Player.whoAmI == Main.myPlayer && BonusDefense < MaxBonusDefense)
                 {
-                    int minDamage = (int)(Player.statLifeMax2 * 0.3f);
+                    int minDamage = (int)(Player.statLifeMax2 * 0.2f);
                     if (damage >= minDamage)
                         BonusDefense++;
                 }

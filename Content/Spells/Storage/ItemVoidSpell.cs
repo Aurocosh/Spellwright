@@ -46,10 +46,5 @@ namespace Spellwright.Content.Spells.Storage
         {
             return InventoryArea.Inventory;
         }
-
-        protected override bool CanDoAction(StorageAction action)
-        {
-            return action != StorageAction.Invalid && action != StorageAction.Lock && action != StorageAction.Unlock;
-        }
     }
 }

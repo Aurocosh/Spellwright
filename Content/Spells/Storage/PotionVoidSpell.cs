@@ -45,12 +45,5 @@ namespace Spellwright.Content.Spells.Storage
         {
             return InventoryArea.Inventory;
         }
-
-        protected override void SetStorageLocked(Player player, bool locked)
-        {
-            var statPlayer = player.GetModPlayer<SpellwrightStatPlayer>();
-            statPlayer.PotionsLocked = locked;
-        }
-
     }
 }

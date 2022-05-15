@@ -4,8 +4,6 @@
     {
         Invalid,
         Push,
-        Pop,
-        Lock,
-        Unlock
+        Pop
     }
 }

@@ -49,9 +49,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
                 if (realCost <= 0)
                     return true;
 
-                var allItems = player.GetInventoryItems();
-                if (!statPlayer.ReagentsLocked)
-                    allItems = allItems.Concat(statPlayer.ReagentItems);
+                var allItems = player.GetInventoryItems().Concat(statPlayer.ReagentItems);
                 if (!UtilInventory.HasItems(allItems, itemType, realCost))
                     return false;
             }
@@ -92,9 +90,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
                 if (realCost <= 0)
                     return true;
 
-                var allItems = player.GetInventoryItems();
-                if (!statPlayer.ReagentsLocked)
-                    allItems = allItems.Concat(statPlayer.ReagentItems);
+                var allItems = player.GetInventoryItems().Concat(statPlayer.ReagentItems);
                 UtilInventory.ConsumeItems(allItems, itemType, realCost);
             }
 

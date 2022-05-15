@@ -24,7 +24,6 @@ namespace Spellwright.Core.Links
         {
         }
 
-
         public override string ProcessLink(ref LinkData linkData, Player player)
         {
             VoidStorageType storageType = linkData.GetParameter("type", VoidStorageType.Item);
@@ -43,40 +42,21 @@ namespace Spellwright.Core.Links
             var title = GetFormText(storageType + "Void").WithColor(Color.Purple);
             stringBuilder.AppendLine(title.ToString());
 
-            if (storageType != VoidStorageType.Item)
+            if (storageType == VoidStorageType.Potion)
             {
-                bool locked = IsStorageLocked(statPlayer, storageType);
-                bool hasToggle = linkData.HasParameter("toggle");
-                if (hasToggle)
+                if (linkData.HasParameter("drink"))
                 {
-                    locked = !locked;
-                    SetStorageLocked(statPlayer, storageType, locked);
-                    linkData.RemoveParameter("toggle");
+                    int potionType = linkData.GetParameter("drink", 0);
+                    DrinkPotion(player, storage, potionType);
+                    linkData.RemoveParameter("drink");
                 }
 
-                string statusText = locked ? "Locked" : "Unlocked";
-                Color color = locked ? Color.DarkGray : Color.DarkOrange;
-                string lockText = new FormattedText(statusText, color).WithLink("VoidStorage").WithParam("type", storageType).WithParam("toggle").ToString();
-
-                string storageStatus = GetTranslation("StorageStatus").Format(lockText);
-                stringBuilder.AppendLine(storageStatus);
-            }
-
-            if (storageType == VoidStorageType.Potion && linkData.HasParameter("drink"))
-            {
-                int potionType = linkData.GetParameter("drink", 0);
-                if (potionType > 0)
+                if (linkData.HasParameter("fav"))
                 {
-                    foreach (var item in storage)
-                    {
-                        if (item.type == potionType)
-                        {
-                            UtilPlayer.DrinkPotion(player, item);
-                            break;
-                        }
-                    }
+                    int potionType = linkData.GetParameter("fav", 0);
+                    ToggleFavorites(storage, potionType);
+                    linkData.RemoveParameter("fav");
                 }
-                linkData.RemoveParameter("drink");
             }
 
             var countTitle = GetTranslation("ItemsInStorage").Format(storage.Count).AsFormText().WithColor(Color.Gray);
@@ -84,40 +64,83 @@ namespace Spellwright.Core.Links
             stringBuilder.AppendLine();
 
             var sortedStorage = storage.OrderBy(x => x.Name).ThenByDescending(x => x.stack);
-            foreach (var item in sortedStorage)
+
+            var displayedItems =
+                from item in storage
+                where item.type != ItemID.None && item.stack > 0
+                orderby item.Name ascending
+                group item by item.type into itemGroup
+                select itemGroup;
+
+            foreach (var value in displayedItems)
             {
-                if (item.type != ItemID.None && item.stack > 0)
+                var item = value.First();
+                int count = value.Sum(x => x.stack);
+
+                string name = Lang.GetItemNameValue(item.type);
+                stringBuilder.Append($"{name} ({count})");
+                if (storageType == VoidStorageType.Potion)
                 {
-                    string name = Lang.GetItemNameValue(item.type);
-                    stringBuilder.Append($"{name} ({item.stack})");
-                    if (storageType == VoidStorageType.Potion)
-                    {
-                        string drinkLink = new FormattedText("Drink", Color.Gray).WithLink("VoidStorage").WithParam("type", storageType).WithParam("drink", item.type).ToString();
-                        stringBuilder.Append($" ({drinkLink})");
-                    }
-                    stringBuilder.AppendLine();
+                    string statusText = item.favorited ? "Unlocked" : "Locked";
+                    Color color = item.favorited ? Color.DarkOrange : Color.DarkGray;
+                    string lockText = new FormattedText(statusText, color).WithLink("VoidStorage").WithParam("type", storageType).WithParam("fav", item.type).ToString();
+                    string drinkLink = new FormattedText("Drink", Color.Gray).WithLink("VoidStorage").WithParam("type", storageType).WithParam("drink", item.type).ToString();
+                    stringBuilder.Append($" ({lockText}, {drinkLink})");
                 }
+                stringBuilder.AppendLine();
             }
+
+
+            //foreach (var item in sortedStorage)
+            //{
+            //    if (item.type != ItemID.None && item.stack > 0)
+            //    {
+            //        string name = Lang.GetItemNameValue(item.type);
+            //        stringBuilder.Append($"{name} ({item.stack})");
+            //        if (storageType == VoidStorageType.Potion)
+            //        {
+            //            string drinkLink = new FormattedText("Drink", Color.Gray).WithLink("VoidStorage").WithParam("type", storageType).WithParam("drink", item.type).ToString();
+            //            stringBuilder.Append($" ({drinkLink})");
+            //        }
+            //        stringBuilder.AppendLine();
+            //    }
+            //}
 
             return stringBuilder.ToString();
         }
 
-        private static bool IsStorageLocked(SpellwrightStatPlayer statPlayer, VoidStorageType storageType)
+        private static void DrinkPotion(Player player, List<Item> storage, int potionType)
         {
-            if (storageType == VoidStorageType.Potion)
-                return statPlayer.PotionsLocked;
-            else if (storageType == VoidStorageType.Reagent)
-                return statPlayer.ReagentsLocked;
-            else
-                return false;
+            if (potionType <= 0)
+                return;
+
+            var potions =
+                from item in storage
+                where item.type == potionType && item.stack > 0
+                select item;
+
+            var firstItem = potions.FirstOrDefault();
+            if (firstItem != null)
+                UtilPlayer.DrinkPotion(player, firstItem);
         }
 
-        private static void SetStorageLocked(SpellwrightStatPlayer statPlayer, VoidStorageType storageType, bool value)
+        private static void ToggleFavorites(List<Item> storage, int potionType)
         {
-            if (storageType == VoidStorageType.Potion)
-                statPlayer.PotionsLocked = value;
-            else if (storageType == VoidStorageType.Reagent)
-                statPlayer.ReagentsLocked = value;
+            if (potionType <= 0)
+                return;
+
+            var potions =
+                from item in storage
+                where item.type == potionType && item.stack > 0
+                select item;
+
+            var firstItem = potions.FirstOrDefault();
+            if (firstItem != null)
+            {
+                bool status = !firstItem.favorited;
+                foreach (var item in potions)
+                    item.favorited = status;
+            }
         }
     }
 }

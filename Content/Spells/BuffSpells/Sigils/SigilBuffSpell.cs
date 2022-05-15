@@ -15,7 +15,6 @@ namespace Spellwright.Content.Spells.BuffSpells.Sigils
         {
             RemoveApplicableModifier(SpellModifier.Area);
             RemoveApplicableModifier(SpellModifier.Selfless);
-            AddApplicableModifier(ModifierConstants.EternalModifiers);
         }
 
         protected override void ApplyEffect(IEnumerable<Player> affectedPlayers, int playerLevel, SpellData spellData)

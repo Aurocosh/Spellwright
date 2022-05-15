@@ -150,7 +150,9 @@ namespace Spellwright.UI.States
         public override void OnActivate()
         {
             base.OnActivate();
+            messageBox.Refresh();
         }
+
         public bool HasText()
         {
             return messageBox.HasText();
@@ -163,10 +165,8 @@ namespace Spellwright.UI.States
 
         public void SetText(string text, bool resetHitory = false) => messageBox.SetText(text, resetHitory);
         public void SetLink(string linkText, bool resetHitory = false) => messageBox.SetLink(linkText, resetHitory);
-        public void GoHome()
-        {
-            messageBox.SetLink("link:Static=id:Home", true);
-        }
+        public void GoHome() => messageBox.SetLink("link:Static=id:Home", true);
+        public void Refresh() => messageBox.Refresh();
 
         private void RefreshButtons()
         {
