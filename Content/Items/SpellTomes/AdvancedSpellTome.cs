@@ -25,26 +25,27 @@ namespace Spellwright.Content.Items.SpellTomes
             var content = new SpellTomeContent();
 
             // Level 4
+            content.AddSpell<BewitchSpell>();
             content.AddSpell<BlockSpitterSpell>();
             content.AddSpell<BloodArrowSpell>();
-            content.AddSpell<HolyShoesSpell>();
+            content.AddSpell<BoltOfConfusionSpell>();
             content.AddSpell<HellGateSpell>();
+            content.AddSpell<HolyShoesSpell>();
             content.AddSpell<PiggySpell>();
             content.AddSpell<PotionVoidSpell>();
             content.AddSpell<RainCallSpell>();
             content.AddSpell<SkyGateSpell>();
-            content.AddSpell<BewitchSpell>();
 
             // Level 5
             content.AddSpell<BurningSoulSpell>();
             content.AddSpell<CallOfTheDepthsSpell>();
+            content.AddSpell<ClearMindSpell>();
             content.AddSpell<DesertRiteSpell>();
             content.AddSpell<EyesOfProfitSpell>();
             content.AddSpell<GlassCannonSpell>();
             content.AddSpell<ObsidianSkinSpell>();
             content.AddSpell<ShadowStepSpell>();
             content.AddSpell<VoidMarkSpell>();
-            content.AddSpell<ClearMindSpell>();
 
             // Level 6
             content.AddSpell<DungeonGateSpell>();

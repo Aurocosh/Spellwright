@@ -1,15 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
-using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Extensions;
 using Spellwright.Lib.PointShapes;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.Warp
 {
@@ -26,8 +23,6 @@ namespace Spellwright.Content.Spells.Warp
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.EoCShield, 1)
                 .WithCost(ItemID.TeleportationPotion, 4);
-
-            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 5);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

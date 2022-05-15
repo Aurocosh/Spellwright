@@ -1,9 +1,6 @@
-﻿using Spellwright.Content.Items.Reagents;
-using Spellwright.Content.Projectiles;
+﻿using Spellwright.Content.Projectiles;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
-using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
-using Spellwright.Content.Spells.Base.SpellCosts.Stats;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria.ID;
@@ -27,14 +24,12 @@ namespace Spellwright.Content.Spells.Projectiles
             projectileType = ModContent.ProjectileType<HeartThrowerProjectile>();
             projectileSpeed = 30;
             useDelay = UtilTime.SecondsToTicks(3);
-            CastCost = new ManaSpellCost(75);
 
             projectileSpray = 10;
             minSpeedChange = .2f;
             maxSpeedChange = .35f;
 
             UnlockCost = new SingleItemSpellCost(ItemID.HeartLantern);
-            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 10);
         }
     }
 }

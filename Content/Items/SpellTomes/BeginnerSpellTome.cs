@@ -30,36 +30,36 @@ namespace Spellwright.Content.Items.SpellTomes
 
             // Level 0
             content.AddSpell<AscendSpell>();
+            content.AddSpell<MendSpell>();
             content.AddSpell<ReturnSpell>();
             content.AddSpell<SparkCasterSpell>();
-            content.AddSpell<MendSpell>();
 
             // Level 1
-            content.AddSpell<SpringDropletSpell>();
             content.AddSpell<FireballSpell>();
+            content.AddSpell<ForceOfCreationSpell>();
             content.AddSpell<KissOfCloverSpell>();
             content.AddSpell<MineralFeverSpell>();
             content.AddSpell<NightVisionSpell>();
             content.AddSpell<PremonitionSpell>();
             content.AddSpell<ReturnToFishSpell>();
+            content.AddSpell<SpringDropletSpell>();
             content.AddSpell<TorchEaterSpell>();
-            content.AddSpell<WillOfTorchGodSpell>();
             content.AddSpell<WallShredderSpell>();
-            content.AddSpell<ForceOfCreationSpell>();
+            content.AddSpell<WillOfTorchGodSpell>();
 
             // Level 2
             content.AddSpell<BattlecrySpell>();
             content.AddSpell<DragonSpitSpell>();
             content.AddSpell<FlashStepSpell>();
-            content.AddSpell<ShockwaveSpell>();
             content.AddSpell<InnerSunshineSpell>();
             content.AddSpell<ReagentVoidSpell>();
+            content.AddSpell<SeaBlessingSpell>();
+            content.AddSpell<SharpenSpell>();
             content.AddSpell<ShellOfIceSpell>();
+            content.AddSpell<ShockwaveSpell>();
             content.AddSpell<StoneBulletSpell>();
             content.AddSpell<TigerEyesSpell>();
             content.AddSpell<WallSpitterSpell>();
-            content.AddSpell<SeaBlessingSpell>();
-            content.AddSpell<SharpenSpell>();
 
             // Level 3
             content.AddSpell<AirDashSpell>();

@@ -8,13 +8,12 @@ namespace Spellwright.Content.Spells.Projectiles
 {
     internal class BoltOfConfusionSpell : ProjectileSpell
     {
-        protected override int GetDamage(int playerLevel) => 1 + damage * playerLevel;
-
         public override void SetStaticDefaults()
         {
+            SpellLevel = 4;
             UseType = SpellType.Cantrip;
 
-            damage = 4;
+            damage = 30;
             knockback = 0;
             damageType = DamageClass.Magic;
             projectileType = ModContent.ProjectileType<BoltOfConfusionProjectile>();
