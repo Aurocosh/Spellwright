@@ -329,8 +329,8 @@ Mods: {
 				Name: Inner Sunshine
 				Description: Buffs player with shine
 			}
-			NightVisionSpell: {
-				Name: Night Vision
+			NightEyeSpell: {
+				Name: Night Eye
 				Description: Grants user night vision
 			}
 			ObsidianSkinSpell: {

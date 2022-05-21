@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.BuffSpells.Vanilla
 {
-    internal class NightVisionSpell : BuffSpell
+    internal class NightEyeSpell : BuffSpell
     {
         public override void SetStaticDefaults()
         {

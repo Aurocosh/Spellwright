@@ -8,7 +8,6 @@ using Spellwright.Content.Items.SpellTomes;
 using Spellwright.Content.Projectiles;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -110,10 +109,7 @@ namespace Spellwright.Content.NPCs
             for (int k = 0; k < 255; k++)
             {
                 Player player = Main.player[k];
-                if (!player.active)
-                    continue;
-
-                if (player.inventory.Any(item => item.type == ItemID.FallenStar))
+                if (player.active && player.statManaMax > 100)
                     return true;
             }
 
@@ -141,7 +137,6 @@ namespace Spellwright.Content.NPCs
             chat.Add(Spellwright.GetTranslation("SpellwrightNpc", "Chatting", "NoSpeakName").Value);
             chat.Add(Spellwright.GetTranslation("SpellwrightNpc", "Chatting", "MuchToLearn").Value);
 
-            // TODO localization
             return chat;
         }
 
@@ -180,8 +175,6 @@ namespace Spellwright.Content.NPCs
                 }
             }
         }
-
-        // Not completely finished, but below is what the NPC will sell
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
@@ -224,7 +217,6 @@ namespace Spellwright.Content.NPCs
             randExtraCooldown = 30;
         }
 
-        // todo: implement
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
             projType = ModContent.ProjectileType<BoltOfConfusionProjectile>();

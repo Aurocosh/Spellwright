@@ -39,7 +39,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<ForceOfCreationSpell>();
             content.AddSpell<KissOfCloverSpell>();
             content.AddSpell<MineralFeverSpell>();
-            content.AddSpell<NightVisionSpell>();
+            content.AddSpell<NightEyeSpell>();
             content.AddSpell<PremonitionSpell>();
             content.AddSpell<ReturnToFishSpell>();
             content.AddSpell<SpringDropletSpell>();
