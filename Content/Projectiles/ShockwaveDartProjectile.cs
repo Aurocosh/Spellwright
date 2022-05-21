@@ -24,7 +24,6 @@ namespace Spellwright.Content.Projectiles
             Projectile.aiStyle = 1;
             Projectile.friendly = true;
             Projectile.timeLeft = 1200;
-            Projectile.alpha = 255;
 
             AIType = ProjectileID.WoodenArrowFriendly;
         }

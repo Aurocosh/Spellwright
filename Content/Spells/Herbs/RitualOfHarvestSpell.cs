@@ -124,6 +124,11 @@ namespace Spellwright.Content.Spells.Herbs
                 if (frameX == 5 && !Main.raining && Main.dayTime && Main.time > 40500.0)
                     return true;
             }
+            else if (tileType == TileID.Pumpkins)
+            {
+                int frameX = tile.TileFrameX;
+                return frameX >= 144;
+            }
 
             return false;
         }

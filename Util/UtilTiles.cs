@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Spellwright.Lib.Constants;
+﻿using Spellwright.Lib.Constants;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 
 namespace Spellwright.Util
@@ -41,19 +39,17 @@ namespace Spellwright.Util
         public static void GrowHerbsAndTrees(int x, int y)
         {
             Tile tile = Framing.GetTileSafely(x, y);
-            if (Main.tileAlch[tile.TileType])
+            ushort tileType = tile.TileType;
+            if (Main.tileAlch[tileType])
             {
                 WorldGen.GrowAlch(x, y);
-
-                tile.TileType = 83;
-                SoundEngine.PlaySound(SoundID.Grass, new Point(x, y).ToWorldCoordinates());
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None);
                     WorldGen.SquareTileFrame(x, y, true);
                 }
             }
-            else if (tile.TileType == TileID.GemSaplings)
+            else if (tileType == TileID.GemSaplings)
             {
                 int param = tile.TileFrameX / 54;
                 int treeTileType = TileID.TreeRuby;
@@ -85,24 +81,28 @@ namespace Spellwright.Util
                 if (WorldGen.TryGrowingTreeByType(treeTileType, x, y) && WorldGen.PlayerLOS(x, y))
                     WorldGen.TreeGrowFXCheck(x, y);
             }
-            else if (tile.TileType == TileID.Saplings)
+            else if (tileType == TileID.Saplings)
             {
                 bool flag2 = WorldGen.PlayerLOS(x, y);
                 bool flag3 = (tile.TileFrameX < 324 || tile.TileFrameX >= 540) ? WorldGen.GrowTree(x, y) : WorldGen.GrowPalmTree(x, y);
                 if (flag3 && flag2)
                     WorldGen.TreeGrowFXCheck(x, y);
             }
-            else if (tile.TileType == TileID.VanityTreeSakuraSaplings)
+            else if (tileType == TileID.VanityTreeSakuraSaplings)
             {
                 int treeTileType = TileID.VanityTreeSakura;
                 if (WorldGen.TryGrowingTreeByType(treeTileType, x, y) && WorldGen.PlayerLOS(x, y))
                     WorldGen.TreeGrowFXCheck(x, y);
             }
-            else if (tile.TileType == TileID.VanityTreeWillowSaplings)
+            else if (tileType == TileID.VanityTreeWillowSaplings)
             {
                 int treeTileType = TileID.VanityTreeYellowWillow;
                 if (WorldGen.TryGrowingTreeByType(treeTileType, x, y) && WorldGen.PlayerLOS(x, y))
                     WorldGen.TreeGrowFXCheck(x, y);
+            }
+            else if (tileType == TileID.Pumpkins)
+            {
+                WorldGen.GrowPumpkin(x, y, TileID.Pumpkins);
             }
         }
     }
