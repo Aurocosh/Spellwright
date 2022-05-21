@@ -120,10 +120,10 @@ namespace Spellwright.Content.Spells.Base
 
         public virtual void DoCastEffect(Player player, int playerLevel)
         {
-            var spawner = new LevelUpDustSpawner(player, new int[] { SpellLevel });
+            var spawner = new CastDustSpawner(player, SpellLevel);
             spawner.Execute();
             if (Main.netMode == NetmodeID.MultiplayerClient)
-                ModNetHandler.levelUpDustHandler.Send(spawner);
+                ModNetHandler.castDustHandler.Send(spawner);
         }
 
         public virtual List<SpellParameter> GetDescriptionValues(Player player, int playerLevel, SpellData spellData, bool fullVersion)

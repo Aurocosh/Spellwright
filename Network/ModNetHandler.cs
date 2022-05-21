@@ -42,6 +42,7 @@ namespace Spellwright.Network
         internal static BroadcastExecutablePacketHandler<SoulDisturbanceSpawner> soulDisturbanceHandler = new();
         internal static BroadcastExecutablePacketHandler<VortexDustSpawner> vortexDustHandler = new();
         internal static BroadcastExecutablePacketHandler<LevelUpDustSpawner> levelUpDustHandler = new();
+        internal static BroadcastExecutablePacketHandler<CastDustSpawner> castDustHandler = new();
         internal static BroadcastExecutablePacketHandler<HerbAoeDustSpawner> HerbAoeDustHandler = new();
 
         // Events

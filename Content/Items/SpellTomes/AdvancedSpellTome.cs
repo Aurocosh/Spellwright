@@ -7,6 +7,7 @@ using Spellwright.Content.Spells.Explosive;
 using Spellwright.Content.Spells.Herbs;
 using Spellwright.Content.Spells.Projectiles;
 using Spellwright.Content.Spells.Storage;
+using Spellwright.Content.Spells.TileBreak;
 using Spellwright.Content.Spells.TileSpawn;
 using Spellwright.Content.Spells.Warp;
 using Spellwright.Content.Spells.WorldEvents;
@@ -35,6 +36,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<PotionVoidSpell>();
             content.AddSpell<RainCallSpell>();
             content.AddSpell<SkyGateSpell>();
+            content.AddSpell<TileRollerSpell>();
 
             // Level 5
             content.AddSpell<BurningSoulSpell>();

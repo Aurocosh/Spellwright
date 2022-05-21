@@ -25,6 +25,7 @@ namespace Spellwright.Content.Spells.SpellRelated
         {
             SpellLevel = 0;
             UseType = SpellType.Invocation;
+            castSound = SoundID.Item4;
 
             mappedSpellCost.ClearCosts();
             mappedSpellCost.SetSpellCost(0, new SingleItemSpellCost(ItemID.FallenStar, 30));
