@@ -24,7 +24,7 @@ namespace Spellwright.Content.Spells.BuffSpells.Sigils
                 ModContent.BuffType<SigilOfSageBuff>(),
                 ModContent.BuffType<SigilOfSniperBuff>()
             };
-            UtilBuff.RemovePermamentEffect(affectedPlayers, sigilIds);
+            UtilBuff.RemovePermanentEffect(affectedPlayers, sigilIds);
             base.ApplyEffect(affectedPlayers, playerLevel, spellData);
         }
     }

@@ -19,17 +19,17 @@ namespace Spellwright.Common.Players
         public int StateLockCount = 0;
 
         private readonly List<BuffData> respawnBuffs = new();
-        public readonly HashSet<int> PermamentBuffs = new();
+        public readonly HashSet<int> PermanentBuffs = new();
         public readonly Dictionary<int, int> BuffLevels = new();
 
-        public bool HasPermamentBuff(int buffId) => PermamentBuffs.Contains(buffId);
+        public bool HasPermanentBuff(int buffId) => PermanentBuffs.Contains(buffId);
 
         public override bool CloneNewInstances => false;
 
-        public void SetPermamentBuffs(IEnumerable<int> buffIds)
+        public void SetPermanentBuffs(IEnumerable<int> buffIds)
         {
-            PermamentBuffs.Clear();
-            PermamentBuffs.UnionWith(buffIds);
+            PermanentBuffs.Clear();
+            PermanentBuffs.UnionWith(buffIds);
         }
 
         public void SetBuffLevel(BuffLevelData buffLevel)
@@ -86,10 +86,10 @@ namespace Spellwright.Common.Players
             }
             else
             {
-                int cost = 3 * PermamentBuffs.Count;
+                int cost = 3 * PermanentBuffs.Count;
                 var buffSaveCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), cost);
                 if (!buffSaveCost.Consume(Player, 0, SpellData.EmptyData))
-                    PermamentBuffs.Clear();
+                    PermanentBuffs.Clear();
             }
             return true;
         }
@@ -100,7 +100,7 @@ namespace Spellwright.Common.Players
 
         public override void PostUpdateBuffs()
         {
-            foreach (var buffId in PermamentBuffs)
+            foreach (var buffId in PermanentBuffs)
             {
                 Player.buffImmune[buffId] = true;
                 BuffHandler.UpdateBuff(buffId, Player);
@@ -111,7 +111,7 @@ namespace Spellwright.Common.Players
         public override void clientClone(ModPlayer clientClone)
         {
             var clone = clientClone as SpellwrightBuffPlayer;
-            clone.SetPermamentBuffs(PermamentBuffs);
+            clone.SetPermanentBuffs(PermanentBuffs);
 
             clone.BuffLevels.Clear();
             foreach (var effectLevel in BuffLevels)
@@ -121,8 +121,8 @@ namespace Spellwright.Common.Players
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
             int playerId = Player.whoAmI;
-            var effectIds = PermamentBuffs.Cast<int>().ToArray();
-            ModNetHandler.permamentPlayerEffectsHandler.Sync(toWho, playerId, playerId, effectIds);
+            var effectIds = PermanentBuffs.Cast<int>().ToArray();
+            ModNetHandler.permanentPlayerEffectsHandler.Sync(toWho, playerId, playerId, effectIds);
 
             var levelData = new List<BuffLevelData>();
             foreach (var effectLevel in BuffLevels)
@@ -133,10 +133,10 @@ namespace Spellwright.Common.Players
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             var clone = clientPlayer as SpellwrightBuffPlayer;
-            if (!clone.PermamentBuffs.SetEquals(PermamentBuffs))
+            if (!clone.PermanentBuffs.SetEquals(PermanentBuffs))
             {
-                var effectIds = PermamentBuffs.Cast<int>().ToArray();
-                ModNetHandler.permamentPlayerEffectsHandler.Sync(Player.whoAmI, effectIds);
+                var effectIds = PermanentBuffs.Cast<int>().ToArray();
+                ModNetHandler.permanentPlayerEffectsHandler.Sync(Player.whoAmI, effectIds);
             }
 
             foreach (var effectLevel in BuffLevels)
@@ -152,10 +152,10 @@ namespace Spellwright.Common.Players
         {
             tag.Add("StateLockCount", StateLockCount);
 
-            var permamentEffectTags = new List<TagCompound>();
-            foreach (var buffId in PermamentBuffs)
-                permamentEffectTags.Add(UtilBuff.SerializeBuff(buffId));
-            tag.Add("PermamentEffects", permamentEffectTags);
+            var permanentEffectTags = new List<TagCompound>();
+            foreach (var buffId in PermanentBuffs)
+                permanentEffectTags.Add(UtilBuff.SerializeBuff(buffId));
+            tag.Add("PermanentBuffs", permanentEffectTags);
 
             var effectLevelTags = new List<TagCompound>();
             foreach (var effectLevel in BuffLevels)
@@ -174,13 +174,13 @@ namespace Spellwright.Common.Players
         {
             StateLockCount = tag.GetInt("StateLockCount");
 
-            PermamentBuffs.Clear();
-            var permamentEffectTags = tag.GetList<TagCompound>("PermamentEffects");
-            foreach (var elementTag in permamentEffectTags)
+            PermanentBuffs.Clear();
+            var permanentEffectTags = tag.GetList<TagCompound>("PermanentBuffs");
+            foreach (var elementTag in permanentEffectTags)
             {
                 int buffId = UtilBuff.DeserializeBuff(elementTag);
                 if (buffId > 0)
-                    PermamentBuffs.Add(buffId);
+                    PermanentBuffs.Add(buffId);
             }
 
             BuffLevels.Clear();

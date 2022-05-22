@@ -2,16 +2,16 @@
 using Spellwright.Network.Base;
 using Terraria;
 
-namespace Spellwright.Network.RoutedHandlers.PermamentEffects
+namespace Spellwright.Network.RoutedHandlers.PermanentEffects
 {
-    internal class OtherPlayerAddPermamentEffectHandler : RoutedPacketHandler<int[]>
+    internal class OtherPlayerRemovePermanentEffectHandler : RoutedPacketHandler<int[]>
     {
         protected override void HandleData(int[] data, byte fromWho, bool fromServer)
         {
             Player player = Main.LocalPlayer;
             var modPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
             foreach (var effectId in data)
-                modPlayer.PermamentBuffs.Add(effectId);
+                modPlayer.PermanentBuffs.Remove(effectId);
         }
     }
 }

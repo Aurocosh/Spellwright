@@ -1,5 +1,5 @@
 ﻿using Spellwright.UI.Components.Args;
-using Spellwright.UI.Components.TextBox.TextData;
+using Spellwright.UI.Components.TextBox.StateData;
 using Spellwright.UI.Components.TextBox.TextProcessors;
 using System;
 using System.Collections.Generic;

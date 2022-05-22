@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 
-namespace Spellwright.Core.Links
+namespace Spellwright.Core.Links.Base
 {
     internal class PageContentHandler
     {

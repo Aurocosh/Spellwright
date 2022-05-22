@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Spellwright.UI.Components.Args;
-using Spellwright.UI.Components.TextBox;
+using Spellwright.UI.Components.TextBox.StateData;
 using Spellwright.UI.Components.TextBox.TextParts;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
 using Terraria.UI;
 
-namespace Spellwright.UI.Components
+namespace Spellwright.UI.Components.TextBox
 {
     internal class UIFormattedTextBox : UIPanel
     {
@@ -171,10 +171,8 @@ namespace Spellwright.UI.Components
             float y = mousePosition.Y - space.Y + Scrollbar.GetValue();
 
             foreach (var linkInfo in links)
-            {
                 if (linkInfo.IsInBounds(x, y))
                     return linkInfo;
-            }
 
             return null;
         }

@@ -1,4 +1,4 @@
-﻿namespace Spellwright.UI.Components.TextBox.TextData
+﻿namespace Spellwright.UI.Components.TextBox.StateData
 {
     internal class PageStatus
     {

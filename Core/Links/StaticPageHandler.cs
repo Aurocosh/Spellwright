@@ -1,4 +1,5 @@
-﻿using Spellwright.UI.Components.TextBox.Text;
+﻿using Spellwright.Core.Links.Base;
+using Spellwright.UI.Components.TextBox.Text;
 using Terraria;
 
 namespace Spellwright.Core.Links

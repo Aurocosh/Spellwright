@@ -2,6 +2,7 @@
 using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.SpellRelated;
+using Spellwright.Core.Links.Base;
 using Spellwright.Core.Spells;
 using Spellwright.UI.Components.TextBox.Text;
 using System;

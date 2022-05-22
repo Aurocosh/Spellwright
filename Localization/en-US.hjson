@@ -78,8 +78,8 @@ Mods: {
 
 		PlayerStatus: {
 			MyCurrentLevel: My current level is {0}
-			NoPermamentBuffs: I have no permament buffs
-			HavePermamentBuffs: I have following permament buffs
+			NoPermanentBuffs: I have no permanent buffs
+			HavePermanentBuffs: I have following permanent buffs
 		}
 
 		

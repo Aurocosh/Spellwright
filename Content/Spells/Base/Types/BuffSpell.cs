@@ -41,12 +41,12 @@ namespace Spellwright.Content.Spells.Base.Types
             var buffIds = effects.Select(x => x.effectId).ToArray();
             if (spellData.HasModifier(SpellModifier.Dispel))
             {
-                UtilBuff.RemovePermamentEffect(affectedPlayers, buffIds);
+                UtilBuff.RemovePermanentEffect(affectedPlayers, buffIds);
             }
             else if (spellData.HasModifier(SpellModifier.Eternal))
             {
                 UtilBuff.SetBuffLevel(affectedPlayers, playerLevel, buffIds);
-                UtilBuff.AddPermamentEffect(affectedPlayers, buffIds);
+                UtilBuff.AddPermanentEffect(affectedPlayers, buffIds);
             }
             else
             {

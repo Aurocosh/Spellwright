@@ -4,7 +4,7 @@ using Spellwright.Network.Base;
 using Spellwright.Network.Base.Executable;
 using Spellwright.Network.RoutedHandlers;
 using Spellwright.Network.RoutedHandlers.Buffs;
-using Spellwright.Network.RoutedHandlers.PermamentEffects;
+using Spellwright.Network.RoutedHandlers.PermanentEffects;
 using Spellwright.Network.RoutedHandlers.StatSync;
 using Spellwright.Network.ServerPackets.WorldEvents.RainEvents;
 using Spellwright.Network.ServerPackets.WorldEvents.SandstormEvents;
@@ -26,7 +26,7 @@ namespace Spellwright.Network
         internal static ReactiveArmorDefenseHandler reactiveArmorDefenseSync = new();
         internal static PlayerLevelHandler PlayerLevelSync = new();
         internal static DashPlayerTimerHandler dashPlayerTimerSync = new();
-        internal static PermamentPlayerEffectsHandler permamentPlayerEffectsHandler = new();
+        internal static PermanentPlayerEffectsHandler permanentPlayerEffectsHandler = new();
         internal static EffectLevelHandler EffectLevelHandler = new();
         internal static SingleEffectLevelHandler SingleEffectLevelHandler = new();
 
@@ -34,8 +34,8 @@ namespace Spellwright.Network
         internal static OtherPlayerHealHandler otherPlayerHealHandler = new();
         internal static OtherPlayerClearBuffsHandler otherPlayerClearBuffsHandler = new();
         internal static OtherPlayerAddBuffsHandler otherPlayerAddBuffsHandler = new();
-        internal static OtherPlayerRemovePermamentEffectHandler OtherPlayerRemovePermamentEffectHandler = new();
-        internal static OtherPlayerAddPermamentEffectHandler otherPlayerAddPermamentEffectHandler = new();
+        internal static OtherPlayerRemovePermanentEffectHandler OtherPlayerRemovePermanentEffectHandler = new();
+        internal static OtherPlayerAddPermanentEffectHandler otherPlayerAddPermanentEffectHandler = new();
 
         // Dusts
         internal static BroadcastExecutablePacketHandler<AoeCastDustSpawner> aoeCastDustHandler = new();

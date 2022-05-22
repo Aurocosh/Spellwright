@@ -41,7 +41,7 @@ namespace Spellwright.Util
             return modName == "Terraria" ? tag.GetInt("id") : ModContent.TryFind(modName, tag.GetString("name"), out ModBuff buff) ? buff.Type : 0;
         }
 
-        public static void RemovePermamentEffect(IEnumerable<Player> affectedPlayers, int[] buffIds)
+        public static void RemovePermanentEffect(IEnumerable<Player> affectedPlayers, int[] buffIds)
         {
             int myPlayer = Main.myPlayer;
             foreach (var affectedPlayer in affectedPlayers)
@@ -49,17 +49,17 @@ namespace Spellwright.Util
                 int playerId = affectedPlayer.whoAmI;
                 if (Main.netMode == NetmodeID.MultiplayerClient && playerId != myPlayer)
                 {
-                    ModNetHandler.OtherPlayerRemovePermamentEffectHandler.Send(playerId, myPlayer, buffIds);
+                    ModNetHandler.OtherPlayerRemovePermanentEffectHandler.Send(playerId, myPlayer, buffIds);
                 }
                 else
                 {
                     var modPlayer = affectedPlayer.GetModPlayer<SpellwrightBuffPlayer>();
                     foreach (var buffId in buffIds)
-                        modPlayer.PermamentBuffs.Remove(buffId);
+                        modPlayer.PermanentBuffs.Remove(buffId);
                 }
             }
         }
-        public static void AddPermamentEffect(IEnumerable<Player> affectedPlayers, int[] buffIds)
+        public static void AddPermanentEffect(IEnumerable<Player> affectedPlayers, int[] buffIds)
         {
             int myPlayer = Main.myPlayer;
             foreach (var affectedPlayer in affectedPlayers)
@@ -67,13 +67,13 @@ namespace Spellwright.Util
                 int playerId = affectedPlayer.whoAmI;
                 if (Main.netMode == NetmodeID.MultiplayerClient && playerId != myPlayer)
                 {
-                    ModNetHandler.otherPlayerAddPermamentEffectHandler.Send(playerId, myPlayer, buffIds);
+                    ModNetHandler.otherPlayerAddPermanentEffectHandler.Send(playerId, myPlayer, buffIds);
                 }
                 else
                 {
                     var modPlayer = affectedPlayer.GetModPlayer<SpellwrightBuffPlayer>();
                     foreach (var buffId in buffIds)
-                        modPlayer.PermamentBuffs.Add(buffId);
+                        modPlayer.PermanentBuffs.Add(buffId);
                 }
             }
         }

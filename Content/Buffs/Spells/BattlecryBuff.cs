@@ -21,7 +21,7 @@ namespace Spellwright.Content.Buffs.Spells
         {
             int buffId = ModContent.BuffType<BattlecryBuff>();
             var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
-            if (buffPlayer.HasPermamentBuff(buffId) || player.HasBuff(buffId))
+            if (buffPlayer.HasPermanentBuff(buffId) || player.HasBuff(buffId))
             {
                 spawnRate = (int)(spawnRate * 0.25f);
                 maxSpawns = (int)(maxSpawns * 4f);

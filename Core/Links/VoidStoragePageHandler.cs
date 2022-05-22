@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
+using Spellwright.Core.Links.Base;
 using Spellwright.Extensions;
 using Spellwright.UI.Components.TextBox.Text;
 using Spellwright.Util;

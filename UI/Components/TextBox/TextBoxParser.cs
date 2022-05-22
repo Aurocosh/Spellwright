@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ReLogic.Graphics;
+using Spellwright.UI.Components.TextBox.StateData;
 using Spellwright.UI.Components.TextBox.TextParts;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

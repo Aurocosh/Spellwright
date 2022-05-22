@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.Localization;
 
-namespace Spellwright.Core.Links
+namespace Spellwright.Core.Links.Base
 {
     internal abstract class PageHandler
     {

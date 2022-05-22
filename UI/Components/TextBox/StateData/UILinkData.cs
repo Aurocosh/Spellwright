@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.UI.Components.TextBox.TextParts;
 
-namespace Spellwright.UI.Components.TextBox
+namespace Spellwright.UI.Components.TextBox.StateData
 {
     internal class UILinkData
     {

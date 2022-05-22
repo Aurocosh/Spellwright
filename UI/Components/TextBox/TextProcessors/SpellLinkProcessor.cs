@@ -1,4 +1,4 @@
-﻿using Spellwright.Core.Links;
+﻿using Spellwright.Core.Links.Base;
 using Spellwright.UI.Components.TextBox.StateData;
 using Spellwright.UI.Components.TextBox.Text;
 using Terraria;

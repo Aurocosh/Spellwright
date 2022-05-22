@@ -1,7 +1,7 @@
 ﻿using Spellwright.UI.Components.TextBox.TextParts;
 using System.Collections.Generic;
 
-namespace Spellwright.UI.Components.TextBox
+namespace Spellwright.UI.Components
 {
     internal class TextLine
     {
