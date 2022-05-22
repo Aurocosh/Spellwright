@@ -14,7 +14,6 @@ namespace Spellwright.Content.Spells.BuffSpells.Sigils
         protected SigilBuffSpell()
         {
             RemoveApplicableModifier(SpellModifier.Area);
-            RemoveApplicableModifier(SpellModifier.Selfless);
         }
 
         protected override void ApplyEffect(IEnumerable<Player> affectedPlayers, int playerLevel, SpellData spellData)

@@ -9,7 +9,6 @@ namespace Spellwright.Content.Spells.Base.Modifiers
         Unlock = 1,
         Area = 2,
         Eternal = 4,
-        Dispel = 8,
-        Selfless = 16
+        Dispel = 8
     }
 }

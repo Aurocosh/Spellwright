@@ -21,7 +21,6 @@ namespace Spellwright.Content.Spells.Base.Types
         public PlayerAoeSpell()
         {
             UseType = SpellType.Invocation;
-            AddApplicableModifier(SpellModifier.Selfless);
             AddApplicableModifier(SpellModifier.Area);
         }
 
@@ -70,8 +69,6 @@ namespace Spellwright.Content.Spells.Base.Types
 
         private bool AoeCast(Player player, int playerLevel, SpellData spellData)
         {
-            bool isSelfless = spellData.HasModifier(SpellModifier.Selfless);
-
             int aoeRange = GetRange(playerLevel) * 16;
             Vector2 castPosition = player.Center;
             int radiusSquared = aoeRange * aoeRange;
@@ -81,8 +78,6 @@ namespace Spellwright.Content.Spells.Base.Types
                 if (otherPlayer == null)
                     return false;
                 if (!otherPlayer.active)
-                    return false;
-                if (isSelfless && otherPlayer == player)
                     return false;
                 if (!CanApplyToPlayer(otherPlayer))
                     return false;

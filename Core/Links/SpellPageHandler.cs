@@ -2,8 +2,11 @@
 using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Description;
+using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Core.Spells;
+using Spellwright.Extensions;
 using Spellwright.UI.Components.TextBox.Text;
+using System.Linq;
 using System.Text;
 using Terraria;
 using Terraria.Localization;
@@ -72,12 +75,24 @@ namespace Spellwright.Core.Links
                 {
                     parameterValue = new FormattedText(parameterValue).WithLink("SpellType").WithParam("type", spell.UseType).ToString();
                 }
+                else if (value.Name == "ApplicableModifiers")
+                {
+                    var modifierList = spell.AppplicableModifiers.SplitValues<SpellModifier>().Select(GetModifierLink).ToList();
+                    var modifierPart = string.Join(", ", modifierList);
+                    parameterValue = modifierPart;
+                }
 
                 var descriptionPart = $"{parameterName} {parameterValue}";
                 builder.AppendLine(descriptionPart);
             }
 
             return builder.ToString();
+        }
+
+        private string GetModifierLink(SpellModifier modifier)
+        {
+            var text = Spellwright.GetTranslation("SpellModifiers", modifier.ToString()).Value;
+            return new FormattedText(text).WithLink("SpellModifier").WithParam("type", modifier).ToString();
         }
     }
 }

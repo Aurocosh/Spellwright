@@ -25,7 +25,6 @@ namespace Spellwright.Content.Spells.TileSpawn
             SpellLevel = 1;
 
             RemoveApplicableModifier(SpellModifier.Area);
-            RemoveApplicableModifier(SpellModifier.Selfless);
 
             UnlockCost = new TorchGodSpellCost();
 

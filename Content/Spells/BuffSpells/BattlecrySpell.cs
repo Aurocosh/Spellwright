@@ -19,7 +19,6 @@ namespace Spellwright.Content.Spells.BuffSpells
             SpellLevel = 2;
             AddEffect(ModContent.BuffType<BattlecryBuff>(), (playerLevel) => UtilTime.MinutesToTicks(10 + 2 * playerLevel));
             RemoveApplicableModifier(SpellModifier.Area);
-            RemoveApplicableModifier(SpellModifier.Selfless);
 
             AddApplicableModifier(ModifierConstants.EternalModifiers);
             castSound = new LegacySoundStyle(SoundID.Roar, 0);

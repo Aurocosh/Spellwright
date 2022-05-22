@@ -30,6 +30,7 @@ Mods: {
 			SpellUses: Spell uses
 			ApplicableModifiers: Applicable modifiers
 			CastCost: Cast cost
+			Incantation: Incantation
 		}
 
 		SpellModifiers: {
@@ -130,7 +131,7 @@ Mods: {
 					'''Menu
 					 Guide
 					  *[Spell types](link:SpellType)
-					  *[Spell modifiers](link:Static=id:SpellModifiers)
+					  *[Spell modifiers](link:SpellModifier)
 					  *[Spell unlock](link:Static=id:SpellUnlock)
 					  *[Spell reagents](link:Static=id:SpellReagents)
 					  *[Spell levels](link:Static=id:SpellLevels)
@@ -200,8 +201,18 @@ Mods: {
 				TextInvocation: "Effects of invocations are manifested immediately after the cast. This type of spell does not require any additional tools or keybinds to use. For example spell Return instantly teleports a player as soon as the player casts the spell. Another invocation called Mend will instantly heal player when casted. Each invocation manifests its effect only once per activation."
 				TextCantrip: "Cantrips do not produce any immediate effect when casted, instead on cast the cantrip will bind itself to the player that casted it. If a player has a bound cantrip, then he can press a dedicated cantrip keybind that activates the effect of a cantrip. At any given time a player can have only one active cantrip. When a new cantrip spell is casted it will replace the previous cantrip that the player holds. You can think of cantrips as spells that grant the player various abilities that he can freely use, however the player can hold only one of those abilities at any given time. For example cantrip air dash grants player ability to dash towards the cursor when cantrip keybind is pressed. And cantrip fortress stance grants player temporary boost in armor when cantrip keybind is pressed. All cantrips have no cast cost, and no use cost. In other words they are completly free to use."
 				TextEcho: "Echo spells also do not produce any immediate effect when casted like cantrips, and on top of that they require a special item called spell resonator to be used. Spell resonator is an item that does nothing by itself, but you can bind different echo spell to the resonator to give it various effects. When echo spell is casted it will bind itself to the first available spell resonator in player hotbar. When you left click while holding the resonator that has a spell it will manifest effects of the bound spell. For example the spell fireball when casted will be bound to the first available resonator, thus granting this resonator the ability to shoot fireballs. If you then cast a spell called dragon spit then it will replace the ability of the resonator to shoot fireballs with the ability to shoot small explosive projectiles."
-
-
+			}
+			SpellModifier:{
+				SpellModifiers: Spell modifiers
+				Unlock: Unlock
+				Area: Area
+				Eternal: Eternal
+				Dispel: Dispel
+				Description: Description
+				TextUnlock: Special modifier that can only be used with locked spells. When a spell is casted with this modifier it consumes unlock cost from player inventory and unlocks the spell, making it permanently available. If you do not have enough resources to cover unlock cost then the spell cast will fail.
+				TextArea: If the modifier is added to the spell then the effects of the spell are applied not only to the caster, but also to all nearby players. Most of the spells that can use this modifier are buff spells, but not all buff spells support this modifier.
+				TextEternal: This modifier applies only to buff spells, but not all of them. When buff spell is casted with this modifier the effect of the buff becomes permanent. Permanent buff effects are not displayed in ui and do not take up any buff slots. If you wanna know what permanent buffs you have you can see all of them in your guide book in the status section. Keep in mind that permanent buffs are lost when a player dies just like normal buffs are. Permanent buff loss can be prevented by spell Status lock.
+				TextDispel: This modifier can be used to cancel out effects of several unique spells. This modifier is also used to remove permanent effects of buff spells casted with eternal modifier. To remove permanent effect or cancel effect of the spell you just need to cast the same spell again with dispel modifier added on. When a spell is casted with this modifier it will cost no materials at all.
 			}
 		}
 

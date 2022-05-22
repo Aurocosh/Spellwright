@@ -1,4 +1,5 @@
 ﻿using Spellwright.UI.Components.TextBox.Text;
+using System;
 
 namespace Spellwright.Extensions
 {
@@ -7,6 +8,16 @@ namespace Spellwright.Extensions
         public static FormattedText AsFormText(this string value)
         {
             return new FormattedText(value);
+        }
+
+        public static string FirstCharToUpper(this string input)
+        {
+            switch (input)
+            {
+                case null: throw new ArgumentNullException(nameof(input));
+                case "": throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
+                default: return input[0].ToString().ToUpper() + input.Substring(1);
+            }
         }
     }
 }

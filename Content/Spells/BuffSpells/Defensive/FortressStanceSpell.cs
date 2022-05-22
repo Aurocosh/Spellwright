@@ -41,7 +41,6 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
             AddEffect(ModContent.BuffType<FortressStanceBuff>(), (playerLevel) => UtilTime.SecondsToTicks(3f));
 
             RemoveApplicableModifier(SpellModifier.Area);
-            RemoveApplicableModifier(SpellModifier.Selfless);
 
             UnlockCost = new SingleItemSpellCost(ItemID.IronskinPotion, 60);
         }

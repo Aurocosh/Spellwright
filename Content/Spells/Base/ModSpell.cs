@@ -44,11 +44,10 @@ namespace Spellwright.Content.Spells.Base
         public SpellCost CastCost { get; protected set; }
         public SpellCost UseCost { get; protected set; }
         public SpellCost UnlockCost { get; protected set; }
-
-        private SpellModifier appplicableModifiers;
+        public SpellModifier AppplicableModifiers { get; protected set; }
         private readonly Dictionary<SpellModifier, ICostModifier> spellCostModifiers;
 
-        public bool IsModifiersApplicable(SpellModifier spellModifiers) => spellModifiers == SpellModifier.None || spellModifiers.MissesAny(appplicableModifiers);
+        public bool IsModifiersApplicable(SpellModifier spellModifiers) => spellModifiers == SpellModifier.None || spellModifiers.MissesAny(AppplicableModifiers);
         public virtual bool CanAutoReuse(int playerLevel) => canAutoReuse;
         public virtual float GetUseSpeedMultiplier(int playerLevel) => useTimeMultiplier;
         public virtual int GetGuaranteedUses(int playerLevel) => guaranteedUses;
@@ -57,8 +56,8 @@ namespace Spellwright.Content.Spells.Base
         protected virtual int GetDamage(int playerLevel) => damage;
         protected virtual float GetKnockback(int playerLevel) => knockback;
         protected virtual DamageClass DamageType => damageType;
-        protected void AddApplicableModifier(SpellModifier spellModifier) => appplicableModifiers = appplicableModifiers.Add(spellModifier);
-        protected void RemoveApplicableModifier(SpellModifier spellModifier) => appplicableModifiers = appplicableModifiers.Remove(spellModifier);
+        protected void AddApplicableModifier(SpellModifier spellModifier) => AppplicableModifiers = AppplicableModifiers.Add(spellModifier);
+        protected void RemoveApplicableModifier(SpellModifier spellModifier) => AppplicableModifiers = AppplicableModifiers.Remove(spellModifier);
         protected void SetSpellCostModifier(SpellModifier spellModifier, ICostModifier costModifier) => spellCostModifiers[spellModifier] = costModifier;
 
         protected LocalizedText GetTranslation(string key) => Spellwright.GetTranslation("Spells", Name, key);
@@ -76,13 +75,12 @@ namespace Spellwright.Content.Spells.Base
             CastCost = null;
             damageType = DamageClass.Generic;
             costModifier = 1f;
-            appplicableModifiers = SpellModifier.None;
+            AppplicableModifiers = SpellModifier.None;
             spellCostModifiers = new Dictionary<SpellModifier, ICostModifier>();
             castSound = SoundID.Item4;
 
             SetSpellCostModifier(SpellModifier.Dispel, new MultCostModifier(0));
             SetSpellCostModifier(SpellModifier.Area, new MultCostModifier(4));
-            SetSpellCostModifier(SpellModifier.Selfless, new MultCostModifier(.75f));
             SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(25));
         }
         protected sealed override void Register()
@@ -136,7 +134,7 @@ namespace Spellwright.Content.Spells.Base
                 string useTypeLocal = Spellwright.GetTranslation("SpellTypes", UseType.ToString()).Value;
                 values.Add(new SpellParameter("SpellType", useTypeLocal));
 
-                var incantations = SpellLibrary.GetSpellIncantationList(Type);
+                var incantations = SpellLibrary.GetSpellIncantationList(Type).Select(x => x.FirstCharToUpper());
                 var incantationPart = string.Join(", ", incantations);
                 values.Add(new SpellParameter("Incantation", incantationPart));
 
@@ -152,12 +150,11 @@ namespace Spellwright.Content.Spells.Base
                     values.Add(new SpellParameter("CastCost", costDescription));
                 }
 
-                if (appplicableModifiers != SpellModifier.None)
+                if (AppplicableModifiers != SpellModifier.None)
                 {
-                    var modifierList = appplicableModifiers.SplitValues<SpellModifier>().Select(x => Spellwright.GetTranslation("SpellModifiers", x.ToString()).Value).ToList();
-                    var test = modifierList.ToList();
-                    var midifierPart = string.Join(", ", modifierList);
-                    values.Add(new SpellParameter("ApplicableModifiers", midifierPart));
+                    var modifierList = AppplicableModifiers.SplitValues<SpellModifier>().Select(x => Spellwright.GetTranslation("SpellModifiers", x.ToString()).Value).ToList();
+                    var modifierPart = string.Join(", ", modifierList);
+                    values.Add(new SpellParameter("ApplicableModifiers", modifierPart));
                 }
             }
 
@@ -171,7 +168,6 @@ namespace Spellwright.Content.Spells.Base
 
             return values;
         }
-
 
         public float GetCostModifier(SpellModifier spellModifiers)
         {
