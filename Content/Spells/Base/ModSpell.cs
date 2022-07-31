@@ -7,7 +7,6 @@ using Spellwright.Core.Spells;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
 using Spellwright.Network;
-using Spellwright.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +35,8 @@ namespace Spellwright.Content.Spells.Base
         protected bool canAutoReuse;
         protected int useDelay;
         protected float useTimeMultiplier;
-        protected LegacySoundStyle castSound;
-        protected LegacySoundStyle useSound;
+        protected SoundStyle? castSound;
+        protected SoundStyle? useSound;
         protected float costModifier;
         public virtual int SpellLevel { get; protected set; }
         public SpellType UseType { get; protected set; }
@@ -92,8 +91,8 @@ namespace Spellwright.Content.Spells.Base
             var nameKey = Spellwright.GetTranslationKey("Spells", Name, "Name");
             var descriptionKey = Spellwright.GetTranslationKey("Spells", Name, "Description");
 
-            DisplayName = UtilLang.GetOrCreateTranslation(nameKey);
-            Description = UtilLang.GetOrCreateTranslation(descriptionKey);
+            DisplayName = LocalizationLoader.GetOrCreateTranslation(nameKey);
+            Description = LocalizationLoader.GetOrCreateTranslation(descriptionKey);
 
             SpellLibrary.RegisterSpell(this);
         }
@@ -107,13 +106,13 @@ namespace Spellwright.Content.Spells.Base
         public virtual void PlayCastSound(Vector2 position)
         {
             if (castSound != null)
-                SoundEngine.PlaySound(castSound, position);
+                SoundEngine.PlaySound(castSound.Value, position);
         }
 
         public virtual void PlayUseSound(Vector2 position)
         {
             if (useSound != null)
-                SoundEngine.PlaySound(useSound, position);
+                SoundEngine.PlaySound(useSound.Value, position);
         }
 
         public virtual void DoCastEffect(Player player, int playerLevel)

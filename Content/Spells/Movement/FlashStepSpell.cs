@@ -2,7 +2,6 @@
 using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 
@@ -15,7 +14,7 @@ namespace Spellwright.Content.Spells.Movement
             SpellLevel = 2;
             UseType = SpellType.Cantrip;
             useDelay = 80;
-            useSound = new LegacySoundStyle(SoundID.Run, 0);
+            useSound = SoundID.Run;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData, IEntitySource source, Vector2 position, Vector2 direction)

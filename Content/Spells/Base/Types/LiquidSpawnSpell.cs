@@ -4,7 +4,6 @@ using Spellwright.Lib.PointShapes;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 
@@ -29,7 +28,7 @@ namespace Spellwright.Content.Spells.Base.Types
             liquidType = LiquidID.Water;
             canAutoReuse = true;
             useTimeMultiplier = 9f;
-            useSound = new LegacySoundStyle(19, 0);
+            useSound = SoundID.Item19;
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

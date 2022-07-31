@@ -88,7 +88,7 @@ namespace Spellwright.Content.Projectiles
             for (int i = 0; i < 20; i++)
             {
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, type);
-                if (Main.rand.Next(3) != 0)
+                if (!Main.rand.NextBool(3))
                 {
                     dust.velocity *= 2f;
                     dust.noGravity = true;

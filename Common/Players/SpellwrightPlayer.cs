@@ -35,7 +35,7 @@ namespace Spellwright.Common.Players
         public readonly HashSet<int> KnownSpells = new();
         public readonly HashSet<int> UnlockedSpells = new();
 
-        public override bool CloneNewInstances => false;
+        protected override bool CloneNewInstances => false;
 
         public static SpellwrightPlayer Instance => Main.LocalPlayer.GetModPlayer<SpellwrightPlayer>();
 
@@ -180,7 +180,10 @@ namespace Spellwright.Common.Players
 
                     if (nextCantripDelay == 1 && !canAutoReuseCantrip)
                     {
-                        var sound = SoundID.Item25.WithVolume(0.05f).WithPitchVariance(0.5f);
+                        var sound = SoundID.Item25;
+                        sound.Volume = 0.05f;
+                        sound.PitchVariance = 0.5f;
+
                         SoundEngine.PlaySound(sound, Player.Center);
                     }
 

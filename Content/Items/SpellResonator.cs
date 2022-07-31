@@ -105,7 +105,11 @@ namespace Spellwright.Content.Items
                     {
                         SpellUsesLeft = CurrentSpell.GetGuaranteedUses(playerLevel);
                         if (SpellUsesLeft > 0)
-                            SoundEngine.PlaySound(SoundID.Item35.WithVolume(0.1f), position);
+                        {
+                            var sound = SoundID.Item35;
+                            sound.Volume = 0.1f;
+                            SoundEngine.PlaySound(sound, position);
+                        }
                         UpdateName();
                         canCast = true;
                     }

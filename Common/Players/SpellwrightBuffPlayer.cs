@@ -24,7 +24,7 @@ namespace Spellwright.Common.Players
 
         public bool HasPermanentBuff(int buffId) => PermanentBuffs.Contains(buffId);
 
-        public override bool CloneNewInstances => false;
+        protected override bool CloneNewInstances => false;
 
         public void SetPermanentBuffs(IEnumerable<int> buffIds)
         {

@@ -9,7 +9,7 @@ namespace Spellwright.ExecutablePackets.Broadcast.DustSpawners
 {
     internal class SoulDisturbanceSpawner : IExecutablePacket
     {
-        private static LegacySoundStyle SoundStyle = new(SoundID.PlayerHit, 0);
+        private static SoundStyle SoundStyle = SoundID.PlayerHit;
 
         public Player Caster { get; set; }
 

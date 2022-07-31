@@ -24,7 +24,7 @@ namespace Spellwright.Content.Items
         public override void SetDefaults()
         {
             Item.consumable = true;
-            Item.useStyle = 4;
+            Item.useStyle = ItemUseStyleID.HoldUp;
             Item.useTime = 30;
             Item.maxStack = 1;
             Item.UseSound = SoundID.Item4;

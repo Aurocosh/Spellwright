@@ -6,7 +6,6 @@ using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,7 +20,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             RemoveApplicableModifier(SpellModifier.Area);
 
             AddApplicableModifier(ModifierConstants.EternalModifiers);
-            castSound = new LegacySoundStyle(SoundID.Roar, 0);
+            castSound = SoundID.Roar;
 
             var unlockCost = new OptionalSpellCost();
             unlockCost.AddOptionalCost(new SingleItemSpellCost(ItemID.Vertebrae, 25));

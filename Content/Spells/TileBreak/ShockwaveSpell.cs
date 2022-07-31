@@ -15,7 +15,10 @@ namespace Spellwright.Content.Spells.TileBreak
         {
             SpellLevel = 2;
             UseType = SpellType.Invocation;
-            castSound = SoundID.Item14.WithPitchVariance(.3f).WithVolume(.8f);
+            var sound = SoundID.Item14;
+            sound.PitchVariance = .3f;
+            sound.Volume = .8f;
+            castSound = sound;
             CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 10);
         }
 

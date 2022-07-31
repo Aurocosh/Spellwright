@@ -184,7 +184,7 @@ namespace Spellwright.Util
         {
             if (player.cursed || player.CCed || player.dead)
                 return;
-            LegacySoundStyle legacySoundStyle = null;
+            SoundStyle? legacySoundStyle = null;
             if (player.CountBuffs() == Player.MaxBuffs)
                 return;
 
@@ -237,7 +237,7 @@ namespace Spellwright.Util
             }
             if (legacySoundStyle != null)
             {
-                SoundEngine.PlaySound(legacySoundStyle, player.position);
+                SoundEngine.PlaySound(legacySoundStyle.Value, player.position);
                 Recipe.FindRecipes();
             }
         }
@@ -288,7 +288,7 @@ namespace Spellwright.Util
             }
             if (item.UseSound != null)
             {
-                SoundEngine.PlaySound(item.UseSound, player.position);
+                SoundEngine.PlaySound(item.UseSound.Value, player.position);
                 Recipe.FindRecipes();
             }
 

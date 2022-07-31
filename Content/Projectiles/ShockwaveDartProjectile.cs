@@ -9,11 +9,14 @@ namespace Spellwright.Content.Projectiles
 {
     public class ShockwaveDartProjectile : ModProjectile
     {
-        private static LegacySoundStyle deathSound = SoundID.Item14.WithPitchVariance(.3f).WithVolume(.8f);
+        private static SoundStyle deathSound;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shockwave Dart");
+            deathSound = SoundID.Item14;
+            deathSound.PitchVariance = .3f;
+            deathSound.Volume = .8f;
         }
 
         public override void SetDefaults()

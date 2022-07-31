@@ -3,7 +3,6 @@ using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 
@@ -16,7 +15,7 @@ namespace Spellwright.Content.Spells.Movement
             SpellLevel = 3;
             UseType = SpellType.Cantrip;
             useDelay = 80;
-            useSound = new LegacySoundStyle(SoundID.DoubleJump, 0);
+            useSound = SoundID.DoubleJump;
             UnlockCost = new SingleItemSpellCost(ItemID.Feather, 30);
         }
 
