@@ -38,8 +38,8 @@ namespace Spellwright
                 throw new Exception("\nThis mod uses functionality only present in the latest tModLoader. Please update tModLoader to use this mod\n\n");
             Instance = this;
 
-            OpenIncantationUIHotKey = KeybindLoader.RegisterKeybind(this, "Start incantation", "K");
-            CastCantripHotKey = KeybindLoader.RegisterKeybind(this, "Cast cantrip", "K");
+            OpenIncantationUIHotKey = KeybindLoader.RegisterKeybind(this, "Start incantation", "X");
+            CastCantripHotKey = KeybindLoader.RegisterKeybind(this, "Cast cantrip", "MouseXButton1");
 
             if (Main.rand == null)
                 Main.rand = new UnifiedRandom();
