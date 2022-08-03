@@ -3,13 +3,12 @@ using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
-using Spellwright.Network;
+using Spellwright.Network.RoutedHandlers.Spell;
 using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Spellwright.Content.Buffs.Spells.Defensive.ReactiveArmorBuff;
 
 namespace Spellwright.Content.Spells.BuffSpells.Defensive
 {
@@ -32,21 +31,9 @@ namespace Spellwright.Content.Spells.BuffSpells.Defensive
         {
             base.DoExtraActions(players, playerLevel);
 
-            int localPlayerId = Main.myPlayer;
             int maxBonusDefense = 4 + 2 * playerLevel;
             foreach (Player player in players)
-            {
-                var reactiveArmorPlayer = player.GetModPlayer<ReactiveArmorPlayer>();
-                reactiveArmorPlayer.BonusDefense = 0;
-                reactiveArmorPlayer.MaxBonusDefense = maxBonusDefense;
-
-                int playerId = player.whoAmI;
-                if (Main.netMode == NetmodeID.MultiplayerClient && playerId != localPlayerId)
-                {
-                    ModNetHandler.reactiveArmorDefenseSync.Sync(playerId, 0);
-                    ModNetHandler.reactiveArmorMaxDefenseSync.Sync(playerId, maxBonusDefense);
-                }
-            }
+                new ReactiveArmorSetDefenseAction(player.whoAmI, 0, maxBonusDefense).Execute();
         }
     }
 }

@@ -2,7 +2,7 @@
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.Types;
-using Spellwright.Util;
+using Spellwright.Network.RoutedHandlers.PermanentEffects;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -24,7 +24,10 @@ namespace Spellwright.Content.Spells.BuffSpells.Sigils
                 ModContent.BuffType<SigilOfSageBuff>(),
                 ModContent.BuffType<SigilOfSniperBuff>()
             };
-            UtilBuff.RemovePermanentEffect(affectedPlayers, sigilIds);
+
+            foreach (var affectedPlayer in affectedPlayers)
+                new PlayerRemovePermanentEffectAction(affectedPlayer.whoAmI, sigilIds).Execute();
+
             base.ApplyEffect(affectedPlayers, playerLevel, spellData);
         }
     }

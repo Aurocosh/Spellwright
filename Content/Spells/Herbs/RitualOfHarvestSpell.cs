@@ -8,7 +8,6 @@ using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
 using Spellwright.Lib.PointShapes;
-using Spellwright.Network;
 using Spellwright.Util;
 using System.Collections.Generic;
 using Terraria;
@@ -99,8 +98,6 @@ namespace Spellwright.Content.Spells.Herbs
 
             var spawner = new HerbAoeDustSpawner(player, radius);
             spawner.Execute();
-            if (Main.netMode == NetmodeID.Server)
-                ModNetHandler.HerbAoeDustHandler.Send(spawner);
 
             return true;
         }

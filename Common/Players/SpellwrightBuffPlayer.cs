@@ -3,8 +3,10 @@ using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Core.Buffs;
 using Spellwright.Data;
-using Spellwright.Network;
+using Spellwright.Network.Sync;
+using Spellwright.Network.Sync.EffectLevels;
 using Spellwright.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -122,12 +124,13 @@ namespace Spellwright.Common.Players
         {
             int playerId = Player.whoAmI;
             var effectIds = PermanentBuffs.Cast<int>().ToArray();
-            ModNetHandler.permanentPlayerEffectsHandler.Sync(toWho, playerId, playerId, effectIds);
+
+            new PermanentPlayerEffectsSyncAction(playerId, toWho, effectIds).Execute();
 
             var levelData = new List<BuffLevelData>();
             foreach (var effectLevel in BuffLevels)
                 levelData.Add(new BuffLevelData(effectLevel.Key, effectLevel.Value));
-            ModNetHandler.EffectLevelHandler.Sync(toWho, playerId, playerId, levelData);
+            new EffectLevelSyncNetwork(playerId, toWho, levelData).Execute();
         }
 
         public override void SendClientChanges(ModPlayer clientPlayer)
@@ -136,7 +139,7 @@ namespace Spellwright.Common.Players
             if (!clone.PermanentBuffs.SetEquals(PermanentBuffs))
             {
                 var effectIds = PermanentBuffs.Cast<int>().ToArray();
-                ModNetHandler.permanentPlayerEffectsHandler.Sync(Player.whoAmI, effectIds);
+                new PermanentPlayerEffectsSyncAction(Player.whoAmI, effectIds).Execute();
             }
 
             foreach (var effectLevel in BuffLevels)
@@ -144,7 +147,7 @@ namespace Spellwright.Common.Players
                 int buffId = effectLevel.Key;
                 int level = effectLevel.Value;
                 if (!clone.BuffLevels.TryGetValue(buffId, out int cloneLevel) || level != cloneLevel)
-                    ModNetHandler.SingleEffectLevelHandler.Sync(Player.whoAmI, new BuffLevelData(buffId, level));
+                    new SingleEffectLevelSyncNetwork(Player.whoAmI, new BuffLevelData(buffId, level)).Execute();
             }
         }
 
@@ -197,6 +200,7 @@ namespace Spellwright.Common.Players
         }
 
 
+        [Serializable]
         internal class BuffLevelData
         {
             public int BuffId { get; set; }

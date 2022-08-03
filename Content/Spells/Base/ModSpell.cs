@@ -6,7 +6,6 @@ using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Core.Spells;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
-using Spellwright.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +45,7 @@ namespace Spellwright.Content.Spells.Base
         public SpellModifier AppplicableModifiers { get; protected set; }
         private readonly Dictionary<SpellModifier, ICostModifier> spellCostModifiers;
 
-        public bool IsModifiersApplicable(SpellModifier spellModifiers) => spellModifiers == SpellModifier.None || spellModifiers.MissesAny(AppplicableModifiers);
+        public bool IsModifiersApplicable(SpellModifier spellModifiers) => spellModifiers == SpellModifier.None || !AppplicableModifiers.MissesAny(spellModifiers);
         public virtual bool CanAutoReuse(int playerLevel) => canAutoReuse;
         public virtual float GetUseSpeedMultiplier(int playerLevel) => useTimeMultiplier;
         public virtual int GetGuaranteedUses(int playerLevel) => guaranteedUses;
@@ -119,8 +118,6 @@ namespace Spellwright.Content.Spells.Base
         {
             var spawner = new CastDustSpawner(player, SpellLevel);
             spawner.Execute();
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                ModNetHandler.castDustHandler.Send(spawner);
         }
 
         public virtual List<SpellParameter> GetDescriptionValues(Player player, int playerLevel, SpellData spellData, bool fullVersion)

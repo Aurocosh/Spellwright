@@ -2,6 +2,7 @@
 using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Data;
 using Spellwright.Extensions;
+using Spellwright.Network.RoutedHandlers.PermanentEffects;
 using Spellwright.Util;
 using System;
 using System.Collections.Generic;
@@ -41,12 +42,14 @@ namespace Spellwright.Content.Spells.Base.Types
             var buffIds = effects.Select(x => x.effectId).ToArray();
             if (spellData.HasModifier(SpellModifier.Dispel))
             {
-                UtilBuff.RemovePermanentEffect(affectedPlayers, buffIds);
+                foreach (var affectedPlayer in affectedPlayers)
+                    new PlayerRemovePermanentEffectAction(affectedPlayer.whoAmI, buffIds).Execute();
             }
             else if (spellData.HasModifier(SpellModifier.Eternal))
             {
                 UtilBuff.SetBuffLevel(affectedPlayers, playerLevel, buffIds);
-                UtilBuff.AddPermanentEffect(affectedPlayers, buffIds);
+                foreach (var affectedPlayer in affectedPlayers)
+                    new PlayerAddPermanentEffectAction(affectedPlayer.whoAmI, buffIds).Execute();
             }
             else
             {

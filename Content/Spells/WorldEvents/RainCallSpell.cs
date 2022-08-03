@@ -3,7 +3,7 @@ using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
-using Spellwright.Network;
+using Spellwright.Network.ServerPackets.WorldEvents.RainEvents;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,15 +27,11 @@ namespace Spellwright.Content.Spells.WorldEvents
         {
             if (!spellData.HasModifier(SpellModifier.Dispel))
             {
-                Main.StartRain();
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    ModNetHandler.StartRainHandler.Send(true);
+                new StartRainAction().Execute();
             }
             else
             {
-                Main.StopRain();
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    ModNetHandler.StopRainHandler.Send(true);
+                new StopRainAction().Execute();
             }
 
             return true;

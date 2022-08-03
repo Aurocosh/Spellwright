@@ -3,7 +3,8 @@ using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
-using Spellwright.Network;
+using Spellwright.Network.RoutedHandlers;
+using Spellwright.Network.RoutedHandlers.Buffs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -27,26 +28,18 @@ namespace Spellwright.Content.Spells.Healing
 
         protected override void ApplyEffect(IEnumerable<Player> affectedPlayers, int playerLevel, SpellData spellData)
         {
-            int localPlayerId = Main.myPlayer;
             foreach (Player player in affectedPlayers)
             {
                 int playerHealth = player.statLife;
                 int maxPlayerHealth = player.statLifeMax2;
                 int maxAllowedHealth = (int)(maxPlayerHealth * 0.5f);
-                if (playerHealth > maxAllowedHealth)
-                    continue;
-
-                int healValue = maxAllowedHealth - playerHealth;
-
-                player.statLife += healValue;
-                player.HealEffect(healValue);
-                player.ClearBuff(BuffID.Bleeding);
-
-                int playerId = player.whoAmI;
-                if (Main.netMode == NetmodeID.MultiplayerClient && playerId != localPlayerId)
+                if (playerHealth <= maxAllowedHealth)
                 {
-                    ModNetHandler.otherPlayerHealHandler.Send(playerId, localPlayerId, healValue);
-                    ModNetHandler.otherPlayerClearBuffsHandler.Send(playerId, localPlayerId, new int[] { BuffID.Bleeding });
+                    int healValue = maxAllowedHealth - playerHealth;
+
+                    int playerId = player.whoAmI;
+                    new PlayerHealAction(playerId, healValue).Execute();
+                    new PlayerClearBuffsActions(playerId, BuffID.Bleeding).Execute();
                 }
             }
         }

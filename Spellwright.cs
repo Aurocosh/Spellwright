@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells;
 using Spellwright.Core.Spells;
-using Spellwright.Network;
+using Spellwright.Network.NetworkActions;
 using Spellwright.UI.Components;
 using Spellwright.UI.States;
 using System;
@@ -48,12 +48,11 @@ namespace Spellwright
             uiMessageState = new UIMessageState();
             userInterface = new UserInterface();
             userInterface.IsVisible = true;
-
-            var test = ModNetHandler.packetHandlers.Count;
         }
 
-        public override void PostAddRecipes()
+        public override void PostSetupContent()
         {
+            NetworkAction.Load(this);
             SpellLibrary.Refresh();
             SpellModifiersProcessor.Initialize();
         }
@@ -69,6 +68,7 @@ namespace Spellwright
             OpenIncantationUIHotKey = null;
             CastCantripHotKey = null;
 
+            NetworkAction.Unload();
             SpellLoader.Unload();
             SpellLibrary.Unload();
             SpellModifiersProcessor.Unload();
@@ -135,7 +135,7 @@ namespace Spellwright
         }
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
-            ModNetHandler.HandlePacket(reader, whoAmI);
+            NetworkAction.HandlePacket(reader, whoAmI);
         }
     }
 }

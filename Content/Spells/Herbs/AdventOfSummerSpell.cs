@@ -4,9 +4,8 @@ using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
-using Spellwright.ExecutablePackets.ToServer;
 using Spellwright.Extensions;
-using Spellwright.Network;
+using Spellwright.NetworkActions.ServerActions;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,15 +33,10 @@ namespace Spellwright.Content.Spells.Herbs
             var centerPoint = player.Center.ToGridPoint();
 
             var herbGrower = new AreaHerbAndTreeGrower(centerPoint, radius);
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-                herbGrower.Execute();
-            else
-                ModNetHandler.AreaHerbAndTreeGrowerHandler.Send(herbGrower);
+            herbGrower.Execute();
 
             var spawner = new HerbAoeDustSpawner(player, radius);
             spawner.Execute();
-            if (Main.netMode == NetmodeID.Server)
-                ModNetHandler.HerbAoeDustHandler.Send(spawner);
 
             return true;
         }

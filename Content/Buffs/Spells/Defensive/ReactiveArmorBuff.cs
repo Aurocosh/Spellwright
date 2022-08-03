@@ -1,5 +1,4 @@
-﻿using Spellwright.Network;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -35,28 +34,6 @@ namespace Spellwright.Content.Buffs.Spells.Defensive
                     if (damage >= minDamage)
                         BonusDefense++;
                 }
-            }
-            public override void clientClone(ModPlayer clientClone)
-            {
-                var clone = clientClone as ReactiveArmorPlayer;
-                clone.BonusDefense = BonusDefense;
-                clone.MaxBonusDefense = MaxBonusDefense;
-            }
-
-            public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
-            {
-                int playerId = Player.whoAmI;
-                ModNetHandler.reactiveArmorDefenseSync.Sync(toWho, playerId, playerId, BonusDefense);
-                ModNetHandler.reactiveArmorMaxDefenseSync.Sync(toWho, playerId, playerId, MaxBonusDefense);
-            }
-
-            public override void SendClientChanges(ModPlayer clientPlayer)
-            {
-                var clone = clientPlayer as ReactiveArmorPlayer;
-                if (clone.BonusDefense != BonusDefense)
-                    ModNetHandler.reactiveArmorDefenseSync.Sync(Player.whoAmI, BonusDefense);
-                if (clone.MaxBonusDefense != MaxBonusDefense)
-                    ModNetHandler.reactiveArmorMaxDefenseSync.Sync(Player.whoAmI, MaxBonusDefense);
             }
 
             public override void SaveData(TagCompound tag)

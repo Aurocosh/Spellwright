@@ -5,7 +5,6 @@ using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
-using Spellwright.Network;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -56,8 +55,6 @@ namespace Spellwright.Content.Spells.Items
                 Radius = 40
             };
             spawner.Execute();
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                ModNetHandler.vortexDustHandler.Send(spawner);
 
             return true;
         }

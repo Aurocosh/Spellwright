@@ -3,9 +3,8 @@ using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
-using Spellwright.Network;
+using Spellwright.Network.ServerPackets.WorldEvents.SandstormEvents;
 using Terraria;
-using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,18 +26,9 @@ namespace Spellwright.Content.Spells.WorldEvents
         public override bool Cast(Player player, int playerLevel, SpellData spellData)
         {
             if (!spellData.HasModifier(SpellModifier.Dispel))
-            {
-                Sandstorm.StartSandstorm();
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    ModNetHandler.StartSandstormHandler.Send(true);
-            }
+                new StartSandstormAction().Execute();
             else
-            {
-                Sandstorm.StopSandstorm();
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    ModNetHandler.StopSandstormHandler.Send(true);
-            }
-
+                new StopSandstormAction().Execute();
             return true;
         }
     }

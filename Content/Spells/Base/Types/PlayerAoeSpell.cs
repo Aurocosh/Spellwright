@@ -2,7 +2,6 @@
 using Spellwright.Content.Spells.Base.Description;
 using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
-using Spellwright.Network;
 using Spellwright.Util;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,10 +34,7 @@ namespace Spellwright.Content.Spells.Base.Types
                 RingDustCount = 60,
                 EffectDustCount = 14
             };
-
             spawner.Execute();
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                ModNetHandler.aoeCastDustHandler.Send(spawner);
         }
 
         protected abstract void ApplyEffect(IEnumerable<Player> affectedPlayers, int playerLevel, SpellData spellData);

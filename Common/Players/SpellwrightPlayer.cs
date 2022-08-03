@@ -2,7 +2,7 @@
 using Spellwright.Content.Spells.Base;
 using Spellwright.Core.Spells;
 using Spellwright.Extensions;
-using Spellwright.Network;
+using Spellwright.Network.Sync;
 using Spellwright.UI.States;
 using System;
 using System.Collections.Generic;
@@ -76,14 +76,14 @@ namespace Spellwright.Common.Players
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
             int playerId = Player.whoAmI;
-            ModNetHandler.PlayerLevelSync.Sync(toWho, playerId, playerId, PlayerLevel);
+            new PlayerLevelSyncAction(playerId, toWho, PlayerLevel).Execute();
         }
 
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             var clone = clientPlayer as SpellwrightPlayer;
             if (clone.PlayerLevel != PlayerLevel)
-                ModNetHandler.PlayerLevelSync.Sync(Player.whoAmI, PlayerLevel);
+                new PlayerLevelSyncAction(Player.whoAmI, PlayerLevel).Execute();
         }
 
         public override void SaveData(TagCompound tag)

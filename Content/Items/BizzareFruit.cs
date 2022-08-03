@@ -1,7 +1,6 @@
 using Spellwright.Common.Players;
 using Spellwright.Content.Buffs.Items;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
-using Spellwright.Network;
 using Spellwright.Util;
 using Terraria;
 using Terraria.ID;
@@ -42,8 +41,6 @@ namespace Spellwright.Content.Items
 
                 var spawner = new SoulDisturbanceSpawner(player);
                 spawner.Execute();
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    ModNetHandler.soulDisturbanceHandler.Send(spawner);
 
                 return true;
             }

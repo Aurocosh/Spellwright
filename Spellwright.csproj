@@ -13,6 +13,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Dusts\" />
-    <Folder Include="Network\Base\MessageProcessors\Readers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="NetSerializer">
+      <HintPath>lib\NetSerializer.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using Spellwright.Network;
+using Spellwright.Network.Sync;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -60,15 +60,14 @@ namespace Spellwright.Common.Players
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            int playerId = Player.whoAmI;
-            ModNetHandler.dashPlayerTimerSync.Sync(toWho, playerId, playerId, DashTimer);
+            new DashPlayerTimerSyncAction(Player.whoAmI, toWho, DashTimer).Execute();
         }
 
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             var clone = clientPlayer as SpellwrightDashPlayer;
             if (clone.DashTimer < DashTimer)
-                ModNetHandler.dashPlayerTimerSync.Sync(Player.whoAmI, DashTimer);
+                new DashPlayerTimerSyncAction(Player.whoAmI, DashTimer).Execute();
         }
     }
 }

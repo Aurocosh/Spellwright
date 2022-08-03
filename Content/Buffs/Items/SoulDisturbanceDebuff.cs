@@ -2,7 +2,6 @@
 using Spellwright.Common.Players;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
-using Spellwright.Network;
 using Spellwright.Util;
 using System;
 using System.Collections.Generic;
@@ -84,8 +83,6 @@ namespace Spellwright.Content.Buffs.Items
 
                 var spawner = new SoulDisturbanceSpawner(player);
                 spawner.Execute();
-                if (Main.netMode == NetmodeID.MultiplayerClient)
-                    ModNetHandler.soulDisturbanceHandler.Send(spawner);
             }
         }
 
@@ -159,8 +156,6 @@ namespace Spellwright.Content.Buffs.Items
 
             var spawner = new SoulDisturbanceSpawner(player);
             spawner.Execute();
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                ModNetHandler.soulDisturbanceHandler.Send(spawner);
         }
 
         private static void HandleHealth(Player player, SoulDisturbancePlayer modPlayer)
@@ -196,8 +191,6 @@ namespace Spellwright.Content.Buffs.Items
 
             var spawner = new SoulDisturbanceSpawner(player);
             spawner.Execute();
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                ModNetHandler.soulDisturbanceHandler.Send(spawner);
         }
 
         private static void HandleEvents(Player player, SoulDisturbancePlayer modPlayer)
@@ -240,8 +233,6 @@ namespace Spellwright.Content.Buffs.Items
 
             var spawner = new SoulDisturbanceSpawner(player);
             spawner.Execute();
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                ModNetHandler.soulDisturbanceHandler.Send(spawner);
         }
     }
 

@@ -1,5 +1,8 @@
-﻿namespace Spellwright.Data
+﻿using System;
+
+namespace Spellwright.Data
 {
+    [Serializable]
     internal class BuffData
     {
         public int Type { get; set; }

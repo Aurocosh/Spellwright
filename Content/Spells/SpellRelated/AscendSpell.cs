@@ -3,7 +3,6 @@ using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
-using Spellwright.Network;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
@@ -57,8 +56,6 @@ namespace Spellwright.Content.Spells.SpellRelated
         {
             var spawner = new LevelUpDustSpawner(player, Enumerable.Range(1, playerLevel + 1));
             spawner.Execute();
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                ModNetHandler.levelUpDustHandler.Send(spawner);
         }
     }
 }

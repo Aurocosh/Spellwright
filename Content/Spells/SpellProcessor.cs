@@ -6,7 +6,6 @@ using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Core.Spells;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
 using Spellwright.Extensions;
-using Spellwright.Network;
 using System.Text;
 using Terraria;
 using Terraria.Audio;
@@ -103,8 +102,6 @@ namespace Spellwright.Content.Spells
 
                     var spawner = new LevelUpDustSpawner(player, new int[] { spell.SpellLevel });
                     spawner.Execute();
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                        ModNetHandler.levelUpDustHandler.Send(spawner);
                     return SpellCastResult.SpellUnlocked;
                 }
                 else
