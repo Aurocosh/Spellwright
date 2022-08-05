@@ -147,9 +147,18 @@ namespace Spellwright.Content.NPCs
             Player player = Main.LocalPlayer;
             var modPlayer = player.GetModPlayer<SpellwrightPlayer>();
 
-            bool hasFruit = player.HasItem(ModContent.ItemType<BizzareFruit>());
-            if (!modPlayer.CanCastSpells && !hasFruit)
-                button2 = Spellwright.GetTranslation("SpellwrightNpc", "LearnSpellcraft").Value;
+            if (!modPlayer.LearnedBasics)
+            {
+                bool hasTeachings = player.HasItem(ModContent.ItemType<SpellwrightTeachings>());
+                if (!hasTeachings)
+                    button2 = Spellwright.GetTranslation("SpellwrightNpc", "AskSpellcraft").Value;
+            }
+            else if (!modPlayer.CanCastSpells)
+            {
+                bool hasFruit = player.HasItem(ModContent.ItemType<BizzareFruit>());
+                if (!hasFruit)
+                    button2 = Spellwright.GetTranslation("SpellwrightNpc", "AskForMysticFruit").Value;
+            }
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -163,15 +172,22 @@ namespace Spellwright.Content.NPCs
                 Player player = Main.LocalPlayer;
                 var modPlayer = player.GetModPlayer<SpellwrightPlayer>();
 
-                if (!modPlayer.CanCastSpells)
+
+                if (!modPlayer.LearnedBasics)
+                {
+                    SoundEngine.PlaySound(SoundID.Item25);
+
+                    int teachingsId = ModContent.ItemType<SpellwrightTeachings>();
+                    Main.npcChatText = Spellwright.GetTranslation("SpellwrightNpc", "TeachingsOffer").ToString();
+                    player.QuickSpawnItem(new EntitySource_Gift(NPC), teachingsId);
+                }
+                else if (!modPlayer.CanCastSpells)
                 {
                     SoundEngine.PlaySound(SoundID.Item25);
 
                     int fruitId = ModContent.ItemType<BizzareFruit>();
                     Main.npcChatText = Spellwright.GetTranslation("SpellwrightNpc", "FruitOffer").Format(Lang.GetItemNameValue(fruitId));
                     player.QuickSpawnItem(new EntitySource_Gift(NPC), fruitId);
-
-                    return;
                 }
             }
         }

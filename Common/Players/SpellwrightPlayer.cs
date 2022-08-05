@@ -23,6 +23,7 @@ namespace Spellwright.Common.Players
         private int playerLevel = 0;
         private int nextCantripDelay = 0;
 
+        public bool LearnedBasics = false;
         public bool CanCastSpells = false;
 
         public ModSpell CurrentCantrip = null;
@@ -88,6 +89,7 @@ namespace Spellwright.Common.Players
 
         public override void SaveData(TagCompound tag)
         {
+            tag.Add("LearnedBasics", LearnedBasics);
             tag.Add("CanCastSpells", CanCastSpells);
             tag.Add("PlayerLevel", PlayerLevel);
             tag.Add("LastDeathPointX", LastDeathPoint.X);
@@ -111,6 +113,7 @@ namespace Spellwright.Common.Players
 
         public override void LoadData(TagCompound tag)
         {
+            LearnedBasics = tag.GetBool("LearnedBasics");
             CanCastSpells = tag.GetBool("CanCastSpells");
             PlayerLevel = tag.GetInt("PlayerLevel");
             LastDeathPoint.X = tag.GetInt("LastDeathPointX");
@@ -168,7 +171,6 @@ namespace Spellwright.Common.Players
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-
             if (Player.active && !Player.dead)
             {
                 var spellPlayer = Player.GetModPlayer<SpellwrightPlayer>();
@@ -247,6 +249,27 @@ namespace Spellwright.Common.Players
 
                             nextCantripDelay = CurrentCantrip.GetUseDelay(PlayerLevel);
                         }
+                    }
+                }
+                else if (spellPlayer.LearnedBasics && Spellwright.OpenIncantationUIHotKey.JustPressed)
+                {
+                    UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
+                    UserInterface spellInterface = Spellwright.Instance.userInterface;
+
+                    if (!uiMessageState.HasText())
+                        uiMessageState.GoHome();
+
+                    if (spellInterface.CurrentState == uiMessageState)
+                    {
+                        spellInterface.SetState(null);
+                    }
+                    else
+                    {
+                        spellInterface.SetState(uiMessageState);
+                        if (Main.playerInventory)
+                            Player.ToggleInv();
+                        if (Main.mapFullscreen)
+                            Main.mapFullscreen = false;
                     }
                 }
             }

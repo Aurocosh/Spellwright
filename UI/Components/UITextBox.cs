@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using Terraria;
+using Terraria.GameInput;
 using Terraria.UI;
 
 namespace Spellwright.UI.Components
@@ -114,7 +115,8 @@ namespace Spellwright.UI.Components
 
             if (focused)
             {
-                Terraria.GameInput.PlayerInput.WritingText = true;
+                PlayerInput.WritingText = true;
+                Main.CurrentInputTextTakerOverride = this;
                 Main.instance.HandleIME();
                 string oldText = Text;
                 Text = Main.GetInputText(Text);

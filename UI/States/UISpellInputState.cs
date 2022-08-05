@@ -13,7 +13,7 @@ namespace Spellwright.UI.States
 {
     internal class UISpellInputState : UIState
     {
-        private int previousTextLength;
+        private int previousTextLength = 0;
 
         private UIPanel mainPanel;
         public UITextBox textbox;
@@ -43,7 +43,6 @@ namespace Spellwright.UI.States
             textbox.OnTabPressed += new EventHandler(OnCancel);
 
             mainPanel.Append(textbox);
-
             Append(mainPanel);
         }
 
@@ -51,11 +50,13 @@ namespace Spellwright.UI.States
         {
             Show();
         }
+
         public override void OnDeactivate()
         {
             textbox.Unfocus();
             textbox.Text = "";
         }
+
         public void Show()
         {
             textbox.Focus();
@@ -110,6 +111,11 @@ namespace Spellwright.UI.States
         }
 
         private void OnEnterPressed(object sender, EventArgs e)
+        {
+            ExecuteSpell();
+        }
+
+        private void ExecuteSpell()
         {
             string spellText = textbox.Text;
             Spellwright.Instance.userInterface.SetState(null);

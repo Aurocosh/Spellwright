@@ -25,6 +25,8 @@ namespace Spellwright.Core.Links
                 Spellwright.Instance.Logger.Error($"Static page is not found: {pageName}");
                 return null;
             }
+
+            pageContent += "\n\n\n";
             return pageContent;
         }
     }

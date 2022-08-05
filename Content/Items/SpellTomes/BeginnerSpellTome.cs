@@ -4,12 +4,10 @@ using Spellwright.Content.Spells.BuffSpells.Utility;
 using Spellwright.Content.Spells.BuffSpells.Vanilla;
 using Spellwright.Content.Spells.Enchant;
 using Spellwright.Content.Spells.Explosive;
-using Spellwright.Content.Spells.Healing;
 using Spellwright.Content.Spells.LiquidSpawn;
 using Spellwright.Content.Spells.Minions;
 using Spellwright.Content.Spells.Movement;
 using Spellwright.Content.Spells.Projectiles;
-using Spellwright.Content.Spells.SpellRelated;
 using Spellwright.Content.Spells.Storage;
 using Spellwright.Content.Spells.TileBreak;
 using Spellwright.Content.Spells.TileSpawn;
@@ -27,12 +25,6 @@ namespace Spellwright.Content.Items.SpellTomes
             Tooltip.SetDefault("A book that contains multitude of common low level spells. This tome contains spells ranging from level 1 to level 3.");
 
             var content = new SpellTomeContent();
-
-            // Level 0
-            content.AddSpell<AscendSpell>();
-            content.AddSpell<MendSpell>();
-            content.AddSpell<ReturnSpell>();
-            content.AddSpell<SparkCasterSpell>();
 
             // Level 1
             content.AddSpell<FireballSpell>();
