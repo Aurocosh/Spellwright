@@ -130,12 +130,12 @@ Mods: {
 				Home: 
 					'''Menu
 					 Guide
-					  *[How to become a Spellwright](link:Static=id:SpellwrightBasics)
-					  *[Spell types](link:SpellType)
-					  *[Spell modifiers](link:SpellModifier)
-					  *[Spell acquisition](link:Static=id:SpellAcquisition)
-					  *[Spell reagents](link:Static=id:SpellReagents)
-					  *[Spell levels](link:Static=id:SpellLevels)
+					  *{StaticLink:SpellwrightBasics}{How to become a Spellwright}
+					  *{SpellTypeLink}{Spell types}
+					  *{SpellModifierLink}{Spell modifiers}
+					  *{StaticLink:SpellAcquisition}{Spell acquisition}
+					  *{StaticLink:SpellReagents}{Spell reagents}
+					  *{StaticLink:SpellLevels}{Spell levels}
 					 Spells
 					  *[Usable spells](link:SpellList=category:2)
 					  *[Favorite spells](link:SpellList=category:3)
@@ -148,11 +148,11 @@ Mods: {
 					''',
 				SpellwrightBasics: 
 					'''
-					*[How to become a Spellwright](color=#800080)
+					*{Header1}{How to become a Spellwright}
 
 					Spellwrights is an unusual type of mage. Unlike traditional terrarian mages which rely on mana and magical tools. Spellwrights use incantations in order to invoke magical phenomena. In order to become a Spellwright you will need to find a teacher, study mystic texts and complete dangerous rituals, but i assure you that the reward is well worth it. This book contains all necessary information that you need. Read on to take your first step toward becoming a Spellwright.
-
-					*[Short summary](color=#A9A9A9)
+					
+					*{Header2}{Short summary}
 					1) Raise your mana to at least 100 and a new Spellwright npc will show up.
 					2) Talk to him and ask him about his spellcraft. When asked he will give you a book Spellwright Teachings. This book is an ingame guidebook as well as a key item required to unlock your spellcraft.
 					3) Spellwright Teachings is a consumable item. Use this book with a left click to unlock ingame guidebook and to proceed with spellcraft unlock.
@@ -161,17 +161,17 @@ Mods: {
 					6) Congrats, you are now a fledgeling Spellwright yourself and can cast four basic spells included in Spellwright Teachings.
 					7) To cast a spell press 'Start incantation' keybind and type in the spell incantation. For example you can type in 'Return' and press enter. When you do so you will be teleported to your spawn location.
 
-					*[Relevant keybinds](color=#A9A9A9)
+					*{Header2}{Relevant keybinds}
 					Start incantation (x by default) - When this button is pressed it will open the spellcasting interface, where you can enter the desired spell and execute it. If this button is pressed together with a smart cursor button (shift by default) then it will open ingame guidebook instead. If you unlocked ingame guidebook, but didn't learn spellcasting yet, then both pressing this button with or without the smart cursor button will open the guidebook.
-					Cast cantrip (Mouse button 3 by default) - When pressed this button will activate your current cantrip spell. You can learn more about this spell type on a dedicated page *[Cantrip](link:SpellType=type:1).
+					Cast cantrip (Mouse button 3 by default) - When pressed this button will activate your current cantrip spell. You can learn more about this spell type on a dedicated page *{SpellTypeLink:1}{Cantrip}.
 
-					*[Spells included in Spellwright Teachings](color=#A9A9A9)
-					*[Ascend](link:Spell=name:AscendSpell,color=#B8860B) - Special spell that can raise the spellcasting level of a player.
-					*[Mend](link:Spell=name:MendSpell,color=#B8860B) - Weak healing spell
-					*[Return](link:Spell=name:ReturnSpell,color=#B8860B) - Home return spell.
-					*[Spark Caster](link:Spell=name:SparkCasterSpell,color=#B8860B) - Basic offensive cantrip.
+					*{Header2}{Spells included in Spellwright Teachings}
+					*{SpellLink:Ascend}{Ascend} - Special spell that can raise the spellcasting level of a player.
+					*{SpellLink:Mend}{Mend} - Weak healing spell
+					*{SpellLink:Return}{Return} - Home return spell.
+					*{SpellLink:SparkCaster}{Spark Caster} - Basic offensive cantrip.
 
-					*[Detailed guide](color=#A9A9A9)
+					*{Header2}{Detailed guide}
 					First thing that you need to acquire in order to learn spellcasting is a special book called Spellwright Teachings. This book serves several purposes, first of all, it is an ingame guidebook that contains all information relevant to spellwirghts. On use it will permanently unlock the ingame guidebook for you. You can access this guidebook by pressing 'Start incantation' together with 'Smart Cursor' keybinds (x + shift) by default. Reading this book also teaches you 4 basic spells. In addition to that this book also imparts essential knowledge on how to awaken spellcasting onto your player, and allows you to proceed to the next step.
 
 					You can get this Spellwright Teachings for free from an npc called Spellwright. This npc will come to your world as soon as your mana will be higher or equal to 100. You don't need to purchase this book from Spellwright, talk to him and choose the dialog option "Ask about spellcraft" and he will give you this book for free. After you acquired Spellwright Teachings your next step is to read through this book. This book is a consumable item, take it in your hand and left click to study it. Upon use the book will disappear, and you will learn essential knowledge of spellcraft, basic spells and unlock an ingame guidebook.
@@ -182,20 +182,20 @@ Mods: {
 
 					After surviving consumption of mystic fruit you will become a spellwright yourself. With your spellcasting ability unlocked you can press 'Start incantation' keybind to open the spellcasting UI. Your spellcasting UI consists of a single text field in the center of your screen. While this ui is active you can type in your desired spell as a text with your keyboard and press enter to execute your spell. If entered text is a valid spell it will be immediately executed. If entered text is not a valid spell, or some other requirement is not met, then a relevant error message will appear in your chat.
 					
-					*[What to read next](color=#A9A9A9)
-					* There are only four spells included in Spellwright Teachings, you can read the page *[Spell acquisition](link:Static=id:SpellAcquisition) in order to learn how to get more spells.
-					* You can read the page *[Spell levels](link:Static=id:SpellLevels) in order to learn what is a spell level and what is a spellcasting level.
-					* You can read about different spell types on a page *[Spell types](link:Static=id:SpellType).
+					*{Header2}{What to read next}
+					* There are only four spells included in Spellwright Teachings, you can read the page *{StaticLink:SpellAcquisition}{Spell acquisition} in order to learn how to get more spells.
+					* You can read the page *{StaticLink:SpellLevels}{Spell levels} in order to learn what is a spell level and what is a spellcasting level.
+					* You can read about different spell types on a page *{SpellTypeLink}{Spell types}.
 					''',
 				SpellAcquisition: 
 					'''
-					*[Spell acquisition](color=#800080)
+					*{Header1}{Spell acquisition}
 
 					To acquire new spell you need to perform two steps:
 					1) Learn new spell from spell tome
 					2) Unlock learned spell (Not required for some spells)
 
-					*[Learning the spell](color=#A9A9A9)
+					*{Header2}{Learning the spell}
 					To learn new spells you need to acquire and consume a spell tome. Spell tome is a book that contains a variety of different spells. The only way to get spell tomes is to buy them from an npc called Spellwright. He can sell you three different spell tomes:
 					1) Beginner Spell Tome - A book that contains a multitude of common low level spells. This tome contains spells ranging from level 1 to level 3.
 					2) Advanced Spell Tome - A book that contains complex and potent mid level spells. This tome contains spells ranging from level 4 to level 6.
@@ -203,16 +203,30 @@ Mods: {
 
 					To learn all spells from a spell tome you simply need to take it in your hand and left click it like any other consumable item. Keep in mind that spell tomes are a single use consumable, so each player will have to get his own. Upon use of a spell tome it will disintegrate and you will learn all spells from the book. If nothing happens when you try to use spell tome then there are two possibilities. You either did not learn the basics of spellcraft and did not awaken your powers, or you already know all of the spells contained in this spell tome. You can read how to awaken your powers on page 'Basics'. Keep in mind that even if you learned a spell from the spell tome you may not be able to use it right away. Each spell has a spell level requirement, and to use a 2 level spell you need to raise your spell casting level to level 2.
 
-					*[Unlocking the spell](color=#A9A9A9)
-					Second step after learning the spell is to unlock it. But as mentioned before this step is optional depending on the spell. Some spells have no unlock requirements and are usable as soon as you learn it, provided that you meet the spell level requirement. You can find out which spells are locked and unlocked on pages 'Locked spells' and 'Usable spells' respectively. To unlock a spell you have to meet two requirements. First of all, your spell level has to be sufficiently high. For example even if you learned level 3 spell you cannot use or unlock it if your spell level is 2 or lower. If your spell level is high enough, then you need to perform an unlock ritual. Which simply means that you need to collect items required for spell unlock, and then you need to cast the spell with a special modifier *[Unlock](link:SpellModifier=type:1). When you try to unlock the spell, keep in mind that you need to keep the items required for spell unlock in your inventory. Upon successful unlocking all items required for unlock will be consumed and the spell will be permanently unlocked for you. You can find out which items are required to unlock a specific spell on page 'Locked spells'. Items required for spell unlock are listed in square brackets to the right of spell name. Keep in mind that spell costs and unlock costs are displayed in similar manner in square brackets. You can however easily distinguish them. Unlock costs have a red colored word 'Locked' in front of the cost, right after the first square bracket. Alternatively you can just cast the spell with *[Unlock](link:SpellModifier=type:1) modifier. Upon cast, if you are missing any items the list of required items will appear in your chat.
+					*{Header2}{Unlocking the spell}
+					Second step after learning the spell is to unlock it. But as mentioned before this step is optional depending on the spell. Some spells have no unlock requirements and are usable as soon as you learn it, provided that you meet the spell level requirement. You can find out which spells are locked and unlocked on pages 'Locked spells' and 'Usable spells' respectively. To unlock a spell you have to meet two requirements. First of all, your spell level has to be sufficiently high. For example even if you learned level 3 spell you cannot use or unlock it if your spell level is 2 or lower. If your spell level is high enough, then you need to perform an unlock ritual. Which simply means that you need to collect items required for spell unlock, and then you need to cast the spell with a special modifier *{SpellModifierLink:1}{Unlock}. When you try to unlock the spell, keep in mind that you need to keep the items required for spell unlock in your inventory. Upon successful unlocking all items required for unlock will be consumed and the spell will be permanently unlocked for you. You can find out which items are required to unlock a specific spell on page 'Locked spells'. Items required for spell unlock are listed in square brackets to the right of spell name. Keep in mind that spell costs and unlock costs are displayed in similar manner in square brackets. You can however easily distinguish them. Unlock costs have a red colored word 'Locked' in front of the cost, right after the first square bracket. Alternatively you can just cast the spell with *{SpellModifierLink:1}{Unlock} modifier. Upon cast, if you are missing any items the list of required items will appear in your chat.
 
-					*[A couple of examples](color=#A9A9A9)
+					*{Header2}{Examples}
 					Spells Return, Spark Caster and Mineral Fever are unlocked by default, so you just need to learn them and you don't need to unlock them.
 
-					Spell Force of Creation has to be unlocked. Unlock cost of this spell is 999 stone blocks. This is a level 1 spell that you can learn from Beginner Spell Tome. So, to use this spell, first of all, you need to read the Beginner Spell Tome and raise your spellcasting level to 1 (it starts at 0). Then you need to collect 999 stone blocks and put them into your inventory. With blocks in your inventory you need to cast this spell with *[Unlock](link:SpellModifier=type:1) modifier. To cast this spell you need to press your designated spell cast button ('x' by default) and type text 'unlock force of creation'. If successful, stone blocks from your inventory will disappear, special effects will play out, and you will unlock this spell.
+					Spell Force of Creation has to be unlocked. Unlock cost of this spell is 999 stone blocks. This is a level 1 spell that you can learn from Beginner Spell Tome. So, to use this spell, first of all, you need to read the Beginner Spell Tome and raise your spellcasting level to 1 (it starts at 0). Then you need to collect 999 stone blocks and put them into your inventory. With blocks in your inventory you need to cast this spell with *{SpellModifierLink:1}{Unlock} modifier. To cast this spell you need to press your designated spell cast button ('x' by default) and type text 'unlock force of creation'. If successful, stone blocks from your inventory will disappear, special effects will play out, and you will unlock this spell.
 					''',
 				SpellReagents: 
 					'''SpellReagents TODO
+					''',
+				SpellLevels: 
+					'''
+					*{Header1}{Spell levels}
+
+					All spells that a Spellwright can learn are separated into levels. Spell level reflects how complex and resource demanding a spell is. In general the greater the spell effect and complexity is the higher the spell level will be. Each player has a spellcasting level that reflects which spells are available to him. There are 11 spell levels and 11 corresponding player spellcasting levels. First spell level is 0, and last spell level is 10. Players can cast spells of all levels that are equal or below their own spellcasting level. For example, if your spellcasting level is 3 then you can use all spells with levels 0, 1, 2 and 3.
+
+					As you complete all necessary steps to become Spellwright you will learn 4 basic spells. One of those spells is essential for your growth as a spellcaster. This spell is called *{SpellLink:Ascend}{Ascend} and it can increase your spellcasting level by one when invoked. Of course use of this spell is not free and will require some sacrificial items in order to use this spell. Cost of this depends on your current level. For example, to raise your level from level 0 to level 1 you will have to sacrifice some fallen stars. And to raise your level from level 7 to level 8 you will have to sacrifice ectoplasm. You can item cost for each level below. Items required by spell have to be inside of your inventory when you cast it. If you miss any required items upon cast then a message with relevant information will appear in your chat on cast. Your initial spellcasting level will be 0 and maximum achievable level is 10.
+
+					*{Header2}{Level up costs}
+					*{LevelList}
+
+					*{Header2}{Other benefits}
+					In addition to granting access to higher level spells, the power of some spell will also scale with your spellcasting level. One such spell is a low level spell called *{SpellLink:SparkCaster}{Spark Caster}. This spell when invoked will shoot sparks that ignite enemies on hit. As your spellcasting level increases this spell will shoot more projectiles. It will also shoot additional projectile types depending on your spellcasting level. For example when you reach level 5 in addition to fiery sparks it will also shoot ichor sparks that inflict enemies with ichor debuff.
 					'''
 			}
 			SpellList:{
@@ -273,8 +287,16 @@ Mods: {
 				TextEternal: This modifier applies only to buff spells, but not all of them. When buff spell is casted with this modifier the effect of the buff becomes permanent. Permanent buff effects are not displayed in ui and do not take up any buff slots. If you wanna know what permanent buffs you have you can see all of them in your guide book in the status section. Keep in mind that permanent buffs are lost when a player dies just like normal buffs are. Permanent buff loss can be prevented by spell Status lock.
 				TextDispel: This modifier can be used to cancel out effects of several unique spells. This modifier is also used to remove permanent effects of buff spells casted with eternal modifier. To remove permanent effect or cancel effect of the spell you need to cast the same spell again with dispel modifier added on. When a spell is casted with this modifier it will cost no materials at all.
 			}
+			LevelInfo:{
+				PageText: Spell modifiers
+			}
 		}
 
+		MarkerProcessor: {
+			LevelList:{
+				ASD: ASD
+			}
+		}
 		
 		Spells: {
 			# Defensive
