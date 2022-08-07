@@ -14,14 +14,21 @@ namespace Spellwright.UI.States
 {
     internal class UIMessageState : UIState
     {
+        private bool isTransparent = false;
         private readonly UINavigableTextBox messageBox;
         private UIElement mainPanel;
         private UIScrollbar uIScrollbar;
-        private UIElement buttonPanel;
+        private UIPanel buttonPanel;
+
         private UITextPanel<string> backButton;
         private UITextPanel<string> homeButton;
         private UITextPanel<string> closeButton;
         private UITextPanel<string> forwardButton;
+        private UITextPanel<string> transparancyButton;
+
+        Color solidBackground = new(60, 60, 60, 255);
+        Color brightBackground = Color.DarkGoldenrod * 0.685f;
+        Color transparentBackground = new Color(60, 60, 60, 255) * 0.685f;
 
         public UIMessageState()
         {
@@ -30,12 +37,11 @@ namespace Spellwright.UI.States
 
         public override void OnInitialize()
         {
-            messageBox.BackgroundColor = new Color(60, 60, 60, 255) * 0.685f;
-            messageBox.PaddingLeft = 10f;
+            messageBox.BackgroundColor = solidBackground;
+            messageBox.PaddingLeft = 20f;
             messageBox.PaddingTop = 10f;
-            messageBox.PaddingRight = 10f;
-            //messageBox.PaddingBottom = 10f;
-            messageBox.PaddingBottom = 10f;
+            messageBox.PaddingRight = 20f;
+            messageBox.PaddingBottom = 50f;
             messageBox.OnLinkClicked += OnLineClicked;
             messageBox.OnPageChanged += OnPageChanged;
 
@@ -56,7 +62,8 @@ namespace Spellwright.UI.States
             {
                 Height = { Pixels = -20, Percent = 1f },
                 VAlign = 0.5f,
-                HAlign = 1f
+                HAlign = 1f,
+                MarginRight = 5f
             }.WithView(100f, 1000f);
             mainPanel.Append(uIScrollbar);
 
@@ -66,14 +73,14 @@ namespace Spellwright.UI.States
 
             messageBox.SetScrollbar(uIScrollbar);
 
-            buttonPanel = new UIElement
+            buttonPanel = new UIPanel
             {
-                Width = { Pixels = 500 },
+                Width = { Pixels = 460 },
                 Height = { Pixels = 60 },
                 VAlign = 1f,
-                //HAlign = 0.5f,
-                HAlign = 1f,
-
+                HAlign = 0.5f,
+                MarginBottom = 3f,
+                BackgroundColor = transparentBackground
             };
             mainPanel.Append(buttonPanel);
 
@@ -82,12 +89,11 @@ namespace Spellwright.UI.States
                 //Width = { Pixels = -10, Percent = 1f / 3f },
                 MinWidth = { Pixels = 90 },
                 MinHeight = { Pixels = 40 },
-                Left = { Pixels = 29 },
-                Top = { Pixels = 10 },
-                //Top = { Pixels = -30 },
-                BackgroundColor = new Color(60, 60, 60, 255) * 0.685f
+                Left = { Pixels = 19 },
+                VAlign = 0.5f,
+                BackgroundColor = transparentBackground
             };
-            backButton.WithFadedMouseOver(new Color(120, 120, 120, 255) * 0.685f, new Color(60, 60, 60, 255) * 0.685f);
+            backButton.WithFadedMouseOver(brightBackground, transparentBackground);
             backButton.OnClick += OnBackClicked;
             buttonPanel.Append(backButton);
 
@@ -97,11 +103,10 @@ namespace Spellwright.UI.States
                 MinWidth = { Pixels = 90 },
                 MinHeight = { Pixels = 40 },
                 Left = { Pixels = 120 },
-                Top = { Pixels = 10 },
-                //Top = { Pixels = -30 },
-                BackgroundColor = new Color(60, 60, 60, 255) * 0.685f
+                VAlign = 0.5f,
+                BackgroundColor = transparentBackground
             };
-            homeButton.WithFadedMouseOver(new Color(120, 120, 120, 255) * 0.685f, new Color(60, 60, 60, 255) * 0.685f);
+            homeButton.WithFadedMouseOver(brightBackground, transparentBackground);
             homeButton.OnClick += OnHomeClicked;
             buttonPanel.Append(homeButton);
 
@@ -111,11 +116,10 @@ namespace Spellwright.UI.States
                 MinWidth = { Pixels = 90 },
                 MinHeight = { Pixels = 40 },
                 Left = { Pixels = 220 },
-                Top = { Pixels = 10 },
-                //Top = { Pixels = -30 },
-                BackgroundColor = new Color(60, 60, 60, 255) * 0.685f
+                VAlign = 0.5f,
+                BackgroundColor = transparentBackground
             };
-            closeButton.WithFadedMouseOver(new Color(120, 120, 120, 255) * 0.685f, new Color(60, 60, 60, 255) * 0.685f);
+            closeButton.WithFadedMouseOver(brightBackground, transparentBackground);
             closeButton.OnClick += Close;
             buttonPanel.Append(closeButton);
 
@@ -124,14 +128,27 @@ namespace Spellwright.UI.States
                 //Width = { Pixels = -10, Percent = 1f / 3f },
                 MinWidth = { Pixels = 90 },
                 MinHeight = { Pixels = 40 },
-                Left = { Pixels = 320 },
-                Top = { Pixels = 10 },
-                //Top = { Pixels = -30 },
-                BackgroundColor = new Color(60, 60, 60, 255) * 0.685f
+                Left = { Pixels = 330 },
+                VAlign = 0.5f,
+                BackgroundColor = transparentBackground
             };
-            forwardButton.WithFadedMouseOver(new Color(120, 120, 120, 255) * 0.685f, new Color(60, 60, 60, 255) * 0.685f);
+            forwardButton.WithFadedMouseOver(brightBackground, transparentBackground);
             forwardButton.OnClick += OnForwardClicked;
             buttonPanel.Append(forwardButton);
+
+            transparancyButton = new UITextPanel<string>("Tr", 0.7f, false)
+            {
+                MinWidth = { Pixels = 20 },
+                MinHeight = { Pixels = 20 },
+                VAlign = 1f,
+                HAlign = 1f,
+                MarginBottom = 5f,
+                MarginRight = 30f,
+                BackgroundColor = transparentBackground
+            };
+            transparancyButton.WithFadedMouseOver(brightBackground, transparentBackground);
+            transparancyButton.OnClick += OnTransparancyClicked;
+            mainPanel.Append(transparancyButton);
 
             Append(mainPanel);
             RefreshButtons();
@@ -139,12 +156,13 @@ namespace Spellwright.UI.States
 
         public override void Update(GameTime gameTime)
         {
-            homeButton.Left = new StyleDimension { Pixels = 120 };
-
             base.Update(gameTime);
             PlayerInput.LockVanillaMouseScroll("ModLoader/UIScrollbar");
             if (ContainsPoint(Main.MouseScreen))
                 Main.LocalPlayer.mouseInterface = true;
+
+            buttonPanel.BackgroundColor = new Color(150, 150, 150, 255) * 0.685f;
+            buttonPanel.BorderColor = Color.Black;
         }
 
         public override void OnActivate()
@@ -171,12 +189,12 @@ namespace Spellwright.UI.States
         private void RefreshButtons()
         {
             if (messageBox.CanGoBack())
-                backButton.Left = new StyleDimension { Pixels = 29 };
+                backButton.Left = new StyleDimension { Pixels = 19 };
             else
                 backButton.Left = new StyleDimension { Pixels = -3000 };
 
             if (messageBox.CanGoForward())
-                forwardButton.Left = new StyleDimension { Pixels = 320 };
+                forwardButton.Left = new StyleDimension { Pixels = 330 };
             else
                 forwardButton.Left = new StyleDimension { Pixels = -3000 };
         }
@@ -184,6 +202,12 @@ namespace Spellwright.UI.States
         private void Close(UIMouseEvent evt, UIElement listeningElement)
         {
             Spellwright.Instance.userInterface.SetState(null);
+        }
+
+        private void OnTransparancyClicked(UIMouseEvent evt, UIElement listeningElement)
+        {
+            isTransparent = !isTransparent;
+            messageBox.BackgroundColor = isTransparent ? transparentBackground : solidBackground;
         }
 
         private void OnHomeClicked(UIMouseEvent evt, UIElement listeningElement) => GoHome();

@@ -27,6 +27,9 @@ namespace Spellwright.UI.Components.TextBox
         private float? newViewPosition = null;
         private bool IsSmartCursorWanted = false;
 
+        public float OldWidth = 0;
+        public float OldHeight = 0;
+
         public event EventHandler<LinkClickedEventArgs> OnLinkClicked;
 
         public UIFormattedTextBox()
@@ -115,12 +118,15 @@ namespace Spellwright.UI.Components.TextBox
         public override void RecalculateChildren()
         {
             base.RecalculateChildren();
-            if (!heightNeedsRecalculating)
-                return;
-
             CalculatedStyle space = GetInnerDimensions();
             if (space.Width <= 0 || space.Height <= 0)
                 return;
+
+            if (!heightNeedsRecalculating && OldWidth == space.Width && OldHeight == space.Height)
+                return;
+
+            OldWidth = space.Width;
+            OldHeight = space.Height;
 
             DynamicSpriteFont font = FontAssets.MouseText.Value;
 

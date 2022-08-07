@@ -39,7 +39,7 @@ namespace Spellwright
             Instance = this;
 
             OpenIncantationUIHotKey = KeybindLoader.RegisterKeybind(this, "Start incantation", "X");
-            CastCantripHotKey = KeybindLoader.RegisterKeybind(this, "Cast cantrip", "MouseXButton1");
+            CastCantripHotKey = KeybindLoader.RegisterKeybind(this, "Cast cantrip", "Mouse4");
 
             if (Main.rand == null)
                 Main.rand = new UnifiedRandom();

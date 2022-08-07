@@ -26,7 +26,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
 
             if (!player.ConsumeItems(ItemType, Cost))
             {
-                var itemName = Lang.GetItemNameValue(ItemType);
+                var itemName = Lang.GetItemName(ItemType);
                 var costText = $"{realCost} {itemName}";
                 LastError = Spellwright.GetTranslation("SpellCost", "NotEnoughReagents").Format(costText);
                 return false;

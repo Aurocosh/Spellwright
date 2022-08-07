@@ -113,13 +113,14 @@ namespace Spellwright.UI.Components.TextBox.MarkerProcessors.Base
 
         public static MarkerData Parse(string markerText)
         {
-            Regex markerRegex = new(@"\*\{([^\}]*)\}(?:\{([^\}]*)\})?(?:\(([^)]*)\))?");
+            //Regex markerRegex = new(@"\*\{([^\}]*)\}(?:\{([^\}]*)\})?(?:\(([^)]*)\))?");
+            Regex markerRegex = new(@"#(?:\[([^\]]*)\])?\{([^\}]*)\}(?:\(([^)]*)\))?");
 
             var match = markerRegex.Match(markerText);
             if (match.Success)
             {
-                var typeTextValue = match.Groups[1].Value;
-                var markerTextValue = match.Groups[2].Value;
+                var markerTextValue = match.Groups[1].Value;
+                var typeTextValue = match.Groups[2].Value;
 
                 var typeParts = typeTextValue.Split(':', 2);
 

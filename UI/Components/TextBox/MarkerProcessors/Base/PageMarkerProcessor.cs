@@ -25,7 +25,7 @@ namespace Spellwright.UI.Components.TextBox.MarkerProcessors.Base
         {
             var result = Regex.Replace(
                 input,
-                @"(\*\{[^\}]*\}(?:\{[^\}]*\})?(?:\([^)]*\))?)",
+                @"(#(?:\[[^\]]*\])?\{[^\}]*\}(?:\([^)]*\))?)",
                 m => ReplaceMarker(m.Captures[0].Value, player)
             );
 
