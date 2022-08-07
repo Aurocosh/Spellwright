@@ -7,6 +7,7 @@ namespace Spellwright.UI.Components.TextBox.TextParts
 {
     internal class FormattedTextPart : PlainTextPart
     {
+        public int TextId { get; }
         public string Link { get; }
         public Color CustomColor { get; }
 
@@ -14,9 +15,10 @@ namespace Spellwright.UI.Components.TextBox.TextParts
 
         public bool HasLink => Link?.Length > 0;
 
-        public FormattedTextPart(string text, string options, DynamicSpriteFont font) :
+        public FormattedTextPart(int textId, string text, string options, DynamicSpriteFont font) :
             base(text, font)
         {
+            TextId = textId;
             Link = "";
             HasCustomColor = false;
             foreach (var option in options.Split(','))
@@ -51,9 +53,10 @@ namespace Spellwright.UI.Components.TextBox.TextParts
             }
         }
 
-        public FormattedTextPart(string text, string link, Color customColor, bool hasCustomColor, DynamicSpriteFont font)
+        public FormattedTextPart(int textId, string text, string link, Color customColor, bool hasCustomColor, DynamicSpriteFont font)
             : base(text, font)
         {
+            TextId = textId;
             Link = link;
             CustomColor = customColor;
             HasCustomColor = hasCustomColor;
@@ -66,7 +69,7 @@ namespace Spellwright.UI.Components.TextBox.TextParts
 
         public override ITextPart Alter(string text)
         {
-            return new FormattedTextPart(text, Link, CustomColor, HasCustomColor, Font);
+            return new FormattedTextPart(TextId, text, Link, CustomColor, HasCustomColor, Font);
         }
     }
 }

@@ -101,7 +101,7 @@ namespace Spellwright.UI.Components.TextBox
                     foreach (var part in textLine.Parts)
                     {
                         var color = part.GetColor(ForegroundColor);
-                        if (hoveredLink != null && part is FormattedTextPart formattedPart && formattedPart.Link == hoveredLink.TextPart.Link)
+                        if (hoveredLink != null && part is FormattedTextPart formattedPart && formattedPart.TextId == hoveredLink.TextPart.TextId)
                             //color = Color.DarkBlue;
                             color *= 1.5f;
 

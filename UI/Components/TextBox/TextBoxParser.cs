@@ -16,6 +16,7 @@ namespace Spellwright.UI.Components.TextBox
         {
             var textParts = new List<ITextPart>();
 
+            int nextFormattedId = 0;
             int startIndex = 0;
             int endIndex = text.Length - 1;
             while (startIndex <= endIndex)
@@ -32,7 +33,7 @@ namespace Spellwright.UI.Components.TextBox
                     string linkText = match.Groups[1].Value;
                     string linkValue = match.Groups[2].Value;
 
-                    textParts.Add(new FormattedTextPart(linkText, linkValue, font));
+                    textParts.Add(new FormattedTextPart(nextFormattedId++, linkText, linkValue, font));
                     startIndex = match.Index + match.Length;
                 }
                 else
@@ -158,6 +159,7 @@ namespace Spellwright.UI.Components.TextBox
                 {
                     if (part is FormattedTextPart formattedPart && formattedPart.HasLink)
                     {
+
                         var minX = baseX;
                         var maxX = minX + part.Width;
                         var minY = baseY;
