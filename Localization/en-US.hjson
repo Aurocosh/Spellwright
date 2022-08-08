@@ -76,13 +76,6 @@ Mods: {
 			SpellUseCost: Spell use cost: {0}
 		}
 
-		PlayerStatus: {
-			MyCurrentLevel: My current level is {0}
-			NoPermanentBuffs: I have no permanent buffs
-			HavePermanentBuffs: I have following permanent buffs
-		}
-
-		
 		BoundMirror: {
 			LocationName: Location: {0}
 			LocationCoordinates: X:{0} Y:{1}
@@ -141,7 +134,7 @@ Mods: {
 					  *[Favorite spells](link:SpellList=category:3)
 					  *[All spells](link:SpellList=category:0)
 					 Status
-					  *[PlayerStatus](link:PlayerStatus)
+					  #[Player status]{StaticLink:PlayerStatus}
 					  *[Item void storage](link:VoidStorage=type:0)
 					  *[Potion void storage](link:VoidStorage=type:1)
 					  *[Reagent void storage](link:VoidStorage=type:2)
@@ -223,10 +216,20 @@ Mods: {
 					As you complete all necessary steps to become Spellwright you will learn 4 basic spells. One of those spells is essential for your growth as a spellcaster. This spell is called #[Ascend]{SpellLink:Ascend} and it can increase your spellcasting level by one when invoked. Of course use of this spell is not free and will require some sacrificial items in order to use this spell. Cost of this depends on your current level. For example, to raise your level from level 0 to level 1 you will have to sacrifice some fallen stars. And to raise your level from level 7 to level 8 you will have to sacrifice ectoplasm. You can item cost for each level below. Items required by spell have to be inside of your inventory when you cast it. If you miss any required items upon cast then a message with relevant information will appear in your chat on cast. Your initial spellcasting level will be 0 and maximum achievable level is 10.
 
 					#[Level up costs]{Header2}
-					#{LevelList}
+					#{LevelUnlockCosts}
 
 					#[Other benefits]{Header2}
 					In addition to granting access to higher level spells, the power of some spell will also scale with your spellcasting level. One such spell is a low level spell called #[Spark Caster]{SpellLink:SparkCaster}. This spell when invoked will shoot sparks that ignite enemies on hit. As your spellcasting level increases this spell will shoot more projectiles. It will also shoot additional projectile types depending on your spellcasting level. For example when you reach level 5 in addition to fiery sparks it will also shoot ichor sparks that inflict enemies with ichor debuff.
+					''',
+				PlayerStatus: 
+					'''
+					#[Player status]{Header1}
+
+					#[Level]{Header2}
+					My current level is #{PlayerLevel}
+
+					#[Permament buffs]{Header2}
+					#{PermamentBuffList}
 					'''
 			}
 			SpellList:{
@@ -293,8 +296,9 @@ Mods: {
 		}
 
 		MarkerProcessor: {
-			LevelList:{
-				ASD: ASD
+				PermamentBuffList:{
+				NoPermanentBuffs: I have no permanent buffs
+				HavePermanentBuffs: I have following permanent buffs
 			}
 		}
 		

@@ -17,7 +17,7 @@ namespace Spellwright.Lib
 
         public IReadOnlyList<TValue> GetValues(TKey key)
         {
-            if (!TryGetValue(key, out List<TValue> values))
+            if (TryGetValue(key, out List<TValue> values))
                 return values;
             return Array.Empty<TValue>();
         }

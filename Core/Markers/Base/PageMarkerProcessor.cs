@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Spellwright.Core.Markers;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Terraria;
 
@@ -14,11 +15,13 @@ namespace Spellwright.UI.Components.TextBox.MarkerProcessors.Base
         {
             registerProcessor(new Header1MarkerProcessor());
             registerProcessor(new Header2MarkerProcessor());
-            registerProcessor(new LevelListMarkerProcessor());
+            registerProcessor(new LevelUnlockCostsMarkerProcessor());
+            registerProcessor(new PlayerLevelMarkerProcessor());
             registerProcessor(new SpellLinkMarkerProcessor());
-            registerProcessor(new StaticLinkMarkerProcessor());
-            registerProcessor(new SpellTypeLinkMarkerProcessor());
             registerProcessor(new SpellModifierLinkMarkerProcessor());
+            registerProcessor(new SpellTypeLinkMarkerProcessor());
+            registerProcessor(new StaticLinkMarkerProcessor());
+            registerProcessor(new PermamentBuffListMarkerProcessor());
         }
 
         public string ReplaceMarkers(string input, Player player)

@@ -131,13 +131,13 @@ namespace Spellwright.Content.Spells
 
         public static SpellStructure ProcessIncantation(string incantationText)
         {
-            incantationText = incantationText.Trim().ToLower();
+            incantationText = incantationText.Trim();
 
             var incantationParts = incantationText.Split(new[] { ':' }, 2);
             if (incantationParts.Length == 0)
                 return null;
 
-            string spellFunctionalPart = incantationParts[0];
+            string spellFunctionalPart = incantationParts[0].ToLower();
             string spellArgument = incantationParts.Length > 1 ? incantationParts[1].Trim() : "";
 
             var words = spellFunctionalPart.Split(new[] { ' ' });

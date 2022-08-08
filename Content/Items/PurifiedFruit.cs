@@ -28,7 +28,7 @@ namespace Spellwright.Content.Items
             Item.maxStack = 1;
             Item.UseSound = SoundID.Item4;
             Item.useAnimation = 30;
-            Item.value = Item.buyPrice(0, 0, 10);
+            Item.value = Item.buyPrice(0, 50);
             Item.rare = ItemRarityID.Red;
         }
 

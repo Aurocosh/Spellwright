@@ -44,8 +44,6 @@ namespace Spellwright.Content.Spells.Enchant
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.SyncItem, -1, -1, null, itemId, 1);
 
-            Main.NewText(modItem.Tooltip.Key);
-
             return true;
         }
     }

@@ -3,7 +3,7 @@ using Spellwright.UI.Components.TextBox.MarkerProcessors.Base;
 using Spellwright.UI.Components.TextBox.Text;
 using Terraria;
 
-namespace Spellwright.UI.Components.TextBox.MarkerProcessors
+namespace Spellwright.Core.Markers
 {
     internal class SpellLinkMarkerProcessor : MarkerProcessor
     {

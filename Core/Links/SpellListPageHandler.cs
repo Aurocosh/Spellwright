@@ -4,9 +4,9 @@ using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.SpellRelated;
 using Spellwright.Core.Links.Base;
 using Spellwright.Core.Spells;
+using Spellwright.Lib;
 using Spellwright.UI.Components.TextBox.Text;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Terraria;
@@ -55,7 +55,7 @@ namespace Spellwright.Core.Links
             var showCost = linkData.GetParameter(CostParam, false);
 
             var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
-            Dictionary<int, List<ModSpell>> spellsByLevel = PrepareSpellList(spellPlayer, category, typeCategory);
+            MultiValueDictionary<int, ModSpell> spellsByLevel = PrepareSpellList(spellPlayer, category, typeCategory);
 
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine(GetTranslation("Spells").Value);
@@ -85,8 +85,7 @@ namespace Spellwright.Core.Links
             int limit = maxLevel + 1;
             for (int i = 0; i < limit; i++)
             {
-                if (!spellsByLevel.TryGetValue(i, out List<ModSpell> spells))
-                    continue;
+                var spells = spellsByLevel.GetValues(i);
                 if (spells.Count == 0)
                     continue;
 
@@ -116,13 +115,13 @@ namespace Spellwright.Core.Links
             return stringBuilder.ToString();
         }
 
-        private static Dictionary<int, List<ModSpell>> PrepareSpellList(SpellwrightPlayer spellPlayer, PageCategory category, SpellType? typeCategory)
+        private static MultiValueDictionary<int, ModSpell> PrepareSpellList(SpellwrightPlayer spellPlayer, PageCategory category, SpellType? typeCategory)
         {
             bool showFavorite = category == PageCategory.Favorite;
             bool showLocked = category == PageCategory.All || category == PageCategory.Locked;
             bool showUnlocked = category == PageCategory.All || category == PageCategory.Unlocked;
 
-            var spellsByLevel = new Dictionary<int, List<ModSpell>>();
+            var spellsByLevel = new MultiValueDictionary<int, ModSpell>();
             foreach (var spellId in spellPlayer.KnownSpells)
             {
                 var spell = SpellLibrary.GetSpellById(spellId);
@@ -142,14 +141,8 @@ namespace Spellwright.Core.Links
                             continue;
                     }
 
-
                     int spellLevel = spell.SpellLevel;
-                    if (!spellsByLevel.TryGetValue(spellLevel, out List<ModSpell> spells))
-                    {
-                        spells = new List<ModSpell>();
-                        spellsByLevel[spellLevel] = spells;
-                    }
-                    spells.Add(spell);
+                    spellsByLevel.Add(spellLevel, spell);
                 }
             }
 
@@ -211,16 +204,6 @@ namespace Spellwright.Core.Links
             }
 
             return textFormat.ToString();
-        }
-
-        private class SpellComparer : IComparer<ModSpell>
-        {
-            public int Compare(ModSpell a, ModSpell b)
-            {
-                var aName = a.DisplayName.GetTranslation(Language.ActiveCulture);
-                var bName = b.DisplayName.GetTranslation(Language.ActiveCulture);
-                return aName.CompareTo(bName);
-            }
         }
     }
 }

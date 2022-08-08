@@ -12,7 +12,6 @@ namespace Spellwright.Core.Links.Base
 
         static PageContentHandler()
         {
-            registerHandler(new PlayerStatusPageHandler());
             registerHandler(new SpellListPageHandler());
             registerHandler(new SpellPageHandler());
             registerHandler(new StaticPageHandler());

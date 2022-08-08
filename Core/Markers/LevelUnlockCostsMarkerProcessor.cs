@@ -5,9 +5,9 @@ using System.Text;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Spellwright.UI.Components.TextBox.MarkerProcessors
+namespace Spellwright.Core.Markers
 {
-    internal class LevelListMarkerProcessor : MarkerProcessor
+    internal class LevelUnlockCostsMarkerProcessor : MarkerProcessor
     {
         public override string ProcessMarker(MarkerData markerData, Player player)
         {

@@ -170,10 +170,10 @@ namespace Spellwright.Content.NPCs
             else
             {
                 Player player = Main.LocalPlayer;
-                var modPlayer = player.GetModPlayer<SpellwrightPlayer>();
+                var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
 
 
-                if (!modPlayer.LearnedBasics)
+                if (!spellPlayer.LearnedBasics)
                 {
                     SoundEngine.PlaySound(SoundID.Item25);
 
@@ -181,7 +181,7 @@ namespace Spellwright.Content.NPCs
                     Main.npcChatText = Spellwright.GetTranslation("SpellwrightNpc", "TeachingsOffer").ToString();
                     player.QuickSpawnItem(new EntitySource_Gift(NPC), teachingsId);
                 }
-                else if (!modPlayer.CanCastSpells)
+                else if (!spellPlayer.CanCastSpells)
                 {
                     SoundEngine.PlaySound(SoundID.Item25);
 
@@ -202,6 +202,7 @@ namespace Spellwright.Content.NPCs
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<BeginnerSpellTome>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<AdvancedSpellTome>());
             shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SupremeSpellTome>());
+            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<PurifiedFruit>());
         }
 
         public override bool CanGoToStatue(bool toKingStatue) => true;
