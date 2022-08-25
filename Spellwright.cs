@@ -91,6 +91,11 @@ namespace Spellwright
             string translationKey = $"Mods.Spellwright.{category}.{subcategory}.{key}";
             return Language.GetText(translationKey);
         }
+        internal static LocalizedText GetTranslation(string category, string subcategory, string sub2category, string key)
+        {
+            string translationKey = $"Mods.Spellwright.{category}.{subcategory}.{sub2category}.{key}";
+            return Language.GetText(translationKey);
+        }
 
         public override void AddRecipeGroups()
         {

@@ -9,19 +9,21 @@ namespace Spellwright.UI.Components.TextBox.MarkerProcessors.Base
     {
         private static readonly Dictionary<string, MarkerProcessor> markerHandlers = new();
 
-        private static void registerProcessor(MarkerProcessor markerProcessor) => markerHandlers[markerProcessor.Type] = markerProcessor;
+        private static void RegisterProcessor(MarkerProcessor markerProcessor) => markerHandlers[markerProcessor.Type] = markerProcessor;
 
         static PageMarkerProcessor()
         {
-            registerProcessor(new Header1MarkerProcessor());
-            registerProcessor(new Header2MarkerProcessor());
-            registerProcessor(new LevelUnlockCostsMarkerProcessor());
-            registerProcessor(new PlayerLevelMarkerProcessor());
-            registerProcessor(new SpellLinkMarkerProcessor());
-            registerProcessor(new SpellModifierLinkMarkerProcessor());
-            registerProcessor(new SpellTypeLinkMarkerProcessor());
-            registerProcessor(new StaticLinkMarkerProcessor());
-            registerProcessor(new PermamentBuffListMarkerProcessor());
+            RegisterProcessor(new Header1MarkerProcessor());
+            RegisterProcessor(new Header2MarkerProcessor());
+            RegisterProcessor(new LevelUnlockCostsMarkerProcessor());
+            RegisterProcessor(new PlayerLevelMarkerProcessor());
+            RegisterProcessor(new SpellLinkMarkerProcessor());
+            RegisterProcessor(new SpellModifierLinkMarkerProcessor());
+            RegisterProcessor(new SpellTypeLinkMarkerProcessor());
+            RegisterProcessor(new StaticLinkMarkerProcessor());
+            RegisterProcessor(new PermamentBuffListMarkerProcessor());
+            RegisterProcessor(new ItemLinkMarkerProcessor());
+            RegisterProcessor(new TomeSpellListMarkerProcessor());
         }
 
         public string ReplaceMarkers(string input, Player player)

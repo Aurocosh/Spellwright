@@ -86,7 +86,7 @@ Mods: {
 			ModifiersInvalid: Spell modifier is invalid
 			ArgumentInvalid: Spell argument is invalid
 			LevelTooLow: Your level is too low
-			NoTomeToBind: You have no spell tome to which you can bind the spell
+			NoResonatorToBind: You have no spell resonator to which you can bind the spell
 			AlreadyUnlocked: Spell is already unlocked
 			NotUnlocked: Spell is not yet unlocked
 			NotEnoughReagents: Not enough reagents. Reagents required: {0}
@@ -129,6 +129,8 @@ Mods: {
 					  #[Spell acquisition]{StaticLink:SpellAcquisition}
 					  #[Spell reagents]{StaticLink:SpellReagents}
 					  #[Spell levels]{StaticLink:SpellLevels}
+					  #[Spell costs]{StaticLink:SpellCostInfo}
+					  #[Spellwright Items]{StaticLink:SpellwrightItemList}
 					 Spells
 					  *[Usable spells](link:SpellList=category:2)
 					  *[Favorite spells](link:SpellList=category:3)
@@ -147,9 +149,9 @@ Mods: {
 					
 					#[Short summary]{Header2}
 					1) Raise your mana to at least 100 and a new Spellwright npc will show up.
-					2) Talk to him and ask him about his spellcraft. When asked he will give you a book Spellwright Teachings. This book is an ingame guidebook as well as a key item required to unlock your spellcraft.
+					2) Talk to him and ask him about his spellcraft. When asked he will give you a book #[Spellwright Teachings]{ItemLink:SpellwrightTeachings}. This book is an ingame guidebook as well as a key item required to unlock your spellcraft.
 					3) Spellwright Teachings is a consumable item. Use this book with a left click to unlock ingame guidebook and to proceed with spellcraft unlock.
-					4) After reading Spellwright Teachings talk to the Spellwright again. In order to unlock your spellcrafting ability you have to consume a mystic fruit. There are two types: Bizzare Fruit and Purified Fruit. Either one of the fruits will work. Purified Fruit can be bought from Spellwrights store. It is expensive, but very safe option. Bizzare Fruit you can get for free, but this fruit is much more dangerous to eat. Talk to Spellwright and choose option "Ask for mystic fruit" and he will give you one Bizzare Fruit free of charge.
+					4) After reading Spellwright Teachings talk to the Spellwright again. In order to unlock your spellcrafting ability you have to consume a mystic fruit. There are two types: #[Bizzare Fruit]{ItemLink:BizzareFruit} and #[Purified Fruit]{ItemLink:PurifiedFruit}. Either one of the fruits will work. Purified Fruit can be bought from Spellwrights store. It is expensive, but very safe option. Bizzare Fruit you can get for free, but this fruit is much more dangerous to eat. Talk to Spellwright and choose option "Ask for mystic fruit" and he will give you one Bizzare Fruit free of charge.
 					5) Eat whichever fruit you got and it will inflict you with a serious debuff for a while. Survive the duration of this debuff and if you do then it will unlock spellcasting for you.
 					6) Congrats, you are now a fledgeling Spellwright yourself and can cast four basic spells included in Spellwright Teachings.
 					7) To cast a spell press 'Start incantation' keybind and type in the spell incantation. For example you can type in 'Return' and press enter. When you do so you will be teleported to your spawn location.
@@ -169,7 +171,7 @@ Mods: {
 
 					You can get this Spellwright Teachings for free from an npc called Spellwright. This npc will come to your world as soon as your mana will be higher or equal to 100. You don't need to purchase this book from Spellwright, talk to him and choose the dialog option "Ask about spellcraft" and he will give you this book for free. After you acquired Spellwright Teachings your next step is to read through this book. This book is a consumable item, take it in your hand and left click to study it. Upon use the book will disappear, and you will learn essential knowledge of spellcraft, basic spells and unlock an ingame guidebook.
 
-					After reading Spellwright Teachings you have to talk to Spellwright again. In order to unlock your spellcrafting ability you have to consume a special mystic fruit. There are two types of mystic fruits that you can eat: Bizzare Fruit and Purified Fruit. You don't need to eat both fruits, either one is enough. The only difference between those fruits is that Purified Fruit is much safer and much less likely to kill you. This type of mystic fruit is much safer, but Spellwright won't give it to you for free. You will have to purchase it from his store for a hefty sum. You can alternatively choose a safer option and consume Bizzare Fruit. You can get Bizzare Fruit for free from Spellwright. Talk to him and choose the option "Ask for mystic fruit" and he will give you one Bizzare Fruit for free. If you consume Bizzare Fruit and it kills you, then you can come back to Spellwright and ask for another one, he will give you as many as you need for free.  
+					After reading Spellwright Teachings you have to talk to Spellwright again. In order to unlock your spellcrafting ability you have to consume a special mystic fruit. There are two types of mystic fruits that you can eat: #[Bizzare Fruit]{ItemLink:BizzareFruit} and #[Purified Fruit]{ItemLink:PurifiedFruit}. You don't need to eat both fruits, either one is enough. The only difference between those fruits is that Purified Fruit is much safer and much less likely to kill you. This type of mystic fruit is much safer, but Spellwright won't give it to you for free. You will have to purchase it from his store for a hefty sum. You can alternatively choose a safer option and consume Bizzare Fruit. You can get Bizzare Fruit for free from Spellwright. Talk to him and choose the option "Ask for mystic fruit" and he will give you one Bizzare Fruit for free. If you consume Bizzare Fruit and it kills you, then you can come back to Spellwright and ask for another one, he will give you as many as you need for free.  
 
 					Eat whichever fruit you got and it will inflict you with a serious debuff called 'Soul Disturbance'. Both mystic fruits will inflict you with this debuff, but the duration of the debuff will be drastically different depending on the type of fruit. Duration will be very long if you consume Bizzare Fruit and it will be very short if you consume Purified Fruit. Soul disturbance debuff will torment you with random and unpredictable effects while it is active. To overcome this trial you just have to survive for the duration of this debuff. When the effect of this debuff ends it will unlock your spellcasting ability permanently.
 
@@ -190,9 +192,9 @@ Mods: {
 
 					#[Learning the spell]{Header2}
 					To learn new spells you need to acquire and consume a spell tome. Spell tome is a book that contains a variety of different spells. The only way to get spell tomes is to buy them from an npc called Spellwright. He can sell you three different spell tomes:
-					1) Beginner Spell Tome - A book that contains a multitude of common low level spells. This tome contains spells ranging from level 1 to level 3.
-					2) Advanced Spell Tome - A book that contains complex and potent mid level spells. This tome contains spells ranging from level 4 to level 6.
-					3) Supreme Spell Tome - Very valuable book that contains rarest and most powerful spells. This tome contains spells ranging from level 7 to level 10.
+					1) #[Beginner Spell Tome]{ItemLink:BeginnerSpellTome} - A book that contains a multitude of common low level spells. This tome contains spells ranging from level 1 to level 3.
+					2) #[Advanced Spell Tome]{ItemLink:AdvancedSpellTome} - A book that contains complex and potent mid level spells. This tome contains spells ranging from level 4 to level 6.
+					3) #[Supreme Spell Tome]{ItemLink:SupremeSpellTome} - Very valuable book that contains rarest and most powerful spells. This tome contains spells ranging from level 7 to level 10.
 
 					To learn all spells from a spell tome you simply need to take it in your hand and left click it like any other consumable item. Keep in mind that spell tomes are a single use consumable, so each player will have to get his own. Upon use of a spell tome it will disintegrate and you will learn all spells from the book. If nothing happens when you try to use spell tome then there are two possibilities. You either did not learn the basics of spellcraft and did not awaken your powers, or you already know all of the spells contained in this spell tome. You can read how to awaken your powers on page 'Basics'. Keep in mind that even if you learned a spell from the spell tome you may not be able to use it right away. Each spell has a spell level requirement, and to use a 2 level spell you need to raise your spell casting level to level 2.
 
@@ -230,6 +232,47 @@ Mods: {
 
 					#[Permament buffs]{Header2}
 					#{PermamentBuffList}
+					''',
+				SpellwrightItemList: 
+					'''
+					#[Spellwright items]{Header1}
+					#[Tools]{Header2}
+					#[Spell Resonator]{ItemLink:SpellResonator}
+					#[Bound Magic Mirror]{ItemLink:BoundMagicMirror}
+					#[Warped Magic Mirror]{ItemLink:WarpedMagicMirror}
+
+					#[Reagents]{Header2}
+					#[Common Spell Reagent]{ItemLink:CommonSpellReagent}
+					#[Rare Spell Reagent]{ItemLink:RareSpellReagent}
+					#[Mythical Spell Reagent]{ItemLink:MythicalSpellReagent}
+					#[Silver Mirror]{ItemLink:SilverMirror}
+					
+					#[Spell tomes]{Header2}
+					#[Spellwright Teachings]{ItemLink:SpellwrightTeachings}
+					#[Beginner Spell Tome]{ItemLink:BeginnerSpellTome}
+					#[Advanced Spell Tome]{ItemLink:AdvancedSpellTome}
+					#[Supreme Spell Tome]{ItemLink:SupremeSpellTome}
+					
+					#[Fruits]{Header2}
+					#[Bizzare Fruit]{ItemLink:BizzareFruit}
+					#[Purified Fruit]{ItemLink:PurifiedFruit}
+					'''
+				SpellCostInfo: 
+					'''
+					#[Spell costs]{Header1}
+
+					Unlike traditional magic tools, that only require mana to function, most spellrights spells do not require mana. However, a lot of spellwright spells still have a cost, but instead of mana they require reagents. Reagents are a special items that spells consume in order to work. You can think of reagents as a fuel for your spellcraft. On this page you will read about spell unlock cost, spell cast cost and spell use cost.
+
+					#[Short summary]{Header2}
+					1) Unlock cost - Items that spell will consume when you unlock the spell.
+					2) Cast cost - Items that spell will consume when you cast the spell
+					3) Use cost - Items that spell will consume when you use it. This cost is only relevant for #[Echo]{SpellTypeLink:2} spells.
+
+					#[Unlock cost]{Header2}
+					Some spells will be available to you immediately after you learn it, however some spell will require you to sacrifice some additional items to make the spell available to you, this it a spell unlock cost. You only have to pay spell unlock cost once and the spell will be unlocked permamently. You can find out spell unlock cost on page *[Locked spells](link:SpellList=category:1,cost=true). You can also read more about spell unlocking on a page #[Spell acquisition]{StaticLink:SpellAcquisition}.
+
+					#[Cast cost and Use cost]{Header2}
+					Some spells consume spell reagents when used, this is a cost of using the spell, however there are two different spell costs that you can mistake for one another. There are two different costs assosiated with spell use: Cast cost and Use cost. Cast cost is the most common type of cost. Cast cost consumes items the moment you cast spell, and if you do not have enough reagents then your spell cast will fail. Spell cast in this context means opening spell cast UI, typing spell name and pressing enter to cast it. Another spell cost type is use cost. This type of cost is only relevant to #[Echo]{SpellTypeLink:2} type spells. This type of spell is a bit special, when you cast it it will not produce any effect immediately, but instead you will bind casted spell to an item called #[Spell Resonator]{ItemLink:SpellResonator} in your hotbar. When the spell is bound to the resonator it will grant this item spell's effect, and each time you use the item spell effect will be invoked. Use cost is consumed each time you use spell resonator with a bound spell. Technically spell can have both a cast cost and a use cost, but pretty much all existing spells have only one of them, or neither at all. You can find out spell use and cast costs on page *[Spell costs](link:SpellList=category:2,cost=true). You can also find cast and use costs on a dedicaded page for each spell.
 					'''
 			}
 			SpellList:{
@@ -276,7 +319,7 @@ Mods: {
 				Description: Full description
 				TextInvocation: "Effects of invocations are manifested immediately after the cast. This type of spell does not require any additional tools or keybinds to use. For example the spell #[Return]{SpellLink:Return} will instantly teleport a player as soon as the player casts the spell. Each invocation manifests its effect only once per activation."
 				TextCantrip: "Cantrips do not produce any immediate effect when casted, instead on cast the cantrip will bind itself to the player that casted it. If a player has a bound cantrip, then he can press a dedicated cantrip keybind that activates the effect of a cantrip. At any given time a player can have only one active cantrip. When a new cantrip spell is casted it will replace the previous cantrip that the player holds. You can think of cantrips as spells that grant the player various abilities that he can freely use, however the player can hold only one of those abilities at any given time. For example cantrip air dash grants player ability to dash towards the cursor when cantrip keybind is pressed. And cantrip fortress stance grants player temporary boost in armor when cantrip keybind is pressed. All cantrips have no cast cost, and no use cost. In other words they are completly free to use."
-				TextEcho: "Echo spells also do not produce any immediate effect when casted like cantrips, and on top of that they require a special item called spell resonator to be used. Spell resonator is an item that does nothing by itself, but you can bind different echo spell to the resonator to give it various effects. When echo spell is casted it will bind itself to the first available spell resonator in player hotbar. When you left click while holding the resonator that has a spell it will manifest effects of the bound spell. For example the spell fireball when casted will be bound to the first available resonator, thus granting this resonator the ability to shoot fireballs. If you then cast a spell called dragon spit then it will replace the ability of the resonator to shoot fireballs with the ability to shoot small explosive projectiles."
+				TextEcho: "Echo spells also do not produce any immediate effect when casted like cantrips, and on top of that they require a special item called spell resonator to be used. Spell resonator is an item that does nothing by itself, but you can bind different echo spell to the resonator to give it various effects. When echo spell is casted it will bind itself to the first available spell resonator in player hotbar. When you left click while holding the resonator that has a spell it will manifest effects of the bound spell. For example the spell fireball when casted will be bound to the first available resonator and it will grant this resonator ability to shoot fireballs. If you then cast a spell called dragon spit then it will replace the ability of the resonator to shoot fireballs with the ability to shoot small explosive projectiles."
 			}
 			SpellModifier:{
 				SpellModifiers: Spell modifiers
@@ -292,6 +335,88 @@ Mods: {
 			}
 			LevelInfo:{
 				PageText: Spell modifiers
+			}
+			ModItem:{
+				Type: Type
+				Tooltip: Tooltip
+				Description: Description
+
+				BoundMagicMirror: {
+					Type: Tool
+					Description: Magical artifact that can instantly teleport player to the place where it was created. This item is created by a spell #[Bind Mirror]{SpellLink:BindMirror} and requires a special reagent called #[Silver Mirror]{ItemLink:SilverMirror}. This item can be used infinetly. There is a cheaper, single use version of this item called #[Warped Magic Mirror]{ItemLink:WarpedMagicMirror}. This item can be named, if item has a name then it will be displayed in the item description.
+				}
+				WarpedMagicMirror: {
+					Type: Tool, Consumable
+					Description: Magical artifact that can instantly teleport player to the place where it was created. This item is created by a spell #[Warp Mirror]{SpellLink:WarpMirror} and requires a special reagent called #[Silver Mirror]{ItemLink:SilverMirror}. This item can be used only once and it will break on use. There is an expensive version of this item that can be used indefinetly, it is called #[Bound Magic Mirror]{ItemLink:BoundMagicMirror}. This item can be named, if item has a name then it will be displayed in the item description.
+				}
+				SilverMirror: {
+					Type: Reagent
+					Description: Reagent used by two different mirror enchanting spells. First spell is called #[Warp Mirror]{SpellLink:WarpMirror}. When casted this spell will create consumable item called #[Warped Magic Mirror]{ItemLink:WarpedMagicMirror}. When this consumable is used it will teleport player to the place where it was created. Another spell that consumes silver mirrors is a high level spell called #[Bind Mirror]{SpellLink:BindMirror}. This spell is similar to the previous one, but unlike the former this spell will create teleportation item that can be used infinitely. This item can be stored in #[Reagent Void]{SpellLink:ReagentVoid}.
+				}
+				CommonSpellReagent: {
+					Type: Reagent
+					Description: This is a cheapest and most widely used spell reagent. If you intend to do spellcasting in any capacty you should seriously stock up on this item. You can buy this item from Spellwright's shop. You can store this item in #[Reagent Void]{SpellLink:ReagentVoid}.
+				}
+				RareSpellReagent: {
+					Type: Reagent
+					Description: Stronger and more expensive type of a spell reagent used by Spellwrights. You need this reagent to cast some higher level spells. Rare reagent is moderately expensive. You can buy this item from Spellwright's shop. You can store this item in #[Reagent Void]{SpellLink:ReagentVoid}.
+				}
+				MythicalSpellReagent: {
+					Type: Reagent
+					Description: Highest grade spell reagent there is. Extremely rare and extremely expensive. Required only for strongest of spells. You can buy this item from Spellwright's shop. You can store this item in Reagent Void.
+				}
+				SpellwrightTeachings: {
+					Type: Spell tome, Consumable
+					Description:
+					'''
+					Very special book that contains essential knowlege for any aspiring Spellwright. If you want to become spellwright, then you will have to get acquire this book. You can get this book for free from an npc called Spellwright, just talk to him and ask him about his spellcraft.
+
+					#[Included spells]{Header2}
+					#{TomeSpellList:SpellwrightTeachings}
+					'''
+				}
+				BeginnerSpellTome: {
+					Type: Spell tome, Consumable
+					Description:
+					'''
+					Spellbook that contains simple spells. This item is a consumable, and can only be used once. When you use this item you will learn 1 or 2 spells from this book at random. It can be found randomly in chests or crates. Alternatively you can buy this item from an npc called Spellwright.
+
+					#[Included spells]{Header2}
+					#{TomeSpellList:BeginnerSpellTome}
+					'''
+				}
+				AdvancedSpellTome: {
+					Type: Spell tome, Consumable
+					Description:
+					'''
+					Spellbook that contains advanced spells. This item is a consumable, and can only be used once. When you use this item you will learn 1 or 2 spells from this book at random. It can be found randomly in chests or crates. Alternatively you can buy this item from an npc called Spellwright.
+					
+					#[Included spells]{Header2}
+					#{TomeSpellList:AdvancedSpellTome}
+					'''
+				}
+				SupremeSpellTome: {
+					Type: Spell tome, Consumable
+					Description: 
+					'''
+					Spellbook that contains spells of highest grade. This item is a consumable, and can only be used once. When you use this item you will learn 1 or 2 spells from this book at random. It can be found randomly in chests or crates. Alternatively you can buy this item from an npc called Spellwright.
+					
+					#[Included spells]{Header2}
+					#{TomeSpellList:SupremeSpellTome}
+					'''
+				}
+				BizzareFruit: {
+					Type: Consumable
+					Description: Weird looking fruit that is essential for spellwrights. Consuming this fruit is a will awaken your spellcasting ability. Keep in mind though, while it can give you power, it is extremely dangerous to consume this fruit. If you eat this fruit it will inflict you with a debuff that can easily kill you. You can get this fruit for free from Spellwright npc, just talk to him. There is another fruit that you can consume called #[Purified Fruit]{ItemLink:PurifiedFruit}, it is much safer, but very expensive.
+				}
+				PurifiedFruit: {
+					Type: Consumable
+					Description: Weird looking fruit that is essential for spellwrights. Consuming this fruit is a will awaken your spellcasting ability. This fruit is pretty safe to eat. If you eat this fruit it will inflict you with a dangerous debuff, but it will be very brief. You can buy it from Spellwright's store. There is another fruit that you can consume called #[Bizzare Fruit]{ItemLink:BizzareFruit}, you can get it for free, but it is very dangerous.
+				}
+				SpellResonator: {
+					Type: Tool
+					Description: Special tool required to cast a subtype of spells called Echo spells. To use this item you have to bind a spell to it. To do so you have to cast any Echo spell while this item is located in your toolbar. When you successfully bound a spell the name of the spell will be displayed in the name of the item. If you hover your mouse over the resonator with a spell a tooltip with additional information will appear, such as spell level and damage. Resonator with bound spell can be used like any standard projectile shooting item, point it in direction that you wanna shoot and left click. Can be bought from Spellwright.
+				}
 			}
 		}
 
@@ -603,6 +728,10 @@ Mods: {
 					bloody arrows have very high damage. And they deal more damage as players' health gets lower.
 					'''
 			}
+			BoltOfConfusionSpell: {
+				Name: Bolt of Confusion
+				Description: Shoots a projectile on cast that reliably inflicts enemies with confusion debuff.
+			}
 			FanOfFlamesSpell: {
 				Name: Fan Of Flames
 				Description: Creates several fireballs with a slight spread in their trajectory
@@ -697,6 +826,10 @@ Mods: {
 			WallShredderSpell: {
 				Name: Wall Shredder
 				Description: Creates a projectile that upon explosion breaks walls in a small area around itself. Projectile will explode upon collision with blocks. Only one projectile can be fired at a time. If you try to fire a second projectile while the previous one is still in the air then instead of creating a new projectile the first one will explode mid air
+			}
+			TileRollerSpell: {
+				Name: Tile Roller
+				Description: Creates a projectile that upon explosion smooth out blocks in a small area around itself. Projectile will explode upon collision with blocks. Only one projectile can be fired at a time. If you try to fire a second projectile while the previous one is still in the air then instead of creating a new projectile the first one will explode mid air
 			}
 			
 			# TileSpawn

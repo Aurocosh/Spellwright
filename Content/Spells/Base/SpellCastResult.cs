@@ -7,7 +7,7 @@
         ModifiersInvalid,
         ArgumentInvalid,
         LevelTooLow,
-        NoTomeToBind,
+        NoResonatorToBind,
         AlreadyUnlocked,
         NotUnlocked,
         SpellUnlocked,

@@ -30,6 +30,13 @@ namespace Spellwright.Content.Items.SpellTomes.Base
             Item.rare = ItemRarityID.Blue;
         }
 
+        public SpellTomeContent GetContent()
+        {
+            if (tomeContents.TryGetValue(Type, out var tome))
+                return tome;
+            return null;
+        }
+
         public override bool? UseItem(Player player)
         {
             SpellwrightPlayer spellPlayer = player.GetModPlayer<SpellwrightPlayer>();

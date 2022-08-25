@@ -16,7 +16,6 @@ namespace Spellwright.Content.Spells.Movement
             SpellLevel = 8;
             UseType = SpellType.Cantrip;
 
-            UnlockCost = new SingleItemSpellCost(ItemID.Feather, 30);
             UnlockCost = new MultipleItemSpellCost()
                 .WithCost(ItemID.Feather, 30)
                 .WithCost(ItemID.GravitationPotion, 5);

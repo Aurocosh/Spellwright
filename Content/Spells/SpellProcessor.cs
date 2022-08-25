@@ -63,7 +63,7 @@ namespace Spellwright.Content.Spells
                 {
                     item = player.InventoryFindItem(itemType, InventoryArea.Hotbar);
                     if (item == null)
-                        return SpellCastResult.NoTomeToBind;
+                        return SpellCastResult.NoResonatorToBind;
                 }
 
                 var bookItem = item.ModItem as SpellResonator;

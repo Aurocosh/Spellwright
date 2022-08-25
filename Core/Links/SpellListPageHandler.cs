@@ -77,6 +77,7 @@ namespace Spellwright.Core.Links
             var hideCostLink = GetCostLink("HideCost", false, pageData);
             var showCostLink = GetCostLink("ShowCost", true, pageData);
             stringBuilder.AppendLine($"{hideCostLink} | {showCostLink}");
+            stringBuilder.AppendLine();
 
             AscendSpell ascendSpell = ModContent.GetInstance<AscendSpell>();
             int maxSpellLevel = spellsByLevel.Keys.DefaultIfEmpty(0).Max();

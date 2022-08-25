@@ -18,6 +18,7 @@ namespace Spellwright.Core.Links.Base
             registerHandler(new VoidStoragePageHandler());
             registerHandler(new SpellTypePageHandler());
             registerHandler(new SpellModifierPageHandler());
+            registerHandler(new ModItemPageHandler());
         }
 
         public string HandleLink(ref LinkData linkData, Player player)

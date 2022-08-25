@@ -20,6 +20,7 @@ namespace Spellwright.Core.Links.Base
         }
 
         protected LocalizedText GetTranslation(string key) => Spellwright.GetTranslation("PageHandler", Type, key);
+        protected LocalizedText GetTranslation(string category, string subcategory) => Spellwright.GetTranslation("PageHandler", Type, category, subcategory);
         protected FormattedText GetFormText(string key) => new FormattedText(GetTranslation(key).Value);
     }
 }

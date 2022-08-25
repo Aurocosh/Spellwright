@@ -113,10 +113,7 @@ namespace Spellwright.UI.Components.TextBox.Text
 
         public static LinkData Parse(string linkText)
         {
-
-
             Regex linkRegex = new(@"link:([^=\)]+)\s*=?\s*(.*)?");
-
 
             var match = linkRegex.Match(linkText);
             if (match.Success)
