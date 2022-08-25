@@ -24,32 +24,34 @@ namespace Spellwright.Content.Items.SpellTomes
             Tooltip.SetDefault("Very valuable book that contains most rare and powerful spells. This tome contains spells ranging from level 7 to level 10.");
 
             var content = new SpellTomeContent();
+            content.AddCount(2, .8);
+            content.AddCount(3, .2);
 
             // Level 7
             content.AddSpell<ManaShieldSpell>();
             content.AddSpell<PurifySpell>();
-            content.AddSpell<SigilOfBerserkerSpell>();
-            content.AddSpell<SigilOfLegionSpell>();
-            content.AddSpell<SigilOfSageSpell>();
-            content.AddSpell<SigilOfSniperSpell>();
+            content.AddSpell<SigilOfBerserkerSpell>(3);
+            content.AddSpell<SigilOfLegionSpell>(3);
+            content.AddSpell<SigilOfSageSpell>(3);
+            content.AddSpell<SigilOfSniperSpell>(3);
             content.AddSpell<SoulNibblerSpell>();
 
             // Level 8
-            content.AddSpell<GravityDashSpell>();
+            content.AddSpell<GravityDashSpell>(3);
             content.AddSpell<LavaSplashSpell>();
             content.AddSpell<ReactiveArmorSpell>();
-            content.AddSpell<StateLockSpell>();
+            content.AddSpell<StateLockSpell>(2);
             content.AddSpell<VortexHandsSpell>();
 
             // Level 9
-            content.AddSpell<AdventOfSummerSpell>();
-            content.AddSpell<BindMirrorSpell>();
+            content.AddSpell<AdventOfSummerSpell>(3);
+            content.AddSpell<BindMirrorSpell>(2);
             content.AddSpell<GreedyVortexSpell>();
 
             // Level 10
-            content.AddSpell<HymnOfDiscordSpell>();
+            content.AddSpell<HymnOfDiscordSpell>(3);
             content.AddSpell<MagickaFairySpell>();
-            content.AddSpell<MetabolicBoostSpell>();
+            content.AddSpell<MetabolicBoostSpell>(2);
 
             Add(Type, content);
         }

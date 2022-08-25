@@ -47,6 +47,7 @@ Mods: {
 			Level: Level
 			KnownSpells: Known 
 			StoredItems: Stored items
+			SpellsLearned: "Spells learned: {0}"
 		}
 
 		CastErrors: {

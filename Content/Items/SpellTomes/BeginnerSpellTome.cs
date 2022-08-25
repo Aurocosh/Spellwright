@@ -25,46 +25,49 @@ namespace Spellwright.Content.Items.SpellTomes
             Tooltip.SetDefault("A book that contains multitude of common low level spells. This tome contains spells ranging from level 1 to level 3.");
 
             var content = new SpellTomeContent();
+            content.AddCount(2, .70);
+            content.AddCount(3, .25);
+            content.AddCount(4, .05);
 
             // Level 1
-            content.AddSpell<FireballSpell>();
-            content.AddSpell<ForceOfCreationSpell>();
+            content.AddSpell<FireballSpell>(3);
+            content.AddSpell<ForceOfCreationSpell>(2);
             content.AddSpell<KissOfCloverSpell>();
-            content.AddSpell<MineralFeverSpell>();
-            content.AddSpell<NightEyeSpell>();
+            content.AddSpell<MineralFeverSpell>(3);
+            content.AddSpell<NightEyeSpell>(2);
             content.AddSpell<PremonitionSpell>();
-            content.AddSpell<ReturnToFishSpell>();
+            content.AddSpell<ReturnToFishSpell>(2);
             content.AddSpell<SpringDropletSpell>();
             content.AddSpell<TorchEaterSpell>();
-            content.AddSpell<WallShredderSpell>();
-            content.AddSpell<WillOfTorchGodSpell>();
+            content.AddSpell<WallShredderSpell>(2);
+            content.AddSpell<WillOfTorchGodSpell>(3);
 
             // Level 2
             content.AddSpell<BattlecrySpell>();
-            content.AddSpell<DragonSpitSpell>();
-            content.AddSpell<FlashStepSpell>();
-            content.AddSpell<InnerSunshineSpell>();
-            content.AddSpell<ReagentVoidSpell>();
+            content.AddSpell<DragonSpitSpell>(2);
+            content.AddSpell<FlashStepSpell>(3);
+            content.AddSpell<InnerSunshineSpell>(3);
+            content.AddSpell<ReagentVoidSpell>(2);
             content.AddSpell<SeaBlessingSpell>();
             content.AddSpell<SharpenSpell>();
             content.AddSpell<ShellOfIceSpell>();
-            content.AddSpell<ShockwaveSpell>();
-            content.AddSpell<StoneBulletSpell>();
+            content.AddSpell<ShockwaveSpell>(2);
+            //content.AddSpell<StoneBulletSpell>();
             content.AddSpell<TigerEyesSpell>();
-            content.AddSpell<WallSpitterSpell>();
+            content.AddSpell<WallSpitterSpell>(2);
 
             // Level 3
-            content.AddSpell<AirDashSpell>();
-            content.AddSpell<BirdOfMidasSpell>();
+            content.AddSpell<AirDashSpell>(3);
+            content.AddSpell<BirdOfMidasSpell>(2);
             content.AddSpell<EvaporateSpell>();
-            content.AddSpell<FanOfFlamesSpell>();
+            //content.AddSpell<FanOfFlamesSpell>();
             content.AddSpell<FeatherfallSpell>();
-            content.AddSpell<GaleForceSpell>();
+            content.AddSpell<GaleForceSpell>(2);
             content.AddSpell<HeartThrowerSpell>();
             content.AddSpell<ManaStarfallSpell>();
-            content.AddSpell<OceanGateSpell>();
+            content.AddSpell<OceanGateSpell>(3);
             content.AddSpell<RestockSpell>();
-            content.AddSpell<SurgeOfLifeSpell>();
+            content.AddSpell<SurgeOfLifeSpell>(2);
             content.AddSpell<WarpMirrorSpell>();
 
             Add(Type, content);

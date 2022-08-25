@@ -185,9 +185,10 @@ namespace Spellwright.Content.NPCs
                 {
                     SoundEngine.PlaySound(SoundID.Item25);
 
-                    int fruitId = ModContent.ItemType<BizzareFruit>();
-                    Main.npcChatText = Spellwright.GetTranslation("SpellwrightNpc", "FruitOffer").Format(Lang.GetItemNameValue(fruitId));
-                    player.QuickSpawnItem(new EntitySource_Gift(NPC), fruitId);
+                    int bizzareFruitId = ModContent.ItemType<BizzareFruit>();
+                    int purifiedFruitId = ModContent.ItemType<PurifiedFruit>();
+                    Main.npcChatText = Spellwright.GetTranslation("SpellwrightNpc", "FruitOffer").Format(Lang.GetItemNameValue(bizzareFruitId), Lang.GetItemNameValue(purifiedFruitId));
+                    player.QuickSpawnItem(new EntitySource_Gift(NPC), bizzareFruitId);
                 }
             }
         }

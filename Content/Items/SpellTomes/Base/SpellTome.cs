@@ -1,10 +1,14 @@
+using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
 using Spellwright.Content.Spells.Base;
 using Spellwright.ExecutablePackets.Broadcast.DustSpawners;
+using Spellwright.MyLibs.Randoms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Spellwright.Content.Items.SpellTomes.Base
@@ -23,7 +27,7 @@ namespace Spellwright.Content.Items.SpellTomes.Base
             Item.consumable = true;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.useTime = 30;
-            Item.maxStack = 1;
+            Item.maxStack = 30;
             Item.UseSound = SoundID.Item4;
             Item.useAnimation = 30;
             Item.value = Item.buyPrice(0, 0, 10);
@@ -53,10 +57,31 @@ namespace Spellwright.Content.Items.SpellTomes.Base
             if (unknownSpells.Count == 0)
                 return false;
 
-            foreach (var spell in unknownSpells)
-                spellPlayer.KnownSpells.Add(spell.Type);
+            var possibleSpells = new DistributedRandom<ModSpell>();
+            foreach (var modSpell in unknownSpells)
+            {
+                var distribution = tome.SpellDistributions[modSpell];
+                possibleSpells.Add(modSpell, distribution);
+            }
 
-            var spawner = new LevelUpDustSpawner(player, unknownSpells.Select(x => x.SpellLevel));
+            int spellsToAdd = tome.SpellCounts.GetRandomItem(Main.rand.NextDouble());
+            spellsToAdd = Math.Min(spellsToAdd, unknownSpells.Count);
+
+            var learnedSpells = new List<ModSpell>();
+            for (int i = 0; i < spellsToAdd; i++)
+            {
+                var spell = possibleSpells.GetRandomItem(Main.rand.NextDouble());
+                spellPlayer.KnownSpells.Add(spell.Type);
+                possibleSpells.Remove(spell);
+                learnedSpells.Add(spell);
+            }
+
+            var learnedNames = learnedSpells.Select(x => x.DisplayName.GetTranslation(Language.ActiveCulture));
+            var names = string.Join(", ", learnedNames);
+            var message = Spellwright.GetTranslation("General", "SpellsLearned");
+            Main.NewText(message.Format(names), Color.White);
+
+            var spawner = new LevelUpDustSpawner(player, learnedSpells.Select(x => x.SpellLevel));
             spawner.Execute();
 
             return true;

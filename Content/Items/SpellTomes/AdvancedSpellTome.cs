@@ -24,39 +24,42 @@ namespace Spellwright.Content.Items.SpellTomes
             Tooltip.SetDefault("A book that contains complex and potent mid level spells. This tome contains spells ranging from level 4 to level 6.");
 
             var content = new SpellTomeContent();
+            content.AddCount(2, .70);
+            content.AddCount(3, .25);
+            content.AddCount(4, .05);
 
             // Level 4
             content.AddSpell<BewitchSpell>();
-            content.AddSpell<BlockSpitterSpell>();
+            content.AddSpell<BlockSpitterSpell>(2);
             content.AddSpell<BloodArrowSpell>();
             content.AddSpell<BoltOfConfusionSpell>();
-            content.AddSpell<HellGateSpell>();
-            content.AddSpell<HolyShoesSpell>();
-            content.AddSpell<PiggySpell>();
+            content.AddSpell<HellGateSpell>(3);
+            content.AddSpell<HolyShoesSpell>(2);
+            content.AddSpell<PiggySpell>(3);
             content.AddSpell<PotionVoidSpell>();
             content.AddSpell<RainCallSpell>();
-            content.AddSpell<SkyGateSpell>();
+            content.AddSpell<SkyGateSpell>(2);
             content.AddSpell<TileRollerSpell>();
 
             // Level 5
             content.AddSpell<BurningSoulSpell>();
-            content.AddSpell<CallOfTheDepthsSpell>();
+            content.AddSpell<CallOfTheDepthsSpell>(3);
             content.AddSpell<ClearMindSpell>();
             content.AddSpell<DesertRiteSpell>();
-            content.AddSpell<EyesOfProfitSpell>();
+            content.AddSpell<EyesOfProfitSpell>(3);
             content.AddSpell<GlassCannonSpell>();
-            content.AddSpell<ObsidianSkinSpell>();
-            content.AddSpell<ShadowStepSpell>();
-            content.AddSpell<VoidMarkSpell>();
+            content.AddSpell<ObsidianSkinSpell>(2);
+            content.AddSpell<ShadowStepSpell>(2);
+            content.AddSpell<VoidMarkSpell>(2);
 
             // Level 6
-            content.AddSpell<DungeonGateSpell>();
+            content.AddSpell<DungeonGateSpell>(3);
             content.AddSpell<FortressStanceSpell>();
-            content.AddSpell<ItemVoidSpell>();
+            content.AddSpell<ItemVoidSpell>(3);
             content.AddSpell<PulseHealingSpell>();
-            content.AddSpell<RitualOfHarvestSpell>();
+            content.AddSpell<RitualOfHarvestSpell>(2);
             content.AddSpell<SelfDefenseHexSpell>();
-            content.AddSpell<ShapedChargeSpell>();
+            content.AddSpell<ShapedChargeSpell>(2);
 
             Add(Type, content);
         }
