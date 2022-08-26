@@ -17,9 +17,6 @@ namespace Spellwright
 {
     public class Spellwright : Mod
     {
-        internal static ModKeybind OpenIncantationUIHotKey;
-        internal static ModKeybind CastCantripHotKey;
-
         internal static Spellwright Instance;
 
         internal UISpellInputState spellInputState;
@@ -37,9 +34,6 @@ namespace Spellwright
             if (BuildInfo.tMLVersion < new Version(0, 11, 5))
                 throw new Exception("\nThis mod uses functionality only present in the latest tModLoader. Please update tModLoader to use this mod\n\n");
             Instance = this;
-
-            OpenIncantationUIHotKey = KeybindLoader.RegisterKeybind(this, "Start incantation", "X");
-            CastCantripHotKey = KeybindLoader.RegisterKeybind(this, "Cast cantrip", "Mouse4");
 
             if (Main.rand == null)
                 Main.rand = new UnifiedRandom();
@@ -65,8 +59,6 @@ namespace Spellwright
             spellInputState = null;
             uiMessageState = null;
             userInterface = null;
-            OpenIncantationUIHotKey = null;
-            CastCantripHotKey = null;
 
             NetworkAction.Unload();
             SpellLoader.Unload();

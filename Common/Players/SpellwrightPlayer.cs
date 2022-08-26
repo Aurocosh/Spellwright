@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Common.System;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Core.Spells;
 using Spellwright.Extensions;
@@ -199,7 +200,7 @@ namespace Spellwright.Common.Players
                     {
                         spellInterface.SetState(null);
                     }
-                    else if (Spellwright.OpenIncantationUIHotKey.JustPressed)
+                    else if (KeybindSystem.OpenIncantationUIHotKey.JustPressed)
                     {
                         if (spellInterface.CurrentState == uiMessageState)
                         {
@@ -230,10 +231,10 @@ namespace Spellwright.Common.Players
                                 Main.mapFullscreen = false;
                         }
                     }
-                    else if (Spellwright.CastCantripHotKey.JustPressed || Spellwright.CastCantripHotKey.Current)
+                    else if (KeybindSystem.CastCantripHotKey.JustPressed || KeybindSystem.CastCantripHotKey.Current)
                     {
-                        bool singleCasted = Spellwright.CastCantripHotKey.JustPressed && !canAutoReuseCantrip;
-                        bool continuosCast = Spellwright.CastCantripHotKey.Current && canAutoReuseCantrip;
+                        bool singleCasted = KeybindSystem.CastCantripHotKey.JustPressed && !canAutoReuseCantrip;
+                        bool continuosCast = KeybindSystem.CastCantripHotKey.Current && canAutoReuseCantrip;
 
                         if ((singleCasted || continuosCast) && nextCantripDelay == 0 && CurrentCantrip != null && CantripData != null)
                         {
@@ -251,7 +252,7 @@ namespace Spellwright.Common.Players
                         }
                     }
                 }
-                else if (spellPlayer.LearnedBasics && Spellwright.OpenIncantationUIHotKey.JustPressed)
+                else if (spellPlayer.LearnedBasics && KeybindSystem.OpenIncantationUIHotKey.JustPressed)
                 {
                     UIMessageState uiMessageState = Spellwright.Instance.uiMessageState;
                     UserInterface spellInterface = Spellwright.Instance.userInterface;
