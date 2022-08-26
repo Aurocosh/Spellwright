@@ -38,6 +38,7 @@ namespace Spellwright.Content.Spells.Enchant
             var itemId = Item.NewItem(new EntitySource_Parent(player), player.Center, itemType, 1, false, 0, true);
             Item item = Main.item[itemId];
             var modItem = item.ModItem as BoundMagicMirror;
+            modItem.WorldName = Main.worldName;
             modItem.LocationName = locationName;
             modItem.BoundLocation = player.position;
 

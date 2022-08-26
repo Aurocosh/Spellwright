@@ -78,8 +78,9 @@ Mods: {
 		}
 
 		BoundMirror: {
+			WorldName: World: {0}
 			LocationName: Location: {0}
-			LocationCoordinates: X:{0} Y:{1}
+			BoundCoordinates: Coordinates: {0}
 		}
 
 		CastResult: {
