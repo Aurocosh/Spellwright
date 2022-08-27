@@ -13,16 +13,10 @@ namespace Spellwright.UI.Components.TextBox.MarkerProcessors.Base
 
         static PageMarkerProcessor()
         {
-            RegisterProcessor(new Header1MarkerProcessor());
-            RegisterProcessor(new Header2MarkerProcessor());
+            RegisterProcessor(new HeaderMarkerProcessor());
             RegisterProcessor(new LevelUnlockCostsMarkerProcessor());
             RegisterProcessor(new PlayerLevelMarkerProcessor());
-            RegisterProcessor(new SpellLinkMarkerProcessor());
-            RegisterProcessor(new SpellModifierLinkMarkerProcessor());
-            RegisterProcessor(new SpellTypeLinkMarkerProcessor());
-            RegisterProcessor(new StaticLinkMarkerProcessor());
             RegisterProcessor(new PermamentBuffListMarkerProcessor());
-            RegisterProcessor(new ItemLinkMarkerProcessor());
             RegisterProcessor(new TomeSpellListMarkerProcessor());
         }
 

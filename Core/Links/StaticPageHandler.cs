@@ -12,8 +12,8 @@ namespace Spellwright.Core.Links
 
         public override string ProcessLink(ref LinkData linkData, Player player)
         {
-            var pageName = linkData.GetParameter("id");
-            if (pageName == null)
+            string pageName = linkData.Id;
+            if (pageName.Length == 0)
             {
                 Spellwright.Instance.Logger.Error($"Page id is not specified");
                 return null;
@@ -26,7 +26,7 @@ namespace Spellwright.Core.Links
                 return null;
             }
 
-            pageContent += "\n\n\n";
+            //pageContent += "\n\n\n";
             return pageContent;
         }
     }

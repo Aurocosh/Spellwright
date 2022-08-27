@@ -21,7 +21,8 @@ namespace Spellwright.UI.Components.TextBox.TextProcessors
                 if (result != null)
                 {
                     result = markerHandler.ReplaceMarkers(result, player);
-                    string id = linkData.GetParameter("id") ?? linkData.Type;
+
+                    string id = linkData.Id.Length > 0 ? linkData.Id : linkData.Type;
                     return new LinkTextResult(id, result, linkText, linkData.ToString());
                 }
             }

@@ -11,13 +11,12 @@ namespace Spellwright.Core.Links
     {
         public override string ProcessLink(ref LinkData linkData, Player player)
         {
-            var modifier = linkData.GetParameter("type", SpellModifier.None);
+            var modifier = linkData.GetId(SpellModifier.None);
 
             var builder = new StringBuilder();
 
             string title = GetFormText(modifier == SpellModifier.None ? "SpellModifiers" : modifier.ToString()).WithColor(Color.Purple).ToString();
             builder.AppendLine(title);
-            builder.AppendLine();
 
             string description = GetFormText("Description").WithColor(Color.DarkGray).ToString();
             builder.AppendLine(description);

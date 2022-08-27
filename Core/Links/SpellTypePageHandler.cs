@@ -18,13 +18,12 @@ namespace Spellwright.Core.Links
 
         public override string ProcessLink(ref LinkData linkData, Player player)
         {
-            var category = linkData.GetParameter("type", SpellTypesCategories.All);
+            var category = linkData.GetId(SpellTypesCategories.All);
 
             var builder = new StringBuilder();
 
             string title = GetFormText(category == SpellTypesCategories.All ? "SpellTypes" : category.ToString()).WithColor(Color.Purple).ToString();
             builder.AppendLine(title);
-            builder.AppendLine();
 
             string shortSummary = GetFormText("ShortSummary").WithColor(Color.DarkGray).ToString();
             builder.AppendLine(shortSummary);
@@ -72,6 +71,5 @@ namespace Spellwright.Core.Links
             var text = GetTranslation(subtype + type);
             return $"{name} - {text}";
         }
-
     }
 }

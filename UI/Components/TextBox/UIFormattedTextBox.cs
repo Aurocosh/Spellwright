@@ -132,7 +132,7 @@ namespace Spellwright.UI.Components.TextBox
 
             var parser = new TextBoxParser();
             var textParts = parser.ParseText(text, font);
-            textLines = parser.SplitTextByLines(textParts, space, font);
+            textLines = TextBoxParser.SplitTextByLines(textParts, space, font);
             links = parser.GenerateLinkInformation(textLines);
 
             float position = 0f;

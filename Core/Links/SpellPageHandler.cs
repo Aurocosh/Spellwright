@@ -22,7 +22,9 @@ namespace Spellwright.Core.Links
 
         public override string ProcessLink(ref LinkData linkData, Player player)
         {
-            var spellName = linkData.GetParameter("name");
+            var spellName = linkData.Id;
+            if (!spellName.EndsWith("Spell"))
+                spellName += "Spell";
             var spell = SpellLibrary.GetSpellByName(spellName);
             if (spell == null)
             {
@@ -59,7 +61,7 @@ namespace Spellwright.Core.Links
 
             string favText = isFavorite ? "Favorite" : "NotFavorite";
             Color color = isFavorite ? Color.PaleVioletRed : Color.DarkGray;
-            string favLine = new FormattedText(favText, color).WithLink("Spell").WithParam("name", spell.Name).WithParam("toggleFavorite").ToString();
+            string favLine = new FormattedText(favText, color).WithLink("Spell", spell.Name).WithParam("toggleFavorite").ToString();
             builder.AppendLine(favLine);
 
             var descriptionValues = spell.GetDescriptionValues(player, spellPlayer.PlayerLevel, SpellData.EmptyData, true);

@@ -10,7 +10,7 @@ namespace Spellwright.UI.Components.TextBox
 {
     internal class TextBoxParser
     {
-        private static readonly Regex formatRegex = new(@"\*\[([^\]]*)\]\(([^)]*)\)");
+        private static readonly Regex formatRegex = new(@"\*\[([^\]]*)\]((?:<[^>]+>)?(?:\([^)]*\))?)");
 
         public List<ITextPart> ParseText(string text, DynamicSpriteFont font)
         {
@@ -68,7 +68,7 @@ namespace Spellwright.UI.Components.TextBox
             return expandedParts;
         }
 
-        public List<TextLine> SplitTextByLines(List<ITextPart> textParts, CalculatedStyle space, DynamicSpriteFont font)
+        public static List<TextLine> SplitTextByLines(List<ITextPart> textParts, CalculatedStyle space, DynamicSpriteFont font)
         {
             var textLines = new List<TextLine>();
             float textHeight = font.MeasureString("A").Y;
@@ -159,7 +159,6 @@ namespace Spellwright.UI.Components.TextBox
                 {
                     if (part is FormattedTextPart formattedPart && formattedPart.HasLink)
                     {
-
                         var minX = baseX;
                         var maxX = minX + part.Width;
                         var minY = baseY;
@@ -167,7 +166,7 @@ namespace Spellwright.UI.Components.TextBox
 
                         var topLeft = new Vector2(minX, minY);
                         var bottomRight = new Vector2(maxX, maxY);
-                        links.Add(new UILinkData(formattedPart, lineIndex, formattedPart.Text, formattedPart.Link, topLeft, bottomRight));
+                        links.Add(new UILinkData(formattedPart, lineIndex, formattedPart.Text, formattedPart.ParameterText, topLeft, bottomRight));
                     }
                     baseX += part.Width;
                 }

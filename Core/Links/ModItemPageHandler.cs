@@ -16,7 +16,7 @@ namespace Spellwright.Core.Links
 
         public override string ProcessLink(ref LinkData linkData, Player player)
         {
-            var itemName = linkData.GetParameter("name");
+            var itemName = linkData.Id;
             if (!ModContent.TryFind(Spellwright.Instance.Name, itemName, out ModItem modItem))
             {
                 Spellwright.Instance.Logger.Error($"Item not found: {itemName}");

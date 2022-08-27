@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Spellwright.Content.Items.SpellTomes.Base;
+﻿using Spellwright.Content.Items.SpellTomes.Base;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Lib;
 using Spellwright.UI.Components.TextBox.MarkerProcessors.Base;
@@ -41,7 +40,7 @@ namespace Spellwright.Core.Markers
                 foreach (var spell in spells)
                 {
                     var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture);
-                    var line = new FormattedText(displayName, Color.DarkGoldenrod).WithLink("Spell").WithParam("name", spell.Name).ToString();
+                    var line = new FormattedText(displayName).WithLink("Spell", spell.Name).ToString();
                     stringBuilder.AppendLine(line);
                 }
                 stringBuilder.AppendLine();

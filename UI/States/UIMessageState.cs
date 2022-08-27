@@ -41,7 +41,7 @@ namespace Spellwright.UI.States
             messageBox.PaddingLeft = 20f;
             messageBox.PaddingTop = 10f;
             messageBox.PaddingRight = 20f;
-            messageBox.PaddingBottom = 50f;
+            messageBox.PaddingBottom = 60f;
             messageBox.OnLinkClicked += OnLineClicked;
             messageBox.OnPageChanged += OnPageChanged;
 
@@ -183,7 +183,7 @@ namespace Spellwright.UI.States
 
         public void SetText(string text, bool resetHitory = false) => messageBox.SetText(text, resetHitory);
         public void SetLink(string linkText, bool resetHitory = false) => messageBox.SetLink(linkText, resetHitory);
-        public void GoHome() => messageBox.SetLink("link:Static=id:Home", true);
+        public void GoHome() => messageBox.SetLink("<Static:Home>", true);
         public void Refresh() => messageBox.Refresh();
 
         private void RefreshButtons()

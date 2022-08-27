@@ -58,7 +58,7 @@ namespace Spellwright.Core.Links
             MultiValueDictionary<int, ModSpell> spellsByLevel = PrepareSpellList(spellPlayer, category, typeCategory);
 
             var stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine(GetTranslation("Spells").Value);
+            stringBuilder.AppendLine(GetFormText("Spells").ToString());
 
             var pageData = new SpellPageData(category, typeCategory, showCost);
 
@@ -156,7 +156,7 @@ namespace Spellwright.Core.Links
         private string GenerateSpellLine(Player player, bool showCost, SpellwrightPlayer spellPlayer, ModSpell spell)
         {
             var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture);
-            var line = new FormattedText(displayName, Color.DarkGoldenrod).WithLink("Spell").WithParam("name", spell.Name).ToString();
+            var line = new FormattedText(displayName).WithLink("Spell", spell.Name).ToString();
 
             if (showCost)
             {

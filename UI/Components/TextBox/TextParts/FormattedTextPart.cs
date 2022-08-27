@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ReLogic.Graphics;
+using Spellwright.UI.Components.TextBox.Text;
+using System.Collections.Generic;
 using DColor = System.Drawing.Color;
 using DColorTranslator = System.Drawing.ColorTranslator;
 
@@ -7,57 +9,60 @@ namespace Spellwright.UI.Components.TextBox.TextParts
 {
     internal class FormattedTextPart : PlainTextPart
     {
-        public int TextId { get; }
-        public string Link { get; }
-        public Color CustomColor { get; }
+        private readonly Dictionary<string, Color> linkColorMap = new()
+        {
+            { "Spell", Color.DarkGoldenrod },
+            { "ModItem", Color.DarkSlateBlue},
+        };
 
+        public int TextId { get; }
+        public bool HasLink { get; }
+        public string ParameterText { get; }
+        public Color CustomColor { get; }
         public bool HasCustomColor { get; }
 
-        public bool HasLink => Link?.Length > 0;
-
-        public FormattedTextPart(int textId, string text, string options, DynamicSpriteFont font) :
+        public FormattedTextPart(int textId, string text, string linkText, DynamicSpriteFont font) :
             base(text, font)
         {
             TextId = textId;
-            Link = "";
+            ParameterText = "";
             HasCustomColor = false;
-            foreach (var option in options.Split(','))
+
+            var linkData = LinkData.Parse(linkText);
+            HasLink = linkData.IsLinkValid;
+
+            if (linkData.HasParameter("color"))
             {
-                if (option.StartsWith("link:"))
-                {
-                    Link = option;
-                }
-                else
-                {
-                    var parts = option.Split('=', 2);
-                    if (parts.Length == 2)
-                    {
-                        var name = parts[0].Trim();
-                        var value = parts[1].Trim();
-                        if (name == "color")
-                        {
-                            var clrColor = DColor.FromName(value);
-                            if (!clrColor.IsKnownColor)
-                                clrColor = DColorTranslator.FromHtml(value);
-                            CustomColor = new Color(clrColor.R, clrColor.G, clrColor.B, clrColor.A);
-                            HasCustomColor = true;
-                        }
-                    }
-                }
+                var colorName = linkData.GetParameter("color");
+                var clrColor = DColor.FromName(colorName);
+                if (!clrColor.IsKnownColor)
+                    clrColor = DColorTranslator.FromHtml(colorName);
+                CustomColor = new Color(clrColor.R, clrColor.G, clrColor.B, clrColor.A);
+                HasCustomColor = true;
+
             }
 
-            if (!HasCustomColor && Link.Length > 0)
+            // TODO tostring
+            //linkData.RemoveParameter("color");
+            //LinkText = linkData.ToString();
+            ParameterText = linkText;
+
+            if (!HasCustomColor && HasLink)
             {
-                CustomColor = Color.CornflowerBlue;
+                if (!linkColorMap.TryGetValue(linkData.Type, out var color))
+                    color = Color.CornflowerBlue;
+
+                CustomColor = color;
                 HasCustomColor = true;
             }
         }
 
-        public FormattedTextPart(int textId, string text, string link, Color customColor, bool hasCustomColor, DynamicSpriteFont font)
+        public FormattedTextPart(int textId, string text, bool hasLink, string parameterText, Color customColor, bool hasCustomColor, DynamicSpriteFont font)
             : base(text, font)
         {
             TextId = textId;
-            Link = link;
+            HasLink = hasLink;
+            ParameterText = parameterText;
             CustomColor = customColor;
             HasCustomColor = hasCustomColor;
         }
@@ -69,7 +74,7 @@ namespace Spellwright.UI.Components.TextBox.TextParts
 
         public override ITextPart Alter(string text)
         {
-            return new FormattedTextPart(TextId, text, Link, CustomColor, HasCustomColor, Font);
+            return new FormattedTextPart(TextId, text, HasLink, ParameterText, CustomColor, HasCustomColor, Font);
         }
     }
 }

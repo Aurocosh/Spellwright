@@ -27,7 +27,7 @@ namespace Spellwright.Core.Links
 
         public override string ProcessLink(ref LinkData linkData, Player player)
         {
-            VoidStorageType storageType = linkData.GetParameter("type", VoidStorageType.Item);
+            VoidStorageType storageType = linkData.GetId(VoidStorageType.Item);
 
             var statPlayer = player.GetModPlayer<SpellwrightStatPlayer>();
             List<Item> storage;

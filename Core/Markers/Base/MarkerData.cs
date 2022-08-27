@@ -36,6 +36,28 @@ namespace Spellwright.UI.Components.TextBox.MarkerProcessors.Base
         public bool HasParameter(string name) => parameters.ContainsKey(name);
         public bool RemoveParameter(string name) => parameters.Remove(name);
 
+        public string GetId(string fallbackValue)
+        {
+            if (Id.Length > 0)
+                return Id;
+            return fallbackValue;
+        }
+
+        public int GetId(int fallbackValue)
+        {
+            if (int.TryParse(Id, out int intValue))
+                return intValue;
+            return fallbackValue;
+        }
+
+        public T GetId<T>(T fallbackValue)
+             where T : Enum
+        {
+            if (int.TryParse(Id, out int intValue))
+                return (T)(object)intValue;
+            return fallbackValue;
+        }
+
         public string GetParameter(string name, string fallbackValue = null)
         {
             if (parameters.TryGetValue(name, out var value))
@@ -113,7 +135,6 @@ namespace Spellwright.UI.Components.TextBox.MarkerProcessors.Base
 
         public static MarkerData Parse(string markerText)
         {
-            //Regex markerRegex = new(@"\*\{([^\}]*)\}(?:\{([^\}]*)\})?(?:\(([^)]*)\))?");
             Regex markerRegex = new(@"#(?:\[([^\]]*)\])?\{([^\}]*)\}(?:\(([^)]*)\))?");
 
             var match = markerRegex.Match(markerText);

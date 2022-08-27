@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using DColor = System.Drawing.Color;
 using DColorTranslator = System.Drawing.ColorTranslator;
 
@@ -15,14 +14,14 @@ namespace Spellwright.UI.Components.TextBox.Text
         public FormattedText(string text)
         {
             Text = text;
-            Link = null;
+            Link = new LinkData();
             CustomColor = null;
         }
 
         public FormattedText(string text, Color? color)
         {
             Text = text;
-            Link = null;
+            Link = new LinkData();
             CustomColor = color;
         }
 
@@ -34,14 +33,14 @@ namespace Spellwright.UI.Components.TextBox.Text
 
         public FormattedText WithLink(string linkType)
         {
-            Link = new LinkData(linkType);
+            Link.Type = linkType;
             return this;
         }
 
-        public FormattedText WithLink(string linkType, string parameter)
+        public FormattedText WithLink(string linkType, string linkId)
         {
-            Link = new LinkData(linkType);
-            Link.SetParameter(parameter);
+            Link.Type = linkType;
+            Link.Id = linkId;
             return this;
         }
 
@@ -78,24 +77,16 @@ namespace Spellwright.UI.Components.TextBox.Text
 
         public override string ToString()
         {
-            var options = new List<string>(2);
-            if (Link != null)
-            {
-                options.Add(Link.ToString());
-            }
             if (CustomColor != null)
             {
                 var color = CustomColor.Value;
                 var dcolor = DColor.FromArgb(color.A, color.R, color.G, color.B);
                 string colorHex = DColorTranslator.ToHtml(dcolor);
-                options.Add($"color={colorHex}");
+                Link.SetParameter("color", colorHex);
             }
 
-            if (options.Count == 0)
-                return Text;
-
-            var optionString = string.Join(',', options);
-            return $"*[{Text}]({optionString})";
+            var optionString = Link.ToString();
+            return $"*[{Text}]{optionString}";
         }
     }
 }
