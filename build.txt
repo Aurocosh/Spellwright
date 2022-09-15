@@ -1,5 +1,5 @@
 displayName = Spellwright
 author = Aurocosh
-version = 0.1
+version = 0.8
 dllReferences = NetSerializer
 languageVersion = 7

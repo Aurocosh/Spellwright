@@ -14,9 +14,9 @@ namespace Spellwright.Common.System
         public override void PostWorldGen()
         {
             PlaceItemsInChests(ModContent.ItemType<SpellResonator>(), 3, new int[] { 0, 1 });
-            PlaceItemsInChests(ModContent.ItemType<BeginnerSpellTome>(), 40, new int[] { 0, 1 });
-            PlaceItemsInChests(ModContent.ItemType<AdvancedSpellTome>(), 30, new int[] { 0, 1 });
-            PlaceItemsInChests(ModContent.ItemType<SupremeSpellTome>(), 20, new int[] { 0, 1, 2 });
+            PlaceItemsInChests(ModContent.ItemType<BeginnerSpellTome>(), 30, new int[] { 0, 1 });
+            PlaceItemsInChests(ModContent.ItemType<AdvancedSpellTome>(), 25, new int[] { 0, 1 });
+            PlaceItemsInChests(ModContent.ItemType<SupremeSpellTome>(), 15, new int[] { 0, 1, 2 });
         }
 
         private static void PlaceItemsInChests(int itemTypeId, int count, IEnumerable<int> allowedChestTypes)

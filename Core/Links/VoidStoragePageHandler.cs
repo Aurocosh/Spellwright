@@ -69,7 +69,7 @@ namespace Spellwright.Core.Links
             var displayedItems =
                 from item in storage
                 where item.type != ItemID.None && item.stack > 0
-                orderby item.Name ascending
+                orderby item.favorited descending, item.Name ascending
                 group item by item.type into itemGroup
                 select itemGroup;
 
@@ -79,33 +79,17 @@ namespace Spellwright.Core.Links
                 int count = value.Sum(x => x.stack);
 
                 string name = Lang.GetItemNameValue(item.type);
-                stringBuilder.Append($"{name} ({count})");
                 if (storageType == VoidStorageType.Potion)
                 {
                     string statusText = item.favorited ? "Unlocked" : "Locked";
                     Color color = item.favorited ? Color.DarkOrange : Color.DarkGray;
-                    string lockText = new FormattedText(statusText, color).WithLink("VoidStorage").WithParam("type", storageType).WithParam("fav", item.type).ToString();
-                    string drinkLink = new FormattedText("Drink", Color.Gray).WithLink("VoidStorage").WithParam("type", storageType).WithParam("drink", item.type).ToString();
-                    stringBuilder.Append($" ({lockText}, {drinkLink})");
+                    string lockText = new FormattedText(statusText, color).WithLink("VoidStorage", storageType).WithParam("fav", item.type).ToString();
+                    string drinkLink = new FormattedText("Drink", Color.Gray).WithLink("VoidStorage", storageType).WithParam("drink", item.type).ToString();
+                    stringBuilder.Append($" ({lockText}, {drinkLink}) - ");
                 }
+                stringBuilder.Append($"{name} ({count})");
                 stringBuilder.AppendLine();
             }
-
-
-            //foreach (var item in sortedStorage)
-            //{
-            //    if (item.type != ItemID.None && item.stack > 0)
-            //    {
-            //        string name = Lang.GetItemNameValue(item.type);
-            //        stringBuilder.Append($"{name} ({item.stack})");
-            //        if (storageType == VoidStorageType.Potion)
-            //        {
-            //            string drinkLink = new FormattedText("Drink", Color.Gray).WithLink("VoidStorage").WithParam("type", storageType).WithParam("drink", item.type).ToString();
-            //            stringBuilder.Append($" ({drinkLink})");
-            //        }
-            //        stringBuilder.AppendLine();
-            //    }
-            //}
 
             return stringBuilder.ToString();
         }

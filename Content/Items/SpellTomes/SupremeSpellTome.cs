@@ -34,7 +34,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<SigilOfLegionSpell>(3);
             content.AddSpell<SigilOfSageSpell>(3);
             content.AddSpell<SigilOfSniperSpell>(3);
-            content.AddSpell<SoulNibblerSpell>();
+            //content.AddSpell<SoulNibblerSpell>();
 
             // Level 8
             content.AddSpell<GravityDashSpell>(3);

@@ -61,7 +61,7 @@ namespace Spellwright.Core.Links
 
             string favText = isFavorite ? "Favorite" : "NotFavorite";
             Color color = isFavorite ? Color.PaleVioletRed : Color.DarkGray;
-            string favLine = new FormattedText(favText, color).WithLink("Spell", spell.Name).WithParam("toggleFavorite").ToString();
+            string favLine = GetFormText(favText).WithColor(color).WithLink("Spell", spell.Name).WithParam("toggleFavorite").ToString();
             builder.AppendLine(favLine);
 
             var descriptionValues = spell.GetDescriptionValues(player, spellPlayer.PlayerLevel, SpellData.EmptyData, true);
@@ -76,7 +76,7 @@ namespace Spellwright.Core.Links
 
                 if (value.Name == "SpellType")
                 {
-                    parameterValue = new FormattedText(parameterValue).WithLink("SpellType").WithParam("type", spell.UseType).ToString();
+                    parameterValue = new FormattedText(parameterValue).WithLink("SpellType", spell.UseType).ToString();
                 }
                 else if (value.Name == "ApplicableModifiers")
                 {
@@ -95,7 +95,7 @@ namespace Spellwright.Core.Links
         private string GetModifierLink(SpellModifier modifier)
         {
             var text = Spellwright.GetTranslation("SpellModifiers", modifier.ToString()).Value;
-            return new FormattedText(text).WithLink("SpellModifier").WithParam("type", modifier).ToString();
+            return new FormattedText(text).WithLink("SpellModifier", modifier).ToString();
         }
     }
 }

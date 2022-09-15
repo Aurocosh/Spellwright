@@ -1,1 +1,45 @@
-Spellwright is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+Spellwright is a magic mod that adds incantation based magic to the game
+
+You can report any bugs or issues on a dedicated github page:
+https://github.com/Aurocosh/Spellwright
+
+Features:
+- Unique spell casting system. To cast spell you type incantation with your keyboard 
+- 80 spells
+- Browser like interactive in-game guide book with hyperlink navigation and pretty colors
+- Progression system
+- Interactive spell list with filtration and ability to mark spells as favorite
+- Has no world gen. Can be added to existing worlds
+- Three different spell types: Invocation spells with instant effect, ability like Cantrip spells and spammable Echo spells.
+- Spell modifiers that can change behaviour of certain spells
+- Eternal buffs
+- Aoe buff spells
+- Spell item storage system that can free up your inventory from junk on your mining runs
+- Spell potion storage system that can store your potions and prevent them from littering your inventory
+- Configurable keybindings
+- 1 NPC charachter
+- 14 new items
+
+Short spell overview:
+- Spell that automatically places biome appropriate torches around you
+- Variety of teleportation spells. No need to waste inventory space for teleportation items
+- Block and wall filler spells
+- Explosive spells
+- Multitude of buff spells
+- Local teleportation and dodge spells
+- Eternal versions of vanilla buffs
+- Spell that can prevents loss of buffs on death
+- Spells that can create custom teleportation items
+- Strong class specific buff spells
+- Spell that can automatically harvest and replant alchemical plants in large area
+- Several item storage spells
+- And other spells...
+
+How to get started:
+1) Raise your mana to at least 100 and a new Spellwright npc will show up.
+2) Talk to him and ask him about his spellcraft. When asked he will give you a book "Spellwright Teachings". This book is an in-game guidebook as well as a key item required to unlock your spellcraft.
+3) Spellwright Teachings is a consumable item. Use this book with a left click to unlock in-game guidebook.
+4) You can open guidebook by pressing two keys together: "Start incantation button" + "Smart cursor button". Start incantation button is X by default. Smart cursor button is Shift by default. So, by defaul combination is "Shift + X". Keybinds can be changed in game settings.
+5) Read what you need to do next in your guide book.
+
+

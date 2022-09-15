@@ -44,6 +44,14 @@ namespace Spellwright.UI.Components.TextBox.Text
             return this;
         }
 
+        public FormattedText WithLink<T>(string linkType, T linkId)
+            where T : Enum
+        {
+            Link.Type = linkType;
+            Link.Id = ((int)(object)linkId).ToString();
+            return this;
+        }
+
         public FormattedText WithParam(string parameter, string value = "")
         {
             Link.SetParameter(parameter, value);

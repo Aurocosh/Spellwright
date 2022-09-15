@@ -129,7 +129,6 @@ Mods: {
 					  *[Spell types]<SpellType>
 					  *[Spell modifiers]<SpellModifier>
 					  *[Spell acquisition]<Static:SpellAcquisition>
-					  *[Spell reagents]<Static:SpellReagents>
 					  *[Spell levels]<Static:SpellLevels>
 					  *[Spell costs]<Static:SpellCostInfo>
 					  *[Spellwright Items]<Static:SpellwrightItemList>
@@ -205,9 +204,6 @@ Mods: {
 					Spells Return, Spark Caster and Mineral Fever are unlocked by default, so you just need to learn them and you don't need to unlock them.
 
 					Spell Force of Creation has to be unlocked. Unlock cost of this spell is 999 stone blocks. This is a level 1 spell that you can learn from Beginner Spell Tome. So, to use this spell, first of all, you need to read the Beginner Spell Tome and raise your spellcasting level to 1 (it starts at 0). Then you need to collect 999 stone blocks and put them into your inventory. With blocks in your inventory you need to cast this spell with *[Unlock]<SpellModifier:1> modifier. To cast this spell you need to press your designated spell cast button ('x' by default) and type text 'unlock force of creation'. If successful, stone blocks from your inventory will disappear, special effects will play out, and you will unlock this spell.
-					''',
-				SpellReagents: 
-					'''SpellReagents TODO
 					''',
 				SpellLevels: 
 					'''
@@ -780,31 +776,25 @@ Mods: {
 			# Storage
 			ItemVoidSpell: {
 				Name: Item Void
-				Description: This spell allows you to store items in large directly inaccessible personal inventory. Action performed by this spell depends on argument: info - displays list of all items in storage, push - moves all valid items from player inventory into storage inventory, pop - extracts all items from storage and drops them near player. If no argument is provided then default action is to display storage info. Inventory size depends on caster level and is equal to 50 items per level.
+				Description: This spell allows you to store items in a large, but directly inaccessible personal inventory. This type of void stroage can store items of any type. You cannot access one specific item at will, you can only extract all items at once. Action performed by this spell depends on the argument. If no argument is provided, then the spell will move all valid items from player inventory into storage inventory. Favorite items will not be moved by this spell. If pop argument is provided, then the spell will extract all items from storage and it will drop them near player. Inventory size depends on caster level and is equal to 50 items per level. You can see all of your stored items on page *[Item void storage]<VoidStorage:0>.
 				Examples: 
 					'''\n\tItem void - shows storage info
-					\tItem void: info - shows storage info
-					\tItem void: push - moves all valid items into storage
 					\tItem void: pop - extracts all items from storage
 					'''
 			}
 			PotionVoidSpell: {
 				Name: Potion Void
-				Description: This spell allows you to store potions in large directly inaccessible personal inventory. Only potions can be stored in this storage. All potions in this storage are auto used when the player uses quick buff. Action performed by this spell depends on argument: info - displays list of all items in storage, push - moves all valid items from player inventory into storage inventory, pop - extracts all items from storage and drops them near player. If no argument is provided then default action is to display storage info. Inventory size depends on caster level and is equal to 2 items per level.
+				Description: This spell allows you to store potions in a large personal inventory. Only potions can be stored in this storage. Action performed by this spell depends on the argument. If no argument is provided, then the spell will move all valid items from player inventory into storage inventory. Favorite items will not be moved by this spell. If pop argument is provided, then the spell will extract all items from storage and it will drop them near player. Inventory size depends on caster level and is equal to 6 items per level. All unlocked potions in this storage are automatically consumed when the player presses quick buff button. You can Lock and Unlock potions by pressing respective links near potion name on page *[Potion void storage]<VoidStorage:1>. You can see all of your stored potions on page *[Potion void storage]<VoidStorage:1>. On this page you can also drink any potion manually by pressing Drink link near potion name.
 				Examples: 
-					'''\n\tPotion void - shows storage info
-					\tPotion void: info - shows storage info
-					\tPotion void: push - moves all valid items into storage
+					'''\n\tPotion void - moves all valid items into storage
 					\tPotion void: pop - extracts all items from storage
 					'''
 			}
 			ReagentVoidSpell: {
 				Name: Reagent Void
-				Description: This spell allows you to store items in large directly inaccessible personal inventory. Only spell reagents can be stored in this storage. All reagents in this storage are accessible for spell casting. When you cast spell reagents will be taken from this storage first and then from player inventory. Action performed by this spell depends on argument: info - displays list of all items in storage, push - moves all valid items from player inventory into storage inventory, pop - extracts all items from storage and drops them near player. If no argument is provided then default action is to display storage info. Inventory size depends on caster level and is equal to 1 item per level.
+				Description: This spell allows you to store items in a large, but directly inaccessible personal inventory. Only spell reagents can be stored in this storage. All reagents in this storage are accessible for spell casting. When you cast spell reagents will be taken from this storage first and then from player inventory. Action performed by this spell depends on the argument. If no argument is provided, then the spell will move all valid items from player inventory into storage inventory. Favorite items will not be moved by this spell. If pop argument is provided, then the spell will extract all items from storage and it will drop them near player. Inventory size depends on caster level and is equal to 1 item per level. You can see all of your stored items on page *[Reagent void storage]<VoidStorage:2>.
 				Examples: 
-					'''\n\tReagent void - shows storage info
-					\tReagent void: info - shows storage info
-					\tReagent void: push - moves all valid items into storage
+					'''\n\tReagent void - moves all valid items into storage
 					\tReagent void: pop - extracts all items from storage
 					'''
 			}
