@@ -7,6 +7,8 @@ namespace Spellwright.MyLibs.Randoms
         private double distributionsSum = 0;
         private readonly Dictionary<T, double> distributions = new();
 
+        public int Count => distributions.Count;
+
         public T GetRandomItem(double randomValue)
         {
             var ratio = 1.0f / distributionsSum;

@@ -130,7 +130,7 @@ namespace Spellwright.UI.States
                 SpawnCircle(DustID.DemonTorch, position, 15, 90, 130);
                 SoundEngine.PlaySound(SoundID.Item45, position);
 
-                if (castResult != SpellCastResult.CustomError)
+                if (castResult != SpellCastResult.CustomError && castResult != SpellCastResult.NotEnoughReagents)
                 {
                     var message = Spellwright.GetTranslation("CastResult", castResult.ToString());
                     Main.NewText(message, Color.OrangeRed);

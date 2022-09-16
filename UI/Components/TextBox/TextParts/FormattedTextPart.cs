@@ -12,7 +12,7 @@ namespace Spellwright.UI.Components.TextBox.TextParts
         private readonly Dictionary<string, Color> linkColorMap = new()
         {
             { "Spell", Color.DarkGoldenrod },
-            { "ModItem", Color.DarkSlateBlue},
+            { "ModItem", Color.SlateBlue},
         };
 
         public int TextId { get; }
@@ -39,12 +39,8 @@ namespace Spellwright.UI.Components.TextBox.TextParts
                     clrColor = DColorTranslator.FromHtml(colorName);
                 CustomColor = new Color(clrColor.R, clrColor.G, clrColor.B, clrColor.A);
                 HasCustomColor = true;
-
             }
 
-            // TODO tostring
-            //linkData.RemoveParameter("color");
-            //LinkText = linkData.ToString();
             ParameterText = linkText;
 
             if (!HasCustomColor && HasLink)

@@ -48,6 +48,8 @@ Mods: {
 			KnownSpells: Known 
 			StoredItems: Stored items
 			SpellsLearned: "Spells learned: {0}"
+			SpellLevelTooLow: My spellcasting level is too low
+			AllSpellsKnown: I already know all spells in this tome
 		}
 
 		CastErrors: {
@@ -125,6 +127,7 @@ Mods: {
 				Home: 
 					'''Menu
 					 Guide
+					  *[Quick start guide]<Static:QuickStartGuide>
 					  *[How to become a Spellwright]<Static:SpellwrightBasics>
 					  *[Spell types]<SpellType>
 					  *[Spell modifiers]<SpellModifier>
@@ -141,6 +144,46 @@ Mods: {
 					  *[Item void storage]<VoidStorage:0>
 					  *[Potion void storage]<VoidStorage:1>
 					  *[Reagent void storage]<VoidStorage:2>
+					''',
+				QuickStartGuide: 
+					'''
+					#[How to become a Spellwright]{Header:1}
+					Spellwrights is an unusual type of mage. Unlike traditional terrarian mages which rely on mana and magical tools. Spellwrights use incantations in order to invoke magical phenomena. In order to become a Spellwright you will need to find a teacher, study mystic texts and complete dangerous rituals, but i assure you that the reward is well worth it. This book contains all necessary information that you need. Read on to take your first step toward becoming a Spellwright.
+					
+					#[Short summary]{Header:2}
+					1) Raise your mana to at least 100 and a new Spellwright npc will show up.
+					2) Talk to him and ask him about his spellcraft. When asked he will give you a book *[Spellwright Teachings]<ModItem:SpellwrightTeachings>. This book is an ingame guidebook as well as a key item required to unlock your spellcraft.
+					3) Spellwright Teachings is a consumable item. Use this book with a left click to unlock ingame guidebook and to proceed with spellcraft unlock.
+					4) After reading Spellwright Teachings talk to the Spellwright again. In order to unlock your spellcrafting ability you have to consume a mystic fruit. There are two types: *[Bizzare Fruit]<ModItem:BizzareFruit> and *[Purified Fruit]<ModItem:PurifiedFruit>. Either one of the fruits will work. Purified Fruit can be bought from Spellwrights store. It is expensive, but very safe option. Bizzare Fruit you can get for free, but this fruit is much more dangerous to eat. Talk to Spellwright and choose option "Ask for mystic fruit" and he will give you one Bizzare Fruit free of charge.
+					5) Eat whichever fruit you got and it will inflict you with a serious debuff for a while. Survive the duration of this debuff and if you do then it will unlock spellcasting for you.
+					6) Congrats, you are now a fledgeling Spellwright yourself and can cast four basic spells included in Spellwright Teachings.
+					7) To cast a spell press 'Start incantation' keybind and type in the spell incantation. For example you can type in 'Return' and press enter. When you do so you will be teleported to your spawn location.
+
+					#[Relevant keybinds]{Header:2}
+					Start incantation (X by default) - This button will open the spellcasting interface. Simple press of this button will open spellcasting ui, but if you press this button while holding a smart cursor button (Shift by default) then your ingame guidebook will open instead. If you unlocked ingame guidebook, but didn't learn spellcasting yet, then either pressing this button with or without the smart cursor button will open the guidebook.
+					Cast cantrip (Mouse4 by default) - When pressed this button will activate your current cantrip spell. You can learn more about this spell type on a dedicated page *[Cantrip]<SpellType:1>.
+
+					#[Spells included in Spellwright Teachings]{Header:2}
+					*[Ascend]<Spell:Ascend> - Special spell that can raise the spellcasting level of a player.
+					*[Mend]<Spell:Mend> - Weak healing spell
+					*[Return]<Spell:Return> - Home return spell.
+					*[Spark Caster]<Spell:SparkCaster> - Basic offensive cantrip.
+
+					#[Detailed guide]{Header:2}
+					First thing that you need to acquire in order to learn spellcasting is a special book called Spellwright Teachings. This book serves several purposes, first of all, it is an ingame guidebook that contains all information relevant to spellwirghts. On use it will permanently unlock the ingame guidebook for you. You can access this guidebook by pressing 'Start incantation' together with 'Smart Cursor' keybinds (x + shift) by default. Reading this book also teaches you 4 basic spells. In addition to that this book also imparts essential knowledge on how to awaken spellcasting onto your player, and allows you to proceed to the next step.
+
+					You can get this Spellwright Teachings for free from an npc called Spellwright. This npc will come to your world as soon as your mana will be higher or equal to 100. You don't need to purchase this book from Spellwright, talk to him and choose the dialog option "Ask about spellcraft" and he will give you this book for free. After you acquired Spellwright Teachings your next step is to read through this book. This book is a consumable item, take it in your hand and left click to study it. Upon use the book will disappear, and you will learn essential knowledge of spellcraft, basic spells and unlock an ingame guidebook.
+
+					After reading Spellwright Teachings you have to talk to Spellwright again. In order to unlock your spellcrafting ability you have to consume a special mystic fruit. There are two types of mystic fruits that you can eat: *[Bizzare Fruit]<ModItem:BizzareFruit> and *[Purified Fruit]<ModItem:PurifiedFruit>. You don't need to eat both fruits, either one is enough. The only difference between those fruits is that Purified Fruit is much safer and much less likely to kill you. This type of mystic fruit is much safer, but Spellwright won't give it to you for free. You will have to purchase it from his store for a hefty sum. You can alternatively choose a safer option and consume Bizzare Fruit. You can get Bizzare Fruit for free from Spellwright. Talk to him and choose the option "Ask for mystic fruit" and he will give you one Bizzare Fruit for free. If you consume Bizzare Fruit and it kills you, then you can come back to Spellwright and ask for another one, he will give you as many as you need for free.  
+
+					Eat whichever fruit you got and it will inflict you with a serious debuff called 'Soul Disturbance'. Both mystic fruits will inflict you with this debuff, but the duration of the debuff will be drastically different depending on the type of fruit. Duration will be very long if you consume Bizzare Fruit and it will be very short if you consume Purified Fruit. Soul disturbance debuff will torment you with random and unpredictable effects while it is active. To overcome this trial you just have to survive for the duration of this debuff. When the effect of this debuff ends it will unlock your spellcasting ability permanently.
+
+					After surviving consumption of mystic fruit you will become a spellwright yourself. With your spellcasting ability unlocked you can press 'Start incantation' keybind to open the spellcasting UI. Your spellcasting UI consists of a single text field in the center of your screen. While this ui is active you can type in your desired spell as a text with your keyboard and press enter to execute your spell. If entered text is a valid spell it will be immediately executed. If entered text is not a valid spell, or some other requirement is not met, then a relevant error message will appear in your chat.
+					
+					#[What to read next]{Header:2}
+					* There are only four spells included in Spellwright Teachings, you can read the page *[Spell acquisition]<Static:SpellAcquisition> in order to learn how to get more spells.
+					* You can read the page *[Spell levels]<Static:SpellLevels> in order to learn what is a spell level and what is a spellcasting level.
+					* You can read about different spell types on a page *[Spell types]<SpellType>.
 					''',
 				SpellwrightBasics: 
 					'''
@@ -526,7 +569,7 @@ Mods: {
 				Description: Gives player bewitched effect.
 			}
 			ClearMindSpell: {
-				Name: ClearMind
+				Name: Clear Mind
 				Description: Gives player clairvoyance effect.
 			}
 			EyesOfProfitSpell: {
@@ -736,7 +779,7 @@ Mods: {
 				Description: Shoots fireballs
 			}
 			GlassCannonSpell: {
-				Name: GlassCannon
+				Name: Glass Cannon
 				Description: Projectile from this spell deals massive amounts of damage, however if this projectile misses and hits the ground, then the caster will receive damage equal to 80 percent of his health
 			}
 			HeartThrowerSpell: {

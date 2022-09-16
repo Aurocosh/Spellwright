@@ -60,7 +60,7 @@ namespace Spellwright.Content.Items.SpellTomes
         {
             base.SetDefaults();
             //Item.value = Item.buyPrice(0, 0, 0, 1);
-            Item.value = Item.buyPrice(1, 0, 0);
+            Item.value = Item.buyPrice(0, 5, 0);
             Item.rare = ItemRarityID.Red;
         }
     }

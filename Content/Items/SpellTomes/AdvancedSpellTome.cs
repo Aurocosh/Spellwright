@@ -67,8 +67,7 @@ namespace Spellwright.Content.Items.SpellTomes
         public override void SetDefaults()
         {
             base.SetDefaults();
-            //Item.value = Item.buyPrice(0, 0, 0, 1);
-            Item.value = Item.buyPrice(0, 20);
+            Item.value = Item.buyPrice(0, 1);
             Item.rare = ItemRarityID.LightRed;
         }
     }

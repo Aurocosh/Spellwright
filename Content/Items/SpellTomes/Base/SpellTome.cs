@@ -26,10 +26,10 @@ namespace Spellwright.Content.Items.SpellTomes.Base
         {
             Item.consumable = true;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.useTime = 30;
+            Item.useTime = 90;
             Item.maxStack = 30;
             Item.UseSound = SoundID.Item4;
-            Item.useAnimation = 30;
+            Item.useAnimation = 90;
             Item.value = Item.buyPrice(0, 0, 10);
             Item.rare = ItemRarityID.Blue;
         }
@@ -57,22 +57,36 @@ namespace Spellwright.Content.Items.SpellTomes.Base
             if (unknownSpells.Count == 0)
                 return false;
 
-            var possibleSpells = new DistributedRandom<ModSpell>();
+            var highLevelSpells = new DistributedRandom<ModSpell>();
+            var appropriateLevelSpells = new DistributedRandom<ModSpell>();
             foreach (var modSpell in unknownSpells)
             {
                 var distribution = tome.SpellDistributions[modSpell];
-                possibleSpells.Add(modSpell, distribution);
+                if (modSpell.SpellLevel > spellPlayer.PlayerLevel)
+                    highLevelSpells.Add(modSpell, distribution);
+                else
+                    appropriateLevelSpells.Add(modSpell, distribution);
             }
 
             int spellsToAdd = tome.SpellCounts.GetRandomItem(Main.rand.NextDouble());
             spellsToAdd = Math.Min(spellsToAdd, unknownSpells.Count);
 
             var learnedSpells = new List<ModSpell>();
-            for (int i = 0; i < spellsToAdd; i++)
+            var appropriateSpellsCount = Math.Min(appropriateLevelSpells.Count, spellsToAdd);
+            for (int i = 0; i < appropriateSpellsCount; i++)
             {
-                var spell = possibleSpells.GetRandomItem(Main.rand.NextDouble());
+                var spell = appropriateLevelSpells.GetRandomItem(Main.rand.NextDouble());
                 spellPlayer.KnownSpells.Add(spell.Type);
-                possibleSpells.Remove(spell);
+                appropriateLevelSpells.Remove(spell);
+                learnedSpells.Add(spell);
+            }
+
+            var highLevelSpellCount = spellsToAdd - appropriateSpellsCount;
+            for (int i = 0; i < highLevelSpellCount; i++)
+            {
+                var spell = highLevelSpells.GetRandomItem(Main.rand.NextDouble());
+                spellPlayer.KnownSpells.Add(spell.Type);
+                highLevelSpells.Remove(spell);
                 learnedSpells.Add(spell);
             }
 
