@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
+using Spellwright.Config;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.SpellRelated;
 using Spellwright.Core.Links.Base;
@@ -130,6 +131,9 @@ namespace Spellwright.Core.Links
                 {
                     if (typeCategory != null && typeCategory != spell.UseType)
                         continue;
+                    if (SpellwrightServerConfig.Instance.DisabledSpellIds.Contains(spell.Type))
+                        continue;
+
                     if (showFavorite)
                     {
                         if (!spellPlayer.FavoriteSpells.Contains(spellId))

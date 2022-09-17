@@ -4,6 +4,7 @@
     {
         Success,
         IncantationInvalid,
+        SpellIsDisabled,
         ModifiersInvalid,
         ArgumentInvalid,
         LevelTooLow,

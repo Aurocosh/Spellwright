@@ -1,4 +1,5 @@
-﻿using Spellwright.Content.Items.SpellTomes.Base;
+﻿using Spellwright.Config;
+using Spellwright.Content.Items.SpellTomes.Base;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Lib;
 using Spellwright.UI.Components.TextBox.MarkerProcessors.Base;
@@ -54,8 +55,11 @@ namespace Spellwright.Core.Markers
             var spellsByLevel = new MultiValueDictionary<int, ModSpell>();
             foreach (var spell in spells)
             {
-                int spellLevel = spell.SpellLevel;
-                spellsByLevel.Add(spellLevel, spell);
+                if (!SpellwrightServerConfig.Instance.DisabledSpellIds.Contains(spell.Type))
+                {
+                    int spellLevel = spell.SpellLevel;
+                    spellsByLevel.Add(spellLevel, spell);
+                }
             }
 
             foreach (var item in spellsByLevel.Values)

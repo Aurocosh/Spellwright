@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
+using Spellwright.Config;
 using Spellwright.Content.Items;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
@@ -26,6 +27,9 @@ namespace Spellwright.Content.Spells
             var spellPlayer = SpellwrightPlayer.Instance;
             if (!spellPlayer.KnownSpells.Contains(spell.Type))
                 return SpellCastResult.IncantationInvalid;
+
+            if (SpellwrightServerConfig.Instance.DisabledSpellIds.Contains(spell.Type))
+                return SpellCastResult.SpellIsDisabled;
 
             var unlockResult = CheckUnlock(spellStructure, spell, spellPlayer);
             if (unlockResult != SpellCastResult.Success)

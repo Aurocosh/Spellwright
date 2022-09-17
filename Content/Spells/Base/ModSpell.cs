@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Spellwright.Config;
 using Spellwright.Content.Spells.Base.CostModifiers;
 using Spellwright.Content.Spells.Base.Description;
 using Spellwright.Content.Spells.Base.Modifiers;
@@ -37,11 +38,28 @@ namespace Spellwright.Content.Spells.Base
         protected SoundStyle? castSound;
         protected SoundStyle? useSound;
         protected float costModifier;
+        protected bool costIsImportant;
+        private SpellCost castCost;
+        private SpellCost useCost;
+        private SpellCost unlockCost;
+
         public virtual int SpellLevel { get; protected set; }
         public SpellType UseType { get; protected set; }
-        public SpellCost CastCost { get; protected set; }
-        public SpellCost UseCost { get; protected set; }
-        public SpellCost UnlockCost { get; protected set; }
+        public SpellCost CastCost
+        {
+            get => SpellwrightServerConfig.Instance.CastCostEnabled || costIsImportant ? castCost : null;
+            protected set => castCost = value;
+        }
+        public SpellCost UseCost
+        {
+            get => SpellwrightServerConfig.Instance.CastCostEnabled || costIsImportant ? useCost : null;
+            protected set => useCost = value;
+        }
+        public SpellCost UnlockCost
+        {
+            get => SpellwrightServerConfig.Instance.UnlockCostEnabled ? unlockCost : null;
+            protected set => unlockCost = value;
+        }
         public SpellModifier AppplicableModifiers { get; protected set; }
         private readonly Dictionary<SpellModifier, ICostModifier> spellCostModifiers;
 
@@ -73,6 +91,7 @@ namespace Spellwright.Content.Spells.Base
             CastCost = null;
             damageType = DamageClass.Generic;
             costModifier = 1f;
+            costIsImportant = false;
             AppplicableModifiers = SpellModifier.None;
             spellCostModifiers = new Dictionary<SpellModifier, ICostModifier>();
             castSound = SoundID.Item4;
