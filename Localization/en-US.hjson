@@ -454,7 +454,7 @@ Mods: {
 		}
 
 		MarkerProcessor: {
-				PermamentBuffList:{
+			PermamentBuffList:{
 				NoPermanentBuffs: I have no permanent buffs
 				HavePermanentBuffs: I have following permanent buffs
 			}
@@ -932,17 +932,8 @@ Mods: {
 				Name: Desert Rite
 				Description: Triggers sandstorm in desert. Can also dispel sandstorm.
 			}
-
-			StoneBullet: {
-				Name: StoneBullet
-				Description: Heals caster for a small amount instantly. Cannot heal more than 35% of players health. Also stops bleeding
-			}
 		}
 		
-		Currencies: {
-			ExampleCustomCurrency: example items
-		}
-
 		SpellwrightNpc:{
 			TeachingsOffer: You seems to be interested in my spellcraft. Take this book and study it diligently. Come back to me after you finished reading this book.
 			FruitOffer: So you are serious about learning my art! Splendid! Take this {0} and eat it to awaken your powers. Beware though, not everyone survives the awakening process! If you lack spirit of adventure, but have extra money to spare you can by {1} from my store. Either will awaken you spellcraft abilities, but latter is much safer.
@@ -960,98 +951,128 @@ Mods: {
 		}
 		
 		NPCName: {
-			FlutterSlime: Flutter Slime
-			# Here we see that spaces in translation keys are not allowed. Any space will be replaced with an underscore.
-			Example_Person: Example Person
+			SpellwrightNPC: Spellwright
 		}
 		
-		MapObject: {
-			ExampleClock: Example Clock
-		}
-
 		ItemName: {
-			CommonSpellReagent: "Common Spell Reagent"
-			MythicalSpellReagent: "Mythical Spell Reagent"
-			RareSpellReagent: "Rare Spell Reagent"
-			BizzareFruit: "Bizzare Fruit"
-			BoundMagicMirror: "Bound Magic Mirror"
-			SilverMirror: "Silver Mirror"
-			WarpedMagicMirror: "Warped Magic Mirror"
-			SpellweaverTome: "Spellweaver Tome"
-
-			ExamplePet: "{$Mods.ExampleMod.Common.PaperAirplane}"
+			BizzareFruit: Bizzare fruit
+			PurifiedFruit: Purified Fruit
+			SpellResonator: Spell Resonator
+			BoundMagicMirror: Bound Magic Mirror
+			SilverMirror: Silver mirror
+			WarpedMagicMirror: Warped Magic Mirror
+			CommonSpellReagent: Common Spell Reagent
+			MythicalSpellReagent: Mythical Spell Reagent
+			RareSpellReagent: Rare Spell Reagent
+			AdvancedSpellTome: Advanced Spell Tome
+			BeginnerSpellTome: Beginner Spell Tome
+			SpellwrightTeachings: Spellwright Teachings
+			SupremeSpellTome: Supreme Spell Tome
 		}
 		
 		ItemTooltip: {
-			CommonSpellReagent: 
-				'''Collection of most common spell reagents
-				required for spellcraft.
-				'''
-			MythicalSpellReagent: 
-				'''Extremely rare and powerful reagents required for
-				creation of extremely powerful spells.
-				'''
-			RareSpellReagent : "Advanced spell reagents required for various advanced spells."
-			BizzareFruit: 
-				'''Weird heart shaped fruit. If you stare at it
-				long enough it will stare back at you.
-				'''
-			BoundMagicMirror: 
-				'''Enchanted magical mirror eternally bound to a place in this world.
-				Look into the mirror to teleport to this place.
-				'''
-			SilverMirror : "Silver mirror that was polished to perfection."
-			WarpedMagicMirror: 
-				'''Frail magical mirror bound to a place in this world.
-				Look into the mirror to teleport to this place once.
-				'''
-			SpellweaverTome : "Magical artefact capable of binding your words to its pages."
+			BizzareFruit: Weird heart shaped fruit. If you stare at it\nlong enough it will stare back at you.
+			PurifiedFruit: Weird heart shaped fruit. If you stare at it\nlong enough it will stare back at you.\nAccording to spellwright this one was processed and has significanly reduced risk of death upon consumption.
+			SpellResonator: Magical artefact resonating with your voice and capable of binding your words to itself.
+			BoundMagicMirror: Enchanted magical mirror eternally bound to a place in this world.\nLook into the mirror to teleport to this place.
+			SilverMirror: Silver mirror that was polished to perfection.
+			WarpedMagicMirror: Frail magical mirror bound to a place in this world.\nLook into the mirror to teleport to this place once.
+			CommonSpellReagent: Collection of most common spell reagents\nrequired for spellcraft.
+			MythicalSpellReagent: Extremely rare and powerful reagents required for\ncreation of extremely powerful spells.
+			RareSpellReagent: Advanced spell reagents required for various advanced spells.
+			AdvancedSpellTome: A book that contains complex and potent mid level spells. This tome contains spells ranging from level 4 to level 6.
+			BeginnerSpellTome: A book that contains multitude of common low level spells. This tome contains spells ranging from level 1 to level 3.
+			SpellwrightTeachings: Sacred book of Spellwrights that contains essential knowlege for those who wish to learn mystical art of spellcraft.
+			SupremeSpellTome: Very valuable book that contains most rare and powerful spells. This tome contains spells ranging from level 7 to level 10.
+		}
 
-			# These 2 examples show using substitutions. Here we use a vanilla Key and a key from this Mod to generate the text: "Nearby players get a bonus against: Octopus". 
-			# Note that the translation files for other languages don't need to define ItemTooltip.OctopusBanner, they would only need to define NPCName.Octopus, as seen in zh-Hans.hjson file. 
-			OctopusBanner: "{$CommonItemTooltip.BannerBonus}{$Mods.ExampleMod.NPCName.Octopus}"
-			SarcophagusBanner: "{$CommonItemTooltip.BannerBonus}{$Mods.ExampleMod.NPCName.Sarcophagus}"
-			ExamplePet:
-				'''
-				Summons a {$Mods.ExampleMod.Common.PaperAirplane} to follow aimlessly behind you
-				Second Line!
-				'''
-		}
-		
-		
 		ProjectileName: {
-			ExamplePet: "{$Mods.ExampleMod.Common.PaperAirplane}"
+			BloodArrowProjectile: Blood arrow
+			BoltOfConfusionProjectile: Bolt of confusion
+			ExampleBullet: Example Bullet
+			GlassCannonProjectile: GlassCannon
+			HeartThrowerProjectile: Heart Thrower
+			ManaStarfallProjectile: Mana starfall
+			ShockwaveDartProjectile: Shockwave Dart
+			StoneBulletProjectile: Example Bullet
+			BlastPebbleProjectile: Blast pebble
+			DragonSpitProjectile: Dragon spit
+			ShapedChargeProjectile: Shaped charge
+			CurseSparkProjectile: Cursed spark
+			FireSparkProjectile: Fire spark
+			IceSparkProjectile: Ice spark
+			IchorSparkProjectile: Ichor spark
+			PoisonSparkProjectile: Poison spark
+			BlockSpitterProjectile: Tile Splatter
+			TileRollerProjectile: Tile Roller
+			WallShredderProjectile: Wall Shredder
+			WallSpitterProjectile: Wall Spitter
+			
+			# Minions
+			BirdOfMidasMinion: Raven of Midas
+			MagickaFairyMinion: Magicka Fairy
+			SoulNibblerMinion: Soul Nibbler
 		}
-		
+
 		BuffName: {
-			ExamplePet: "{$Mods.ExampleMod.Common.PaperAirplane}"
+			SoulDisturbanceDebuff: Soul disturbance
+			BattlecryBuff: Battlecry
+			BurningSoulBuff: Burning Soul
+			ManaStarfallBuff: Mana starfall
+			MetabolicBoostBuff: Metabolic Boost
+			PulseHealingBuff: Pulse healing
+			SelfDefenseHexBuff: Self Defense Hex
+			SurgeOfLifeBuff: Surge of life
+			FortressStanceBuff: Fortres Stance
+			ManaShieldBuff: Mana Shield
+			ReactiveArmorBuff: Reactive armor
+			SigilOfBerserkerBuff: Sigil of Berserker
+			SigilOfLegionBuff: Sigil of Legion
+			SigilOfSageBuff: Sigil of Sage
+			SigilOfSniperBuff: Sigil of Sniper
+			CallOfTheDepthsBuff: Call of the Depths
+			ForceOfCreationBuff: Force of Creation
+			GaleForceBuff: Gale force
+			GreedyVortexBuff: Greedy Vortex
+			KissOfCloverBuff: Kiss of clover
+			MineralFeverBuff: Mineral Fever
+			ReturnToFishBuff: Return To Fish
+			SeaBlessingBuff: Sea Blessing
 		}
 		
 		BuffDescription: {
-			ExamplePet: '''"Let this pet be an example to you!"'''
-		}
-		
-		RecipeConditions: {
-			Night: At Low Health
+			SoulDisturbanceDebuff: Your soul is in turmoil
+			BattlecryBuff: Brings you closer to the battle
+			BurningSoulBuff: Your soul is set ablaze
+			ManaStarfallBuff: Mana stars fall from the sky!
+			MetabolicBoostBuff: Your metabolism is on fire
+			PulseHealingBuff: Powerful healing that occures occasionally
+			SelfDefenseHexBuff: Wilts those who would harm you
+			SurgeOfLifeBuff: Boosts regeneration of health
+			FortressStanceBuff: Stand your ground with determination of a mountain
+			ManaShieldBuff: Thick layer of mana will soften the blow
+			ReactiveArmorBuff: Grants additional defense that increases with each hit received
+			SigilOfBerserkerBuff: Your fury knows no bounds
+			SigilOfLegionBuff: Your mighty army quakes the earth
+			SigilOfSageBuff: Your wisdom resonates with the world
+			SigilOfSniperBuff: Your can see beyound the horizon
+			CallOfTheDepthsBuff: Core of the world calls for you
+			ForceOfCreationBuff: You have boundless urge to create
+			GaleForceBuff: Force of gale bolsters your movement
+			GreedyVortexBuff: Increases pick up range for all items
+			KissOfCloverBuff: Luck itself gave you a kiss
+			MineralFeverBuff: Lust for riches boils your blood
+			ReturnToFishBuff: Go back to your aquatic roots
+			SeaBlessingBuff: See and fishies smile upon you
 		}
 		
 		Bestiary: {
-			ExamplePerson: Built of blocks with arms of steel. Pumps iron day and night.
-			ExampleBoneMerchant: Built with bone blocks and arms of steel. Throws bones day and night. 
-		}
-		
-		BiomeName: {
-			ExampleSurfaceBiome: Example Surface
-		}
-
-		Prefix: {
-			ExamplePrefix: Example Prefix
-			ExampleDerivedPrefix: Example Derived Prefix
+			SpellwrightNpc: Mysterious scholar of an unusual brand of magic that relies on incantations instead of traditional mana and tools. Very wise and eager to share the secrets of his art with anyone interested. Has uncanny resamblance to wizard, but claim that they are not twins and not even relatives.
 		}
 		
 		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
 		TownNPCMood: {
-			ExamplePerson: {
+			SpellwrightNpc: {
 				Content: I feel pretty fine right now.
 				NoHome: I would very much like a house, all the colorful monsters scare me.
 				LoveSpace: I love how there is so much space here to code tModLoader mods!

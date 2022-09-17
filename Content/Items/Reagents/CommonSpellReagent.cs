@@ -14,8 +14,7 @@ namespace Spellwright.Content.Items.Reagents
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Common Spell Reagent");
-            Tooltip.SetDefault("Collection of most common spell reagents\n" +
-                "required for spellcraft.");
+            Tooltip.SetDefault("Collection of most common spell reagents\nrequired for spellcraft.");
         }
 
         public override void SetDefaults()
