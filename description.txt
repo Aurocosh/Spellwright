@@ -42,4 +42,7 @@ How to get started:
 4) You can open guidebook by pressing two keys together: "Start incantation button" + "Smart cursor button". Start incantation button is X by default. Smart cursor button is Shift by default. So, by defaul combination is "Shift + X". Keybinds can be changed in game settings.
 5) Read what you need to do next in your guide book.
 
+Credits:
+tModLoader team - Creation of tModLoader. Learned a lot from tModLoader's source code, and adapted some for my mod
+jopojelly - Initial UI code is based on his mod Cheat Sheet
 
