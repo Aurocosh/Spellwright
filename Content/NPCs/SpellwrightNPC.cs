@@ -155,7 +155,7 @@ namespace Spellwright.Content.NPCs
             }
             else if (!modPlayer.CanCastSpells)
             {
-                bool hasFruit = player.HasItem(ModContent.ItemType<BizzareFruit>());
+                bool hasFruit = player.HasItem(ModContent.ItemType<BizarreFruit>());
                 if (!hasFruit)
                     button2 = Spellwright.GetTranslation("SpellwrightNpc", "AskForMysticFruit").Value;
             }
@@ -185,10 +185,10 @@ namespace Spellwright.Content.NPCs
                 {
                     SoundEngine.PlaySound(SoundID.Item25);
 
-                    int bizzareFruitId = ModContent.ItemType<BizzareFruit>();
+                    int bizarreFruitId = ModContent.ItemType<BizarreFruit>();
                     int purifiedFruitId = ModContent.ItemType<PurifiedFruit>();
-                    Main.npcChatText = Spellwright.GetTranslation("SpellwrightNpc", "FruitOffer").Format(Lang.GetItemNameValue(bizzareFruitId), Lang.GetItemNameValue(purifiedFruitId));
-                    player.QuickSpawnItem(new EntitySource_Gift(NPC), bizzareFruitId);
+                    Main.npcChatText = Spellwright.GetTranslation("SpellwrightNpc", "FruitOffer").Format(Lang.GetItemNameValue(bizarreFruitId), Lang.GetItemNameValue(purifiedFruitId));
+                    player.QuickSpawnItem(new EntitySource_Gift(NPC), bizarreFruitId);
                 }
             }
         }

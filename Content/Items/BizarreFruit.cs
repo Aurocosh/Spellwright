@@ -8,15 +8,15 @@ using Terraria.ModLoader;
 
 namespace Spellwright.Content.Items
 {
-    public class BizzareFruit : ModItem
+    public class BizarreFruit : ModItem
     {
-        public BizzareFruit()
+        public BizarreFruit()
         {
         }
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bizzare fruit");
+            DisplayName.SetDefault("Bizarre fruit");
             Tooltip.SetDefault("Weird heart shaped fruit. If you stare at it\nlong enough it will stare back at you.");
         }
 

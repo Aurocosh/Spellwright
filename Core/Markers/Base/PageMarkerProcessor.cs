@@ -16,7 +16,7 @@ namespace Spellwright.UI.Components.TextBox.MarkerProcessors.Base
             RegisterProcessor(new HeaderMarkerProcessor());
             RegisterProcessor(new LevelUnlockCostsMarkerProcessor());
             RegisterProcessor(new PlayerLevelMarkerProcessor());
-            RegisterProcessor(new PermamentBuffListMarkerProcessor());
+            RegisterProcessor(new PermanentBuffListMarkerProcessor());
             RegisterProcessor(new TomeSpellListMarkerProcessor());
         }
 

@@ -5,7 +5,7 @@ using Terraria;
 
 namespace Spellwright.Core.Markers
 {
-    internal class PermamentBuffListMarkerProcessor : MarkerProcessor
+    internal class PermanentBuffListMarkerProcessor : MarkerProcessor
     {
         public override string ProcessMarker(MarkerData markerData, Player player)
         {
