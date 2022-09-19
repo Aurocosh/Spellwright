@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -12,9 +11,6 @@ namespace Spellwright.UI
     {
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient && !Spellwright.IsPlayerServerOwner(Main.LocalPlayer))
-                return;
-
             int MouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
             if (MouseTextIndex != -1)
                 layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(

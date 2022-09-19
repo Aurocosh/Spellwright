@@ -23,7 +23,6 @@ Mods: {
             AoeRange: Aoe range
             Spray: Spray
             ProjectileCount: Projectile count
-            Damage: Damage
             Description: Description
             UseCost: Use cost
             Examples: Examples
@@ -38,14 +37,12 @@ Mods: {
             Area: Area
             Eternal: Eternal
             Dispel: Dispel
-            Selfless: Selfless
         }
 
         General: {
             Or: Or
             And: And
             Level: Level
-            KnownSpells: Known
             StoredItems: Stored items
             SpellsLearned: "Spells learned: {0}"
             SpellLevelTooLow: My spellcasting level is too low
