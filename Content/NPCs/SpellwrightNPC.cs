@@ -109,7 +109,7 @@ namespace Spellwright.Content.NPCs
             for (int k = 0; k < 255; k++)
             {
                 Player player = Main.player[k];
-                if (player.active && player.statManaMax > 100)
+                if (player.active && player.statManaMax >= 100)
                     return true;
             }
 
