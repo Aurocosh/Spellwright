@@ -47,6 +47,10 @@ Mods: {
             SpellsLearned: "Spells learned: {0}"
             SpellLevelTooLow: My spellcasting level is too low
             AllSpellsKnown: I already know all spells in this tome
+            LearnedBasics: I already learned basics of spellcraft
+            CannotCastSpells: I cannot cast spells yet
+            DidNotLearnedBasics: I need to learn basics of spellcraft first
+            TomeContentError: Tome content error
         }
 
         CastErrors: {

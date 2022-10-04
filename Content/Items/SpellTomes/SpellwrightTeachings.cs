@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
 using Spellwright.Content.Items.SpellTomes.Base;
 using Spellwright.Content.Spells.Base;
@@ -38,19 +39,40 @@ namespace Spellwright.Content.Items.SpellTomes
             Item.rare = ItemRarityID.Blue;
         }
 
+        public override bool CanUseItem(Player player)
+        {
+            SpellwrightPlayer spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
+
+            if (!tomeContents.TryGetValue(Type, out var tome))
+            {
+                Main.NewText(Spellwright.GetTranslation("General", "TomeContentError"), Color.Red);
+                return false;
+            }
+
+            List<ModSpell> unknownSpells = GetUnknownSpells(spellPlayer, tome);
+            if (spellPlayer.LearnedBasics && unknownSpells.Count == 0)
+            {
+                Main.NewText(Spellwright.GetTranslation("General", "LearnedBasics"), Color.Red);
+                return false;
+            }
+
+            return true;
+        }
+
         public override bool? UseItem(Player player)
+        {
+            return true;
+        }
+
+        public override void OnConsumeItem(Player player)
         {
             SpellwrightPlayer spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
             if (!tomeContents.TryGetValue(Type, out var tome))
-                return false;
+                return;
 
-            var unknownSpells = new List<ModSpell>();
-            foreach (var spell in tome.Spells)
-                if (!spellPlayer.KnownSpells.Contains(spell.Type))
-                    unknownSpells.Add(spell);
-
+            List<ModSpell> unknownSpells = GetUnknownSpells(spellPlayer, tome);
             if (spellPlayer.LearnedBasics && unknownSpells.Count == 0)
-                return false;
+                return;
 
             foreach (var spell in unknownSpells)
                 spellPlayer.KnownSpells.Add(spell.Type);
@@ -59,8 +81,6 @@ namespace Spellwright.Content.Items.SpellTomes
 
             var spawner = new LevelUpDustSpawner(player, unknownSpells.Select(x => x.SpellLevel));
             spawner.Execute();
-
-            return true;
         }
     }
 }

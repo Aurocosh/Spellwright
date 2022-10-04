@@ -26,10 +26,11 @@ namespace Spellwright.Content.Items.SpellTomes.Base
         {
             Item.consumable = true;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.useTime = 90;
+            Item.useTime = 30;
             Item.maxStack = 30;
+            Item.autoReuse = false;
             Item.UseSound = SoundID.Item4;
-            Item.useAnimation = 90;
+            Item.useAnimation = 30;
             Item.value = Item.buyPrice(0, 0, 10);
             Item.rare = ItemRarityID.Blue;
         }
@@ -41,21 +42,59 @@ namespace Spellwright.Content.Items.SpellTomes.Base
             return null;
         }
 
-        public override bool? UseItem(Player player)
+        public override bool CanUseItem(Player player)
         {
             SpellwrightPlayer spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
+            if (!spellPlayer.LearnedBasics)
+            {
+                Main.NewText(Spellwright.GetTranslation("General", "DidNotLearnedBasics"), Color.Red);
+                return false;
+            }
             if (!spellPlayer.CanCastSpells)
+            {
+                Main.NewText(Spellwright.GetTranslation("General", "CannotCastSpells"), Color.Red);
                 return false;
-            if (!tomeContents.TryGetValue(Type, out var tome))
-                return false;
+            }
 
+            if (!tomeContents.TryGetValue(Type, out var tome))
+            {
+                Main.NewText(Spellwright.GetTranslation("General", "TomeContentError"), Color.Red);
+                return false;
+            }
+
+            List<ModSpell> unknownSpells = GetUnknownSpells(spellPlayer, tome);
+            if (unknownSpells.Count == 0)
+            {
+                Main.NewText(Spellwright.GetTranslation("General", "AllSpellsKnown"), Color.Red);
+                return false;
+            }
+
+            return true;
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            return true;
+        }
+
+        protected static List<ModSpell> GetUnknownSpells(SpellwrightPlayer spellPlayer, SpellTomeContent tome)
+        {
             var unknownSpells = new List<ModSpell>();
             foreach (var spell in tome.Spells)
                 if (!spellPlayer.KnownSpells.Contains(spell.Type))
                     unknownSpells.Add(spell);
+            return unknownSpells;
+        }
 
+        public override void OnConsumeItem(Player player)
+        {
+            SpellwrightPlayer spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
+            if (!tomeContents.TryGetValue(Type, out var tome))
+                return;
+
+            List<ModSpell> unknownSpells = GetUnknownSpells(spellPlayer, tome);
             if (unknownSpells.Count == 0)
-                return false;
+                return;
 
             var highLevelSpells = new DistributedRandom<ModSpell>();
             var appropriateLevelSpells = new DistributedRandom<ModSpell>();
@@ -97,8 +136,6 @@ namespace Spellwright.Content.Items.SpellTomes.Base
 
             var spawner = new LevelUpDustSpawner(player, learnedSpells.Select(x => x.SpellLevel));
             spawner.Execute();
-
-            return true;
         }
     }
 }
