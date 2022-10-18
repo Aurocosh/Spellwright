@@ -25,7 +25,7 @@ namespace Spellwright.Content.Buffs.Spells.Defensive
             public int BonusDefense { get; set; } = 0;
             public int MaxBonusDefense { get; set; } = 0;
 
-            public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+            public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
             {
                 //base.Hurt(pvp, quiet, damage, hitDirection, crit);
                 if (Player.whoAmI == Main.myPlayer && BonusDefense < MaxBonusDefense)

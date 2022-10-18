@@ -89,20 +89,6 @@ namespace Spellwright
             return Language.GetText(translationKey);
         }
 
-        public override void AddRecipeGroups()
-        {
-            //if (!Main.dedServ)
-            //    try
-            //    {
-            //        spellInputState = new SpellInput();
-            //        spellInputState.Visible = false;
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Logger.Error(e.ToString());
-            //    }
-        }
-
         public override object Call(params object[] args)
         {
             try

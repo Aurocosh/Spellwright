@@ -39,7 +39,7 @@ How to get started:
 1) Raise your mana to at least 100 and a new Spellwright npc will show up.
 2) Talk to him and ask him about his spellcraft. When asked he will give you a book "Spellwright Teachings". This book is an in-game guidebook as well as a key item required to unlock your spellcraft.
 3) Spellwright Teachings is a consumable item. Use this book with a left click to unlock in-game guidebook.
-4) You can open guidebook by pressing two keys together: "Start incantation button" + "Smart cursor button". Start incantation button is X by default. Smart cursor button is Shift by default. So, by defaul combination is "Shift + X". Keybinds can be changed in game settings.
+4) You can open guidebook by pressing two keys together: "Start incantation button" + "Auto select button". Start incantation button is X by default. Auto select button is Shift by default. So, by defaul combination is "Shift + X". Keybinds can be changed in game settings.
 5) Read what you need to do next in your guide book.
 
 Credits:
