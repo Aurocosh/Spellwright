@@ -18,8 +18,6 @@ namespace Spellwright.Content.Buffs.Spells
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Mana starfall");
-            // Description.SetDefault("Mana stars fall from the sky!");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

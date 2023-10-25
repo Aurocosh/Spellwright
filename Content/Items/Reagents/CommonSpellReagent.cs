@@ -11,12 +11,6 @@ namespace Spellwright.Content.Items.Reagents
         {
         }
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Common Spell Reagent");
-            // Tooltip.SetDefault("Collection of most common spell reagents\nrequired for spellcraft.");
-        }
-
         public override void SetDefaults()
         {
             Item.maxStack = 9999;

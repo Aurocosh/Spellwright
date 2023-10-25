@@ -9,8 +9,6 @@ namespace Spellwright.Content.Buffs.Spells.Defensive
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Mana Shield");
-            // Description.SetDefault("Thick layer of mana will soften the blow");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

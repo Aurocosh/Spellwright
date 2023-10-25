@@ -12,7 +12,6 @@ namespace Spellwright.Content.Minions
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Magicka Fairy");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 

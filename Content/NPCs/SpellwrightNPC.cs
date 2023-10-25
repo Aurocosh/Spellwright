@@ -25,8 +25,6 @@ namespace Spellwright.Content.NPCs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
-            // DisplayName.SetDefault("Spellwright");
             Main.npcFrameCount[Type] = 25; // The amount of frames the NPC has
 
             NPCID.Sets.ExtraFramesCount[Type] = 9;

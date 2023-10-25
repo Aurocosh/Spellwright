@@ -8,8 +8,6 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Sigil of Sage");
-            // Description.SetDefault("Your wisdom resonates with the world.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

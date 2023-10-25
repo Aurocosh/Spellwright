@@ -20,9 +20,6 @@ namespace Spellwright.Content.Items.SpellTomes
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Advanced Spell Tome");
-            // Tooltip.SetDefault("A book that contains complex and potent mid level spells. This tome contains spells ranging from level 4 to level 6.");
-
             var content = new SpellTomeContent();
             content.AddCount(2, .70);
             content.AddCount(3, .25);

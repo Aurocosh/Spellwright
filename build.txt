@@ -1,7 +1,7 @@
 displayName = Spellwright
 author = Aurocosh
-version = 0.8.1.5
+version = 0.8.2.0
 dllReferences = NetSerializer
 languageVersion = 7
 buildIgnore = *.csproj, *.sln, *.user, *.md, obj\*, bin\*, .vs\*, .git\*, .gitignore
-homepage = https://forums.terraria.org/index.php?threads/1-4-beta-spellwright-incantation-based-magic-mod.114568/
+homepage = https://steamcommunity.com/sharedfiles/filedetails/?id=2864607116

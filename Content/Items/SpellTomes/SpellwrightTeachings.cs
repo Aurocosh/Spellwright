@@ -18,9 +18,6 @@ namespace Spellwright.Content.Items.SpellTomes
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Spellwright Teachings");
-            // Tooltip.SetDefault("Sacred book of Spellwrights that contains essential knowlege for those who wish to learn mystical art of spellcraft.");
-
             var content = new SpellTomeContent();
 
             // Level 0

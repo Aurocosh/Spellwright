@@ -6,11 +6,6 @@ namespace Spellwright.Content.Projectiles
 {
     public class BloodArrowProjectile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Blood arrow");
-        }
-
         public override void SetDefaults()
         {
             //Projectile.CloneDefaults(ProjectileID.WoodenArrowFriendly);

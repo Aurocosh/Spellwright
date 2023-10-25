@@ -13,11 +13,6 @@ namespace Spellwright.Content.Projectiles.Explosive
     {
         private bool _exploded = false;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Dragon spit");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 6;

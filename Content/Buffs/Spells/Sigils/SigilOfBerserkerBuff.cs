@@ -8,8 +8,6 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Sigil of Berserker");
-            // Description.SetDefault("Your fury knows no bounds.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

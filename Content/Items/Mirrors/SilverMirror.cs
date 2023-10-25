@@ -13,9 +13,6 @@ namespace Spellwright.Content.Items.Mirrors
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Silver mirror");
-            // Tooltip.SetDefault("Silver mirror that was polished to perfection.");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
         }
 

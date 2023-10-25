@@ -10,11 +10,6 @@ namespace Spellwright.Content.Projectiles
 {
     public class GlassCannonProjectile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("GlassCannon");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 3;

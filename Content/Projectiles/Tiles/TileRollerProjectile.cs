@@ -12,11 +12,6 @@ namespace Spellwright.Content.Projectiles.Tiles
 {
     public class TileRollerProjectile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Tile Roller");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 8;

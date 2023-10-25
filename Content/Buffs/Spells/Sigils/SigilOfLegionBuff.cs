@@ -8,8 +8,6 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Sigil of Legion");
-            // Description.SetDefault("Your mighty army quakes the earth.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

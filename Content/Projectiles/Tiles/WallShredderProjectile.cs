@@ -17,7 +17,6 @@ namespace Spellwright.Content.Projectiles.Tiles
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Wall Shredder");
             blacklistedItems.Clear();
         }
 

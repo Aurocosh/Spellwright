@@ -8,8 +8,6 @@ namespace Spellwright.Content.Buffs.Spells
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Battlecry");
-            // Description.SetDefault("Brings you closer to the battle");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

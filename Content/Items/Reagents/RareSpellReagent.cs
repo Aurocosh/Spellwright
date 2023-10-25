@@ -11,12 +11,6 @@ namespace Spellwright.Content.Items.Reagents
         {
         }
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Rare Spell Reagent");
-            // Tooltip.SetDefault("Advanced spell reagents required for various advanced spells.");
-        }
-
         public override void SetDefaults()
         {
             Item.maxStack = 9999;

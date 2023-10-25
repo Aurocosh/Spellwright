@@ -16,11 +16,6 @@ namespace Spellwright.Content.Projectiles.Explosive
     {
         private bool _exploded = false;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Shaped charge");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 16;

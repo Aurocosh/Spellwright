@@ -9,8 +9,6 @@ namespace Spellwright.Content.Buffs.Spells
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Self Defense Hex");
-            // Description.SetDefault("Wilts those who would harm you.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

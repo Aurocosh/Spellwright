@@ -13,7 +13,6 @@ namespace Spellwright.Content.Minions
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Soul Nibbler");
             Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 

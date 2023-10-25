@@ -12,13 +12,6 @@ namespace Spellwright.Content.Projectiles.Sparks
             this.dustType = dustType;
         }
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Spark");
-            //ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5; // The length of old position to be recorded
-            //ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 10;

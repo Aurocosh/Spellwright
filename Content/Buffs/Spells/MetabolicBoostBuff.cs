@@ -9,8 +9,6 @@ namespace Spellwright.Content.Buffs.Spells
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Metabolic Boost");
-            // Description.SetDefault("Your metabolism is on fire");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
             Main.buffNoSave[Type] = true;

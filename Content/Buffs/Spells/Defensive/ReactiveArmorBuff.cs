@@ -8,8 +8,6 @@ namespace Spellwright.Content.Buffs.Spells.Defensive
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Reactive armor");
-            // Description.SetDefault("Grants additional defense that increases with each hit received.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

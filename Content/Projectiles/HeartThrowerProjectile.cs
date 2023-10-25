@@ -9,11 +9,6 @@ namespace Spellwright.Content.Projectiles
 {
     public class HeartThrowerProjectile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Heart Thrower");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 18;

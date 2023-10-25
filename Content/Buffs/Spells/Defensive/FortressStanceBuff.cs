@@ -8,8 +8,6 @@ namespace Spellwright.Content.Buffs.Spells.Defensive
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Fortres Stance");
-            // Description.SetDefault("Stand your ground with determination of a mountain");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

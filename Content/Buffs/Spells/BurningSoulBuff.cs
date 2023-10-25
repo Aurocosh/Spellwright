@@ -10,8 +10,6 @@ namespace Spellwright.Content.Buffs.Spells
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Burning Soul");
-            // Description.SetDefault("Your soul is set ablaze.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

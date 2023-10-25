@@ -7,8 +7,6 @@ namespace Spellwright.Content.Buffs.Spells.Utility
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Call of the Depths");
-            // Description.SetDefault("Core of the world calls for you.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

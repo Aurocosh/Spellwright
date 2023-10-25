@@ -11,12 +11,6 @@ namespace Spellwright.Content.Items.Reagents
         {
         }
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Mythical Spell Reagent");
-            // Tooltip.SetDefault("Extremely rare and powerful reagents required for\ncreation of extremely powerful spells.");
-        }
-
         public override void SetDefaults()
         {
             Item.maxStack = 9999;

@@ -13,7 +13,6 @@ namespace Spellwright.Content.Projectiles.Sparks
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            // DisplayName.SetDefault("Ice spark");
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

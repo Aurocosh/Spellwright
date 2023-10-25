@@ -10,11 +10,6 @@ namespace Spellwright.Content.Projectiles
 {
     public class ManaStarfallProjectile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Mana starfall");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 18;

@@ -12,8 +12,6 @@ namespace Spellwright.Content.Buffs.Spells
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Surge of life");
-            // Description.SetDefault("Boosts regeneration of health");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

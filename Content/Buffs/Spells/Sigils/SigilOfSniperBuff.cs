@@ -9,8 +9,6 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Sigil of Sniper");
-            // Description.SetDefault("Your can see beyound the horizon");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }
