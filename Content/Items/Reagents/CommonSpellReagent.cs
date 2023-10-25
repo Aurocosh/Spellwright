@@ -13,13 +13,13 @@ namespace Spellwright.Content.Items.Reagents
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Common Spell Reagent");
-            Tooltip.SetDefault("Collection of most common spell reagents\nrequired for spellcraft.");
+            // DisplayName.SetDefault("Common Spell Reagent");
+            // Tooltip.SetDefault("Collection of most common spell reagents\nrequired for spellcraft.");
         }
 
         public override void SetDefaults()
         {
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.ammo = Item.type;
             //Item.value = Item.buyPrice(0, 0, 0, 10);
             Item.value = SpellwrightServerConfig.Instance.CommonReagentCost;

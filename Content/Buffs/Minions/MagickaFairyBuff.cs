@@ -8,8 +8,8 @@ namespace Spellwright.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magicka Fairy");
-            Description.SetDefault("Hey! Listn'! If you die, i will hate you!");
+            // DisplayName.SetDefault("Magicka Fairy");
+            // Description.SetDefault("Hey! Listn'! If you die, i will hate you!");
 
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

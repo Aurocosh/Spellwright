@@ -8,8 +8,8 @@ namespace Spellwright.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Nibbler");
-            Description.SetDefault("Will feast on souls in your honor");
+            // DisplayName.SetDefault("Soul Nibbler");
+            // Description.SetDefault("Will feast on souls in your honor");
 
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

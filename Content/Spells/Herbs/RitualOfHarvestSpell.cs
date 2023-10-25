@@ -9,7 +9,9 @@ using Spellwright.Extensions;
 using Spellwright.Lib.Constants;
 using Spellwright.Lib.PointShapes;
 using Spellwright.Util;
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -57,9 +59,9 @@ namespace Spellwright.Content.Spells.Herbs
 
                 var location = point.ToWorldVector2();
 
-                WorldGen.KillTile_GetItemDrops(point.X, point.Y, tile, out int firstItemType, out int firstItemCount, out int secondItemType, out int secondItemCount, false);
-                firstItemCount = (int)(firstItemCount * Main.rand.NextFloat(2f, 4f));
-                secondItemCount = (int)(secondItemCount * Main.rand.NextFloat(2f, 6f));
+                GetSeedDrops(tile, out int firstItemType, out int secondItemType);
+                int firstItemCount = Main.rand.Next(2, 6);
+                int secondItemCount = Main.rand.Next(1, 5);
 
                 bool canReplant = secondItemCount > 0;
                 secondItemCount--;
@@ -128,6 +130,25 @@ namespace Spellwright.Content.Spells.Herbs
             }
 
             return false;
+        }
+
+        private static void GetSeedDrops(Tile tile, out int dropItem, out int secondaryItem)
+        {
+            dropItem = 0;
+            secondaryItem = 0;
+
+            if (tile.TileType == TileID.MatureHerbs || tile.TileType == TileID.BloomingHerbs)
+            {
+                int num = tile.TileFrameX / 18;
+                dropItem = 313 + num;
+                int num2 = 307 + num;
+                if (num == 6)
+                {
+                    dropItem = 2358;
+                    num2 = 2357;
+                }
+                secondaryItem = num2;
+            }
         }
 
         private static Item GetSeedItem(int type)

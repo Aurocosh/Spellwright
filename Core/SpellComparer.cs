@@ -8,8 +8,10 @@ namespace Spellwright.Core
     {
         public int Compare(ModSpell a, ModSpell b)
         {
-            var aName = a.DisplayName.GetTranslation(Language.ActiveCulture);
-            var bName = b.DisplayName.GetTranslation(Language.ActiveCulture);
+            //var aName = a.DisplayName.GetTranslation(Language.ActiveCulture); // TODO_TEST
+            //var bName = b.DisplayName.GetTranslation(Language.ActiveCulture); // TODO_TEST
+            var aName = a.DisplayName.Value; // TODO_TEST
+            var bName = b.DisplayName.Value; // TODO_TEST
             return aName.CompareTo(bName);
         }
     }

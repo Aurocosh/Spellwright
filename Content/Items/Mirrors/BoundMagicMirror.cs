@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -28,8 +29,8 @@ namespace Spellwright.Content.Items.Mirrors
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bound Magic Mirror");
-            Tooltip.SetDefault("Enchanted magical mirror eternally bound to a place in this world.\nLook into the mirror to teleport to this place.");
+            // DisplayName.SetDefault("Bound Magic Mirror");
+            // Tooltip.SetDefault("Enchanted magical mirror eternally bound to a place in this world.\nLook into the mirror to teleport to this place.");
         }
 
         public override void SetDefaults()
@@ -48,7 +49,7 @@ namespace Spellwright.Content.Items.Mirrors
             return clone;
         }
 
-        public override void OnCreate(ItemCreationContext context)
+        public override void OnCreated(ItemCreationContext context)
         {
             WorldName = "";
             LocationName = "";
@@ -177,7 +178,7 @@ namespace Spellwright.Content.Items.Mirrors
                     if (Main.netMode == NetmodeID.Server)
                     {
                         RemoteClient.CheckSection(player.whoAmI, player.position);
-                        NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, BoundLocation.X, BoundLocation.Y, 20);
+                        NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, BoundLocation.X, BoundLocation.Y, 20);
                     }
                 }
                 else

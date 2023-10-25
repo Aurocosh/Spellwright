@@ -16,8 +16,8 @@ namespace Spellwright.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bizarre fruit");
-            Tooltip.SetDefault("Weird heart shaped fruit. If you stare at it\nlong enough it will stare back at you.");
+            // DisplayName.SetDefault("Bizarre fruit");
+            // Tooltip.SetDefault("Weird heart shaped fruit. If you stare at it\nlong enough it will stare back at you.");
         }
 
         public override void SetDefaults()

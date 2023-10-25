@@ -14,7 +14,7 @@ namespace Spellwright.Content.Projectiles.Tiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tile Roller");
+            // DisplayName.SetDefault("Tile Roller");
         }
 
         public override void SetDefaults()

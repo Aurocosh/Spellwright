@@ -9,15 +9,15 @@ namespace Spellwright.Content.Buffs.Spells
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Self Defense Hex");
-            Description.SetDefault("Wilts those who would harm you.");
+            // DisplayName.SetDefault("Self Defense Hex");
+            // Description.SetDefault("Wilts those who would harm you.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }
 
         public class SelfDefenseHexPlayer : ModPlayer
         {
-            public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+            public override void PostHurt(Player.HurtInfo info)
             {
                 if (!Player.HasBuff(ModContent.BuffType<SelfDefenseHexBuff>()))
                     return;

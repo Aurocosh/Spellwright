@@ -7,8 +7,8 @@ namespace Spellwright.Content.Buffs.Spells.Utility
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mineral Fever");
-            Description.SetDefault("Lust for riches boils your blood.");
+            // DisplayName.SetDefault("Mineral Fever");
+            // Description.SetDefault("Lust for riches boils your blood.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

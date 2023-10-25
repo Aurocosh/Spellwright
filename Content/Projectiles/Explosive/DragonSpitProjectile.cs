@@ -11,9 +11,11 @@ namespace Spellwright.Content.Projectiles.Explosive
 {
     public class DragonSpitProjectile : ModProjectile
     {
+        private bool _exploded = false;
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dragon spit");
+            // DisplayName.SetDefault("Dragon spit");
         }
 
         public override void SetDefaults()
@@ -41,12 +43,12 @@ namespace Spellwright.Content.Projectiles.Explosive
             dust.velocity = Main.rand.NextVector2Circular(1, 1) * max;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             Explode();
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Explode();
         }
@@ -59,6 +61,10 @@ namespace Spellwright.Content.Projectiles.Explosive
 
         private void Explode()
         {
+            if (_exploded)
+                return;
+            _exploded = true;
+
             int radius = 4;
             int damage = 20;
 

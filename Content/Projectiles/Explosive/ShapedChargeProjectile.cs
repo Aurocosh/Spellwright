@@ -14,9 +14,11 @@ namespace Spellwright.Content.Projectiles.Explosive
 {
     public class ShapedChargeProjectile : ModProjectile
     {
+        private bool _exploded = false;
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shaped charge");
+            // DisplayName.SetDefault("Shaped charge");
         }
 
         public override void SetDefaults()
@@ -48,6 +50,10 @@ namespace Spellwright.Content.Projectiles.Explosive
 
         private void Explode()
         {
+            if (_exploded)
+                return;
+            _exploded = true;
+
             int damage = 40;
             int radius = 4;
 

@@ -11,8 +11,8 @@ namespace Spellwright.Content.Buffs.Spells
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pulse healing");
-            Description.SetDefault("Powerful healing that occures occasionally");
+            // DisplayName.SetDefault("Pulse healing");
+            // Description.SetDefault("Powerful healing that occures occasionally");
             Main.buffNoTimeDisplay[Type] = false;
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = false;

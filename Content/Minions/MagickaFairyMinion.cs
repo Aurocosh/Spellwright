@@ -12,7 +12,7 @@ namespace Spellwright.Content.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magicka Fairy");
+            // DisplayName.SetDefault("Magicka Fairy");
             Main.projFrames[Projectile.type] = 4;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -52,23 +52,41 @@ namespace Spellwright.Content.Minions
 
     public class MagickaFairyPlayer : ModPlayer
     {
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        // TODO_TEST
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (Player.statLife < damage)
+            int buffId = ModContent.BuffType<MagickaFairyBuff>();
+            if (Player.HasBuff(buffId))
             {
-                int buffId = ModContent.BuffType<MagickaFairyBuff>();
-                if (Player.HasBuff(buffId))
-                {
-                    var healValue = Player.statLifeMax2 / 2 - Player.statLife;
-                    Player.statLife += healValue;
-                    Player.HealEffect(healValue);
-                    Player.ClearBuff(buffId);
-                    SoundEngine.PlaySound(SoundID.NPCHit5, Player.Center);
-                    return false;
-                }
+                var healValue = Player.statLifeMax2 / 2 - Player.statLife;
+                Player.statLife += healValue;
+                Player.HealEffect(healValue);
+                Player.ClearBuff(buffId);
+                SoundEngine.PlaySound(SoundID.NPCHit5, Player.Center);
+                return false;
             }
 
             return true;
+
         }
+
+        //public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */
+        //{
+        //    if (Player.statLife < damage)
+        //    {
+        //        int buffId = ModContent.BuffType<MagickaFairyBuff>();
+        //        if (Player.HasBuff(buffId))
+        //        {
+        //            var healValue = Player.statLifeMax2 / 2 - Player.statLife;
+        //            Player.statLife += healValue;
+        //            Player.HealEffect(healValue);
+        //            Player.ClearBuff(buffId);
+        //            SoundEngine.PlaySound(SoundID.NPCHit5, Player.Center);
+        //            return false;
+        //        }
+        //    }
+
+        //    return true;
+        //}
     }
 }

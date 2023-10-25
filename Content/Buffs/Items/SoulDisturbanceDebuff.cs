@@ -39,8 +39,8 @@ namespace Spellwright.Content.Buffs.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul disturbance");
-            Description.SetDefault("Your soul is in turmoil");
+            // DisplayName.SetDefault("Soul disturbance");
+            // Description.SetDefault("Your soul is in turmoil");
             //Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = true;

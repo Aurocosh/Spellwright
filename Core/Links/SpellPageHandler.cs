@@ -47,7 +47,8 @@ namespace Spellwright.Core.Links
                 linkData.RemoveParameter("toggleFavorite");
             }
 
-            string name = spell.DisplayName.GetTranslation(Language.ActiveCulture);
+            //string name = spell.DisplayName.GetTranslation(Language.ActiveCulture); // TODO_TEST
+            string name = spell.DisplayName.Value; // TODO_TEST
             string formattedName = new FormattedText(name, Color.DarkGoldenrod).ToString();
 
             var builder = new StringBuilder();
@@ -65,7 +66,8 @@ namespace Spellwright.Core.Links
             builder.AppendLine(favLine);
 
             var descriptionValues = spell.GetDescriptionValues(player, spellPlayer.PlayerLevel, SpellData.EmptyData, true);
-            string description = spell.Description.GetTranslation(Language.ActiveCulture);
+            //string description = spell.Description.GetTranslation(Language.ActiveCulture); // TODO_TEST
+            string description = spell.Description.Value; // TODO_TEST
             descriptionValues.Add(new SpellParameter("Description", description));
 
             foreach (var value in descriptionValues)

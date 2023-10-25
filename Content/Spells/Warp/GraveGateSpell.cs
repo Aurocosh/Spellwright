@@ -49,7 +49,7 @@ namespace Spellwright.Content.Spells.Warp
                 avoidHurtTiles = true,
                 avoidWalls = true,
                 attemptsBeforeGivingUp = 1000,
-                maximumFallDistanceFromOrignalPoint = 30
+                maximumFallDistanceFromOrignalPoint = 80
             };
 
             bool canTeleport = false;

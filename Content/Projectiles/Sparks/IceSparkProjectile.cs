@@ -13,17 +13,15 @@ namespace Spellwright.Content.Projectiles.Sparks
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Ice spark");
+            // DisplayName.SetDefault("Ice spark");
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
             target.AddBuff(BuffID.Frostburn, UtilTime.SecondsToTicks(20));
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            base.OnHitPlayer(target, damage, crit);
             target.AddBuff(BuffID.Frostburn, UtilTime.SecondsToTicks(20));
         }
     }

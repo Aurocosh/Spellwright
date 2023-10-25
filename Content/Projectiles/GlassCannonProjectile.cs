@@ -12,7 +12,7 @@ namespace Spellwright.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("GlassCannon");
+            // DisplayName.SetDefault("GlassCannon");
         }
 
         public override void SetDefaults()
@@ -48,7 +48,7 @@ namespace Spellwright.Content.Projectiles
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.Kill();
         }

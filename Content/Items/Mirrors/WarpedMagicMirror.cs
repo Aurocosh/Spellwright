@@ -12,8 +12,8 @@ namespace Spellwright.Content.Items.Mirrors
         protected override Color ParticleColor => Color.Green;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Warped Magic Mirror");
-            Tooltip.SetDefault("Frail magical mirror bound to a place in this world.\nLook into the mirror to teleport to this place once.");
+            // DisplayName.SetDefault("Warped Magic Mirror");
+            // Tooltip.SetDefault("Frail magical mirror bound to a place in this world.\nLook into the mirror to teleport to this place once.");
         }
 
         public override void SetDefaults()

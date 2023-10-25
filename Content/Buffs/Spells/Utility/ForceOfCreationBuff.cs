@@ -7,8 +7,8 @@ namespace Spellwright.Content.Buffs.Spells.Utility
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Force of Creation");
-            Description.SetDefault("You have boundless urge to create.");
+            // DisplayName.SetDefault("Force of Creation");
+            // Description.SetDefault("You have boundless urge to create.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

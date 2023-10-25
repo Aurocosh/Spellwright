@@ -17,7 +17,7 @@ namespace Spellwright.Content.Projectiles.Tiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tile Splatter");
+            // DisplayName.SetDefault("Tile Splatter");
 
             blacklistedTiles.Clear();
             blacklistedTiles.Add(TileID.Torches);

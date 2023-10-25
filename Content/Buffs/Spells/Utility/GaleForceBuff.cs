@@ -9,8 +9,8 @@ namespace Spellwright.Content.Buffs.Spells.Utility
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gale force");
-            Description.SetDefault("Force of gale bolsters your movement");
+            // DisplayName.SetDefault("Gale force");
+            // Description.SetDefault("Force of gale bolsters your movement");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

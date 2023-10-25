@@ -94,7 +94,7 @@ namespace Spellwright.UI.States
                 BackgroundColor = transparentBackground
             };
             backButton.WithFadedMouseOver(brightBackground, transparentBackground);
-            backButton.OnClick += OnBackClicked;
+            backButton.OnLeftClick += OnBackClicked;
             buttonPanel.Append(backButton);
 
             homeButton = new UITextPanel<string>("Home", 0.7f, true)
@@ -107,7 +107,7 @@ namespace Spellwright.UI.States
                 BackgroundColor = transparentBackground
             };
             homeButton.WithFadedMouseOver(brightBackground, transparentBackground);
-            homeButton.OnClick += OnHomeClicked;
+            homeButton.OnLeftClick += OnHomeClicked;
             buttonPanel.Append(homeButton);
 
             closeButton = new UITextPanel<string>("Close", 0.7f, true)
@@ -120,7 +120,7 @@ namespace Spellwright.UI.States
                 BackgroundColor = transparentBackground
             };
             closeButton.WithFadedMouseOver(brightBackground, transparentBackground);
-            closeButton.OnClick += Close;
+            closeButton.OnLeftClick += Close;
             buttonPanel.Append(closeButton);
 
             forwardButton = new UITextPanel<string>("-->", 0.7f, true)
@@ -133,7 +133,7 @@ namespace Spellwright.UI.States
                 BackgroundColor = transparentBackground
             };
             forwardButton.WithFadedMouseOver(brightBackground, transparentBackground);
-            forwardButton.OnClick += OnForwardClicked;
+            forwardButton.OnLeftClick += OnForwardClicked;
             buttonPanel.Append(forwardButton);
 
             transparancyButton = new UITextPanel<string>("Tr", 0.7f, false)
@@ -147,7 +147,7 @@ namespace Spellwright.UI.States
                 BackgroundColor = transparentBackground
             };
             transparancyButton.WithFadedMouseOver(brightBackground, transparentBackground);
-            transparancyButton.OnClick += OnTransparancyClicked;
+            transparancyButton.OnLeftClick += OnTransparancyClicked;
             mainPanel.Append(transparancyButton);
 
             Append(mainPanel);

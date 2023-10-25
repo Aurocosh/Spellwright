@@ -42,12 +42,8 @@ namespace Spellwright.Util
             ushort tileType = tile.TileType;
             if (Main.tileAlch[tileType])
             {
-                WorldGen.GrowAlch(x, y);
-                if (Main.netMode != NetmodeID.MultiplayerClient)
-                {
-                    NetMessage.SendTileSquare(-1, x, y, 1, TileChangeType.None);
-                    WorldGen.SquareTileFrame(x, y, true);
-                }
+                bool forceBloom = Main.rand.Next(100) < 65;
+                GrowAlch(x, y, forceBloom);
             }
             else if (tileType == TileID.GemSaplings)
             {
@@ -104,6 +100,27 @@ namespace Spellwright.Util
             {
                 WorldGen.GrowPumpkin(x, y, TileID.Pumpkins);
             }
+        }
+
+        public static void GrowAlch(int x, int y, bool forceBloom)
+        {
+            Tile tile = Main.tile[x, y];
+            if (!tile.HasTile)
+                return;
+
+            bool isImmatureHerb = tile.TileType == TileID.ImmatureHerbs;
+            bool isMatureHerb = tile.TileType == TileID.MatureHerbs;
+            if (!isImmatureHerb && !isMatureHerb)
+                return;
+
+            ushort newState = TileID.MatureHerbs;
+            if (isMatureHerb || forceBloom)
+                newState = TileID.BloomingHerbs;
+
+            tile.TileType = newState;
+            if (Main.netMode == NetmodeID.Server)
+                NetMessage.SendTileSquare(-1, x, y, TileChangeType.None);
+            WorldGen.SquareTileFrame(x, y, true);
         }
     }
 }

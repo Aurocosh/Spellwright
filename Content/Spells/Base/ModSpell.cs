@@ -24,8 +24,8 @@ namespace Spellwright.Content.Spells.Base
     {
         public int Type { get; private set; }
 
-        public ModTranslation DisplayName { get; internal set; }
-        public ModTranslation Description { get; internal set; }
+        public LocalizedText DisplayName { get; internal set; }
+        public LocalizedText Description { get; internal set; }
 
         protected int guaranteedUses;
         protected float stability;
@@ -109,8 +109,8 @@ namespace Spellwright.Content.Spells.Base
             var nameKey = Spellwright.GetTranslationKey("Spells", Name, "Name");
             var descriptionKey = Spellwright.GetTranslationKey("Spells", Name, "Description");
 
-            DisplayName = LocalizationLoader.GetOrCreateTranslation(nameKey);
-            Description = LocalizationLoader.GetOrCreateTranslation(descriptionKey);
+            DisplayName = Language.GetOrRegister(nameKey);
+            Description = Language.GetOrRegister(descriptionKey);
 
             SpellLibrary.RegisterSpell(this);
         }

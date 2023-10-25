@@ -8,8 +8,8 @@ namespace Spellwright.Content.Buffs.Spells.Utility
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Return To Fish");
-            Description.SetDefault("Go back to your aquatic roots");
+            // DisplayName.SetDefault("Return To Fish");
+            // Description.SetDefault("Go back to your aquatic roots");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

@@ -10,7 +10,7 @@ namespace Spellwright.Content.Potions
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Gives a light defense buff.");
+            // Tooltip.SetDefault("Gives a light defense buff.");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 20;
         }

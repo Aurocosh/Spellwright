@@ -40,7 +40,8 @@ namespace Spellwright.Core.Markers
                 stringBuilder.AppendLine(levelHeader);
                 foreach (var spell in spells)
                 {
-                    var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture);
+                    //var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture); // TODO_TEST
+                    var displayName = spell.DisplayName.Value; // TODO_TEST
                     var line = new FormattedText(displayName).WithLink("Spell", spell.Name).ToString();
                     stringBuilder.AppendLine(line);
                 }

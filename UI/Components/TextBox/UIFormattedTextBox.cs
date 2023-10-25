@@ -25,7 +25,7 @@ namespace Spellwright.UI.Components.TextBox
         private List<UILinkData> links = new();
         private UILinkData hoveredLink = null;
         private float? newViewPosition = null;
-        private bool IsSmartCursorWanted = false;
+        //private bool IsSmartCursorWanted = false; // TODO_TEST
 
         public float OldWidth = 0;
         public float OldHeight = 0;
@@ -42,13 +42,14 @@ namespace Spellwright.UI.Components.TextBox
         {
             base.OnActivate();
             heightNeedsRecalculating = true;
-            IsSmartCursorWanted = Main.SmartCursorWanted;
+            //IsSmartCursorWanted = Main.SmartCursorWanted; // TODO_TEST
+
         }
 
         public override void OnDeactivate()
         {
             base.OnDeactivate();
-            Main.SmartCursorWanted = IsSmartCursorWanted;
+            //Main.SmartCursorWanted = IsSmartCursorWanted; // TODO_TEST
         }
 
         public bool HasText()
@@ -148,9 +149,9 @@ namespace Spellwright.UI.Components.TextBox
             base.Recalculate();
             UpdateScrollbar();
         }
-        public override void Click(UIMouseEvent evt)
+        public override void LeftClick(UIMouseEvent evt)
         {
-            base.Click(evt);
+            base.LeftClick(evt);
 
             UILinkData linkInfo = GetLinkUnderCursor(evt.MousePosition);
             if (linkInfo != null)
@@ -167,7 +168,10 @@ namespace Spellwright.UI.Components.TextBox
         {
             var mouseVector = Main.MouseScreen;
             hoveredLink = GetLinkUnderCursor(mouseVector);
-            Main.SmartCursorWanted = false;
+            //Main.SmartCursorWanted = false; // TODO_TEST
+
+            if (ContainsPoint(Main.MouseScreen)) // TODO_TEST
+                Main.LocalPlayer.mouseInterface = true;
         }
 
         private UILinkData GetLinkUnderCursor(Vector2 mousePosition)

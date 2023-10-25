@@ -52,10 +52,10 @@ namespace Spellwright.Common.Players
             return 0;
         }
 
-        public override void OnRespawn(Player player)
+        public override void OnRespawn()
         {
             foreach (var buffData in respawnBuffs)
-                player.AddBuff(buffData.Type, buffData.Duration);
+                Player.AddBuff(buffData.Type, buffData.Duration);
             respawnBuffs.Clear();
         }
 
@@ -110,7 +110,7 @@ namespace Spellwright.Common.Players
         }
 
 
-        public override void clientClone(ModPlayer clientClone)
+        public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
         {
             var clone = clientClone as SpellwrightBuffPlayer;
             clone.SetPermanentBuffs(PermanentBuffs);

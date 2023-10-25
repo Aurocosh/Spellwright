@@ -7,6 +7,8 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.NPC;
+using static Terraria.Player;
 
 namespace Spellwright.Util
 {
@@ -23,7 +25,16 @@ namespace Spellwright.Util
                 if (distance / 16f <= radius)
                 {
                     int direction = distance > 0 ? 1 : -1;
-                    npc.StrikeNPC(damage, projectile.knockBack, direction, false);
+
+                    var hit = new HitInfo
+                    {
+                        SourceDamage = damage,
+                        Knockback = projectile.knockBack,
+                        HitDirection = direction
+                    };
+                    npc.StrikeNPC(hit);
+                    if (Main.netMode != NetmodeID.SinglePlayer)
+                        NetMessage.SendStrikeNPC(npc, hit);
                 }
             }
 
@@ -38,14 +49,22 @@ namespace Spellwright.Util
 
                 float distance = Vector2.Distance(player.Center, projectile.Center);
                 int dir = distance > 0 ? 1 : -1;
+
+                var hurtInfo = new HurtInfo
+                {
+                    DamageSource = PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI),
+                    SourceDamage = damage,
+                    HitDirection = dir
+                };
+
                 if (distance / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer)
                 {
-                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), damage, dir);
+                    player.Hurt(hurtInfo);
                     player.hurtCooldowns[0] += 20;
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient && distance / 16f <= radius && player.whoAmI == projectile.owner)
                 {
-                    NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), damage, dir, false, pvp: true, 0);
+                    NetMessage.SendPlayerHurt(projectile.owner, hurtInfo); // TODO_TEST
                 }
             }
         }

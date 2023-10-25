@@ -8,8 +8,8 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sigil of Berserker");
-            Description.SetDefault("Your fury knows no bounds.");
+            // DisplayName.SetDefault("Sigil of Berserker");
+            // Description.SetDefault("Your fury knows no bounds.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }
@@ -29,9 +29,9 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
             float maxBonus = 3 * (buffPlayerLevel / 10f);
             float bonusCoeff = 1 - player.statLife / (float)player.statLifeMax2;
 
-            player.GetAttackSpeed(DamageClass.Melee) += 12;
+            player.GetAttackSpeed(DamageClass.Melee) += .12f;
             player.GetCritChance(DamageClass.Melee) += (int)(100 * bonusCoeff);
-            player.GetDamage(DamageClass.Melee) += maxBonus * bonusCoeff;
+            player.GetDamage(DamageClass.Melee) *= 1 + maxBonus * bonusCoeff;
         }
     }
 }

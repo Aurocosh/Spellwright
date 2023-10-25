@@ -136,7 +136,7 @@ namespace Spellwright.Util
                     continue;
                 if (settings.avoidLava && Collision.LavaCollision(vector, width, player.height))
                     continue;
-                if (settings.avoidHurtTiles && Collision.HurtTiles(vector, player.velocity, width, player.height).Y > 0f)
+                if (settings.avoidHurtTiles && Collision.HurtTiles(vector, width, player.height, player).type != -1) // TODO_TEST
                     continue;
                 if (Collision.SolidCollision(vector, width, player.height))
                     continue;
@@ -177,7 +177,7 @@ namespace Spellwright.Util
             if (resetVelocity)
                 player.velocity = Vector2.Zero;
             if (Main.netMode == NetmodeID.MultiplayerClient)
-                NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, position.X, position.Y, teleportStyle, noTeleportSign);
+                NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, player.whoAmI, position.X, position.Y, teleportStyle, noTeleportSign);
         }
 
         public static void QuickBuffFromStorage(Player player, IEnumerable<Item> storage)

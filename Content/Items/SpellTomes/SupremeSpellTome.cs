@@ -20,8 +20,8 @@ namespace Spellwright.Content.Items.SpellTomes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Supreme Spell Tome");
-            Tooltip.SetDefault("Very valuable book that contains most rare and powerful spells. This tome contains spells ranging from level 7 to level 10.");
+            // DisplayName.SetDefault("Supreme Spell Tome");
+            // Tooltip.SetDefault("Very valuable book that contains most rare and powerful spells. This tome contains spells ranging from level 7 to level 10.");
 
             var content = new SpellTomeContent();
             content.AddCount(2, .8);

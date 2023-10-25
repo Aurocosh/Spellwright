@@ -13,7 +13,7 @@ namespace Spellwright.Content.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shockwave Dart");
+            // DisplayName.SetDefault("Shockwave Dart");
             deathSound = SoundID.Item14;
             deathSound.PitchVariance = .3f;
             deathSound.Volume = .8f;

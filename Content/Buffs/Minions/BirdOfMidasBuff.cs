@@ -8,8 +8,8 @@ namespace Spellwright.Content.Buffs.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bird of midas");
-            Description.SetDefault("Golden raven will bring you riches");
+            // DisplayName.SetDefault("Bird of midas");
+            // Description.SetDefault("Golden raven will bring you riches");
 
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

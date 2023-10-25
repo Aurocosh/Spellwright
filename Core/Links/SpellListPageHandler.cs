@@ -159,7 +159,8 @@ namespace Spellwright.Core.Links
 
         private string GenerateSpellLine(Player player, bool showCost, SpellwrightPlayer spellPlayer, ModSpell spell)
         {
-            var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture);
+            //var displayName = spell.DisplayName.GetTranslation(Language.ActiveCulture); // TODO_TEST
+            var displayName = spell.DisplayName.Value; // TODO_TEST
             var line = new FormattedText(displayName).WithLink("Spell", spell.Name).ToString();
 
             if (showCost)

@@ -9,8 +9,8 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sigil of Sniper");
-            Description.SetDefault("Your can see beyound the horizon");
+            // DisplayName.SetDefault("Sigil of Sniper");
+            // Description.SetDefault("Your can see beyound the horizon");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }
@@ -31,10 +31,9 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
             float largestVelocity = Math.Max(velocityX, velocityY);
             if (largestVelocity < 0.1f)
             {
-                //float maxBonus = 1 * (buffPlayerLevel / 10f); // Preview
                 float maxBonus = 1 * (buffPlayerLevel / 10f);
                 player.GetCritChance(DamageClass.Ranged) += (int)(100 * maxBonus);
-                player.GetDamage(DamageClass.Ranged) += maxBonus;
+                player.GetDamage(DamageClass.Ranged) *= 1 + maxBonus;
             }
         }
     }

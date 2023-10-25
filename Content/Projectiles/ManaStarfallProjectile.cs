@@ -12,7 +12,7 @@ namespace Spellwright.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mana starfall");
+            // DisplayName.SetDefault("Mana starfall");
         }
 
         public override void SetDefaults()

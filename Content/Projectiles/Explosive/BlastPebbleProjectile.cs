@@ -11,9 +11,11 @@ namespace Spellwright.Content.Projectiles.Explosive
 {
     public class BlastPebbleProjectile : ModProjectile
     {
+        private bool _exploded = false;
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blast pebble");
+            // DisplayName.SetDefault("Blast pebble");
         }
 
         public override void SetDefaults()
@@ -44,12 +46,12 @@ namespace Spellwright.Content.Projectiles.Explosive
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             Explode();
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Explode();
         }
@@ -62,6 +64,10 @@ namespace Spellwright.Content.Projectiles.Explosive
 
         private void Explode()
         {
+            if (_exploded)
+                return;
+            _exploded = true;
+
             int radius = 8;
             int damage = 80;
 

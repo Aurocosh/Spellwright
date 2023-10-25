@@ -52,7 +52,7 @@ namespace Spellwright.Common.Players
                 && !Player.mount.Active; // player isn't mounted, since dashes on a mount look weird
         }
 
-        public override void clientClone(ModPlayer clientClone)
+        public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
         {
             var clone = clientClone as SpellwrightDashPlayer;
             clone.DashTimer = DashTimer;

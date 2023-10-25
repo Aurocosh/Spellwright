@@ -11,7 +11,7 @@ namespace Spellwright.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bolt of confusion");
+            // DisplayName.SetDefault("Bolt of confusion");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5; // The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
         }
@@ -41,14 +41,12 @@ namespace Spellwright.Content.Projectiles
                 dust.velocity *= 0.3f;
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
             target.AddBuff(BuffID.Confused, UtilTime.SecondsToTicks(15));
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            base.OnHitPlayer(target, damage, crit);
             target.AddBuff(BuffID.Confused, UtilTime.SecondsToTicks(15));
         }
 

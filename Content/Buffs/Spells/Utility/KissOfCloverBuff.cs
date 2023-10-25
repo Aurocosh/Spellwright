@@ -9,8 +9,8 @@ namespace Spellwright.Content.Buffs.Spells.Utility
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Kiss of clover");
-            Description.SetDefault("Luck itself gave you a kiss.");
+            // DisplayName.SetDefault("Kiss of clover");
+            // Description.SetDefault("Luck itself gave you a kiss.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

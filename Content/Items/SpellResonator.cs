@@ -25,8 +25,8 @@ namespace Spellwright.Content.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spell Resonator");
-            Tooltip.SetDefault("Magical artefact resonating with your voice and capable of binding your words to itself.");
+            // DisplayName.SetDefault("Spell Resonator");
+            // Tooltip.SetDefault("Magical artefact resonating with your voice and capable of binding your words to itself.");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
@@ -60,7 +60,8 @@ namespace Spellwright.Content.Items
             else
             {
                 var itemName = Lang.GetItemNameValue(Type);
-                var spellName = CurrentSpell.DisplayName.GetTranslation(Language.ActiveCulture);
+                //var spellName = CurrentSpell.DisplayName.GetTranslation(Language.ActiveCulture); // TODO_TEST
+                var spellName = CurrentSpell.DisplayName.Value; // TODO_TEST
                 if (SpellUsesLeft > 0)
                     Item.SetNameOverride($"{itemName} ({spellName} - {SpellUsesLeft})");
                 else
@@ -169,7 +170,9 @@ namespace Spellwright.Content.Items
             }
             else
             {
-                string name = CurrentSpell.DisplayName.GetTranslation(Language.ActiveCulture);
+
+                //string name = CurrentSpell.DisplayName.GetTranslation(Language.ActiveCulture); // TODO_TEST
+                string name = CurrentSpell.DisplayName.Value; // TODO_TEST
                 tooltips.Add(new TooltipLine(spellwright, "Spell name", name));
 
                 var descriptionValues = CurrentSpell.GetDescriptionValues(player, playerLevel, SpellData, false);

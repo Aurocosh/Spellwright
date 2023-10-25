@@ -129,7 +129,8 @@ namespace Spellwright.Content.Items.SpellTomes.Base
                 learnedSpells.Add(spell);
             }
 
-            var learnedNames = learnedSpells.Select(x => x.DisplayName.GetTranslation(Language.ActiveCulture));
+            //var learnedNames = learnedSpells.Select(x => x.DisplayName.GetTranslation(Language.ActiveCulture)); // TODO_TEST
+            var learnedNames = learnedSpells.Select(x => x.DisplayName.Value); // TODO_TEST
             var names = string.Join(", ", learnedNames);
             var message = Spellwright.GetTranslation("General", "SpellsLearned");
             Main.NewText(message.Format(names), Color.White);

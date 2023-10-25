@@ -13,7 +13,7 @@ namespace Spellwright.Content.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Nibbler");
+            // DisplayName.SetDefault("Soul Nibbler");
             Main.projFrames[Projectile.type] = 6;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -61,7 +61,7 @@ namespace Spellwright.Content.Minions
             AIType = ProjectileID.BabySlime;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             float missingHealth = 0f;
             int currentPlayerId = -1;

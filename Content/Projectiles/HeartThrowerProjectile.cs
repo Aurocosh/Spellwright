@@ -11,7 +11,7 @@ namespace Spellwright.Content.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart Thrower");
+            // DisplayName.SetDefault("Heart Thrower");
         }
 
         public override void SetDefaults()

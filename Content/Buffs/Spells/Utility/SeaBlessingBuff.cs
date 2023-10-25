@@ -8,8 +8,8 @@ namespace Spellwright.Content.Buffs.Spells.Utility
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sea Blessing");
-            Description.SetDefault("See and fishies smile upon you.");
+            // DisplayName.SetDefault("Sea Blessing");
+            // Description.SetDefault("See and fishies smile upon you.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

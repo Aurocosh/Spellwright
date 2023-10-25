@@ -24,7 +24,8 @@ namespace Spellwright.Core.Links
             }
 
             var builder = new StringBuilder();
-            string name = modItem.DisplayName.GetTranslation(Language.ActiveCulture);
+            //string name = modItem.DisplayName.GetTranslation(Language.ActiveCulture); // TODO_TEST
+            string name = modItem.DisplayName.Value; // TODO_TEST
             string formattedName = new FormattedText(name, Color.DarkGoldenrod).ToString();
             builder.AppendLine(formattedName);
 

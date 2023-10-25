@@ -19,7 +19,7 @@ using Terraria.UI;
 
 namespace Spellwright.Common.Players
 {
-    public class SpellwrightPlayer : ModPlayer, ILoader
+    public class SpellwrightPlayer : ModPlayer //, ILoader
     {
         private int playerLevel = 0;
         private int nextCantripDelay = 0;
@@ -69,7 +69,7 @@ namespace Spellwright.Common.Players
             Spellwright.Instance.userInterface.SetState(null);
         }
 
-        public override void clientClone(ModPlayer clientClone)
+        public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
         {
             var clone = clientClone as SpellwrightPlayer;
             clone.PlayerLevel = PlayerLevel;

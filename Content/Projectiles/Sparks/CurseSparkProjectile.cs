@@ -13,17 +13,15 @@ namespace Spellwright.Content.Projectiles.Sparks
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Cursed spark");
+            // DisplayName.SetDefault("Cursed spark");
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
             target.AddBuff(BuffID.CursedInferno, UtilTime.SecondsToTicks(20));
         }
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            base.OnHitPlayer(target, damage, crit);
             target.AddBuff(BuffID.CursedInferno, UtilTime.SecondsToTicks(20));
         }
     }

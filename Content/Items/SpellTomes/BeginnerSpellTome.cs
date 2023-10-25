@@ -21,8 +21,8 @@ namespace Spellwright.Content.Items.SpellTomes
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Beginner Spell Tome");
-            Tooltip.SetDefault("A book that contains multitude of common low level spells. This tome contains spells ranging from level 1 to level 3.");
+            // DisplayName.SetDefault("Beginner Spell Tome");
+            // Tooltip.SetDefault("A book that contains multitude of common low level spells. This tome contains spells ranging from level 1 to level 3.");
 
             var content = new SpellTomeContent();
             content.AddCount(2, .70);

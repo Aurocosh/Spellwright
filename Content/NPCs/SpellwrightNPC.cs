@@ -26,7 +26,7 @@ namespace Spellwright.Content.NPCs
         public override void SetStaticDefaults()
         {
             // DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
-            DisplayName.SetDefault("Spellwright");
+            // DisplayName.SetDefault("Spellwright");
             Main.npcFrameCount[Type] = 25; // The amount of frames the NPC has
 
             NPCID.Sets.ExtraFramesCount[Type] = 9;
@@ -37,12 +37,11 @@ namespace Spellwright.Content.NPCs
             NPCID.Sets.AttackAverageChance[Type] = 30;
             NPCID.Sets.HatOffsetY[Type] = 4; // For when a party is active, the party hat spawns at a Y offset.
 
-            var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Velocity = 1f,
                 Direction = 1
             };
-
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
             NPC.Happiness
@@ -93,7 +92,7 @@ namespace Spellwright.Content.NPCs
             return true;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             int num = NPC.life > 0 ? 1 : 5;
 
@@ -104,7 +103,7 @@ namespace Spellwright.Content.NPCs
             }
         }
 
-        public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+        public override bool CanTownNPCSpawn(int numTownNPCs)/* tModPorter Suggestion: Copy the implementation of NPC.SpawnAllowed_Merchant in vanilla if you to count money, and be sure to set a flag when unlocked, so you don't count every tick. */
         {
             for (int k = 0; k < 255; k++)
             {
@@ -161,17 +160,16 @@ namespace Spellwright.Content.NPCs
             }
         }
 
-        public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
         {
             if (firstButton)
             {
-                shop = true;
+                shopName = "SpellwrightShop"; // TODO_TEST
             }
             else
             {
                 Player player = Main.LocalPlayer;
                 var spellPlayer = player.GetModPlayer<SpellwrightPlayer>();
-
 
                 if (!spellPlayer.LearnedBasics)
                 {
@@ -193,17 +191,36 @@ namespace Spellwright.Content.NPCs
             }
         }
 
-        public override void SetupShop(Chest shop, ref int nextSlot)
+        public override void ModifyActiveShop(string shopName, Item[] items)
         {
-            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SpellResonator>());
-            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SilverMirror>());
-            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<CommonSpellReagent>());
-            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<RareSpellReagent>());
-            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<MythicalSpellReagent>());
-            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<BeginnerSpellTome>());
-            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<AdvancedSpellTome>());
-            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<SupremeSpellTome>());
-            shop.item[nextSlot++].SetDefaults(ModContent.ItemType<PurifiedFruit>());
+            //if (shopName != "SpellwrightShop")
+            //    return;
+
+            //int nextSlot = 0; // TODO_TEST
+            //items[nextSlot++].SetDefaults(ModContent.ItemType<SpellResonator>());
+            //items[nextSlot++].SetDefaults(ModContent.ItemType<SilverMirror>());
+            //items[nextSlot++].SetDefaults(ModContent.ItemType<CommonSpellReagent>());
+            //items[nextSlot++].SetDefaults(ModContent.ItemType<RareSpellReagent>());
+            //items[nextSlot++].SetDefaults(ModContent.ItemType<MythicalSpellReagent>());
+            //items[nextSlot++].SetDefaults(ModContent.ItemType<BeginnerSpellTome>());
+            //items[nextSlot++].SetDefaults(ModContent.ItemType<AdvancedSpellTome>());
+            //items[nextSlot++].SetDefaults(ModContent.ItemType<SupremeSpellTome>());
+            //items[nextSlot++].SetDefaults(ModContent.ItemType<PurifiedFruit>());
+        }
+
+        public override void AddShops()
+        {
+            var npcShop = new NPCShop(Type, "SpellwrightShop")
+                .Add<SpellResonator>()
+                .Add<SilverMirror>()
+                .Add<CommonSpellReagent>()
+                .Add<RareSpellReagent>()
+                .Add<MythicalSpellReagent>()
+                .Add<BeginnerSpellTome>()
+                .Add<AdvancedSpellTome>()
+                .Add<SupremeSpellTome>()
+                .Add<PurifiedFruit>();
+            npcShop.Register();
         }
 
         public override bool CanGoToStatue(bool toKingStatue) => true;

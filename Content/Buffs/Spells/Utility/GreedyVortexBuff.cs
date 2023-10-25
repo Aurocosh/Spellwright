@@ -7,8 +7,8 @@ namespace Spellwright.Content.Buffs.Spells.Utility
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Greedy Vortex");
-            Description.SetDefault("Increases pick up range for all items.");
+            // DisplayName.SetDefault("Greedy Vortex");
+            // Description.SetDefault("Increases pick up range for all items.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }

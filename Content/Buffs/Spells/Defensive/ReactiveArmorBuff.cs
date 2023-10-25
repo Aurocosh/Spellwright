@@ -8,8 +8,8 @@ namespace Spellwright.Content.Buffs.Spells.Defensive
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Reactive armor");
-            Description.SetDefault("Grants additional defense that increases with each hit received.");
+            // DisplayName.SetDefault("Reactive armor");
+            // Description.SetDefault("Grants additional defense that increases with each hit received.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }
@@ -25,13 +25,12 @@ namespace Spellwright.Content.Buffs.Spells.Defensive
             public int BonusDefense { get; set; } = 0;
             public int MaxBonusDefense { get; set; } = 0;
 
-            public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+            public override void OnHurt(Player.HurtInfo info)
             {
-                //base.Hurt(pvp, quiet, damage, hitDirection, crit);
                 if (Player.whoAmI == Main.myPlayer && BonusDefense < MaxBonusDefense)
                 {
                     int minDamage = (int)(Player.statLifeMax2 * 0.2f);
-                    if (damage >= minDamage)
+                    if (info.Damage >= minDamage)
                         BonusDefense++;
                 }
             }

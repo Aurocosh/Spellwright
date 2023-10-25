@@ -8,8 +8,8 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sigil of Sage");
-            Description.SetDefault("Your wisdom resonates with the world.");
+            // DisplayName.SetDefault("Sigil of Sage");
+            // Description.SetDefault("Your wisdom resonates with the world.");
             Main.buffNoTimeDisplay[Type] = false;
             Main.debuff[Type] = false;
         }
@@ -23,13 +23,11 @@ namespace Spellwright.Content.Buffs.Spells.Sigils
             var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
             int buffPlayerLevel = buffPlayer.GetBuffLevel(ModContent.BuffType<SigilOfSageBuff>());
 
-            //float maxBonus = 1.5f * (buffPlayerLevel / 10f); // Preview
             float maxBonus = 1.5f * (buffPlayerLevel / 10f);
             float bonusCoeff = player.statMana / (float)player.statManaMax;
 
-            //player.GetCritChance(DamageClass.Magic) += maxBonus * bonusCoeff; // Preview
             player.GetCritChance(DamageClass.Magic) += (int)(100 * bonusCoeff);
-            player.GetDamage(DamageClass.Magic) += maxBonus * bonusCoeff;
+            player.GetDamage(DamageClass.Magic) *= 1 + maxBonus * bonusCoeff;
         }
     }
 }

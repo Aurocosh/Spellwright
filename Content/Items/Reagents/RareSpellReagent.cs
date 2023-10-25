@@ -13,13 +13,13 @@ namespace Spellwright.Content.Items.Reagents
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rare Spell Reagent");
-            Tooltip.SetDefault("Advanced spell reagents required for various advanced spells.");
+            // DisplayName.SetDefault("Rare Spell Reagent");
+            // Tooltip.SetDefault("Advanced spell reagents required for various advanced spells.");
         }
 
         public override void SetDefaults()
         {
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.ammo = Item.type;
             //Item.value = Item.buyPrice(0, 0, 10, 0);
             Item.value = SpellwrightServerConfig.Instance.RareReagentCost;

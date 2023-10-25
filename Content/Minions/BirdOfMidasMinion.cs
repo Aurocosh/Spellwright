@@ -11,7 +11,7 @@ namespace Spellwright.Content.Minions
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Raven of Midas");
+            // DisplayName.SetDefault("Raven of Midas");
             Main.projFrames[Projectile.type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -49,7 +49,7 @@ namespace Spellwright.Content.Minions
             this.CheckBuffStatus(buffType);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Midas, UtilTime.SecondsToTicks(5), true);
         }
