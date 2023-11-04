@@ -29,6 +29,12 @@ namespace Spellwright.Core.Buffs
                 case BuffID.WaterWalking:
                     player.waterWalk = true;
                     break;
+                case BuffID.Dangersense:
+                    player.dangerSense = true;
+                    break;
+                case BuffID.NightOwl:
+                    player.nightVision = true;
+                    break;
                 case BuffID.Hunter:
                     player.detectCreature = true;
                     break;
