@@ -698,9 +698,11 @@ Mods: {
 					'''
 					Creates a bound mirror from a silver mirror. Bound mirror is linked to the place where it
 					was created. When a mirror is used it will teleport the user to the linked place. This spell
-					can be extended. To the incantation a column followed by any text can be appended. Following
+					can be extended. To the incantation a colon (:) followed by any text can be appended. Following
 					text will be recorded in the mirror shard as a label.
 					Bound mirrors are infinite use items.
+
+					Incantation "Bind mirror" will create bound mirror without a label. Incantation "Bind Mirror: Home base" will create bound mirror with a label "Home base".
 					'''
 			}
 
@@ -710,9 +712,11 @@ Mods: {
 					'''
 					Creates a warped mirror from a silver mirror. Warped mirror is linked to the place where
 					it was created. When a mirror is used it will teleport the user to the linked place. This
-					spell can be extended. To the incantation a column followed by any text can be appended.
+					spell can be extended. To the incantation a colon (:) followed by any text can be appended.
 					Following text will be recorded in the mirror shard as a label.
 					Warped mirrors are single use items.
+
+					Incantation "Warp mirror" will create warped mirror without a label. Incantation "Warp Mirror: Home base" will create warped mirror with a label "Home base".
 					'''
 			}
 

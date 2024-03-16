@@ -41,6 +41,7 @@ namespace Spellwright.Content.Spells.Enchant
             modItem.WorldName = Main.worldName;
             modItem.LocationName = locationName;
             modItem.BoundLocation = player.position;
+            modItem.UpdateName();
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 NetMessage.SendData(MessageID.SyncItem, -1, -1, null, itemId, 1);

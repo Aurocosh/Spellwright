@@ -40,6 +40,7 @@ namespace Spellwright.Content.Items.Mirrors
             clone.WorldName = WorldName;
             clone.LocationName = LocationName;
             clone.BoundLocation = BoundLocation;
+            clone.UpdateName();
             return clone;
         }
 
@@ -110,6 +111,7 @@ namespace Spellwright.Content.Items.Mirrors
             float locationX = tag.GetFloat("BoundLocationX");
             float locationY = tag.GetFloat("BoundLocationY");
             BoundLocation = new Vector2(locationX, locationY);
+            UpdateName();
         }
 
         public override bool? UseItem(Player player)
@@ -132,6 +134,20 @@ namespace Spellwright.Content.Items.Mirrors
             float locationX = reader.ReadSingle();
             float locationY = reader.ReadSingle();
             BoundLocation = new Vector2(locationX, locationY);
+            UpdateName();
+        }
+
+        public void UpdateName()
+        {
+            if (LocationName.Length == 0)
+            {
+                Item.ClearNameOverride();
+            }
+            else
+            {
+                var itemName = Lang.GetItemNameValue(Type);
+                Item.SetNameOverride($"{itemName} ({LocationName})");
+            }
         }
 
         // UseStyle is called each frame that the item is being actively used.
