@@ -24,7 +24,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
             if (realCost <= 0)
                 return true;
 
-            if (!player.ConsumeItems(ItemType, Cost))
+            if (!player.ConsumeItems(ItemType, realCost))
             {
                 var itemName = Lang.GetItemName(ItemType);
                 var costText = $"{realCost} {itemName}";

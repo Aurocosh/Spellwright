@@ -98,7 +98,7 @@ namespace Spellwright.Content.Spells.Base
 
             SetSpellCostModifier(SpellModifier.Dispel, new MultCostModifier(0));
             SetSpellCostModifier(SpellModifier.Area, new MultCostModifier(4));
-            SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(25));
+            SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(10));
         }
         protected sealed override void Register()
         {
