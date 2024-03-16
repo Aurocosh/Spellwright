@@ -97,8 +97,8 @@ namespace Spellwright.Content.Spells.Base
             castSound = SoundID.Item4;
 
             SetSpellCostModifier(SpellModifier.Dispel, new MultCostModifier(0));
-            SetSpellCostModifier(SpellModifier.Area, new MultCostModifier(4));
-            SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(10));
+            SetSpellCostModifier(SpellModifier.Area, new MultCostModifier(3));
+            SetSpellCostModifier(SpellModifier.Eternal, new MultCostModifier(6));
         }
         protected sealed override void Register()
         {
