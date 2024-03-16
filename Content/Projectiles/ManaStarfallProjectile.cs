@@ -33,7 +33,7 @@ namespace Spellwright.Content.Projectiles
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             DoDeathEffects();
             Item.NewItem(new EntitySource_DropAsItem(Projectile), Projectile.position, ItemID.Star, 1, false, 0, true);

@@ -54,7 +54,7 @@ namespace Spellwright.Content.Projectiles.Tiles
             Projectile.Kill();
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Explode();
         }

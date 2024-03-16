@@ -28,7 +28,7 @@ namespace Spellwright.Content.Projectiles
             AIType = ProjectileID.Shuriken;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Shatter, Projectile.position);
