@@ -14,6 +14,8 @@ namespace Spellwright.Util
                 int unitsToMove = Math.Min(toItem.maxStack - toItem.stack, fromItem.stack);
                 toItem.stack += unitsToMove;
                 fromItem.stack -= unitsToMove;
+                if(fromItem.stack == 0)
+                    fromItem.TurnToAir();
                 return true;
             }
             return false;

@@ -2,6 +2,7 @@
 using Spellwright.Extensions;
 using Spellwright.Util;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -66,23 +67,32 @@ namespace Spellwright.Content.Spells.Storage.Base
             }
 
             bool storedAtLeastOne = false;
+            var itemsTypesInStorage = new HashSet<int>(storage.Select(x => x.type));
             foreach (int i in UtilPlayer.GetInventoryIndexes(IncludedArea(), true))
             {
-                if (storage.Count >= maxStorageSize)
-                    break;
-
                 Item item = player.inventory[i];
                 if (item.type != ItemID.None && item.stack > 0 && !item.favorited && CanAccept(item))
                 {
-                    foreach (var storedItem in storage)
-                        if (UtilItem.MergeItem(item, storedItem) && item.stack == 0)
-                            break;
+                    if (itemsTypesInStorage.Contains(item.type))
+                    {
+                        foreach (var storedItem in storage)
+                        {
+                            if (UtilItem.MergeItem(item, storedItem))
+                            {
+                                storedAtLeastOne = true;
+                                if (item.stack == 0)
+                                    break;
+                            }
+                        }
+                    }
 
-                    if (item.stack > 0)
+                    if (item.stack > 0 && storage.Count < maxStorageSize)
+                    {
                         storage.Add(item);
-
-                    player.inventory[i] = new Item();
-                    storedAtLeastOne = true;
+                        itemsTypesInStorage.Add(item.type);
+                        storedAtLeastOne = true;
+                        player.inventory[i] = new Item();
+                    }
                 }
             }
 
