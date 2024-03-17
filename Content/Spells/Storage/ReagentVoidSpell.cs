@@ -46,10 +46,11 @@ namespace Spellwright.Content.Spells.Storage
             return statPlayer.ReagentItems;
         }
 
-        protected override int StorageSize(int playerLevel)
+        public override int StorageSize(int playerLevel)
         {
             return playerLevel;
         }
+
         protected override InventoryArea IncludedArea()
         {
             return InventoryArea.All;

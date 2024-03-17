@@ -37,7 +37,7 @@ namespace Spellwright.Content.Spells.Storage
             return statPlayer.StoredItems;
         }
 
-        protected override int StorageSize(int playerLevel)
+        public override int StorageSize(int playerLevel)
         {
             return 50 * playerLevel;
         }

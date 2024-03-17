@@ -43,6 +43,8 @@ Mods: {
 			Or: Or
 			And: And
 			Level: Level
+			True: True
+			False: False
 			StoredItems: Stored items
 			SpellsLearned: Spells learned: {0}
 			SpellLevelTooLow: My spellcasting level is too low
@@ -327,6 +329,9 @@ Mods: {
 				ReagentVoid: Reagent Void
 				Locked: Locked
 				Unlocked: Unlocked
+				ItemsNotGrouped: Items are not grouped
+				ItemsGrouped: Items are grouped by type
+				StorageSize: Storage size: {0}
 				StorageStatus: Storage status: {0}
 				ItemsInStorage: Items in storage: {0}
 			}

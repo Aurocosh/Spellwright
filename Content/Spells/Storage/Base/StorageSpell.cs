@@ -13,7 +13,7 @@ namespace Spellwright.Content.Spells.Storage.Base
     {
         protected abstract List<Item> GetStorage(Player player);
         protected abstract bool CanAccept(Item item);
-        protected abstract int StorageSize(int playerLevel);
+        public abstract int StorageSize(int playerLevel);
         protected abstract InventoryArea IncludedArea();
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

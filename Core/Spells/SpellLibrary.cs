@@ -11,6 +11,7 @@ namespace Spellwright.Core.Spells
     {
         private static readonly List<ModSpell> registeredSpells = new();
         private static readonly Dictionary<int, ModSpell> spellIdMap = new();
+        private static readonly Dictionary<Type, ModSpell> spellTypeMap = new();
         private static readonly Dictionary<string, ModSpell> spellNameMap = new();
         private static readonly Dictionary<string, ModSpell> spellIncantationMap = new();
         private static readonly MultiValueDictionary<int, string> incantationListMap = new();
@@ -24,6 +25,7 @@ namespace Spellwright.Core.Spells
         {
             spellIdMap.Clear();
             spellNameMap.Clear();
+            spellTypeMap.Clear();
             spellIncantationMap.Clear();
             incantationListMap.Clear();
 
@@ -32,6 +34,7 @@ namespace Spellwright.Core.Spells
             {
                 spellIdMap.Add(modSpell.Type, modSpell);
                 spellNameMap.Add(modSpell.Name, modSpell);
+                spellTypeMap.Add(modSpell.GetType(), modSpell);
 
                 var defaultIncantation = GetDefaultIncantation(modSpell);
                 incantations.Add(defaultIncantation.ToLower());
@@ -58,6 +61,7 @@ namespace Spellwright.Core.Spells
         {
             spellIdMap.Clear();
             spellNameMap.Clear();
+            spellTypeMap.Clear();
             registeredSpells.Clear();
             spellIncantationMap.Clear();
             incantationListMap.Clear();
@@ -74,12 +78,22 @@ namespace Spellwright.Core.Spells
                 return modSpell;
             return null;
         }
+
         public static ModSpell GetSpellByName(string name)
         {
             if (spellNameMap.TryGetValue(name, out var modSpell))
                 return modSpell;
             return null;
         }
+
+        public static T GetSpellByType<T>() where T: ModSpell
+        {
+            Type type = typeof(T);
+            if (spellTypeMap.TryGetValue(type, out var modSpell))
+                return (T)modSpell;
+            return null;
+        }
+
         public static ModSpell GetSpellByIncantation(string incantation)
         {
             if (incantation == null)
@@ -88,6 +102,7 @@ namespace Spellwright.Core.Spells
                 return null;
             return spell;
         }
+
         public static IReadOnlyList<string> GetSpellIncantationList(int id)
         {
             if (incantationListMap.TryGetValue(id, out var list))
