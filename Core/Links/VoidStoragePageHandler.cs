@@ -71,10 +71,10 @@ namespace Spellwright.Core.Links
                 linkData.RemoveParameter("group");
             }
 
-            var countTitle = GetTranslation("ItemsInStorage").Format(storage.Count).AsFormText().WithColor(Color.Gray);
-            stringBuilder.AppendLine(countTitle.ToString());
             var storageSizeTitle = GetTranslation("StorageSize").Format(storageSize).AsFormText().WithColor(Color.Gray);
             stringBuilder.AppendLine(storageSizeTitle.ToString());
+            var countTitle = GetTranslation("ItemsInStorage").Format(storage.Count).AsFormText().WithColor(Color.Gray);
+            stringBuilder.AppendLine(countTitle.ToString());
 
             string groupTrKey = statPlayer.GroupStorageByType ? "ItemsGrouped" : "ItemsNotGrouped";
             var groupTitle = GetFormText(groupTrKey).WithLink("VoidStorage", storageType).WithParam("group").WithColor(Color.Orange).ToString();

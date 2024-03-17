@@ -23,7 +23,7 @@ namespace Spellwright.Content.Items.Mirrors
             Item.useAnimation = 60;
             Item.useTime = 60;
             Item.useTurn = true;
-            Item.maxStack = 30;
+            Item.maxStack = 99;
             Item.value = Item.buyPrice(0, 0, 4, 0);
             Item.rare = ItemRarityID.Green;
         }
