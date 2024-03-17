@@ -86,7 +86,7 @@ namespace Spellwright.Core.Links
             var displayedItems =
                 from item in storage
                 where item.type != ItemID.None && item.stack > 0
-                orderby item.favorited descending, item.Name ascending
+                orderby item.favorited descending, item.Name ascending, item.stack descending
                 group item by item.type into itemGroup
                 select itemGroup;
 
@@ -98,7 +98,7 @@ namespace Spellwright.Core.Links
 
                 var itemsToDisplay = value.AsEnumerable();
                 if (statPlayer.GroupStorageByType)
-                    itemsToDisplay = Enumerable.Repeat(firstItem, 1); 
+                    itemsToDisplay = Enumerable.Repeat(firstItem, 1);
 
                 foreach (var nextItem in itemsToDisplay)
                 {
@@ -132,10 +132,11 @@ namespace Spellwright.Core.Links
 
         private StorageSpell GetStorageSpell(VoidStorageType storageType)
         {
-            switch (storageType) { 
+            switch (storageType)
+            {
                 case VoidStorageType.Item:
                     {
-                        _itemVoidSpell ??=  SpellLibrary.GetSpellByType<ItemVoidSpell>();
+                        _itemVoidSpell ??= SpellLibrary.GetSpellByType<ItemVoidSpell>();
                         return _itemVoidSpell;
                     }
                 case VoidStorageType.Potion:
@@ -161,6 +162,7 @@ namespace Spellwright.Core.Links
             var potions =
                 from item in storage
                 where item.type == potionType && item.stack > 0
+                orderby item.stack ascending
                 select item;
 
             var firstItem = potions.FirstOrDefault();

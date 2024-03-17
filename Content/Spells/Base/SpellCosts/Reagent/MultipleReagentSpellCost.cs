@@ -90,7 +90,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
                 if (realCost <= 0)
                     return true;
 
-                var allItems = player.GetInventoryItems().Concat(statPlayer.ReagentItems);
+                var allItems = player.GetInventoryItems().Concat(statPlayer.ReagentItems.OrderBy(x => x.stack));
                 UtilInventory.ConsumeItems(allItems, itemType, realCost);
             }
 

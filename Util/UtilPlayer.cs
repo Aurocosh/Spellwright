@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Extensions;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -190,11 +191,13 @@ namespace Spellwright.Util
 
             if (player.CountBuffs() != Player.MaxBuffs)
             {
-                foreach (var item in storage)
+                var potions =
+                    from item in storage
+                    where item.stack > 0 && item.type > ItemID.None && item.buffType > 0 && item.DamageType != DamageClass.Summon
+                    orderby item.stack ascending
+                    select item;
+                foreach (var item in potions)
                 {
-                    if (item.stack <= 0 || item.type <= ItemID.None || item.buffType <= 0 || item.DamageType == DamageClass.Summon)
-                        continue;
-
                     int buffId = item.buffType;
                     bool canUseItem = CombinedHooks.CanUseItem(player, item) && player.QuickBuff_ShouldBotherUsingThisBuff(buffId);
                     if (item.mana > 0 && canUseItem && player.CheckMana(item, -1, pay: true, blockQuickMana: true))
