@@ -1,6 +1,7 @@
 ﻿using Spellwright.Content.Projectiles;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Stats;
 using Spellwright.Content.Spells.Base.Types;
 using Spellwright.Util;
 using Terraria.ID;
@@ -29,6 +30,7 @@ namespace Spellwright.Content.Spells.Projectiles
             minSpeedChange = .2f;
             maxSpeedChange = .35f;
 
+            UseCost = new TotalManaPercentSpellCost(0.5f);
             UnlockCost = new SingleItemSpellCost(ItemID.HeartLantern);
         }
     }
