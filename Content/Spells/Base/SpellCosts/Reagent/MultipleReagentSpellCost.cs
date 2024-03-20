@@ -49,7 +49,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
                 if (realCost <= 0)
                     return true;
 
-                var allItems = player.GetInventoryItems().Concat(statPlayer.ReagentItems);
+                var allItems = statPlayer.ReagentItems.Concat(player.GetInventoryItems()).Concat(player.IterateAllVacuumBagItems());
                 if (!UtilInventory.HasItems(allItems, itemType, realCost))
                     return false;
             }
@@ -90,7 +90,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
                 if (realCost <= 0)
                     return true;
 
-                var allItems = player.GetInventoryItems().Concat(statPlayer.ReagentItems.OrderBy(x => x.stack));
+                var allItems = statPlayer.ReagentItems.Concat(player.GetInventoryItems()).Concat(player.IterateAllVacuumBagItems());
                 UtilInventory.ConsumeItems(allItems, itemType, realCost);
             }
 

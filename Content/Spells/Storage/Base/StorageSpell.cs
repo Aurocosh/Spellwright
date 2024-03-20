@@ -96,7 +96,16 @@ namespace Spellwright.Content.Spells.Storage.Base
                 }
             }
 
+            storage.Sort(ItemSortOrder);
             return storedAtLeastOne;
+        }
+
+        private static int ItemSortOrder(Item item1, Item item2)
+        {
+            int result = item1.type.CompareTo(item2.type);
+            if (result != 0)
+                return result;
+            return item1.stack.CompareTo(item2.stack);
         }
 
         public override bool ProcessExtraData(Player player, SpellStructure structure, out object extraData)

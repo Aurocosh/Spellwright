@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Spellwright.Content.Spells;
 using Spellwright.Core.Spells;
+using Spellwright.Integration;
 using Spellwright.Network.NetworkActions;
 using Spellwright.UI.Components;
 using Spellwright.UI.States;
@@ -17,12 +18,13 @@ namespace Spellwright
 {
     public class Spellwright : Mod
     {
-        internal static Spellwright Instance;
+        internal static Spellwright Instance { get; private set; }
 
-        internal UISpellInputState spellInputState;
-        internal UIMessageState uiMessageState;
+        internal UISpellInputState spellInputState { get; private set; }
+        internal UIMessageState uiMessageState { get; private set; }
+        internal UserInterface userInterface { get; private set; }
 
-        internal UserInterface userInterface;
+        internal AndroLibIntegration IntegAndroLib { get; private set; }
 
         public Spellwright()
         {
@@ -49,6 +51,7 @@ namespace Spellwright
             NetworkAction.Load(this);
             SpellLibrary.Refresh();
             SpellModifiersProcessor.Initialize();
+            IntegAndroLib = new AndroLibIntegration();
         }
 
         public override void Unload()
@@ -59,6 +62,7 @@ namespace Spellwright
             spellInputState = null;
             uiMessageState = null;
             userInterface = null;
+            IntegAndroLib = null;
 
             NetworkAction.Unload();
             SpellLoader.Unload();

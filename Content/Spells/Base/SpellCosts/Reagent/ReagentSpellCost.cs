@@ -28,8 +28,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Reagent
                 return true;
 
             var statPlayer = player.GetModPlayer<SpellwrightStatPlayer>();
-
-            var allItems = player.GetInventoryItems().Concat(statPlayer.ReagentItems.OrderBy(x => x.stack));
+            var allItems = statPlayer.ReagentItems.Concat(player.GetInventoryItems()).Concat(player.IterateAllVacuumBagItems());
             if (!UtilInventory.ConsumeItems(allItems, ItemType, realCost))
             {
                 var itemName = Lang.GetItemNameValue(ItemType);

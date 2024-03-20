@@ -146,7 +146,6 @@ namespace Spellwright.Core.Links
                     }
                 case VoidStorageType.Reagent:
                     {
-
                         _reagentVoidSpell ??= SpellLibrary.GetSpellByType<ReagentVoidSpell>();
                         return _reagentVoidSpell;
                     }
@@ -162,7 +161,6 @@ namespace Spellwright.Core.Links
             var potions =
                 from item in storage
                 where item.type == potionType && item.stack > 0
-                orderby item.stack ascending
                 select item;
 
             var firstItem = potions.FirstOrDefault();

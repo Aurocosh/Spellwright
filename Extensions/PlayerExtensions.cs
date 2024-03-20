@@ -108,6 +108,24 @@ namespace Spellwright.Extensions
             return UtilInventory.CountItems(items, filter);
         }
 
+        public static IEnumerable<Item> IterateAllVacuumBagItems(this Player player)
+        {
+            if (!Spellwright.Instance.IntegAndroLib.IsEnabled)
+                yield break;
+
+            foreach (Item item in player.GetInventoryItems(InventoryArea.MainSlots | InventoryArea.Ammo))
+            {
+                if (item.IsValidItem() && Spellwright.Instance.IntegAndroLib.TryGetStorageByItemId(item.type, out Item[] itemStorage))
+                {
+                    foreach (Item internalItem in itemStorage)
+                    {
+                        if (internalItem.IsValidItem())
+                            yield return internalItem;
+                    }
+                }
+            }
+        }
+
         public static void ClearBuffs(this Player player, IEnumerable<int> buffTypes)
         {
             var buffHash = new HashSet<int>(buffTypes);
