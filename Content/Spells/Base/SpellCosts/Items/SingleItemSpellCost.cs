@@ -1,5 +1,7 @@
 ﻿using Spellwright.Extensions;
+using Spellwright.Util;
 using System;
+using System.Linq;
 using Terraria;
 
 namespace Spellwright.Content.Spells.Base.SpellCosts.Items
@@ -24,7 +26,8 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
             if (realCost <= 0)
                 return true;
 
-            if (!player.ConsumeItems(ItemType, realCost))
+            var allItems = player.GetInventoryItems().Concat(player.IterateAllVacuumBagItems());
+            if (!UtilInventory.ConsumeItems(allItems, ItemType, realCost))
             {
                 var itemName = Lang.GetItemName(ItemType);
                 var costText = $"{realCost} {itemName}";

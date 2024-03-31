@@ -1,6 +1,8 @@
 ﻿using Spellwright.Extensions;
+using Spellwright.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Terraria;
 
@@ -34,7 +36,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
             costs.Clear();
         }
 
-        public bool CanConsume(Player player, float costModifier)
+        public bool CanConsume(IEnumerable<Item> items, float costModifier)
         {
             for (int i = 0; i < itemTypes.Count; i++)
             {
@@ -45,7 +47,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
                 if (realCost <= 0)
                     return true;
 
-                if (!player.HasItems(itemType, realCost))
+                if (!UtilInventory.HasItems(items, itemType, realCost))
                     return false;
             }
             return true;
@@ -53,7 +55,8 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
 
         public override bool Consume(Player player, int playerLevel, SpellData spellData)
         {
-            if (!CanConsume(player, spellData.CostModifier))
+            var allItems = player.GetInventoryItems().Concat(player.IterateAllVacuumBagItems());
+            if (!CanConsume(allItems, spellData.CostModifier))
             {
                 var costParts = new StringBuilder();
                 for (int i = 0; i < itemTypes.Count; i++)
@@ -84,7 +87,7 @@ namespace Spellwright.Content.Spells.Base.SpellCosts.Items
                 if (realCost <= 0)
                     return true;
 
-                player.ConsumeItems(itemType, realCost);
+                UtilInventory.ConsumeItems(allItems, itemType, realCost);
             }
 
             return true;
