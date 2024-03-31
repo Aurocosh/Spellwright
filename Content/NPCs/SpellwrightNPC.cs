@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Spellwright.Common.Players;
-using Spellwright.Content.Items;
 using Spellwright.Content.Items.Mirrors;
 using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Items.Resonators;
 using Spellwright.Content.Items.SpellTomes;
+using Spellwright.Content.Items;
 using Spellwright.Content.Projectiles;
 using System;
 using System.Collections.Generic;
@@ -210,6 +211,9 @@ namespace Spellwright.Content.NPCs
         {
             var npcShop = new NPCShop(Type, "SpellwrightShop")
                 .Add<SpellResonator>()
+                .Add<SpellResonatorBlue>()
+                .Add<SpellResonatorPurple>()
+                .Add<SpellResonatorRed>()
                 .Add<SilverMirror>()
                 .Add<CommonSpellReagent>()
                 .Add<RareSpellReagent>()

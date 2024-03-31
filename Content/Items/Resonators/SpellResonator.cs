@@ -11,7 +11,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace Spellwright.Content.Items
+namespace Spellwright.Content.Items.Resonators
 {
     public class SpellResonator : ModItem
     {

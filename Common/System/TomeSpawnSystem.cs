@@ -1,4 +1,4 @@
-﻿using Spellwright.Content.Items;
+﻿using Spellwright.Content.Items.Resonators;
 using Spellwright.Content.Items.SpellTomes;
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,9 @@ namespace Spellwright.Common.System
         public override void PostWorldGen()
         {
             PlaceItemsInChests(ModContent.ItemType<SpellResonator>(), 3, new int[] { 0, 1 });
+            PlaceItemsInChests(ModContent.ItemType<SpellResonatorBlue>(), 2, new int[] { 0, 1 });
+            PlaceItemsInChests(ModContent.ItemType<SpellResonatorPurple>(), 2, new int[] { 0, 1 });
+            PlaceItemsInChests(ModContent.ItemType<SpellResonatorRed>(), 2, new int[] { 0, 1 });
             PlaceItemsInChests(ModContent.ItemType<BeginnerSpellTome>(), 30, new int[] { 0, 1 });
             PlaceItemsInChests(ModContent.ItemType<AdvancedSpellTome>(), 25, new int[] { 0, 1 });
             PlaceItemsInChests(ModContent.ItemType<SupremeSpellTome>(), 15, new int[] { 0, 1, 2 });

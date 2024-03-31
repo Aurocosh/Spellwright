@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.Players;
 using Spellwright.Config;
-using Spellwright.Content.Items;
+using Spellwright.Content.Items.Resonators;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.Modifiers;
 using Spellwright.Core.Spells;
@@ -63,9 +63,9 @@ namespace Spellwright.Content.Spells
                 var itemType = ModContent.ItemType<SpellResonator>();
 
                 var item = player.inventory[player.selectedItem];
-                if (item.type != itemType)
+                if (item.ModItem is not SpellResonator)
                 {
-                    item = player.InventoryFindItem(itemType, InventoryArea.Hotbar);
+                    item = player.InventoryFindItem(item => item.ModItem is SpellResonator, InventoryArea.Hotbar);
                     if (item == null)
                         return SpellCastResult.NoResonatorToBind;
                 }

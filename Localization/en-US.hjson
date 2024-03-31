@@ -457,7 +457,7 @@ Mods: {
 
 				SpellResonator: {
 					Type: Tool
-					Description: Special tool required to cast a subtype of spells called Echo spells. To use this item you have to bind a spell to it. To do so you have to cast any Echo spell while this item is located in your toolbar. When you successfully bind a spell, the name of the spell will be displayed in the name of the item. If you hover your mouse over the resonator with a spell a tooltip with additional information will appear, such as spell level and damage. Resonator with bound spell can be used like any standard projectile shooting item, point it in the direction that you wanna shoot and left click. Can be bought from Spellwright.
+					Description: Special tool required to cast a subtype of spells called Echo spells. To use this item you have to bind a spell to it. To do so you have to cast any Echo spell while this item is located in your toolbar. When you successfully bind a spell, the name of the spell will be displayed in the name of the item. If you hover your mouse over the resonator with a spell a tooltip with additional information will appear, such as spell level and damage. Resonator with bound spell can be used like any standard projectile shooting item, point it in the direction that you wanna shoot and left click. Can be bought from Spellwright. Comes in several colored versions. The difference between colored versions of the Spell Resonator is purely cosmetic.
 				}
 			}
 		}
@@ -1160,6 +1160,21 @@ Mods: {
 			ExampleBuffPotion: {
 				DisplayName: Example Buff Potion
 				Tooltip: Gives a light defense buff.
+			}
+
+			SpellResonatorBlue: {
+				DisplayName: Spell Resonator Blue
+				Tooltip: Magical artefact resonating with your voice and capable of binding your words to itself.
+			}
+
+			SpellResonatorPurple: {
+				DisplayName: Spell Resonator Purple
+				Tooltip: Magical artefact resonating with your voice and capable of binding your words to itself.
+			}
+
+			SpellResonatorRed: {
+				DisplayName: Spell Resonator Red
+				Tooltip: Magical artefact resonating with your voice and capable of binding your words to itself.
 			}
 		}
 
