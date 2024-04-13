@@ -1,4 +1,5 @@
 ﻿using Spellwright.Content.Items.Reagents;
+using Spellwright.Content.Projectiles;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Content.Spells.Base.Types;
 using Terraria.ID;
@@ -19,12 +20,10 @@ namespace Spellwright.Content.Spells.Projectiles
             damage = 20;
             knockback = 5;
             damageType = DamageClass.Magic;
-            projectileType = ProjectileID.ImpFireball;
+            projectileType = ModContent.ProjectileType<SimpleFireballProjectile>();
             projectileSpeed = 35;
             canAutoReuse = false;
             useTimeMultiplier = 5f;
-
-            //CastCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
 
             UseCost = new ReagentSpellCost(ModContent.ItemType<CommonSpellReagent>(), 1);
         }

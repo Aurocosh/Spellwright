@@ -1203,6 +1203,7 @@ Mods: {
 			BirdOfMidasMinion.DisplayName: Raven of Midas
 			MagickaFairyMinion.DisplayName: Magicka Fairy
 			SoulNibblerMinion.DisplayName: Soul Nibbler
+			SimpleFireballProjectile.DisplayName: Fireball
 		}
 
 		Buffs: {
