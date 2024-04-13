@@ -8,6 +8,7 @@ using Spellwright.Lib.Constants;
 using Spellwright.Lib.PointShapes;
 using Spellwright.Util;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 
@@ -98,18 +99,19 @@ namespace Spellwright.Content.Spells.TileSpawn
             if (!moved)
                 return;
 
-            bool hasTorch = player.HasItems(IsTorchItemValid, 1);
+            var allItems = player.GetInventoryItems().Concat(player.IterateAllVacuumBagItems());
+            bool hasTorch = UtilInventory.HasItems(allItems, IsTorchItemValid, 1);
             if (!hasTorch)
                 return;
 
             var feetPoint = new Point(centerPoint.X, centerPoint.Y + 1);
-            TryPlaceTorch(player, feetPoint);
-            PlaceTorch(player, centerPoint, lastPlayerPoint);
+            TryPlaceTorch(player, allItems, feetPoint);
+            PlaceTorch(player, allItems, centerPoint, lastPlayerPoint);
 
             lastPlayerPoint = centerPoint;
         }
 
-        private static void PlaceTorch(Player player, Point centerPoint, Point oldCentralPoint)
+        private static void PlaceTorch(Player player, IEnumerable<Item> relevantItems, Point centerPoint, Point oldCentralPoint)
         {
             bool IsValid(Point point)
             {
@@ -128,10 +130,10 @@ namespace Spellwright.Content.Spells.TileSpawn
             var circlePoints = UtilCoordinates.FloodFill(new[] { centerPoint }, PointConstants.DirectNeighbours, IsValid, 400);
             foreach (var point in circlePoints)
                 if (point.DistanceToSq(oldCentralPoint) >= radiusSq)
-                    TryPlaceTorch(player, point);
+                    TryPlaceTorch(player, relevantItems, point);
         }
 
-        private static void TryPlaceTorch(Player player, Point point)
+        private static void TryPlaceTorch(Player player, IEnumerable<Item> relevantItems, Point point)
         {
             if (!WorldGen.InWorld(point.X, point.Y))
                 return;
@@ -153,7 +155,7 @@ namespace Spellwright.Content.Spells.TileSpawn
 
             if (tile.WallType > 0 || ValidSideTile(point.X - 1, point.Y, 1) || ValidSideTile(point.X + 1, point.Y, 0) || ValidBottomTile(point.X, point.Y + 1))
             {
-                bool consumedTorch = player.ConsumeItems(IsTorchItemValid, 1);
+                bool consumedTorch = UtilInventory.ConsumeItems(relevantItems, IsTorchItemValid, 1);
                 if (consumedTorch)
                 {
                     int torchStyle = BiomeTorchPlaceStyle(player);
