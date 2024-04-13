@@ -155,7 +155,21 @@ namespace Spellwright.Content.Spells.TileSpawn
 
             if (tile.WallType > 0 || ValidSideTile(point.X - 1, point.Y, 1) || ValidSideTile(point.X + 1, point.Y, 0) || ValidBottomTile(point.X, point.Y + 1))
             {
-                bool consumedTorch = UtilInventory.ConsumeItems(relevantItems, IsTorchItemValid, 1);
+                bool consumedTorch = false;
+                Item torchItem = UtilInventory.InventoryFindItem(relevantItems, IsTorchItemValid);
+                if (torchItem != null)
+                {
+                    if (torchItem.ModItem != null && torchItem.ModItem.Mod.Name == "miningcracks_take_on_luiafk") // Do not consume endless versions of torches
+                    {
+                        consumedTorch = true;
+                    }
+                    else
+                    {
+                        torchItem.Consume(1);
+                        consumedTorch = true;
+                    }
+                }
+
                 if (consumedTorch)
                 {
                     int torchStyle = BiomeTorchPlaceStyle(player);
