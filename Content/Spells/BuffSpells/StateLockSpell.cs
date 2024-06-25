@@ -1,8 +1,11 @@
 ﻿using Spellwright.Common.Players;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Items;
+using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace Spellwright.Content.Spells.BuffSpells
 {
@@ -17,7 +20,7 @@ namespace Spellwright.Content.Spells.BuffSpells
                 .WithCost(ItemID.LightShard, 5)
                 .WithCost(ItemID.DarkShard, 5);
 
-            //CastCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 3);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<MythicalSpellReagent>(), 3);
         }
 
         public override bool Cast(Player player, int playerLevel, SpellData spellData)

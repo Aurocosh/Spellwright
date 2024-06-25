@@ -252,7 +252,7 @@ Mods: {
 					#[Player status]{Header:1}
 					#[Level]{Header:2}
 					My current level is #{PlayerLevel}
-
+					#{CycleOfEternity}#{StateLock}
 					#[Permanent buffs]{Header:2}
 					#{PermanentBuffList}
 					'''
@@ -467,6 +467,9 @@ Mods: {
 				NoPermanentBuffs: I have no permanent buffs
 				HavePermanentBuffs: I have following permanent buffs
 			}
+
+			CycleOfEternity.ActiveMessage: Protection of eternity is active
+			StateLock.ActiveMessage: State locks charges: {0}
 		}
 
 		Spells: {
@@ -655,6 +658,13 @@ Mods: {
 			BurningSoulSpell: {
 				Name: Burning Soul
 				Description: Stops player health regeneration and slowly drains players health. In exchange it increases magical damage and crit and also massively boosts mana regeneration
+			}
+
+			CycleOfEternitySpell: {
+				Name: Cycle of Eternity
+				Description: Imbues the player with a special effect that consumes spell reagents to prevent loss of permanent buffs on death. Effect of this player lasts indefinitely while the player has enough spell reagents. When player dies this spell effect will consume 5 *[Rare Spell Reagents]<ModItem:RareSpellReagent> per each active permanent buff to prevent their loss. If player does not have enough reagents then the effect of the spell will be broken and all permanent buffs will be lost.
+				Connected: Your feel connected to eternity
+				Disconnected: Eternity feel unreachable
 			}
 
 			ManaStarfallSpell: {

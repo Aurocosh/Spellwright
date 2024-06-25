@@ -1,4 +1,5 @@
-﻿using Spellwright.Content.Items.Reagents;
+﻿using Microsoft.Xna.Framework.Input;
+using Spellwright.Content.Items.Reagents;
 using Spellwright.Content.Spells.Base;
 using Spellwright.Content.Spells.Base.SpellCosts.Reagent;
 using Spellwright.Core.Buffs;
@@ -19,6 +20,7 @@ namespace Spellwright.Common.Players
     internal class SpellwrightBuffPlayer : ModPlayer
     {
         public int StateLockCount = 0;
+        public bool CycleOfEternity = false;
 
         private readonly List<BuffData> respawnBuffs = new();
         public readonly HashSet<int> PermanentBuffs = new();
@@ -86,12 +88,20 @@ namespace Spellwright.Common.Players
                     }
                 }
             }
-            else
+            else if (CycleOfEternity)
             {
-                int cost = 3 * PermanentBuffs.Count;
+                int cost = 5 * PermanentBuffs.Count;
                 var buffSaveCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), cost);
                 if (!buffSaveCost.Consume(Player, 0, SpellData.EmptyData))
+                {
                     PermanentBuffs.Clear();
+                    CycleOfEternity = false;
+                    Main.NewText(Spellwright.GetTranslation("Spells", "CycleOfEternitySpell", "Disconnected"));
+                }
+            }
+            else
+            {
+                PermanentBuffs.Clear();
             }
             return true;
         }
@@ -154,6 +164,7 @@ namespace Spellwright.Common.Players
         public override void SaveData(TagCompound tag)
         {
             tag.Add("StateLockCount", StateLockCount);
+            tag.Add("CycleOfEternity", CycleOfEternity);
 
             var permanentEffectTags = new List<TagCompound>();
             foreach (var buffId in PermanentBuffs)
@@ -176,6 +187,7 @@ namespace Spellwright.Common.Players
         public override void LoadData(TagCompound tag)
         {
             StateLockCount = tag.GetInt("StateLockCount");
+            CycleOfEternity = tag.GetBool("CycleOfEternity");
 
             PermanentBuffs.Clear();
             var permanentEffectTags = tag.GetList<TagCompound>("PermanentBuffs");

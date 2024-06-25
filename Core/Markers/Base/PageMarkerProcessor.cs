@@ -18,6 +18,8 @@ namespace Spellwright.UI.Components.TextBox.MarkerProcessors.Base
             RegisterProcessor(new PlayerLevelMarkerProcessor());
             RegisterProcessor(new PermanentBuffListMarkerProcessor());
             RegisterProcessor(new TomeSpellListMarkerProcessor());
+            RegisterProcessor(new CycleOfEternityMarkerProcessor());
+            RegisterProcessor(new StateLockMarkerProcessor());
         }
 
         public string ReplaceMarkers(string input, Player player)

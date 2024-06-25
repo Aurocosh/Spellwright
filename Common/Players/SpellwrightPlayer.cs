@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Spellwright.Common.System;
 using Spellwright.Content.Spells.Base;
+using Spellwright.Content.Spells.BuffSpells;
 using Spellwright.Core.Spells;
 using Spellwright.Extensions;
 using Spellwright.Network.Sync;
@@ -21,6 +22,8 @@ namespace Spellwright.Common.Players
 {
     public class SpellwrightPlayer : ModPlayer //, ILoader
     {
+        private const int dataVersion = 1;
+
         private int playerLevel = 0;
         private int nextCantripDelay = 0;
 
@@ -90,6 +93,7 @@ namespace Spellwright.Common.Players
 
         public override void SaveData(TagCompound tag)
         {
+            tag.Add("DataVersion", dataVersion);
             tag.Add("LearnedBasics", LearnedBasics);
             tag.Add("CanCastSpells", CanCastSpells);
             tag.Add("PlayerLevel", PlayerLevel);
@@ -114,6 +118,7 @@ namespace Spellwright.Common.Players
 
         public override void LoadData(TagCompound tag)
         {
+            int oldDataVersion = tag.GetInt("DataVersion");
             LearnedBasics = tag.GetBool("LearnedBasics");
             CanCastSpells = tag.GetBool("CanCastSpells");
             PlayerLevel = tag.GetInt("PlayerLevel");
@@ -141,6 +146,14 @@ namespace Spellwright.Common.Players
             var unlockedSpellNames = tag.GetList<TagCompound>("UnlockedSpells");
             UnlockedSpells.Clear();
             UnlockedSpells.UnionWith(DeserializeSpellIds(unlockedSpellNames));
+
+            if (oldDataVersion < 1 && LearnedBasics && CanCastSpells && PlayerLevel >= 4)
+            {
+                // Add spell Cycle of Eternity to the learned spells. It is apart of Advanced Spell Tome, but higher level players will not be aware of its existance and unlikely to randomly use this tome.
+                var spell = SpellLibrary.GetSpellByType<CycleOfEternitySpell>();
+                if (spell != null)
+                    KnownSpells.Add(spell.Type);
+            }
         }
 
         private static IEnumerable<TagCompound> SerializeSpellIds(IEnumerable<int> spellIds)

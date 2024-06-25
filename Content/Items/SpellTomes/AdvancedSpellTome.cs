@@ -37,6 +37,7 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<RainCallSpell>();
             content.AddSpell<SkyGateSpell>(2);
             content.AddSpell<TileRollerSpell>();
+            content.AddSpell<CycleOfEternitySpell>();
 
             // Level 5
             content.AddSpell<BurningSoulSpell>();
