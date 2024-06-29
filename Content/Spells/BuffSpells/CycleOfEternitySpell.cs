@@ -25,7 +25,7 @@ namespace Spellwright.Content.Spells.BuffSpells
 
         public override void SetStaticDefaults()
         {
-            SpellLevel = 8;
+            SpellLevel = 5;
             castSound = SoundID.Item4;
 
             UnlockCost = new SingleItemSpellCost(ItemID.DaoofPow);
@@ -38,7 +38,8 @@ namespace Spellwright.Content.Spells.BuffSpells
         {
             var buffPlayer = player.GetModPlayer<SpellwrightBuffPlayer>();
 
-            if (buffPlayer.CycleOfEternity && spellData.HasModifier(SpellModifier.Dispel)) {
+            if (buffPlayer.CycleOfEternity && spellData.HasModifier(SpellModifier.Dispel))
+            {
                 buffPlayer.CycleOfEternity = false;
                 Main.NewText(GetTranslation("Disconnected"));
             }

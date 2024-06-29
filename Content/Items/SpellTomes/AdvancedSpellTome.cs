@@ -37,12 +37,12 @@ namespace Spellwright.Content.Items.SpellTomes
             content.AddSpell<RainCallSpell>();
             content.AddSpell<SkyGateSpell>(2);
             content.AddSpell<TileRollerSpell>();
-            content.AddSpell<CycleOfEternitySpell>();
 
             // Level 5
             content.AddSpell<BurningSoulSpell>();
             content.AddSpell<CallOfTheDepthsSpell>(3);
             content.AddSpell<ClearMindSpell>();
+            content.AddSpell<CycleOfEternitySpell>();
             content.AddSpell<DesertRiteSpell>();
             content.AddSpell<EyesOfProfitSpell>(3);
             content.AddSpell<GlassCannonSpell>();
