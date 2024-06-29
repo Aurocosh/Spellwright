@@ -29,7 +29,7 @@ namespace Spellwright.Content.Spells.BuffSpells
             castSound = SoundID.Item4;
 
             UnlockCost = new SingleItemSpellCost(ItemID.DaoofPow);
-            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 50);
+            CastCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), 20);
 
             AddApplicableModifier(SpellModifier.Dispel);
         }

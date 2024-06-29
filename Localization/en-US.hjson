@@ -662,7 +662,7 @@ Mods: {
 
 			CycleOfEternitySpell: {
 				Name: Cycle of Eternity
-				Description: Imbues the player with a special effect that consumes spell reagents to prevent loss of permanent buffs on death. Effect of this player lasts indefinitely while the player has enough spell reagents. When player dies this spell effect will consume 5 *[Rare Spell Reagents]<ModItem:RareSpellReagent> per each active permanent buff to prevent their loss. If player does not have enough reagents then the effect of the spell will be broken and all permanent buffs will be lost.
+				Description: Imbues the player with a special effect that consumes spell reagents to prevent loss of permanent buffs on death. Effect of this player lasts indefinitely while the player has enough spell reagents. When player dies this spell effect will consume 2 *[Rare Spell Reagents]<ModItem:RareSpellReagent> per each active permanent buff to prevent their loss. If player does not have enough reagents then the effect of the spell will be broken and all permanent buffs will be lost.
 				Connected: Your feel connected to eternity
 				Disconnected: Eternity feel unreachable
 			}

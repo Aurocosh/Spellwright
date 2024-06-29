@@ -90,7 +90,7 @@ namespace Spellwright.Common.Players
             }
             else if (CycleOfEternity)
             {
-                int cost = 5 * PermanentBuffs.Count;
+                int cost = 2 * PermanentBuffs.Count;
                 var buffSaveCost = new ReagentSpellCost(ModContent.ItemType<RareSpellReagent>(), cost);
                 if (!buffSaveCost.Consume(Player, 0, SpellData.EmptyData))
                 {
